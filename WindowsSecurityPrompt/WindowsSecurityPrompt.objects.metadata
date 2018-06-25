@@ -1,0 +1,1410 @@
+{
+	"Windows_Security": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": ""
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": ""
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**string*/ clickType, /**number*/ xOffset, /**number*/ yOffset"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			}
+		],
+		"items": null,
+		"window_class": "param:object_class",
+		"object_text": "param:object_name",
+		"object_role": "ROLE_SYSTEM_STATICTEXT",
+		"object_class": "Credential Dialog Xaml Host",
+		"version": 0,
+		"object_type": "SeSSimulated",
+		"object_flavor": "Simulated",
+		"object_name": "Windows Security",
+		"window_name": "param:object_name"
+	},
+	"User_name": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": ""
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": ""
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**string*/ clickType, /**number*/ xOffset, /**number*/ yOffset"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			}
+		],
+		"items": null,
+		"window_class": "param:object_class",
+		"object_text": "Windows Security",
+		"object_role": "ROLE_SYSTEM_TEXT",
+		"object_class": "Credential Dialog Xaml Host",
+		"version": 0,
+		"object_type": "SeSSimulated",
+		"object_flavor": "Simulated",
+		"object_name": "User name",
+		"window_name": "param:object_text"
+	},
+	"Password": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": ""
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": ""
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**string*/ clickType, /**number*/ xOffset, /**number*/ yOffset"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			}
+		],
+		"items": null,
+		"window_class": "param:object_class",
+		"object_text": "Windows Security",
+		"object_role": "ROLE_SYSTEM_TEXT",
+		"object_class": "Credential Dialog Xaml Host",
+		"version": 0,
+		"object_type": "SeSSimulated",
+		"object_flavor": "Simulated",
+		"object_name": "Password",
+		"window_name": "param:object_text"
+	},
+	"Remember_my_credentials": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": ""
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": ""
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**string*/ clickType, /**number*/ xOffset, /**number*/ yOffset"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			}
+		],
+		"items": null,
+		"window_class": "param:object_class",
+		"object_text": "Windows Security",
+		"object_role": "ROLE_SYSTEM_CHECKBUTTON",
+		"object_class": "Credential Dialog Xaml Host",
+		"version": 0,
+		"object_type": "SeSSimulated",
+		"object_flavor": "Simulated",
+		"object_name": "Remember my credentials",
+		"window_name": "param:object_text"
+	},
+	"OK": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": ""
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": ""
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**string*/ clickType, /**number*/ xOffset, /**number*/ yOffset"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			}
+		],
+		"items": null,
+		"window_class": "param:object_class",
+		"object_text": "Windows Security",
+		"object_role": "ROLE_SYSTEM_PUSHBUTTON",
+		"object_class": "Credential Dialog Xaml Host",
+		"version": 0,
+		"object_type": "SeSSimulated",
+		"object_flavor": "Simulated",
+		"object_name": "OK",
+		"window_name": "param:object_text"
+	},
+	"Cancel": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": ""
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": ""
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**string*/ clickType, /**number*/ xOffset, /**number*/ yOffset"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			}
+		],
+		"items": null,
+		"window_class": "param:object_class",
+		"object_text": "Windows Security",
+		"object_role": "ROLE_SYSTEM_PUSHBUTTON",
+		"object_class": "Credential Dialog Xaml Host",
+		"version": 0,
+		"object_type": "SeSSimulated",
+		"object_flavor": "Simulated",
+		"object_name": "Cancel",
+		"window_name": "param:object_text"
+	},
+	"More_choices": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": ""
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": ""
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**string*/ clickType, /**number*/ xOffset, /**number*/ yOffset"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			}
+		],
+		"items": null,
+		"window_class": "param:object_class",
+		"object_text": "Windows Security",
+		"object_role": "ROLE_SYSTEM_STATICTEXT",
+		"object_class": "Credential Dialog Xaml Host",
+		"version": 0,
+		"object_type": "SeSSimulated",
+		"object_flavor": "Simulated",
+		"object_name": "More choices",
+		"window_name": "param:object_text"
+	},
+	"Use_a_different_account": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": ""
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": ""
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**string*/ clickType, /**number*/ xOffset, /**number*/ yOffset"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": ""
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": ""
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			}
+		],
+		"items": null,
+		"window_class": "param:object_class",
+		"object_text": "Windows Security",
+		"object_role": "ROLE_SYSTEM_STATICTEXT",
+		"object_class": "Credential Dialog Xaml Host",
+		"version": 0,
+		"object_type": "SeSSimulated",
+		"object_flavor": "Simulated",
+		"object_name": "Use a different account",
+		"window_name": "param:object_text"
+	}
+}
