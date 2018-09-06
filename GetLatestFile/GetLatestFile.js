@@ -1,5 +1,3 @@
-//Put your custom functions and variables in this file
-
 /**
  * Find a file in the folder containing latest creation date.
  * Example: GetLatestFile('%USERPROFILE%\\Downloads') returns path
