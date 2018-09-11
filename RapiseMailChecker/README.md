@@ -87,7 +87,7 @@ Examples:
 Get unread items for last 3 days:
     RapiseImapClient.exe /imap:imap.gmail.com /port:993 /user:user@gmail.org /password:secret /folder:INBOX /command:list /unread /days:3 /output:file.json
 
-Get unread items for last 3 days:
+Read item with ID 48:
     RapiseImapClient.exe /imap:imap.gmail.com /port:993 /user:user@gmail.org /password:secret /folder:INBOX /command:get /id:148 /output:msg.json
 ````
 
