@@ -95,7 +95,7 @@ Read item with ID 48:
 
 There is one special case. If your mailbox is Gmail then 
 
-Google Account -> Signpin & security -> (scroll to bottom) -> Allow less secure apps: ON
+Google Account -> Sign-in & security -> (scroll to bottom) -> Allow less secure apps: ON
 
 ![On](Media/InsecureAccess.png)
 
