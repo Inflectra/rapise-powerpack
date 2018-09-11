@@ -1,0 +1,47 @@
+Missing /user:<username> argument
+Rapise Email Reader
+Usage:
+RapiseImapClient /imap:<imapsvr> /port:<port> /user:<emailAddr> /password:<password> /command:<cmd> [/folder:<mbfolder>] [/days:<d>] [/unread] [/mark] [/output:<file>]
+    /imap:<imapsvr>
+        connect to <imapsvr> server (i.e. imap.gmail.com)
+    /port:<port>
+        Imap port number, i.e. 143
+    /user:<emailAddr>
+        <emailAddr> - Imap account login
+    /password:<password>
+        Imap account password
+    /folder:<mbfolder>
+        Folder to read, default is INBOX   
+
+    /command:<cmd>
+      <cmd> is one of:
+        get     - read item by id
+        list    - list item headers and ID's
+    These options are only valid with 'get' command:
+    /id:<msgUid>
+    These options are only valid with 'list' command:
+    /days:<d>
+        Number of days in the past to look up, default is 1
+
+    /mark
+        Mark found item as read
+    /unread
+        Only look at unread messages
+
+
+
+    /output:<file>
+        <file> - path to file to save found message(s) in JSON format
+
+Exit code:
+0 when successfull, 1 - message with UID not found, 2 no connection to mailbox
+
+Examples:
+
+Get unread items for last 3 days:
+    RapiseImapClient.exe /imap:imap.gmail.com /port:993 /user:user@gmail.org /password:secret /folder:INBOX /command:list /unread /days:3 /output:file.json
+
+Get unread items for last 3 days:
+    RapiseImapClient.exe /imap:imap.gmail.com /port:993 /user:user@gmail.org /password:secret /folder:INBOX /command:get /id:148 /output:msg.json
+
+

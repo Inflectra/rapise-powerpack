@@ -1,0 +1,1 @@
+"%~dp0\RapiseImapClient\RapiseImapClient.exe" %* >mlog.txt 2>&1
