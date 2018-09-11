@@ -1,12 +1,26 @@
 # Checking Email in Rapise
 Here you can find simple utility function and method for using it.
 
+## How to Use
+
+You need to get contents of this folder into the root folder of the test so that CheckMail.bat is stored in the root of the tst.
+
+## Using from RVL
+
+![From RVL](Media/CallingFromRvl.png)
+
+
 ## Function
+
+The function searches inbox for an email message matching the specified pattern. 
 
 ````javascript
 /**
  * Check speicified mailbox for a new mail message. We only check unread messages and
  * found messages are marked as read.
+ *
+ * If message is found then its body text is returned.
+ *
  * Please, note that for Gmail mailbox you need to set "Allow less secure apps: ON"
  */
 function CheckForMail(
@@ -19,9 +33,6 @@ function CheckForMail(
 	/**number*/timeout)
 ````
 
-## Using from RVL
-
-![From RVL](Media/CallingFromRvl.png)
 
 
 ## Command Line Utility
