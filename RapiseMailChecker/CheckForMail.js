@@ -71,9 +71,7 @@ function CheckForMail(
  */
 function FindLinkHaving(/**string*/body, /**string*/linkText)
 {
-  body = body || "";
-  linkText = linkText || "";
-	var urlRegex = /((https?:\/\/)[^\s]+)/g;
+	var urlRegex = /(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+/g;
 	var m = null;
 	while(m = urlRegex.exec(body))
 	{
