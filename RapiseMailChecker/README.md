@@ -1,26 +1,12 @@
 # Checking Email in Rapise
 Here you can find simple utility function and method for using it.
 
-## How to Use
-
-You need to get contents of this folder into the root folder of the test so that CheckMail.bat is stored in the root of the tst.
-
-## Using from RVL
-
-![From RVL](Media/CallingFromRvl.png)
-
-
 ## Function
-
-The function searches inbox for an email message matching the specified pattern. 
 
 ````javascript
 /**
  * Check speicified mailbox for a new mail message. We only check unread messages and
  * found messages are marked as read.
- *
- * If message is found then its body text is returned.
- *
  * Please, note that for Gmail mailbox you need to set "Allow less secure apps: ON"
  */
 function CheckForMail(
@@ -33,10 +19,24 @@ function CheckForMail(
 	/**number*/timeout)
 ````
 
+## Using from RVL
+![From RVL](Media/CallingFromRvl.png)
 
+## Extracting Link
+It is common that we need to extract registration link from email text. This code also includes simple function to find such a link:
+
+````javascript
+/**
+ * Check 'body' text and extract all links starting form http:// or https:// and return
+ * the first one having 'linkText' as a substring. Otherwise null is returned.
+ *
+ * Example Usage:
+ *  var link = FindLinkHaving(emailBody, 'https://mysite.com/welcome/');
+ */
+function FindLinkHaving(/**string*/body, /**string*/linkText)
+````
 
 ## Command Line Utility
-
 The function calls a command line utility attached here as an executable.
 
 The command line utility is needed to access IMAP inbox and read an incoming email
@@ -80,14 +80,14 @@ RapiseImapClient /imap:<imapsvr> /port:<port> /user:<emailAddr> /password:<passw
         <file> - path to file to save found message(s) in JSON format
 
 Exit code:
-0 when successfull, 1 - message with UID not found, 2 no connection to mailbox
+0 when successful, 1 - message with UID not found, 2 no connection to mailbox
 
 Examples:
 
 Get unread items for last 3 days:
     RapiseImapClient.exe /imap:imap.gmail.com /port:993 /user:user@gmail.org /password:secret /folder:INBOX /command:list /unread /days:3 /output:file.json
 
-Read item with ID 48:
+Get unread items for last 3 days:
     RapiseImapClient.exe /imap:imap.gmail.com /port:993 /user:user@gmail.org /password:secret /folder:INBOX /command:get /id:148 /output:msg.json
 ````
 
@@ -95,7 +95,7 @@ Read item with ID 48:
 
 There is one special case. If your mailbox is Gmail then 
 
-Google Account -> Sign-in & security -> (scroll to bottom) -> Allow less secure apps: ON
+*Google Account -> Sign-in & security -> (scroll to bottom) -> Allow less secure apps: ON*
 
 ![On](Media/InsecureAccess.png)
 

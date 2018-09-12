@@ -19,14 +19,6 @@ function CheckForMail(
 	
 	imapSvr = imapSvr || "imap.gmail.com";
 	port = port || 993;
-		
-	var cmd0 = 
-	 'CheckMail.bat';
-	
-	cmd0 = wsh.ExpandEnvironmentStrings(cmd0);
-	
-	Log('cmd0: '+cmd0);
-	var errCode = wsh.Run(cmd0, 3, true);
 
 	var cmd = 
 	 '\"%WORKDIR%RapiseImapClient\\RapiseImapClient.exe\" '
@@ -45,7 +37,6 @@ function CheckForMail(
 	while(msElapsed<timeout)
 	{
 		Log("Checking mailbox: "+emailAddr);
-		Log(""+cmd);
 		var errCode = wsh.Run(cmd, 10, true);
 		if(errCode==0)
 		{
@@ -65,6 +56,35 @@ function CheckForMail(
 	} 
 	
 	Log('Nothing found in mailbox: '+emailAddr);
+	
+	return null;
+}
+
+
+/**
+ * Check 'body' text and extract all links starting form http:// or https:// and return
+ * the first one having 'linkText' as a substring. Return the whole link. Otherwise null is returned.
+ *
+ * Example Usage:
+ *  var link = FindLinkHaving(emailBody, 'https://mysite.com/welcome/');
+ *  
+ */
+function FindLinkHaving(/**string*/body, /**string*/linkText)
+{
+  body = body || "";
+  linkText = linkText || "";
+	var urlRegex = /((https?:\/\/)[^\s]+)/g;
+	var m = null;
+	while(m = urlRegex.exec(body))
+	{
+		// Match found!
+		var res = m[0]; // get first match
+		if(res.indexOf(linkText)>=0)
+		{
+			Log('Found URL: '+res);
+			return res;
+		}
+	}
 	
 	return null;
 }
