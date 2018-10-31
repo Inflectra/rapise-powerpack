@@ -10,6 +10,12 @@ Install `PsTools` as described in this [KB article](https://www.inflectra.com/Su
 
 Copy the function to `*.user.js` file or any other common file you include in every test.
 
+To wait until Dynamics AX is completely initialized we recommend to use `Global.DoWaitFor` action after calling the function. Learn and pass side panel tree as a parameter. We also recommend to use timeout of 60 seconds.
+
+```javascript
+Global.DoWaitFor("Tree", 60000);
+```
+
 ## Demo
 
 Here is an example of calling the function from JavaScript.
