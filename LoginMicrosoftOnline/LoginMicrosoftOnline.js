@@ -9,7 +9,7 @@ function LoginMicrosoftOnline(/**string*/ url, /**string*/ userName, /**string*/
 {
 	var o = {
 		"UseAnotherAccount": "//div[@id='otherTileText']",
-		"UserName": "//input[@name='loginfmt' and @type='email']",
+		"UserName": "//input[@name='loginfmt']",
 		"Sumbit": "//input[@type='submit']",
 		"Password": "//input[@name='passwd' and @type='password']",
 		"DontShowAgain": "//input[@name='DontShowAgain']",
