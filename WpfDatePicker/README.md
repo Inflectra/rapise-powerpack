@@ -6,6 +6,8 @@ This sample contains functions to help support for typical date controls in [WPF
 
 ![Calendar](Media/Calendar.png)
 
+Once you have such control learned in the object tree you may change its value using a function below:
+
 ````javascript
 /**
  * Set calendar value for WPF Calendar.
@@ -37,6 +39,7 @@ This function may be called from RVL as follows:
 ## Date Control
 
 ![DatePicker](Media/DatePicker.png)
+Once you have such control learned in the object tree you may change its value using a function below:
 
 ````javascript
 /**
@@ -67,7 +70,7 @@ This function may be called from RVL as follows:
 
 
 ## AUT and Functions
-This sample is shipped with demo AUT containing one date picker and one calendar control.
+This sample is shipped with demo AUT containing one date picker and one calendar control ( [DatePickerDemo.exe](https://github.com/Inflectra/rapise-powerpack/blob/master/WpfDatePicker/AUT/DatePickerDemo.exe) ).
 
-All the utility functions mentioned in this topic are available in the `User.js` file. You may copy contents of this file and put it into your `User.js` or into your common library.
+All the utility functions mentioned in this topic are available in the [`User.js`](https://raw.githubusercontent.com/Inflectra/rapise-powerpack/master/WpfDatePicker/User.js) file. You may copy contents of this file and put it into your functions file or into your common library.
 
