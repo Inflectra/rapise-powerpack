@@ -27,6 +27,18 @@
     <FilterPath />
     <Groups>
       <TestGroup>
+        <Name>AUT</Name>
+        <IsFilterGroup>false</IsFilterGroup>
+        <FilterWildcard>*.*</FilterWildcard>
+        <FilterPath />
+        <Groups />
+        <TestFiles>
+          <TestFile>
+            <Path>AUT\DatePickerDemo.exe</Path>
+          </TestFile>
+        </TestFiles>
+      </TestGroup>
+      <TestGroup>
         <Name>Reports</Name>
         <IsFilterGroup>true</IsFilterGroup>
         <FilterWildcard>*.trp</FilterWildcard>

@@ -72,5 +72,5 @@ This function may be called from RVL as follows:
 ## AUT and Functions
 This sample is shipped with demo AUT containing one date picker and one calendar control ( [DatePickerDemo.exe](https://github.com/Inflectra/rapise-powerpack/blob/master/WpfDatePicker/AUT/DatePickerDemo.exe) ).
 
-All the utility functions mentioned in this topic are available in the [`User.js`](https://raw.githubusercontent.com/Inflectra/rapise-powerpack/master/WpfDatePicker/User.js) file. You may copy contents of this file and put it into your functions file or into your common library.
+All the utility functions mentioned in this topic are available in the for copy paste form here: https://raw.githubusercontent.com/Inflectra/rapise-powerpack/master/WpfDatePicker/User.js . You may copy contents of this file and put it into your functions file or into your common library.
 
