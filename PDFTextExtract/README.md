@@ -28,4 +28,4 @@ function Pdf_EnsureText(/**string*/pdfPath, /**string*/textToFind, /**bool*/bAss
 
 ## Usage Example
 
-~[RVL](img/Pdf_Rvl.png)
+![RVL](img/Pdf_Rvl.png)
