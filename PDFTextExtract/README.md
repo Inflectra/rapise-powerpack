@@ -26,3 +26,6 @@ function Pdf_EnsureText(/**string*/pdfPath, /**string*/textToFind, /**bool*/bAss
 * *bAssert* - true/false depending on if you want this function to generate report assertion. 
 * *assertionMessage* - optional assertion message to include into report.
 
+## Usage Example
+
+~[RVL](img/Pdf_Rvl.png)
