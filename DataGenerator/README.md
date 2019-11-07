@@ -1,6 +1,6 @@
 # Rapise Data Generator
 
-Sometimes you need to feed you application with demo data that is human-readable but still random.
+Sometimes you need to feed your application with demo data that is human-readable but still random.
 
 This test project may be used for the following tasks:
 
