@@ -44,13 +44,17 @@ This test project may be used for the following tasks:
 
 All generator logic and arrays of sample values are defined here in the `User.js` file and may be modified to fit your needs.
 
+This test project has 3 **RVL** sheets, demonstrating each capability separately:
+
+![All Capabilities](img/AllCapabilities.png)
+
 ## Generate Value By Template
 
 If you want to use it in your project, you just need Copy & Paste contents of this `User.js` into `User.js` of your test. Then you have the `GenData` function available:
 
 ![GenData](img/GenData.png)
 
-Or, from *JavaScript*:
+Or, from **JavaScript**:
 
 ```javascript
 var str = GenData('Today Is the first DAY in MONTH');
@@ -90,7 +94,7 @@ Then you have `GenNextContact` function available:
 
 ![GenNextContact](img/GenNextContact.png)
 
-Or, in *JavaScript*:
+Or, in **JavaScript**:
 
 ```javascript
 // By default GenNextContact saves contact data into global variable 'LastPerson'.
@@ -132,6 +136,12 @@ It produces 50 contacts and saves into `Data.xlsx`. You may take it and use as d
 The spreadsheet is produced by the call to `GenDataSpreadsheet`:
 
 ![GenDataSpreadsheet](img/GenDataSpreadsheet.png)
+
+Or, in **JavaScript**:
+
+```javascript
+GenDataSpreadsheet("TemplateData.xlsx", "Data.xlsx", 50);
+```
 
 You may modify the call to change the number of rows to produce. You may also modify `TemplateData.xlsx` to adjust generated contact information or column names.
 
