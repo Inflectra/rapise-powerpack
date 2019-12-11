@@ -4,7 +4,7 @@ Contains `IsProcessRunning` and `IsServiceRunning` functions.
 
 ## Usage
 
-Copy the function to `*.user.js` file or any other common file you include in every test.
+Copy the function to `User.js` file or any other common file you include in every test.
 
 ## Demo
 
