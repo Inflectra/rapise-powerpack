@@ -127,6 +127,20 @@ Default person has the following fields (defined in `PersonTemplate` variable):
 |	COMPANY	|	Random company name	|	Insurety
 |	EMAIL	|	email address	|	john.smith@insurety.com
 
+### Use Contact Info in RVL Script
+
+Sometimes you want to use fields from generated Contact as input to test step actions. You need to generate it by calling `GenNextContact` and then use as `LastPerson.<Template Field>`:
+
+![Use Contact Data](img/UseContactData.png)
+
+Or, in **JavaScript**:
+
+```javascript
+GenNextContact();
+SeS('First_Name').DoSetText(LastPerson.FIRST);
+SeS('Last_Name').DoSetText(LastPerson.LAST);
+```
+
 ## Generate Spreadsheet with Contact Data
 
 You may get any number of contacts in the spreadsheet by downloading and running this test project.
