@@ -105,7 +105,6 @@ function WpfCalendarSetDate(/**objectid*/oid, /**number*/year, /**number*/month,
 	}
 	
 	var selMonth = 0;
-	var monthButtons = [];
 	var chld = g_UIAutomationWrapper.GetChildAt(calInst, 0);
 	var ind = 1;
 	while(chld)
@@ -115,7 +114,7 @@ function WpfCalendarSetDate(/**objectid*/oid, /**number*/year, /**number*/month,
 		{
 			if( SeSGetUIAutomationProperty(chld, "SelectionItemPatternIdentifiers.IsSelectedProperty") )
 			{
-				selMonth = monthButtons.length;
+				selMonth = ind;
 				if(selMonth == month) break;
 			} else {
 				if( ind == month )
