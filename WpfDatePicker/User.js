@@ -77,7 +77,7 @@ function WpfCalendarSetDate(/**objectid*/oid, /**number*/year, /**number*/month,
 	
 	var changeYear = true;
 	var gotYear = false;
-	var maxIter = 100;
+	var maxIter = 150;
 	while(changeYear)
 	{
 		var fullYear = SeSGetUIAutomationProperty(hdrInst, "AutomationElementIdentifiers.NameProperty");
