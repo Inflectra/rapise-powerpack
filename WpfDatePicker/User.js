@@ -30,7 +30,8 @@ function SeSGetUIAutomationChildByProperty(/**object*/cp, /**string*/propName, /
 function _SeSUIAutomationClick_(cp)
 {
 	SeSUIAutomationClick(cp);
-	//Global.DoSleep(100);
+  // This sleep is sometimes needed (to select a date). You may comment it and try (for speed up). Sometimes it works withouth it.
+	Global.DoSleep(100);
 }
 
 
