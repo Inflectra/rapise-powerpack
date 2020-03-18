@@ -69,12 +69,12 @@ Use simulated learn and spy to learn the root of the meta table.
 
 ### Customizing XPath Properties
 
-Meta table has customizable properties. Default values defaine XPath statements to gather required table parameters, i.e.:
+Meta table has customizable properties. Default values define XPath statements to gather required table parameters, i.e.:
 
 ![HTMLMetaTable properties](img/Props.png)
 
 The these properties use 2 input parameters {col} and {row} replaced with 1-based column and row indices correspondingly.
 
-Good example of modifying these properties to fit a custom table is available here https://github.com/Inflectra/rapise-samples/tree/master/DynamicWebTable : 
+Good example of modifying these properties to fit a custom table is available here https://github.com/Inflectra/rapise-samples/tree/master/DynamicWebTable :
 
 ![Dynamic Table](img/Props_Dyn.png)
