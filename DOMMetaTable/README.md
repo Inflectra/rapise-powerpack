@@ -8,7 +8,7 @@ This package contains a library LibMetaTable with single object: *HTMLMetaTable*
 
 ## Video Tutorial
 
-[![Working with LibMetaTable](https://img.youtube.com/vi/VID/0.jpg)](https://www.youtube.com/watch?v=SUy-hqaIh4s&feature=youtu.be&t=2228)
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=SUy-hqaIh4s&t=2228" target="_blank"><img src="http://img.youtube.com/vi/SUy-hqaIh4s/0.jpg" alt="Working with LibMetaTable" width="240" height="180" border="10" /></a>
 
 ## API
 
