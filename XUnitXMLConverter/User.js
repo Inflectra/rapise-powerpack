@@ -1,22 +1,23 @@
 //Put your custom functions and variables in this file
 
-function ImportXUnitReportProperties(node)
+function ImportJUnitReport(/**string*/path, /**boolean*/includeProperties)
 {
-	var txt="<pre>";
-	for(var i=0;i<node.childNodes.length;i++)
-	{
-		var cn = node.childNodes[i];
-		var n = cn.getAttribute('name');
-		var v = cn.getAttribute('value');
-		txt+=n+"="+v+"\r\n";
-	}
-	txt += "</pre>";
-	
-	return new SeSReportText(txt, "Properties");
-}
 
-function ImportXUnitReport(/**string*/path, /**boolean*/includeProperties)
-{
+  function _ImportJUnitReportProperties(node)
+  {
+    var txt="<pre>";
+    for(var i=0;i<node.childNodes.length;i++)
+    {
+      var cn = node.childNodes[i];
+      var n = cn.getAttribute('name');
+      var v = cn.getAttribute('value');
+      txt+=n+"="+v+"\r\n";
+    }
+    txt += "</pre>";
+    
+    return new SeSReportText(txt, "Properties");
+  }
+
 	var defPath = path;
     if(!File.Exists(path))
     {
@@ -45,19 +46,19 @@ function ImportXUnitReport(/**string*/path, /**boolean*/includeProperties)
     	{
     		if(includeProperties)
     		{
-				var pdata = ImportXUnitReportProperties(ts);
+				var pdata = _ImportJUnitReportProperties(ts);
 				Tester.Message('Properties', [pdata]);
     		}
 		} else {
 			var tsName = ts.getAttributeNode("name").nodeValue;
-			Log("TS: "+tsName);
+			if(l2)Log2("TS: "+tsName);
 			
 			var tsFailures = parseInt(ts.getAttribute("failures")||0);
 			var tsErrors = parseInt(ts.getAttribute("errors")||0);
 			var tsSkipped = parseInt(ts.getAttribute("skipped")||0);
 			var tsTests = parseInt(ts.getAttribute("tests")||0);
 			var tsTime = ts.getAttribute("time")||"";
-			Log("errors", tsErrors, "failures", tsFailures, "skipped", tsSkipped, "tests", tsTests);
+			if(l2)Log2("errors", tsErrors, "failures", tsFailures, "skipped", tsSkipped, "tests", tsTests);
 			
 			Tester.BeginTest(tsName);
 			var pdata = [];
@@ -69,7 +70,7 @@ function ImportXUnitReport(/**string*/path, /**boolean*/includeProperties)
 				
 				if( tc.tagName=="properties" )
 				{
-					var prop = ImportXUnitReportProperties(tc);
+					var prop = _ImportJUnitReportProperties(tc);
 					pdata.push(prop);
 				} else if( tc.tagName=="testcase" ) {
 					var tcFailures = parseInt(tc.getAttribute("failures")||0);
@@ -79,8 +80,8 @@ function ImportXUnitReport(/**string*/path, /**boolean*/includeProperties)
 					var tcTime = parseFloat(tc.getAttribute("time")||0);
 					
 					var tcName = tc.getAttributeNode("name").nodeValue;
-					Log("TS: "+tcName);
-					Log("errors", tcErrors, "failures", tcFailures, "skipped", tcSkipped, "tests", tcTests);
+					if(l2)Log2("TS: "+tcName);
+					if(l2)Log2("errors", tcErrors, "failures", tcFailures, "skipped", tcSkipped, "tests", tcTests);
 					var bSkip = tcSkipped>0;
 					
 					for( var k=0;k<tc.childNodes.length;k++ )
@@ -109,7 +110,7 @@ function ImportXUnitReport(/**string*/path, /**boolean*/includeProperties)
 					}
 					
 				} else {
-					Log("Unexpected tag in testsuite: "+tc.tagName);
+					if(l2)Log2("Unexpected tag in testsuite: "+tc.tagName);
 				}
 				
 				

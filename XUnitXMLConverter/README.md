@@ -3,7 +3,7 @@
 This sample project contains a function:
 
 ```javascript
-function ImportXUnitReport(/**string*/path, /**boolean*/includeProperties)
+function ImportJUnitReport(/**string*/path, /**boolean*/includeProperties)
 ```
 
 
@@ -18,7 +18,7 @@ Copy contents of the `User.js` file into `User.js` of your test or your test fra
 ## Example Usage
 
 1. Launch external program that outputs results in JUnit format (I.e. JUnit, SOAP UI etc). You may use Global.DoLaunch or refer to this article https://www.inflectra.com/Support/KnowledgeBase/KB227.aspx to execute a batch file.
-2. Call *ImportXUnitReport* to import the results.
+2. Call *ImportJUnitReport* to import the results.
 
 
 
