@@ -2,35 +2,34 @@
 
 function ImportJUnitReport(/**string*/path, /**boolean*/includeProperties)
 {
-
-  function _ImportJUnitReportProperties(node)
-  {
-    var txt="<pre>";
-    for(var i=0;i<node.childNodes.length;i++)
+    function _ImportJUnitReportProperties(node)
     {
-      var cn = node.childNodes[i];
-      var n = cn.getAttribute('name');
-      var v = cn.getAttribute('value');
-      txt+=n+"="+v+"\r\n";
+        var txt="<pre>";
+        for(var i=0;i<node.childNodes.length;i++)
+        {
+            var cn = node.childNodes[i];
+            var n = cn.getAttribute('name');
+            var v = cn.getAttribute('value');
+            txt+=n+"="+v+"\r\n";
+        }
+        txt += "</pre>";
+        
+        return new SeSReportText(txt, "Properties");
     }
-    txt += "</pre>";
-    
-    return new SeSReportText(txt, "Properties");
-  }
 
-	var defPath = path;
+    var defPath = path;
     if(!File.Exists(path))
     {
         path = Global.GetFullPath(path);
         
         if(!File.Exists(path))
         {
-        	Tester.Assert('Unable to locate XML', false, defPath);
+            Tester.Assert('Unable to locate XML', false, defPath);
         }
     }
 
     var xmlDoc = new ActiveXObject("Microsoft.XMLDOM");
-	//Turns off asynchronized loading, to make sure that the parser will not continue execution of the script
+    //Turns off asynchronized loading, to make sure that the parser will not continue execution of the script
     //before the document is fully loaded.       
     xmlDoc.async = false;
     //Loads an XML document into xmlDoc object.
@@ -40,86 +39,86 @@ function ImportJUnitReport(/**string*/path, /**boolean*/includeProperties)
     
     for (var i=0; i<tss.length; i++)
     {
-    	var ts = tss[i];
-    	
-    	if( ts.tagName == "properties") 
-    	{
-    		if(includeProperties)
-    		{
-				var pdata = _ImportJUnitReportProperties(ts);
-				Tester.Message('Properties', [pdata]);
-    		}
-		} else {
-			var tsName = ts.getAttributeNode("name").nodeValue;
-			if(l2)Log2("TS: "+tsName);
-			
-			var tsFailures = parseInt(ts.getAttribute("failures")||0);
-			var tsErrors = parseInt(ts.getAttribute("errors")||0);
-			var tsSkipped = parseInt(ts.getAttribute("skipped")||0);
-			var tsTests = parseInt(ts.getAttribute("tests")||0);
-			var tsTime = ts.getAttribute("time")||"";
-			if(l2)Log2("errors", tsErrors, "failures", tsFailures, "skipped", tsSkipped, "tests", tsTests);
-			
-			Tester.BeginTest(tsName);
-			var pdata = [];
-			
-			for(var j=0;j<ts.childNodes.length;j++)
-			{
-				var tc = ts.childNodes[j];
-				
-				
-				if( tc.tagName=="properties" )
-				{
-					var prop = _ImportJUnitReportProperties(tc);
-					pdata.push(prop);
-				} else if( tc.tagName=="testcase" ) {
-					var tcFailures = parseInt(tc.getAttribute("failures")||0);
-					var tcErrors = parseInt(tc.getAttribute("errors")||0);
-					var tcSkipped = parseInt(tc.getAttribute("skipped")||0);
-					var tcTests = parseInt(tc.getAttribute("tests")||0);
-					var tcTime = parseFloat(tc.getAttribute("time")||0);
-					
-					var tcName = tc.getAttributeNode("name").nodeValue;
-					if(l2)Log2("TS: "+tcName);
-					if(l2)Log2("errors", tcErrors, "failures", tcFailures, "skipped", tcSkipped, "tests", tcTests);
-					var bSkip = tcSkipped>0;
-					
-					for( var k=0;k<tc.childNodes.length;k++ )
-					{
-						var ti = tc.childNodes[k];
-						if( ti.tagName=="failure" )
-						{
-							var msg = ti.getAttribute("message")||"Failure";
-							var txt = ""+(ti.nodeValue||ti.text);
-							
-							pdata.push( new SeSReportText( txt, msg ) );
-						} else if( ti.tagName=="skipped" ) {
-							pdata.push( new SeSReportText( "Skipped" ));
-							bSkip = true;
-						} else {
-							pdata.push( new SeSReportText( ""+ti.nodeValue ));
-						}
-					}
-					
-					if(bSkip)
-					{
-						Tester.Message(tcName, pdata);
-					} else {
-						Tester.Assert(tcName, (tcErrors+tcFailures)==0, pdata);
-						pdata = [];
-					}
-					
-				} else {
-					if(l2)Log2("Unexpected tag in testsuite: "+tc.tagName);
-				}
-				
-				
-			}
-			
-			
-			Tester.EndTest("errors: "+tsErrors+" failures: "+ tsFailures + " skipped: " + tsSkipped + " tests: " + tsTests + " time: " + tsTime);
-		}
-	}
+        var ts = tss[i];
+        
+        if( ts.tagName == "properties") 
+        {
+            if(includeProperties)
+            {
+                var pdata = _ImportJUnitReportProperties(ts);
+                Tester.Message('Properties', [pdata]);
+            }
+        } else {
+            var tsName = ts.getAttributeNode("name").nodeValue;
+            if(l2)Log2("TS: "+tsName);
+            
+            var tsFailures = parseInt(ts.getAttribute("failures")||0);
+            var tsErrors = parseInt(ts.getAttribute("errors")||0);
+            var tsSkipped = parseInt(ts.getAttribute("skipped")||0);
+            var tsTests = parseInt(ts.getAttribute("tests")||0);
+            var tsTime = ts.getAttribute("time")||"";
+            if(l2)Log2("errors", tsErrors, "failures", tsFailures, "skipped", tsSkipped, "tests", tsTests);
+            
+            Tester.BeginTest(tsName);
+            var pdata = [];
+            
+            for(var j=0;j<ts.childNodes.length;j++)
+            {
+                var tc = ts.childNodes[j];
+                
+                
+                if( tc.tagName=="properties" )
+                {
+                    var prop = _ImportJUnitReportProperties(tc);
+                    pdata.push(prop);
+                } else if( tc.tagName=="testcase" ) {
+                    var tcFailures = parseInt(tc.getAttribute("failures")||0);
+                    var tcErrors = parseInt(tc.getAttribute("errors")||0);
+                    var tcSkipped = parseInt(tc.getAttribute("skipped")||0);
+                    var tcTests = parseInt(tc.getAttribute("tests")||0);
+                    var tcTime = parseFloat(tc.getAttribute("time")||0);
+                    
+                    var tcName = tc.getAttributeNode("name").nodeValue;
+                    if(l2)Log2("TS: "+tcName);
+                    if(l2)Log2("errors", tcErrors, "failures", tcFailures, "skipped", tcSkipped, "tests", tcTests);
+                    var bSkip = tcSkipped>0;
+                    
+                    for( var k=0;k<tc.childNodes.length;k++ )
+                    {
+                        var ti = tc.childNodes[k];
+                        if( ti.tagName=="failure" )
+                        {
+                            var msg = ti.getAttribute("message")||"Failure";
+                            var txt = ""+(ti.nodeValue||ti.text);
+                            
+                            pdata.push( new SeSReportText( txt, msg ) );
+                        } else if( ti.tagName=="skipped" ) {
+                            pdata.push( new SeSReportText( "Skipped" ));
+                            bSkip = true;
+                        } else {
+                            pdata.push( new SeSReportText( ""+ti.nodeValue ));
+                        }
+                    }
+                    
+                    if(bSkip)
+                    {
+                        Tester.Message(tcName, pdata);
+                    } else {
+                        Tester.Assert(tcName, (tcErrors+tcFailures)==0, pdata);
+                        pdata = [];
+                    }
+                    
+                } else {
+                    if(l2)Log2("Unexpected tag in testsuite: "+tc.tagName);
+                }
+                
+                
+            }
+            
+            
+            Tester.EndTest("errors: "+tsErrors+" failures: "+ tsFailures + " skipped: " + tsSkipped + " tests: " + tsTests + " time: " + tsTime);
+        }
+    }
 }
 
 
