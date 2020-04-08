@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" v="18" t="">
+  <ScriptPath>Main.js</ScriptPath>
+  <UserFunctionsPath>User.js</UserFunctionsPath>
+  <ObjectsPath>Objects.js</ObjectsPath>
+  <ReportPath>XUnitXMLConverter.trp</ReportPath>
+  <CommandInterval>100</CommandInterval>
+  <IterationsCount>1</IterationsCount>
+  <StopOnError>true</StopOnError>
+  <CacheObjects>false</CacheObjects>
+  <ObjectLookupAttempts>30</ObjectLookupAttempts>
+  <ObjectLookupAttemptInterval>300</ObjectLookupAttemptInterval>
+  <ShowReport>true</ShowReport>
+  <BeautifySavedObjects>true</BeautifySavedObjects>
+  <SaveRecordingScreenshots>false</SaveRecordingScreenshots>
+  <SavePlaybackScreenshots>false</SavePlaybackScreenshots>
+  <SavePlaybackScreenshotsInTestReport>false</SavePlaybackScreenshotsInTestReport>
+  <SaveScreenshotObjectOnly>false</SaveScreenshotObjectOnly>
+  <SaveScreenshotsCaptureCursor>true</SaveScreenshotsCaptureCursor>
+  <CommandLine />
+  <EntryPoint>Test</EntryPoint>
+  <WorkDir>.</WorkDir>
+  <TestFiles>
+    <Name>Test</Name>
+    <IsFilterGroup>false</IsFilterGroup>
+    <FilterWildcard>*.*</FilterWildcard>
+    <FilterPath />
+    <Groups>
+      <TestGroup>
+        <Name>Input</Name>
+        <IsFilterGroup>false</IsFilterGroup>
+        <FilterWildcard>*.*</FilterWildcard>
+        <FilterPath>Input</FilterPath>
+        <Groups />
+        <TestFiles>
+          <TestFile>
+            <Path>Input\input1.xml</Path>
+          </TestFile>
+          <TestFile>
+            <Path>Input\input2.xml</Path>
+          </TestFile>
+          <TestFile>
+            <Path>Input\input3.xml</Path>
+          </TestFile>
+        </TestFiles>
+      </TestGroup>
+      <TestGroup>
+        <Name>Reports</Name>
+        <IsFilterGroup>true</IsFilterGroup>
+        <FilterWildcard>*.trp</FilterWildcard>
+        <FilterPath>Reports</FilterPath>
+        <Groups />
+        <TestFiles />
+      </TestGroup>
+    </Groups>
+    <TestFiles>
+      <TestFile>
+        <Path>%ENGINE%\Engine.sstest</Path>
+      </TestFile>
+      <TestFile>
+        <Path>Main.js</Path>
+      </TestFile>
+      <TestFile>
+        <Path>Objects.js</Path>
+      </TestFile>
+      <TestFile>
+        <Path>User.js</Path>
+      </TestFile>
+    </TestFiles>
+  </TestFiles>
+  <CustomStrings />
+  <TestParams />
+  <Methodology>Basic</Methodology>
+  <MethodologyOptions>
+    <ArrayOfObjectParam />
+  </MethodologyOptions>
+</Test>
