@@ -13,7 +13,7 @@ Where
 
 ## How to Use
 
-Copy contents of the `User.js` file into `User.js` of your test or your test framework.
+Copy contents of the [User.js](https://raw.githubusercontent.com/Inflectra/rapise-powerpack/master/XUnitXMLConverter/User.js) file into `User.js` of your test or your test framework.
 
 ## Example Usage
 
