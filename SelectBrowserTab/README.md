@@ -1,6 +1,6 @@
 # SelectBrowserTab
 
-This function saves allows switching between several concurrent browser Tabs. The function assumes that tabs are already open in the browser.
+This function allows switching between several concurrent browser Tabs. The function assumes that tabs are already open in the browser.
 
 ## Usage
 

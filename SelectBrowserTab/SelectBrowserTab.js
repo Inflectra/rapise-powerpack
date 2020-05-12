@@ -4,6 +4,7 @@
 /**
  * Switch to a browser tab with URL containing specific URL or part of URL
  * and Attach to it.
+ * Important: URL matching is case-sensitive.
  */
 function SelectBrowserTab(/**string*/partOfUrl)
 {
@@ -12,6 +13,10 @@ function SelectBrowserTab(/**string*/partOfUrl)
 	{
 		var url = Navigator.GetUrl();
 		Log("Url: "+url);
+        if (!url)
+        {
+            break;
+        }
 		if(url.indexOf(partOfUrl)>=0)
 		{
 			// Attach to current tab
