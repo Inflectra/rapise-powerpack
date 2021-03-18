@@ -1,0 +1,211 @@
+{
+	"Perf": {
+		"window_name": "Global Objects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "SetRvlColumn",
+				"description": "Contents of the specified RVL column are treated as section name. Each ti",
+				"type": "number",
+				"returns": "number of section occurencies",
+				"signature": "/**string*/colId",
+				"paramInfo": {
+					"colId": {
+						"type": "string",
+						"description": "Extra Column ID",
+						"binding": "enum",
+						"enumName": "ExtraColumn",
+						"defaultValue": "H",
+						"enumOpts": [
+							[
+								"H"
+							],
+							[
+								"I"
+							],
+							[
+								"J"
+							]
+						]
+					}
+				}
+			},
+			{
+				"name": "BeginSection",
+				"description": "Mark new occurence of the section. The time of everything executed before Perf.EndSection or another Perf.BeginSection is added to this section.",
+				"type": "number",
+				"returns": "number of section occurencies",
+				"signature": "/**string*/sectionId",
+				"paramInfo": {
+					"sectionId": {
+						"description": "Perfomance section ID"
+					}
+				}
+			},
+			{
+				"name": "EndSection",
+				"description": "Mark that given occurence of the section started with Perf.BeginSection is done",
+				"type": "number",
+				"returns": "number of section occurencies",
+				"signature": "",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetLast",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/sectionId",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetMin",
+				"description": "Get minimal execution time for a section",
+				"type": "number",
+				"returns": "number of section occurencies",
+				"signature": "/**string*/sectionId",
+				"paramInfo": {
+					"sectionId": {
+						"description": "Perfomance section ID"
+					}
+				}
+			},
+			{
+				"name": "GetMax",
+				"description": "Get max execution time for a section",
+				"type": "number",
+				"returns": "number of section occurencies",
+				"signature": "/**string*/sectionId",
+				"paramInfo": {
+					"sectionId": {
+						"description": "Perfomance section ID"
+					}
+				}
+			},
+			{
+				"name": "GetAvg",
+				"description": "Get average execution time for a section",
+				"type": "number",
+				"returns": "number of section occurencies",
+				"signature": "/**string*/sectionId",
+				"paramInfo": {
+					"sectionId": {
+						"description": "Perfomance section ID"
+					}
+				}
+			},
+			{
+				"name": "GetTotal",
+				"description": "Get total execution time for a section",
+				"type": "number",
+				"returns": "number of section occurencies",
+				"signature": "/**string*/sectionId",
+				"paramInfo": {
+					"sectionId": {
+						"description": "Perfomance section ID"
+					}
+				}
+			},
+			{
+				"name": "GetOccurencies",
+				"description": "Get number of times specified section has been executed",
+				"type": "number",
+				"returns": "number of section occurencies",
+				"signature": "/**string*/sectionId",
+				"paramInfo": {
+					"sectionId": {
+						"description": "Perfomance section ID"
+					}
+				}
+			},
+			{
+				"name": "AssertLast",
+				"description": "Assert that section last execution time is less than specified number of millis",
+				"type": "boolean",
+				"returns": "`true` if login is ok",
+				"signature": "/**string*/sectionId, /**number*/millis, /**string*/optMessage",
+				"paramInfo": {
+					"sectionId": {
+						"description": "Perfomance section ID"
+					},
+					"millis": {
+						"type": "number",
+						"defaultValue": 1000,
+						"description": "Max allowed number of milliseconds"
+					},
+					"optMessage": {
+						"type": "string",
+						"optional": true,
+						"description": "Assertion message"
+					}
+				}
+			},
+			{
+				"name": "AssertAvg",
+				"description": "Assert that section average execution time is less than specified number of millis",
+				"type": "boolean",
+				"returns": "`true` if login is ok",
+				"signature": "/**string*/sectionId, /**number*/millis, /**string*/optMessage",
+				"paramInfo": {
+					"sectionId": {
+						"description": "Perfomance section ID"
+					},
+					"millis": {
+						"type": "number",
+						"defaultValue": 1000,
+						"description": "Max allowed number of milliseconds"
+					},
+					"optMessage": {
+						"type": "string",
+						"optional": true,
+						"description": "Assertion message"
+					}
+				}
+			},
+			{
+				"name": "AssertTotal",
+				"description": "Assert that section total execution time is less than specified number of millis",
+				"type": "boolean",
+				"returns": "`true` if login is ok",
+				"signature": "/**string*/sectionId, /**number*/millis, /**string*/optMessage",
+				"paramInfo": {
+					"sectionId": {
+						"description": "Perfomance section ID"
+					},
+					"millis": {
+						"type": "number",
+						"defaultValue": 1000,
+						"description": "Max allowed number of milliseconds"
+					},
+					"optMessage": {
+						"type": "string",
+						"optional": true,
+						"description": "Assertion message"
+					}
+				}
+			},
+			{
+				"name": "AssertMax",
+				"description": "Assert that section Max execution time is less than specified number of millis",
+				"type": "boolean",
+				"returns": "`true` if login is ok",
+				"signature": "/**string*/sectionId, /**number*/millis, /**string*/optMessage",
+				"paramInfo": {
+					"sectionId": {
+						"description": "Perfomance section ID"
+					},
+					"millis": {
+						"type": "number",
+						"defaultValue": 1000,
+						"description": "Max allowed number of milliseconds"
+					},
+					"optMessage": {
+						"type": "string",
+						"optional": true,
+						"description": "Assertion message"
+					}
+				}
+			}
+		]
+	}
+}
