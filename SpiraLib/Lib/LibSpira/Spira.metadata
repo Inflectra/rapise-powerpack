@@ -1,0 +1,272 @@
+{
+	"Spira": {
+		"window_name": "Global Objects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "Login",
+				"description": "Logs into the application",
+				"type": "boolean",
+				"returns": "`true` if login is ok",
+				"signature": "/**string*/url, /**string*/user, /**string*/password",
+				"paramInfo": {
+					"url": {
+						"description": "Name of the user",
+						"type": "string",
+						"optional": true
+					},
+					"user": {
+						"description": "User name",
+						"type": "string",
+						"optional": true
+					},
+					"password": {
+						"description": "Password or API key of the user",
+						"type": "string",
+						"optional": true
+					}
+				}
+			},
+			{
+				"name": "Logout",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetURL",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ page",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetProjectURL",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ page",
+				"paramInfo": {}
+			},
+			{
+				"name": "Navigate",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ url",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetUserName",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetPassword",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			},
+			{
+				"name": "AccessArtifactUrl",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ suburl",
+				"paramInfo": {}
+			},
+			{
+				"name": "IsMyPageDisplayed",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			},
+			{
+				"name": "HasArtifact",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ artifact",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetArtifactCount",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetArtifactName",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**number*/ index",
+				"paramInfo": {}
+			},
+			{
+				"name": "Open",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ artifact",
+				"paramInfo": {}
+			},
+			{
+				"name": "HasProject",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ project",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetProjectCount",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetProjectName",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**number*/ index",
+				"paramInfo": {}
+			},
+			{
+				"name": "SelectProject",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ project",
+				"paramInfo": {}
+			},
+			{
+				"name": "Click",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ button",
+				"paramInfo": {}
+			},
+			{
+				"name": "SelectTab",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ tab",
+				"paramInfo": {}
+			},
+			{
+				"name": "SelectView",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ name",
+				"paramInfo": {}
+			},
+			{
+				"name": "VerifyObject",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string|objectId*/ xpathOrObjId",
+				"paramInfo": {}
+			},
+			{
+				"name": "VerifyButton",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ caption, /**string*/ tab",
+				"paramInfo": {}
+			},
+			{
+				"name": "VerifyMainButton",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ caption",
+				"paramInfo": {}
+			},
+			{
+				"name": "HasMainButton",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ caption",
+				"paramInfo": {}
+			},
+			{
+				"name": "ArtifactHasTab",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ tab",
+				"paramInfo": {}
+			},
+			{
+				"name": "ComboSelect",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**objectId*/ combo, /**string*/ item",
+				"paramInfo": {}
+			},
+			{
+				"name": "SetRichText",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**objectId*/ editor, /**string*/ text",
+				"paramInfo": {}
+			},
+			{
+				"name": "HasAlerts",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			},
+			{
+				"name": "AlertCount",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetAlertText",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**number*/ index",
+				"paramInfo": {}
+			},
+			{
+				"name": "WaitForTable",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			}
+		]
+	}
+}

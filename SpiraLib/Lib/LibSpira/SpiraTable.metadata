@@ -1,0 +1,56 @@
+{
+	"SpiraTable": {
+		"window_name": "Global Objects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "SetValue",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ column, /**string*/ value",
+				"paramInfo": {}
+			},
+			{
+				"name": "SelectValue",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ column, /**string*/ value",
+				"paramInfo": {}
+			},
+			{
+				"name": "GetCell",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string|number*/ column, /**number|string*/ row",
+				"paramInfo": {}
+			},
+			{
+				"name": "ClickCell",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string|number*/ column, /**number|string*/ row",
+				"paramInfo": {}
+			},
+			{
+				"name": "ClickButton",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string|number*/ column, /**number|string*/ row, /**string*/ button",
+				"paramInfo": {}
+			},
+			{
+				"name": "SelectRow",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string|number*/ column, /**string*/ row",
+				"paramInfo": {}
+			}
+		]
+	}
+}
