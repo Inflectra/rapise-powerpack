@@ -23,19 +23,19 @@
   <WorkDir>.</WorkDir>
   <TestFiles>
     <Name>Test</Name>
-    <IsFilterGroup>true</IsFilterGroup>
+    <IsFilterGroup>false</IsFilterGroup>
     <FilterWildcard>*.*</FilterWildcard>
     <FilterPath />
     <Groups>
       <TestGroup>
         <Name>features</Name>
-        <IsFilterGroup>true</IsFilterGroup>
+        <IsFilterGroup>false</IsFilterGroup>
         <FilterWildcard>*.*</FilterWildcard>
         <FilterPath>features</FilterPath>
         <Groups>
           <TestGroup>
             <Name>step_definitions</Name>
-            <IsFilterGroup>true</IsFilterGroup>
+            <IsFilterGroup>false</IsFilterGroup>
             <FilterWildcard>*.*</FilterWildcard>
             <FilterPath>features/step_definitions</FilterPath>
             <Groups />
@@ -57,7 +57,7 @@
       </TestGroup>
       <TestGroup>
         <Name>Lib</Name>
-        <IsFilterGroup>true</IsFilterGroup>
+        <IsFilterGroup>false</IsFilterGroup>
         <FilterWildcard>*.*</FilterWildcard>
         <FilterPath>Lib</FilterPath>
         <Groups>
