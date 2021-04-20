@@ -69,6 +69,15 @@
                 <Path>Lib\LibCucumberJs\CucTesterFormat.js</Path>
               </TestFile>
               <TestFile>
+                <Path>Lib\LibCucumberJs\Cucumber.metadata</Path>
+              </TestFile>
+              <TestFile>
+                <Path>Lib\LibCucumberJs\Cucumber16.png</Path>
+              </TestFile>
+              <TestFile>
+                <Path>Lib\LibCucumberJs\Cucumber32.png</Path>
+              </TestFile>
+              <TestFile>
                 <Path>Lib\LibCucumberJs\LibCucumberJs.js</Path>
               </TestFile>
               <TestFile>
@@ -109,7 +118,7 @@
   </TestFiles>
   <CustomStrings />
   <TestParams>
-    <TestParam name="Browser" variable="g_browserLibrary" defaultValue="Chrome HTML" description="Please, specify browser type to use" output="false" ask="false">
+    <TestParam name="Browser" variable="g_browserLibrary" defaultValue="Firefox HTML" description="Please, specify browser type to use" output="false" ask="false">
       <PossibleValues />
     </TestParam>
     <TestParam name="Record Title" variable="g_rWnd" defaultValue="regex:.*" description="Application Title to Record" output="false" ask="false">
