@@ -1,11 +1,6 @@
-Feature: Eating
+Feature: Template Feauture
 
-Scenario Outline: Eating
-  Given there are <start> cucumbers
-  When I eat <eat> cucumbers
-  Then I should have <left> cucumbers
-
-  Examples:
-    | start | eat | left |
-    |  12   |  5  |  7   |
-    |  20   |  5  |  15  |
+Scenario Outline: Implement Features
+    Given you download this template
+    When you copied this fiel to <feature_name>.feature file
+    Then you should go to features/step_definitions and copy template.js <feature_name>.js file
