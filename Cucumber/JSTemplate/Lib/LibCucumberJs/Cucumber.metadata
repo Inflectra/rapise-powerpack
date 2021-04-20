@@ -1,0 +1,23 @@
+{
+	"Cucumber": {
+		"window_name": "Global Objects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "Run",
+				"description": "Run a Feature file(s) using CucumberJS",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/featurePath",
+				"paramInfo": {
+					"featurePath": {
+						"description": "Path to a .feature file.",
+						"type": "string",
+						"binding": "path",
+						"ext": "feature"
+					}
+				}
+			}
+		]
+	}
+}
