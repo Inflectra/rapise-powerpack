@@ -1,6 +1,6 @@
 # Cucumber in Rapise
 
-This package contains a library, used to establish a link between [Cucumber.js]()
+This package contains a library, used to establish a link between [Cucumber.js]() and [Rapise]().
 
 
 ## LibCucumber
