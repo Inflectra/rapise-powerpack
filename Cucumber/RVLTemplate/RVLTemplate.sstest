@@ -63,7 +63,7 @@
         <Groups>
           <TestGroup>
             <Name>LibCucumberJs</Name>
-            <IsFilterGroup>true</IsFilterGroup>
+            <IsFilterGroup>false</IsFilterGroup>
             <FilterWildcard>*.*</FilterWildcard>
             <FilterPath>Lib/LibCucumberJs</FilterPath>
             <Groups />
