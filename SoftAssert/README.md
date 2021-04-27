@@ -14,13 +14,13 @@ Copy contents of the [User.js](User.js) into your User.js.
 
 ```javascript
 	Tester.Assert('Pass0', true);
-	Tester.SoftAssert('SoftFailure1', false);
-	Tester.SoftAssert('SoftFailure2', true);
+	Tester_SoftAssert('SoftFailure1', false);
+	Tester_SoftAssert('SoftFailure2', true);
 
 	Tester.Assert('Pass1', true);
 	
 	// How we should fail if there were failures
-	Tester.AssertHasFailures('Aftermath', true);
+	Tester_AssertHasFailures('Aftermath', true);
 ```
 
 ## Using from RVL

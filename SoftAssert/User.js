@@ -1,5 +1,9 @@
-//Put your custom functions and variables in this file
+// Copy following code into your User.js or other .js file in your test.
 
+
+/**
+ * When an assertion fails, don't stop execution but record the failure. Calling Tester_AssertHasFailures() will execution stop if at least one assertion failed.
+ */
 function Tester_SoftAssert(/**string*/ message, /**boolean*/ condition, /**SeSReportLink|SeSReportText|SeSReportImage|object[]|string*/ data, /**object*/ tags)
 {
 	var stopOnError = g_stopOnError;
