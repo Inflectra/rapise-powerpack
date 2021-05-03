@@ -1,0 +1,64 @@
+{
+	"Term": {
+		"window_name": "Global Objects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "FindProcessByNameAndPartOfCmd",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "exeName, partOfCmd",
+				"paramInfo": {}
+			},
+			{
+				"name": "FindOrAttach",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "url, bAttach",
+				"paramInfo": {}
+			},
+			{
+				"name": "Screenshot",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "comment",
+				"paramInfo": {}
+			},
+			{
+				"name": "SendString",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/str",
+				"paramInfo": {}
+			},
+			{
+				"name": "SendInput",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/str",
+				"paramInfo": {}
+			},
+			{
+				"name": "EnsureText",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/text, /**number*/timeout, /**boolean*/failIfNotFound",
+				"paramInfo": {}
+			},
+			{
+				"name": "SendCommand",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/qry",
+				"paramInfo": {}
+			}
+		]
+	}
+}
