@@ -2,9 +2,9 @@
 <Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" v="18" t="">
   <ScriptPath>Main.js</ScriptPath>
   <UserFunctionsPath>User.js</UserFunctionsPath>
-  <ObjectsPath>Output\home.objects.js</ObjectsPath>
-  <ReportPath>Selectors2ObjectRepository.trp</ReportPath>
-  <CommandInterval>100</CommandInterval>
+  <ObjectsPath>..\Output\home.objects.js</ObjectsPath>
+  <ReportPath>PO_Home.trp</ReportPath>
+  <CommandInterval>1000</CommandInterval>
   <IterationsCount>1</IterationsCount>
   <StopOnError>true</StopOnError>
   <CacheObjects>false</CacheObjects>
@@ -20,37 +20,22 @@
   <SaveScreenshotsCaptureCursor>true</SaveScreenshotsCaptureCursor>
   <CommandLine />
   <EntryPoint>Test</EntryPoint>
-  <WorkDir>.</WorkDir>
+  <WorkDir>..\.</WorkDir>
   <TestFiles>
     <Name>Test</Name>
     <IsFilterGroup>false</IsFilterGroup>
     <FilterWildcard>*.*</FilterWildcard>
     <FilterPath />
-    <Groups>
-      <TestGroup>
-        <Name>Reports</Name>
-        <IsFilterGroup>true</IsFilterGroup>
-        <FilterWildcard>*.trp</FilterWildcard>
-        <FilterPath>Reports</FilterPath>
-        <Groups />
-        <TestFiles />
-      </TestGroup>
-    </Groups>
+    <Groups />
     <TestFiles>
-      <TestFile>
-        <Path>LIS_Login\LIS_Login.sstest</Path>
-      </TestFile>
       <TestFile>
         <Path>Main.js</Path>
       </TestFile>
       <TestFile>
-        <Path>Objects.js</Path>
+        <Path>Main.rvl.xlsx</Path>
       </TestFile>
       <TestFile>
-        <Path>PO_Home\PO_Home.sstest</Path>
-      </TestFile>
-      <TestFile>
-        <Path>PO_Login\PO_Login.sstest</Path>
+        <Path>..\Objects.js</Path>
       </TestFile>
       <TestFile>
         <Path>User.js</Path>
@@ -58,8 +43,18 @@
     </TestFiles>
   </TestFiles>
   <CustomStrings />
-  <TestParams />
-  <Methodology>Basic</Methodology>
+  <TestParams>
+    <TestParam name="Browser" variable="g_browserLibrary" defaultValue="Chrome HTML" description="Please, specify browser type to use" output="false" ask="false">
+      <PossibleValues />
+    </TestParam>
+    <TestParam name="Record Title" variable="g_rWnd" defaultValue="regex:.*" description="Application Title to Record" output="false" ask="false">
+      <PossibleValues />
+    </TestParam>
+    <TestParam name="RVL Script" variable="g_rvlScriptPath" defaultValue="%WORKDIR%\PO_Home\Main.rvl.xlsx" description="Main RVL Script to execute" output="false" ask="false">
+      <PossibleValues />
+    </TestParam>
+  </TestParams>
+  <Methodology>Web</Methodology>
   <MethodologyOptions>
     <ArrayOfObjectParam />
   </MethodologyOptions>
