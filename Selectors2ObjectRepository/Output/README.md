@@ -1,0 +1,1 @@
+Output folder for object repositories in Rapise format.
