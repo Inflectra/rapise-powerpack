@@ -17,7 +17,7 @@ Here is how it may be done with Rapise using [Navigator.ExecJS](https://rapisedo
 
 ## In RVL
 
-[!RVL](img/getbgcolor.png)
+![RVL](img/getbgcolor.png)
 
 ```
 #	Read background color for the element							
