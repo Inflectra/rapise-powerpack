@@ -1,6 +1,9 @@
+![Download](https://github.githubassets.com/images/icons/emoji/unicode/23ec.png?v8) [Download Now](https://inflectra.github.io/DownGit/#/home?url=https://github.com/Inflectra/rapise-powerpack/tree/master/GetDOMElementColor)
+
+
 # Reading DOM Element Color
 
-Sometimes we need to get runtime property for the element. For example, we need to get a background color to know that element is marked for a user.
+Sometimes we need to get runtime property for the element. For example, we need to get a background color to know that element is highlighted for a user.
 
 Here is how it may be done with Rapise using [Navigator.ExecJS](https://rapisedoc.inflectra.com/Libraries/Navigator/#execjs).
 
