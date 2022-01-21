@@ -1,0 +1,54 @@
+
+Library Information System
+[ Log In ]
+
+    Home
+    Book Management
+    Author Management
+
+Welcome to the Library Information System
+
+This sample application lets you view, create and edit books in the libary catalog as well as view, create and edit authors.
+
+To view the library catalog or the authors list you will need to login as a borrower and to make changes to the list of books or authors you will need to login as a librarian.
+
+Note: This is not a real application, but is just a sample application used in the popular SpiraTest test management system and Rapise test automation system. Both of these products are marketed by Inflectra Corporation.
+		
+Test Management 	Test Automation 	Inflectra Corporation
+
+This sample application has SOAP and REST web service APIs that can be tested by Rapise.
+Other Samples
+
+> View the sample HTML5 Application
+
+> View the sample Flex 3 Application
+
+> View the sample Flex 4 Application
+
+> View the sample Java Application
+
+> View the sample Silverlight Application
+
+> View the HTML control list sample
+
+> Simple HTML Popup Sample
+
+> This sample application built in React JS
+
+> This sample application built in Angular JS (version 1)
+	
+
+> View the jQuery UI control list sample
+
+> View the GWT control list sample
+
+> View the GWT v2.2 control list sample
+
+> View the GWT-Ext control list sample
+
+> View the SmartGWT control list sample
+
+> View the YUI control list samples (2.0, 2.9, 3.0)
+
+> Two tabs sample (page 1 | page 2)
+
