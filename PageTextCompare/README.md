@@ -2,19 +2,18 @@
 
 # Comparing Web Page Content to Text or MSWord File
 
-Here we have three useful functions for comparing.
+This sample contains two useful functions.
 
-Compare contents of currently open web page with reference file in plain text format:
+Compare contents of the currently open web page with reference file in plain text format:
 ```javascript
 function ComparePageToTextFile(refTextPath)
 ```
 
-Compare contents of currently open web page with reference file in MSWord format:
+Compare contents of the currently open web page with reference file in MSWord format:
 ```javascript
 function ComparePageToWordFile(refWordPath)
 ```
-
-This function assumes that you have Microsoft Office installed on current machine.
+	Note: This function assumes that you have Microsoft Office installed on current machine.
 
 
 ## Example
