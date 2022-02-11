@@ -215,8 +215,8 @@ function SpiraUtil_OutputReportHtml(model, fn)
 	ln('  <th scope="row">Total</th>');
 	ln('  <td>&nbsp;</td>');
 	ln('  <td><span style="color:green;font-size: large;">' + passed + '</span></td>');
-	ln('  <td><span style="color:red;font-size: large;">' + failed + '</span></td>');
-	ln('  <td><span style="color:#333300;font-size: large;">' + blocked + '</span></td>');
+	ln('  <td><span style="' + (failed > 0 ? "color:red;" : "") + 'font-size: large;">' + failed + '</span></td>');
+	ln('  <td><span style="' + (blocked > 0 ? "color:red;" : "") + 'font-size: large;">' + blocked + '</span></td>');
 	ln('</tr>');	
 	
 	for(var i = 0; i < model.testSets.length; i++)
@@ -231,15 +231,15 @@ function SpiraUtil_OutputReportHtml(model, fn)
 		}
 		else if (testSet.executionStatus.blocked > 0)
 		{
-			color = "color:#333300";
+			color = "color:red";
 		}
 
 		ln('<tr>');
 		ln('  <th scope="row">' + (i + 1) + '</th>');
 		ln('  <td><a style="' + color + '" target="_blank" href="' + createBackLink(testSet.ProjectId, "TestSet", testSet.TestSetId) + '">' + testSet.projectName + "/" + testSet.Name + '</a></td>');
-		ln('  <td>' + testSet.executionStatus.passed + '</td>');
-		ln('  <td>' + testSet.executionStatus.failed + '</td>');
-		ln('  <td>' + testSet.executionStatus.blocked + '</td>');
+		ln('  <td><span>' + testSet.executionStatus.passed + '</span></td>');
+		ln('  <td><span style="' + (testSet.executionStatus.failed > 0 ? "color:red;" : "") + '">' + testSet.executionStatus.failed + '</span></td>');
+		ln('  <td><span style="' + (testSet.executionStatus.blocked > 0 ? "color:red;" : "") + '">' + testSet.executionStatus.blocked + '</td>');
 		ln('</tr>');
 	}
 	
@@ -310,7 +310,34 @@ function SpiraUtil_OutputReportHtml(model, fn)
 				ln(failureDescription);
 			}
 		}
-	}	
+	}
+	
+	ln("<h2>Execution Log</h2>");
+	ln("<ul>")
+	for(var i = 0; i < model.testSets.length; i++)
+	{
+		var testSet = model.testSets[i];
+	
+		ln("<li>")
+			ln(testSet.projectName + "/" + testSet.Name);
+			ln("<ul>");
+			for(var j = 0; j < testSet.testRuns.length; j++)
+			{
+				var testRun = testSet.testRuns[j];
+				if (testRun.ExecutionStatusId == 2 /* passed */)
+				{
+					ln("<li>" + testRun.Name + "</li>");
+				}
+				else
+				{
+					ln('<li style="color:red">' + testRun.Name + "</li>");
+				}
+			}
+			ln("</ul>");
+		ln("</li>")
+	}
+	ln("</ul>");
+	
 }
 
 function SpiraUtil_UploadReport(model, fn, projectId, incidentId)
@@ -404,8 +431,8 @@ function SpiraUtil_UploadReport(model, fn, projectId, incidentId)
 						ln("<h4>Executed Test Case Summary</h4>");
 						ln("<ul>");
 						ln('<li>Passed: <span style="color:green;font-size: large;">' + passed + '</span></li>');
-						ln('<li>Failed: <span style="color:red;font-size: large;">' + failed + '</span></li>');
-						ln('<li>Blocked: <span style="color:#333300;font-size: large;">' + blocked + '</span></li>');
+						ln('<li>Failed: <span style="' + (failed > 0 ? "color:red;" : "") + 'font-size: large;">' + failed + '</span></li>');
+						ln('<li>Blocked: <span style="' + (blocked > 0 ? "color:red;" : "") + 'font-size: large;">' + blocked + '</span></li>');
 						ln("</ul>");
 						
 						ln("<h4>Failed Test Cases</h4>");
