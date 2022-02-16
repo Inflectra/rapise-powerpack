@@ -494,6 +494,14 @@ function SpiraUtil_UploadReport(model, fn, projectId, incidentId)
 
 						ln('<a target="_blank" href="' + backlink + '">Open report in Spira</a>');
 						
+						// update incident subject
+						var incident = SpiraUtil_GetIncidentById(projectId, incidentId);
+						if (incident)
+						{
+							incident.Name = "Rapise Nightly Tests (p/f/b): " + passed + "/" + failed + "/" + blocked;
+							SpiraUtil_UpdateIncident(projectId, incident);
+						}
+						
 						// add comment to an incident
 						SpiraUtil_AddIncidentComment(projectId, incidentId, text);
 					}
@@ -907,4 +915,47 @@ function SpiraUtil_GetTestRunFailureDetails(testRun, withScreenshots)
 	}
 	
 	return details;
+}
+
+function SpiraUtil_GetIncidentById(projectId, incidentId)
+{
+	var req = SpiraApiUtil_GetSpiraRequest("GET", "projects/{project_id}/incidents/{incident_id}");
+	
+	req.SetParameter('project_id', projectId);
+	req.SetParameter('incident_id', incidentId);
+	
+	var response = req._DoExecute();
+	
+	if(response.status)
+	{
+		var incident = req.GetResponseBodyObject();
+		return incident;
+	} 
+	else 
+	{
+		SpiraApiUtil_LogError("Incident not found: " + incidentId + " in project: " + projectId);
+		return false;
+	}
+}
+
+function SpiraUtil_UpdateIncident(projectId, incident)
+{
+	var req = SpiraApiUtil_GetSpiraRequest("PUT", "projects/{project_id}/incidents/{incident_id}");
+	
+	req.SetParameter("project_id", projectId);
+	req.SetParameter("incident_id", incident.IncidentId);
+	req.SetRequestBodyObject(incident);
+	
+	var response = req._DoExecute();
+	
+	if(response.status)
+	{
+		var incident = req.GetResponseBodyText();
+		return incident;
+	} 
+	else 
+	{
+		SpiraApiUtil_LogError("Incident not updated: " + incident.IncidentId + " in project: " + projectId);
+		return false;
+	}
 }
