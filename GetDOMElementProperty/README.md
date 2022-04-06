@@ -18,4 +18,4 @@ That may be called from RVL like that:
 
 # How to Use
 
-Copy contents of `GetDOMElementProperty` from [User.js](User.js) file and call it from RVL or JavaScript.
+Copy contents of `GetDOMElementProperty` from [User.js](User.js) file and paste into your User.js. Then call it from RVL or JavaScript.
