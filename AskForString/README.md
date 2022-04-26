@@ -2,6 +2,8 @@
 
 # AskForString function
 
+An ability to prompt for string from user during test execution.
+
 ```javascript
 var r = AskForString("Get Value", "<new value>");
 ```
