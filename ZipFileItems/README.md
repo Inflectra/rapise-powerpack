@@ -5,7 +5,7 @@ This sample contains a function `pathToZipFile` that may be used to read list of
 
 
 ## How to Use
-Copy contents of [User.js](User.js) into your test project so you may call the functions.
+Add contents of [User.js](User.js) into your test's `User.js`.
 
 ## Using with JavaScript
 ```javascript
