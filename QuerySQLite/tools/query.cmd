@@ -1,0 +1,1 @@
+"%~dp0\sqlite3.exe" -json %1 %2 > %3
