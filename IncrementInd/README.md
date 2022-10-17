@@ -1,6 +1,6 @@
 # Incrementing Number
 
-`User.js` contains a universal incrementer function:
+[User.js](User.js) contains a universal incrementer function:
 
 ```javascript
 function IncrementInd(/**string*/str)
