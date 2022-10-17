@@ -1,6 +1,6 @@
 {
-  "indent_size": "4",
-  "indent_char": " ",
+  "indent_size": "1",
+  "indent_char": "\t",
   "max_preserve_newlines": "5",
   "preserve_newlines": true,
   "keep_array_indentation": false,
