@@ -49,5 +49,5 @@ Add contents of [User.js](User.js) into your test's `User.js`.
 ### In RVL
 
 ![addyear](img/addyear.jpg)
-![subtract20months](img/subtract20months.jpg);
+![subtract20months](img/subtract20months.jpg)
 ![add30minutes](img/add30minutes.jpg)
