@@ -21,13 +21,13 @@ function IncrementDate(
 {}
 ```
 Where:
-`dstr` input date string
-`fmt` date format, i.e. `yyyy-MM-dd`. Full information on available date formatting options may be found here: https://learn.microsoft.com/en-us/previous-versions/dotnet/netframework-3.0/az4se3k1(v=vs.85)
-`years` to add/subtract
-`months` to add/subtract
-`days` to add/subtract
-`hours` to add/subtract
-`minutes` to add/subtract
+* `dstr` - input date string, i.e. 2022-10-05
+* `fmt` date format, i.e. `yyyy-MM-dd`. Full information on available date formatting options may be found here: https://learn.microsoft.com/en-us/previous-versions/dotnet/netframework-3.0/az4se3k1(v=vs.85)
+* `years` to add/subtract. 0 - leave year as is. `2` - add two years, `-3` - subtract 3 years.
+* `months` to add/subtract. Similar to years.
+* `days` to add/subtract. Similar to years.
+* `hours` to add/subtract. Similar to years.
+* `minutes` to add/subtract. Similar to years.
 
 
 ## Using
