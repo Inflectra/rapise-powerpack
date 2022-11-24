@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" v="19" id="533JUQSG" t="">
+  <ScriptPath>Main.js</ScriptPath>
+  <UserFunctionsPath>User.js</UserFunctionsPath>
+  <ObjectsPath>Objects.js</ObjectsPath>
+  <ReportPath>SubTestTags.trp</ReportPath>
+  <CommandInterval>100</CommandInterval>
+  <IterationsCount>1</IterationsCount>
+  <StopOnError>true</StopOnError>
+  <CacheObjects>false</CacheObjects>
+  <ObjectLookupAttempts>30</ObjectLookupAttempts>
+  <ObjectLookupAttemptInterval>300</ObjectLookupAttemptInterval>
+  <ShowReport>true</ShowReport>
+  <JSEngineType>Default</JSEngineType>
+  <BeautifySavedObjects>true</BeautifySavedObjects>
+  <SaveRecordingScreenshots>false</SaveRecordingScreenshots>
+  <SavePlaybackScreenshots>false</SavePlaybackScreenshots>
+  <SavePlaybackScreenshotsInTestReport>false</SavePlaybackScreenshotsInTestReport>
+  <SaveScreenshotObjectOnly>false</SaveScreenshotObjectOnly>
+  <SaveScreenshotsCaptureCursor>true</SaveScreenshotsCaptureCursor>
+  <SaveScreenshotOnFailure>false</SaveScreenshotOnFailure>
+  <CommandLine />
+  <EntryPoint>Test</EntryPoint>
+  <WorkDir>.</WorkDir>
+  <TestFiles>
+    <Name>Test</Name>
+    <IsFilterGroup>false</IsFilterGroup>
+    <FilterWildcard>*.*</FilterWildcard>
+    <FilterPath />
+    <Groups>
+      <TestGroup>
+        <Name>Reports</Name>
+        <IsFilterGroup>true</IsFilterGroup>
+        <FilterWildcard>*.trp</FilterWildcard>
+        <FilterPath>Reports</FilterPath>
+        <Groups />
+        <TestFiles />
+      </TestGroup>
+    </Groups>
+    <TestFiles>
+      <TestFile>
+        <Path>Main.js</Path>
+        <Tags />
+      </TestFile>
+      <TestFile>
+        <Path>Main.rvl.xlsx</Path>
+        <Tags />
+      </TestFile>
+      <TestFile>
+        <Path>Objects.js</Path>
+        <Tags />
+      </TestFile>
+      <TestFile>
+        <Path>README.md</Path>
+        <Tags />
+      </TestFile>
+      <TestFile>
+        <Path>SubTestGroup1\SubTestGroup1.sstest</Path>
+        <Tags />
+      </TestFile>
+      <TestFile>
+        <Path>SubTestGroup2\SubTestGroup2.sstest</Path>
+        <Tags />
+      </TestFile>
+      <TestFile>
+        <Path>SubTestGroupMix\SubTestGroupMix.sstest</Path>
+        <Tags />
+      </TestFile>
+      <TestFile>
+        <Path>User.js</Path>
+        <Tags />
+      </TestFile>
+    </TestFiles>
+  </TestFiles>
+  <CustomStrings />
+  <TestParams>
+    <TestParam name="RVL Script" variable="g_rvlScriptPath" defaultValue="Main.rvl.xlsx" description="Main RVL Script to execute" output="false" ask="false">
+      <PossibleValues />
+    </TestParam>
+  </TestParams>
+  <Methodology>Basic</Methodology>
+  <MethodologyOptions>
+    <ArrayOfObjectParam />
+  </MethodologyOptions>
+</Test>
