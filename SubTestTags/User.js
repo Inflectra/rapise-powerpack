@@ -109,7 +109,7 @@ function RunAllSubTestsByTag( /**string*/ tags, /**string*/ rootSstest, /**objec
 {
 	var found = FindAllSubTestsByTag(tags, rootSstest);
 	var paths = found.split('\n');
-	Tester.Message('RunAllSubTestsByTag: running ' + paths.length + ' for tag: ' + tags, true, found);
+	Tester.Message('RunAllSubTestsByTag: running ' + paths.length + ' for tag: ' + tags, found);
 	for (var i = 0; i < paths.length; i++)
 	{
 		Global.DoInvokeTest(paths[i], optionalParams);
