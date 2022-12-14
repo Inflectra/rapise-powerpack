@@ -1,6 +1,6 @@
 # Using PDF in Rapise
 
-    > Note: Newer version with similar functionality is available. It uses `pdf.js` instead of legacy TET library. You may find it [here](../PDFTextExtractV2/).
+> Note: Newer version with similar functionality is available. It uses `pdf.js` instead of legacy TET library. You may find it [here](../PDFTextExtractV2/).
 
 This sample demonstrates one of the ways how to read text from PDF file using Rapise.
 
