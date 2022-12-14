@@ -1,0 +1,59 @@
+{
+	"PDF2": {
+		"window_name": "Global Objects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "GetFullText",
+				"description": "Parse PDF at `pdfPath` and return its text representation for further processing",
+				"type": "string",
+				"returns": "Text of the PDF file.",
+				"signature": "/**string*/pdfPath",
+				"paramInfo": {
+					"pdfPath": {
+						"description": "Path to input PDF file.",
+						"binding": "path",
+						"ext": "arf"
+					}
+				}
+			},
+			{
+				"name": "Contains",
+				"description": "Parse PDF at `pdfPath` and check if it contains `textOrRegexp` value.",
+				"type": "string",
+				"returns": "`true` if text present in the PDF.",
+				"signature": "/**string*/pdfPath, /**string*/textOrRegexp",
+				"paramInfo": {
+					"pdfPath": {
+						"description": "Path to input PDF file.",
+						"binding": "path",
+						"ext": "arf"
+					},
+					"textOrRegexp": {
+						"description": "Either plain string, or something starting from regex: to look in the file"
+					}
+				}
+			},
+			{
+				"name": "AssertContains",
+				"description": "Parse PDF at `pdfPath` and check if it contains `textOrRegexp` value writing \r\nwriting to the report as `assertionMessage`.",
+				"type": "string",
+				"returns": "Text of the PDF file.",
+				"signature": "/**string*/assertionMessage, /**string*/pdfPath, /**string*/textOrRegexp",
+				"paramInfo": {
+					"pdfPath": {
+						"description": "Path to input PDF file.",
+						"binding": "path",
+						"ext": "arf"
+					},
+					"textOrRegexp": {
+						"description": "Either plain string, or something starting from regex: to look in the file"
+					},
+					"assertionMessage": {
+						"description": "Line to write to the report"
+					}
+				}
+			}
+		]
+	}
+}
