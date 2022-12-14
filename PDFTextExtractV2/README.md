@@ -10,6 +10,8 @@ Sometimes you need to extract text information from the PDF document (invoice, o
 
 `PDF2` object has following methods:
 
+![PDF2](img/PDF2.jpg)
+
 ```javascript
 function GetFullText(/**string*/pdfPath)
 ```
@@ -34,4 +36,6 @@ function AssertContains(/**string*/pdfPath, /**string*/textToFind, /**string*/as
 ## Usage 
 
 Copy 'Lib' folder into your testing framework. Re-start Rapise. You should see `PDF2` object in the global objects tree.
-![PDF2](img/PDF2.jpg)
+
+## Calling from RVL
+![RVL](img/RVL.jpg)
