@@ -5,3 +5,4 @@ Reports
 *.tap
 Repository.json
 record.cmd
+play.cmd
