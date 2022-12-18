@@ -1,0 +1,18 @@
+Book Management
+The following books exist in the system: (Create new book)
+
+ID	Name	Author	Genre	Edit	Date Added	Out of Print
+1	Hound of the Baskervilles	Arthur Conan Doyle	Murder & Mystery	Edit	1/18/2015 2:24:12 PM	False
+2	The Scowrers	Arthur Conan Doyle	Murder & Mystery	Edit	1/1/2016 4:55:54 AM	True
+3	Amsterdam	Ian McEwan	Contemporary Fiction	Edit	2/28/2015 9:58:57 PM	False
+4	Saturday	Ian McEwan	Contemporary Fiction	Edit	2/9/2015 10:23:18 AM	False
+5	The Comfort of Strangers	Ian McEwan	Contemporary Fiction	Edit	4/15/2016 7:57:34 AM	False
+6	Chesil Beach	Ian McEwan	Contemporary Fiction	Edit	6/22/2015 4:10:54 PM	False
+7	Atonement	Ian McEwan	Historical Fiction	Edit	1/17/2016 4:35:29 PM	False
+8	Bleak House	Charles Dickens	Historical Fiction	Edit	12/13/2015 12:53:20 AM	False
+9	Oliver Twist	Charles Dickens	Historical Fiction	Edit	4/11/2016 10:24:49 PM	False
+10	Nicholas Nickleby	Charles Dickens	Historical Fiction	Edit	5/17/2016 12:05:38 PM	False
+11	David Copperfield	Charles Dickens	Historical Fiction	Edit	1/9/2015 2:55:15 AM	False
+12	The Pickwick Papers	Charles Dickens	Historical Fiction	Edit	8/1/2015 5:00:05 PM	False
+13	Death on the Nile	Agatha Christie	Murder & Mystery	Edit	6/2/2016 9:53:43 AM	False
+14	Betrams Hotel	Agatha Christie	Murder & Mystery	Edit	5/11/2015 1:03:29 PM	False

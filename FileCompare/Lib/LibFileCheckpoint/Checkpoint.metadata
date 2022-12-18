@@ -1,0 +1,212 @@
+{
+	"Checkpoint": {
+		"window_name": "Global Objects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "AssertString",
+				"description": "Compare given `str` string using a checkpoint represented by `xlsxOrJson` file.\r\nIf file `xlsxOrJson` is not found, new one is automatically created.",
+				"type": "bool",
+				"returns": "`true` if comparison is successfull. Also writes SoftAssert to the report.",
+				"signature": " /**string*/ xlsxOrJson, /**string*/ str, /**string*/ assertionMessage",
+				"paramInfo": {
+					"xlsxOrJson": {
+						"description": "Checkpoint path. Checkpoint may be in Excel (.xlsx) or JSON (.json) format.",
+						"type": "string",
+						"binding": "path",
+						"ext": "json"
+					},
+					"str": {
+						"description": "String to compare with checkpoint"
+					},
+					"assertionMessage": {
+						"description": "Additional message for assertion"
+					}
+				}
+			},
+			{
+				"name": "AssertTextFile",
+				"description": "Compare a `txtPath` text file using a checkpoint represented by `xlsxOrJson` file. \r\nThe file is read as ASCII. If you want it to be UTF8, you may force it by creating a checkpoint \r\nusing Checkpoint.CreateFromTextFile and specifying `asUtf8` parameter as `true`.\r\nIf file `xlsxOrJson` is not found, new one is automatically created when `autoCreate` is true.",
+				"type": "bool",
+				"returns": "`true` if comparison is successfull. Also writes SoftAssert to the report.",
+				"signature": " /**string*/ xlsxOrJson, /**string*/ txtPath, /**bool*/ autoCreate",
+				"paramInfo": {
+					"xlsxOrJson": {
+						"description": "Checkpoint path. Checkpoint may be in Excel (.xlsx) or JSON (.json) format.",
+						"type": "string",
+						"binding": "path",
+						"ext": "json"
+					},
+					"txtPath": {
+						"description": "Path to a text file to compare",
+						"type": "string",
+						"binding": "path",
+						"ext": "txt"
+					},
+					"autoCreate": {
+						"description": "Create new checkpoint if no existing checkopint found",
+						"type": "bool",
+						"defaultValue": true
+					}
+				}
+			},
+			{
+				"name": "AssertPdf",
+				"description": "Compare a `pdfPath` PDF file using a checkpoint represented by `xlsxOrJson` file. \r\nIf file `xlsxOrJson` is not found, new one is automatically created when `autoCreate` is true.",
+				"type": "bool",
+				"returns": "`true` if comparison is successfull. Also writes SoftAssert to the report.",
+				"signature": " /**string*/ xlsxOrJson, /**string*/ pdfPath, /**bool*/ autoCreate",
+				"paramInfo": {
+					"xlsxOrJson": {
+						"description": "Checkpoint path. Checkpoint may be in Excel (.xlsx) or JSON (.json) format.",
+						"type": "string",
+						"binding": "path",
+						"ext": "json"
+					},
+					"pdfPath": {
+						"description": "Path to a PDF file to compare",
+						"type": "string",
+						"binding": "path",
+						"ext": "pdf"
+					},
+					"autoCreate": {
+						"description": "Create new checkpoint if no existing checkopint found",
+						"type": "bool",
+						"defaultValue": true
+					}
+				}
+			},
+			{
+				"name": "AssertBinary",
+				"description": "Byte-compare a `binPath` file using a checkpoint represented by `xlsxOrJson` file. \r\nIf file `xlsxOrJson` is not found, new one is automatically created when `autoCreate` is true.",
+				"type": "bool",
+				"returns": "`true` if comparison is successfull. Also writes SoftAssert to the report.",
+				"signature": " /**string*/ xlsxOrJson, /**string*/ binPath, /**bool*/ autoCreate",
+				"paramInfo": {
+					"xlsxOrJson": {
+						"description": "Checkpoint path. Checkpoint may be in Excel (.xlsx) or JSON (.json) format.",
+						"type": "string",
+						"binding": "path",
+						"ext": "json"
+					},
+					"binPath": {
+						"description": "Path to any file to compare",
+						"type": "string",
+						"binding": "path",
+						"ext": ""
+					},
+					"autoCreate": {
+						"description": "Create new checkpoint if no existing checkopint found",
+						"type": "bool",
+						"defaultValue": true
+					}
+				}
+			},
+			{
+				"name": "CreateFromString",
+				"description": "Create a new checkpoint based on contents of the `str` text and save to the `xlsxOrJson` file.\r\nIf file `xlsxOrJson` is found, no new new checkpoint is created. If you want to update a checkpoint delete `xlsxOrJson` file first.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ xlsxOrJson, /**string*/ str, /**bool*/ regex",
+				"paramInfo": {
+					"xlsxOrJson": {
+						"description": "Checkpoint path. Checkpoint may be in Excel (.xlsx) or JSON (.json) format.",
+						"type": "string",
+						"binding": "path",
+						"ext": "json"
+					},
+					"str": {
+						"description": "String to use for creating a reference checkpoint"
+					},
+					"regex": {
+						"description": "When `true` generate each comparison line as a regular expression",
+						"type": "bool",
+						"defaultValue": false
+					}
+				}
+			},
+			{
+				"name": "CreateFromTextFile",
+				"description": "Create a new checkpoint based on contents of the `txtPath` text and save to the `xlsxOrJson` file.\r\nIf file `xlsxOrJson` is found, no new new checkpoint is created. If you want to update a checkpoint delete `xlsxOrJson` file first.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ xlsxOrJson, /**string*/ txtPath, /**bool*/ asUtf8, /**bool*/ regex",
+				"paramInfo": {
+					"xlsxOrJson": {
+						"description": "Checkpoint path. Checkpoint may be in Excel (.xlsx) or JSON (.json) format.",
+						"type": "string",
+						"binding": "path",
+						"ext": "json"
+					},
+					"txtPath": {
+						"description": "Path to a text file to create a checkpoint",
+						"type": "string",
+						"binding": "path",
+						"ext": "txt"
+					},
+					"asUtf8": {
+						"description": "Use UTF8 instead of default ASCII",
+						"type": "bool",
+						"defaultValue": true
+					},
+					"regex": {
+						"description": "When `true` generate each comparison line as a regular expression",
+						"type": "bool",
+						"defaultValue": false
+					}
+				}
+			},
+			{
+				"name": "CreateFromPdf",
+				"description": "Create a new checkpoint based on contents of the `pdfPath` text and save to the `xlsxOrJson` file.\r\nIf file `xlsxOrJson` is found, no new new checkpoint is created. If you want to update a checkpoint delete `xlsxOrJson` file first.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ xlsxOrJson, /**string*/ pdfPath, /**bool*/ regex",
+				"paramInfo": {
+					"xlsxOrJson": {
+						"description": "Checkpoint path. Checkpoint may be in Excel (.xlsx) or JSON (.json) format.",
+						"type": "string",
+						"binding": "path",
+						"ext": "json"
+					},
+					"pdfPath": {
+						"description": "Path to a PDF file to create a checkpoint",
+						"type": "string",
+						"binding": "path",
+						"ext": "pdf"
+					},
+					"regex": {
+						"description": "When `true` generate each comparison line as a regular expression",
+						"type": "bool",
+						"defaultValue": false
+					}
+				}
+			},
+			{
+				"name": "CreateFromBinary",
+				"description": "Create a new byte checkpoint based on contents of the `binPath` and save to the `xlsxOrJson` file.\r\nIf file `xlsxOrJson` is found, no new new checkpoint is created. If you want to update a checkpoint delete `xlsxOrJson` file first.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ xlsxOrJson, /**string*/ binPath, /**bool*/ regex",
+				"paramInfo": {
+					"xlsxOrJson": {
+						"description": "Checkpoint path. Checkpoint may be in Excel (.xlsx) or JSON (.json) format.",
+						"type": "string",
+						"binding": "path",
+						"ext": "json"
+					},
+					"binPath": {
+						"description": "Path to any file to create a byte-by-byte checkpoint",
+						"type": "string",
+						"binding": "path"
+					},
+					"regex": {
+						"description": "When `true` generate each comparison line as a regular expression",
+						"type": "bool",
+						"defaultValue": false
+					}
+				}
+			}
+		]
+	}
+}
