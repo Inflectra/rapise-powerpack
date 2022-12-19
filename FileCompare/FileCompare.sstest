@@ -25,14 +25,23 @@
   <TestFiles>
     <Name>Test</Name>
     <RealFolder>false</RealFolder>
-    <IsFilterGroup>false</IsFilterGroup>
+    <IsFilterGroup>true</IsFilterGroup>
     <FilterWildcard>*.*</FilterWildcard>
     <FilterPath />
     <Groups>
       <TestGroup>
+        <Name>Checkpoints</Name>
+        <RealFolder>false</RealFolder>
+        <IsFilterGroup>true</IsFilterGroup>
+        <FilterWildcard>*.*</FilterWildcard>
+        <FilterPath>Checkpoints</FilterPath>
+        <Groups />
+        <TestFiles />
+      </TestGroup>
+      <TestGroup>
         <Name>Data</Name>
         <RealFolder>false</RealFolder>
-        <IsFilterGroup>false</IsFilterGroup>
+        <IsFilterGroup>true</IsFilterGroup>
         <FilterWildcard>*.*</FilterWildcard>
         <FilterPath>Data</FilterPath>
         <Groups />
@@ -66,14 +75,14 @@
       <TestGroup>
         <Name>Lib</Name>
         <RealFolder>false</RealFolder>
-        <IsFilterGroup>false</IsFilterGroup>
+        <IsFilterGroup>true</IsFilterGroup>
         <FilterWildcard>*.*</FilterWildcard>
         <FilterPath>Lib</FilterPath>
         <Groups>
           <TestGroup>
             <Name>LibFileCheckpoint</Name>
             <RealFolder>false</RealFolder>
-            <IsFilterGroup>false</IsFilterGroup>
+            <IsFilterGroup>true</IsFilterGroup>
             <FilterWildcard>*.*</FilterWildcard>
             <FilterPath>Lib/LibFileCheckpoint</FilterPath>
             <Groups />

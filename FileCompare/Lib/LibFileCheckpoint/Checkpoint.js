@@ -56,7 +56,8 @@ function _LoadBinFile( /**string*/ binPath) {
 			res += " ";
 		}
 		var b = bdata[i];
-		var h = ("00" + b.toString(16)).toUpperCase().substr(-2);
+		var h = ("00" + b.toString(16)).toUpperCase();
+		h = h.substr(h.length-2); // substr(-2) does not work well with WScript
 		res += h;
 	}
 	return res;
