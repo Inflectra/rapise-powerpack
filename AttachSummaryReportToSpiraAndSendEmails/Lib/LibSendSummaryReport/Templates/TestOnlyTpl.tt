@@ -1,0 +1,18 @@
+<#@ template hostspecific="true" language="C#" debug="true"#>
+<#
+	InitReport();
+#>
+
+<#@ include file="GenericReportTpl.tt"#>
+
+<#+
+void InitReport()
+{
+	TextTemplatingEngineHost host = (TextTemplatingEngineHost)this.Host;
+
+	host.ExportOptions["TestOnly"]="true";
+	host.ExportOptions["IgnoreColumns"]="screen,_guid,closed,at,type,status,nested";
+	host.ExportOptions["ShowAllColumns"]="false";
+
+}
+#>

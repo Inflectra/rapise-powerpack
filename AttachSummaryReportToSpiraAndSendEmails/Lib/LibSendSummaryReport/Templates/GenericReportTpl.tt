@@ -1,0 +1,370 @@
+<#@ template hostspecific="true" language="C#" debug="true"#>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="SeSWrappers" #>
+<#@ import namespace="SeSWrappers.Utils" #>
+<#@ import namespace="System.IO" #>
+<#
+	TextTemplatingEngineHost host = (TextTemplatingEngineHost)this.Host;
+	string folderPath = host.OutputFolder;
+	LogSession session = host.Report;
+	
+	bool images = host.OptB("Images",true);
+	bool testOnly = host.OptB("TestOnly",false);
+	// Skip message rows before images
+	bool skipImageRows = host.OptB("SkipImageRows",true);
+	bool embedImages = host.OptB("EmbedImages",true);
+	bool showDuration = host.OptB("Duration",false);
+	
+	DefineColumns();
+	
+#>
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+
+h1 {
+    font-size: 1.2em;
+    font-family: sans-serif;
+}
+
+dt {
+    font-size: 0.9em;
+    font-family: sans-serif;
+}
+
+table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.summaryPass {
+    text-align: center;
+    color: darkgreen;
+}
+
+.summaryFail {
+    text-align: center;
+    color: red;
+}
+
+
+table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+th,td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+.rowPass {
+    color: darkgreen;
+}
+.rowFail {
+    color: darkred;
+}
+</style>
+</head>
+<body>
+<h1><#=session#></h1>
+<dt><#=session.End.ToString("yyyy-MM-dd HH:mm:ss.fff")#></dt>
+<table>
+  <thead>
+	<tr>
+<#
+
+				if(showDuration)
+				{
+#>
+  <th>-</th>
+<#
+				}
+
+
+            foreach(string attr in AllColumnsNames)
+            {
+#>
+		<th><#=attr#></th>
+<#
+            }
+#>
+	</tr>
+  </thead>
+<#
+            int imageInd = 0;
+            int successCount = 0;
+            int failureCount = 0;
+            
+            
+
+            foreach (LogData.LogEntry entry in session.entries)
+            {
+				DateTime creationDate = entry.Start;
+				var duration = entry.End - entry.Start;
+				string startStr="";
+				if(creationDate!=null)
+				{
+					startStr = creationDate.ToString("HH:mm:ss.fff");
+				}
+              	string rowStatus = ""+entry.Status;
+				if (entry.Status==LogStatus.Pass)
+				{
+					successCount++;
+				}
+				else if(entry.Status == LogStatus.Fail)
+				{
+					failureCount++;
+				}
+				
+				if( testOnly && entry.EType!="Test" )
+				{
+					continue;
+				}
+
+
+              if( entry.GetAttr("screen")==null || !skipImageRows )
+              {
+
+#>
+  <tr class="row<#=rowStatus#>">
+<#
+
+				if(showDuration)
+				{
+#>
+  <td class="duration<#=rowStatus#>"><#=duration.ToString()#></td>
+<#
+				}
+                foreach(string attr in AllColumns)
+                {
+                    string val = ""+entry.GetAttr(attr);
+                    if(attr=="at")
+                    {
+                    	val = startStr;
+                    } else if(attr =="type") {
+                    	if( val=="Message" )
+                    	{
+                    		val = "";
+                    	}
+                    } else if(attr =="status") {
+                    	if( val=="Info" )
+                    	{
+                    		val = "";
+                    	}
+                    } else if(attr =="name" && testOnly && entry.GetAttr("nested")!=null ) {
+                      int n;
+                      if ( int.TryParse(""+entry.GetAttr("nested"), out n) )
+                      {
+                        while(n>0) {
+                          val = "&nbsp;&nbsp;&nbsp;&nbsp;"+val;
+                          n--;
+                        }
+                      }
+                    }
+#>
+    <td><#=val#></td>
+<#
+                }
+#>
+  </tr>
+<#
+              }
+
+  
+                if (entry.Data != null && entry.Data.Count > 0)
+                {
+                    foreach (LogData.LogDataEntry dentry in entry.Data)
+                    {
+                        string comment = "";
+                        // EData = "link", "text" or "image"
+                        if (dentry.EType == "link")
+                        {
+#>
+  <tr class="lnkrow row<#=rowStatus#>"><td colspan="100%"><a href="<#=dentry.GetAttr("url")#>"><#=dentry.GetAttr("text")#></a></td></tr>
+<#
+                        }
+                        else if (dentry.EType == "image")
+                        {
+                            if(images)
+                            {
+                                imageInd++;
+                                if(embedImages)
+                                {
+#>
+  <tr class="imgrow row<#=rowStatus#>"><td colspan="100%">&nbsp;<img style="max-width:100%" src="data:image/png;base64,<#=dentry.EData#>" /></td></tr>
+<#
+                                } else {
+                                    ImageWrapper iw = new ImageWrapper();
+                                    iw.FromBase64Bitmap(dentry.EData);
+                                    string imgFileName = string.Format("Step{0:D3}.png", imageInd);
+                                    string imgFilePath = Path.Combine(folderPath, imgFileName);
+		                            iw.Save(imgFilePath);
+		
+		                            string strCaption = System.Security.SecurityElement.Escape(dentry.GetAttr("caption")).Replace("\r", "&#xD;").Replace("\n", "&#xA;");
+#>
+  <tr class="imgrow row<#=rowStatus#>"><td colspan="100%">&nbsp;<img style="max-width:100%" src="<#=imgFileName#>" alt="<#=strCaption#>"/></td></tr>
+<#
+							    }
+                        	}
+                        }
+                        else
+                        {
+                            string strCap = dentry.GetAttr("caption");
+                            if (string.IsNullOrEmpty(strCap) || strCap == "undefined")
+                            {
+                            	// Ignore empty caption
+                            }
+                            else
+                            {
+                                strCap = "<span class=\"rapise_report_caption\">" + strCap + "</span>";
+#>
+  <tr class="caprow row<#=rowStatus#>"><td colspan="100%"><#=strCap#></td></tr>
+<#
+                            }
+                        }
+                    }
+                }
+            }
+	bool testPassed = successCount>0&&failureCount==0;
+	string testStatusClass = testPassed?"summaryPass":"summaryFail";
+#>
+        <tr class="<#=testStatusClass#>">
+            <td colspan="100%" class="<#=testStatusClass#>">Passed: <#=successCount#>, Failed: <#=failureCount#></td>
+        </tr>
+</table>
+</body></html>
+
+
+<#+ 
+List<string> AllColumns = new List<string>();
+List<string> AllColumnsNames = new List<string>();
+
+bool DefineColumns()
+{
+	TextTemplatingEngineHost host = (TextTemplatingEngineHost)this.Host;
+
+	string attrsIds=host.OptS("ColumnAttrs", "at,type,status,name,comment");
+	string attrsNames=host.OptS("ColumnNames", "At,Type,Status,Message,Comment");
+	
+	List<string> Cols = ExpandArray(attrsIds);
+	Dictionary<string,string> dd = MergeArrays(attrsIds, attrsNames);
+	
+	
+	string ignoreColumns = host.OptS("IgnoreColumns", "screen,_guid,closed");
+	bool showAllColumns = host.OptB("ShowAllColumns", true);
+	
+	LogSession report = host.Report;
+	
+	foreach (string attr in Cols)
+	{
+		if( report.AllAttributes.ContainsKey(attr) )
+		{
+			if( !ContainsId(ignoreColumns, attr) )
+			{
+				AllColumns.Add(attr);
+				AllColumnsNames.Add(dd[attr]);
+			}
+		}
+	}
+	
+	foreach (string attr in report.AllAttributes.Keys)
+	{
+		if( !AllColumns.Contains(attr) )
+		{
+			if( !ContainsId(ignoreColumns, attr) )
+			{
+				AllColumns.Add(attr);
+				AllColumnsNames.Add(attr);
+			}
+		}
+	}
+	
+	return true;
+}
+
+
+List<string> ExpandArray(string val)
+{
+	List<string> res = new List<string>();
+	
+	if( !string.IsNullOrEmpty(val) )
+	{
+		string[] parts = val.Split(',');
+		foreach(string part in parts)
+		{
+			res.Add(part.Trim());
+		}
+	}
+	
+	return res;
+}
+
+Dictionary<string,string> MergeArrays(string arr1, string arr2)
+{
+	List<string> ar1 = ExpandArray(arr1);
+	List<string> ar2 = ExpandArray(arr2);
+	
+	Dictionary<string,string> res = new Dictionary<string,string>();
+	
+	if( ar1.Count>0 )
+	{
+		if( ar1.Count==ar2.Count )
+		{
+			for(int i=0;i<ar1.Count;i++)
+			{
+				res[ar1[i]]=ar2[i];
+			}
+		} else if(ar2.Count==0) {
+			for(int i=0;i<ar1.Count;i++)
+			{
+				res[ar1[i]]=ar1[i];
+			}
+		}
+	}
+	
+	return res;
+}
+
+bool ContainsId(string strList, string name)
+{
+	if( !string.IsNullOrEmpty(strList) )
+	{
+		if(strList=="*")
+		{
+			return true;
+		}
+		
+		List<string> ar1 = ExpandArray(strList);
+		return ar1.Contains(name);
+	}
+	
+	return false;
+}
+
+#>
