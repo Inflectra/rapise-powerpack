@@ -30,3 +30,5 @@ function RVLMatchPattern(/*string*/str, /**string*/pattern)
 ```javascript
 function RVLAssertMatchPattern(/**string*/msg, /*string*/str, /**string*/pattern)
 ```
+
+![RVL](img/PatternMatcherRvl.jpg)
