@@ -50,6 +50,9 @@
         <Path>Objects.js</Path>
       </TestFile>
       <TestFile>
+        <Path>README.md</Path>
+      </TestFile>
+      <TestFile>
         <Path>User.js</Path>
       </TestFile>
     </TestFiles>
