@@ -187,6 +187,9 @@ function _FileCompareString(cp, txt) {
 function _SaveToFile( /**object*/ cp, /**string*/ xlsxOrJson) {
 	Tester.Message("Creating checkpoint: " + xlsxOrJson);
 	var path = File.ResolvePath(g_helper.ResolveEnvironmentVariables(xlsxOrJson));
+	if(!path ) {
+		path = g_helper.ResolveEnvironmentVariables(xlsxOrJson);
+	}
 	if (File.Exists(path)) {
 		File.Delete(path);
 	}
