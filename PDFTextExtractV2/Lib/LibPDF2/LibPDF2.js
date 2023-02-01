@@ -16,7 +16,7 @@ function PDF2_GetFullText(/**string*/pdfPath)
 	if (!File.FolderExists(scriptFolder+'\\node_modules'))
 	{
 		var npmCmd = g_helper.ResolvePath("InstrumentJS/npm.cmd");
-		g_util.Run(npmCmd + " install", scriptFolder);
+		g_util.Run('"' + npmCmd + '"' + " install", scriptFolder);
 	}
 
 	var fso = new ActiveXObject("Scripting.FileSystemObject");
