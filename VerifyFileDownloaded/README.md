@@ -7,6 +7,12 @@ This sample contains a few useful functions to check that file is in the downloa
 
 ```javascript
 /**
+ * Set custom download folder.
+ * @param path Download folder path.
+ */
+function SetDownloadFolder( /**string*/ path)
+
+/**
  * Verify that there are files matching the spec in the downloads folder.
  * Write results to the report.
  * If nothing found before the timeout, returns empty string and add failure to the report.
