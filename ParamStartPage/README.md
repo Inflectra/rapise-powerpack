@@ -7,6 +7,7 @@ This is a sample framework showing how the Start page may be customized in Rapis
 2. Edit sub-test parameters and tags (double-click on parameter value or tag).
 3. Update tests with new information (press 'Save' button)
 
+![ParamStartPage](img/ParamStartPage.png)
 
 ## Custom Start Page Features
 
