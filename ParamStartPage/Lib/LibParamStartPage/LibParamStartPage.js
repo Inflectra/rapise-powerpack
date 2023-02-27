@@ -26,13 +26,27 @@ function PSP_Build()
 	SeSEachKey(files, function(k,sstestPath) {
 		Tester.Message(sstestPath);
 		var test = factory.LoadFromFile(sstestPath);
-		if(!rootTest) rootTest = test;
-		
+		if(!rootTest) 
+		{
+			rootTest = test;
+		}
+		var groupPath = "";
+		var tf = rootTest.TestFiles.FindFile(sstestPath, true);
+		if(tf!=null) {
+			var group = tf.parent;
+			groupPath = group.GetGroupTreePath();
+			if( groupPath.indexOf( '.sstest.Test' ) > 0 ) {
+				groupPath = groupPath.split('.sstest.Test')[1];
+				groupPath = Text.TrimStart(groupPath, '.');
+				groupPath = groupPath.replace(/\./ig,'\\');
+			}
+		}
 		var fromFolder = rootTest.GetWorkDirAbsolute();
 		sstestPath = g_util.MakeRelativePath(fromFolder, sstestPath);
 		res[sstestPath] = res[sstestPath] || {params:[]};
 		var pinfObj = res[sstestPath];
 		pinfObj.params=[];
+		pinfObj.groupPath = groupPath;
 		var cnt = test.GetTestParamsCount();
 		for(var i=0;i<cnt; i++) {
 			var pinf = test.GetTestParamInfoAt(i);
