@@ -87,3 +87,11 @@ function PSP_ApplyChanges() {
 	}
 	PSP_Build();
 }
+
+function PSP_RunSubtest() {
+	if(global.g_runSubtestPath) {
+		Global.DoInvokeTest(global.g_runSubtestPath);
+	} else {
+		Tester.Assert('PSP_RunSubtest: no g_runSubtestPath specified', false);
+	}
+}
