@@ -99,6 +99,9 @@ function PSP_RunSubtest() {
 
 SeSOnTestReportReady(function()
 {
+	if( global.g_entryPointName == 'PSP_ApplyChanges' ) return;
+	if( global.g_entryPointName == 'PSP_Build') return;
+
 	// Write execution results into Lib/LibParamStartPage/LastRunStatus.json
 	// Start page may read it and use to color the tests
 	var status = {"TestPassed":false}
@@ -114,7 +117,7 @@ SeSOnTestReportReady(function()
 		sstestPath = global.g_runSubtestPath;
 	} else {
 		var fso = new ActiveXObject("Scripting.FileSystemObject");
-		var found = File.Find(fso.GetParentFolderName(g_scriptFileName), "*.sstest", true, false, true, false);
+		var found = File.Find(fso.GetParentFolderName(g_scriptFileName), "*.sstest", false, false, true, false);
 		if(File.Exists(found)) {
 			sstestPath = found;
 		}
@@ -132,7 +135,15 @@ SeSOnTestReportReady(function()
 	ldr.ExportAsHtml(templatePath, summaryPath);
 	if( File.Exists(summaryPath) ) {
 		var summary = File.Read(summaryPath);
-		status = JSON.parse(summary);
+		var summaryJs = JSON.parse(summary);
+		if( summaryJs && summaryJs.length ) {
+			status = summaryJs[0];
+			if( global.g_runSubtestPath && summaryJs>1 ) {
+				// When running with PSP_RunSubtest, the entry point is a framework root
+				// So use 2nd status instead.
+				status = summaryJs[1];
+			}
+		}
 		File.Delete(summaryPath);
 	}
 	
