@@ -1,6 +1,7 @@
 // Put library code here
 var g_startPageParamFileInfoPath = 'Lib/LibParamStartPage/ParamInfo.json';
 var g_startPageUpdateFileInfoPath = 'Lib/LibParamStartPage/ParamUpdates.json';
+var g_startPageTestRunStatus = 'Lib/LibParamStartPage/LastRunStatus.json';
 
 function PSP_ReadParamInfo()
 {
@@ -95,3 +96,51 @@ function PSP_RunSubtest() {
 		Tester.Assert('PSP_RunSubtest: no g_runSubtestPath specified', false);
 	}
 }
+
+SeSOnTestReportReady(function()
+{
+	// Write execution results into Lib/LibParamStartPage/LastRunStatus.json
+	// Start page may read it and use to color the tests
+	var status = {"TestPassed":false}
+	// All done, don't try to do Tester.Message/Tester.Assert here - report is already closed
+	if(g_testPassed==Tester.Pass)
+	{
+		status = {"TestPassed":true};
+	}
+	
+	var sstestPath = 'undef:'+g_scriptFileName;
+	if(global.g_runSubtestPath){
+		// executed via PSP_RunSubtest
+		sstestPath = global.g_runSubtestPath;
+	} else {
+		var fso = new ActiveXObject("Scripting.FileSystemObject");
+		var found = File.Find(fso.GetParentFolderName(g_scriptFileName), "*.sstest", true, false, true, false);
+		if(File.Exists(found)) {
+			sstestPath = found;
+		}
+	}
+	
+	if( File.Exists( sstestPath ) ) {
+		sstestPath = g_util.MakeRelativePath(g_workDir, sstestPath);
+	}
+	
+	// Parse report and extract summary information (status, last failure, etc)
+	var ldr = new ActiveXObject("Rapise.LogLoader");
+	ldr.LoadTrp(g_reportFileName);
+	var summaryPath = g_helper.ResolveEnvironmentVariables('%WORKDIR%Lib/LibParamStartPage/lastreport.json');
+	var templatePath = File.ResolvePath('Lib/LibParamStartPage/ActionSummaryReport.tt');
+	ldr.ExportAsHtml(templatePath, summaryPath);
+	if( File.Exists(summaryPath) ) {
+		var summary = File.Read(summaryPath);
+		status = JSON.parse(summary);
+		File.Delete(summaryPath);
+	}
+	
+	// Write the status back.
+	var lastRunStatus = {};
+	if( File.Exists(g_startPageTestRunStatus) ) {
+		lastRunStatus = JSON.parse(File.Read(g_startPageTestRunStatus));
+	}
+	lastRunStatus[sstestPath] = status;
+	File.Write(g_startPageTestRunStatus, JSON.stringify(lastRunStatus, null, '\t'));
+})
