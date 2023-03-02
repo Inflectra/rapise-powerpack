@@ -98,7 +98,7 @@ var _paramInfoPDF2_Contains = {
 		ext: "arf"
 	},
 	textOrRegexp: {
-		description: "Either plain string, or something starting from regex: to look in the file",
+		description: "Either plain string, or something starting from regex: to look in the file"
 	}
 };
 
@@ -123,10 +123,10 @@ var _paramInfoPDF2_AssertContains = {
 		ext: "arf"
 	},
 	textOrRegexp: {
-		description: "Either plain string, or something starting from regex: to look in the file",
+		description: "Either plain string, or something starting from regex: to look in the file"
 	},
 	assertionMessage: {
-		description: "Line to write to the report",
+		description: "Line to write to the report"
 	}
 };
 
