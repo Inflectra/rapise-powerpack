@@ -25,25 +25,28 @@
   <TestFiles>
     <Name>Test</Name>
     <RealFolder>false</RealFolder>
-    <IsFilterGroup>true</IsFilterGroup>
+    <IsFilterGroup>false</IsFilterGroup>
     <FilterWildcard>*.*</FilterWildcard>
     <FilterPath />
     <Groups>
       <TestGroup>
         <Name>Lib</Name>
         <RealFolder>false</RealFolder>
-        <IsFilterGroup>true</IsFilterGroup>
+        <IsFilterGroup>false</IsFilterGroup>
         <FilterWildcard>*.*</FilterWildcard>
         <FilterPath>Lib</FilterPath>
         <Groups>
           <TestGroup>
             <Name>LibParamStartPage</Name>
             <RealFolder>false</RealFolder>
-            <IsFilterGroup>true</IsFilterGroup>
+            <IsFilterGroup>false</IsFilterGroup>
             <FilterWildcard>*.*</FilterWildcard>
             <FilterPath>Lib/LibParamStartPage</FilterPath>
             <Groups />
             <TestFiles>
+              <TestFile>
+                <Path>Lib\LibParamStartPage\ActionSummaryReport.tt</Path>
+              </TestFile>
               <TestFile>
                 <Path>Lib\LibParamStartPage\LibParamStartPage.js</Path>
               </TestFile>
