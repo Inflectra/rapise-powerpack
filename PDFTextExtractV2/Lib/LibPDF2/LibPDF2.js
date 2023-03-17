@@ -2,7 +2,7 @@
 function PDF2_GetFullText(/**string*/pdfPath)
 {
 	global.pdfLastError = global.pdfLastError||"";
-	var script_path = File.ResolvePath("%WORKDIR%Lib\\LibPDF2\\PDF2Text\\pdfparse.js");
+	var script_path = File.ResolvePath("Lib\\LibPDF2\\PDF2Text\\pdfparse.js");
 	pdfPath = File.ResolvePath(pdfPath);
 	
 	if( !File.Exists(pdfPath) )
