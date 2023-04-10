@@ -27,6 +27,10 @@ function ReFormatNumber(
 	/**string*/thouSep)/**string*/
 ```
 
+# Example
+
+Download and run this test to see the functions in action.
+
 # Using
 
 Copy functions from [User.js](User.js)
