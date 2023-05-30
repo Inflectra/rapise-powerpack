@@ -1,0 +1,24 @@
+{
+	"GOO2": {
+		"window_name": "Global Objects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "DoAction",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			},
+			{
+				"name": "DoAction1",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			}
+		]
+	}
+}
