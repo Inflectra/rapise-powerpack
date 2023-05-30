@@ -23,7 +23,7 @@ function SeSGlobalObjectInstrument(ids, cb) {
 SeSOnTestInit( function(){
 	SeSGlobalObjectInstrument(["GOO","GOO2"], function(self,id,name,fn) {
 		return function() {
-			Tester.Assert("Calling "+id+"."+name, true);
+			Tester.Assert("<font color='purple'>Calling "+id+"."+name+"</font>", true);
 			var res = self["_i_"+name].apply(fn, arguments);
 			Tester.Assert("Done Calling "+id+"."+name, true, res);
 			return res;
