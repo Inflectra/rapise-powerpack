@@ -1,6 +1,10 @@
 # Checking Email in Rapise
 Here you can find simple utility function and method for using it.
 
+Note, that the function only checks unread emails arrived within last day. You may easily modify if it to check all emails by removing the `+'/unread '` switch.
+
+
+
 ## Function
 
 ````javascript
@@ -91,7 +95,13 @@ Get unread items for last 3 days:
     RapiseImapClient.exe /imap:imap.gmail.com /port:993 /user:user@gmail.org /password:secret /folder:INBOX /command:get /id:148 /output:msg.json
 ````
 
+## Enable App Password for Gmail
+
+See https://support.google.com/mail/answer/185833?hl=en to enable app passwords for your google account.
+
 ## Enable Insecure Access for to Gmail
+
+>Note: This is an older method, it is preferred to use app passwords.
 
 There is one special case. If your mailbox is Gmail then 
 
