@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
-<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" v="19" id="ODMII5GD" t="">
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" v="19" id="RRFH6XMZ" t="">
   <ScriptPath>Main.js</ScriptPath>
   <UserFunctionsPath>User.js</UserFunctionsPath>
   <ObjectsPath>Objects.js</ObjectsPath>
-  <ReportPath>InstrumentGlobalObject.trp</ReportPath>
+  <ReportPath>IncludeFolder.trp</ReportPath>
   <CommandInterval>100</CommandInterval>
   <IterationsCount>1</IterationsCount>
   <StopOnError>true</StopOnError>
@@ -24,35 +24,23 @@
   <WorkDir>.</WorkDir>
   <TestFiles>
     <Name>Test</Name>
-    <RealFolder>false</RealFolder>
     <IsFilterGroup>false</IsFilterGroup>
     <FilterWildcard>*.*</FilterWildcard>
     <FilterPath />
     <Groups>
       <TestGroup>
-        <Name>Lib</Name>
-        <RealFolder>false</RealFolder>
+        <Name>F1</Name>
+        <RealFolder>true</RealFolder>
         <IsFilterGroup>false</IsFilterGroup>
         <FilterWildcard>*.*</FilterWildcard>
-        <FilterPath>Lib</FilterPath>
-        <Groups>
-          <TestGroup>
-            <Name>LibUsefulObjects</Name>
-            <RealFolder>false</RealFolder>
-            <IsFilterGroup>false</IsFilterGroup>
-            <FilterWildcard>*.*</FilterWildcard>
-            <FilterPath>LibUsefulObjects</FilterPath>
-            <Groups />
-            <TestFiles>
-              <TestFile>
-                <Path>Lib\LibUsefulObjects\LibUsefulObjects.js</Path>
-              </TestFile>
-            </TestFiles>
-          </TestGroup>
-        </Groups>
+        <FilterPath />
+        <Groups />
         <TestFiles>
           <TestFile>
-            <Path>Lib\LibUsefulObjects.jslib</Path>
+            <Path>F1\C1.js</Path>
+          </TestFile>
+          <TestFile>
+            <Path>F1\C2.js</Path>
           </TestFile>
         </TestFiles>
       </TestGroup>
