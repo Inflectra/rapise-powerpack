@@ -20,6 +20,32 @@ Corresponding object property is:
 ...
 ```
 
+## Using
+
+Add contents of [User.js](User.js) into your test's `User.js`.
+
+## Using with JS
+
+```javascript
+	Navigator.Open("https://libraryinformationsystem.org/");
+
+	var styleObj = GetComputedStyle("Home");
+	Tester.Message("Full Style from from JS",JSON.stringify(styleObj));
+	
+	var styleValue = GetComputedStyle("Home", "textAlign");
+	Tester.Message("textAlign property from JS: ",JSON.stringify(styleValue));
+
+	var styleValue = GetComputedStyle("//a[@href='Default.aspx']", "textAnchor");
+	Tester.Message("textAnchor property from JS (and element XPath)",JSON.stringify(styleValue));
+```
+
+## Using with RVL
+
+![RVL Example](img/GetComputedStyleRVL.png)
+
+
+## Style Properties
+
 Here is an example list of know style properties:
 
 ```json
@@ -637,26 +663,3 @@ Here is an example list of know style properties:
 	"zoom": "1"
 } 
 ```
-
-## Using
-
-Add contents of [User.js](User.js) into your test's `User.js`.
-
-## Using with JS
-
-```javascript
-	Navigator.Open("https://libraryinformationsystem.org/");
-
-	var styleObj = GetComputedStyle("Home");
-	Tester.Message("Full Style from from JS",JSON.stringify(styleObj));
-	
-	var styleValue = GetComputedStyle("Home", "textAlign");
-	Tester.Message("textAlign property from JS: ",JSON.stringify(styleValue));
-
-	var styleValue = GetComputedStyle("//a[@href='Default.aspx']", "textAnchor");
-	Tester.Message("textAnchor property from JS (and element XPath)",JSON.stringify(styleValue));
-```
-
-## Using with RVL
-
-![RVL Example](img/GetComputedStyleRVL.png)
