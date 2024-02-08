@@ -1,0 +1,156 @@
+{
+	"pageobjects": {
+		"TableHandler": {
+			"id": "X3LD3VKB",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\TableHandler\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\TableHandler\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\TableHandler\\Objects.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "448E12C3FF3E80784B2E89DA3251350B749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
+		},
+		"StringChecker": {
+			"id": "JO1EB8DC",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\StringChecker\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\StringChecker\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\StringChecker\\Objects.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "1EEA05D9A7B6983405201C82C1090ABC749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
+		},
+		"ManagedHelper": {
+			"id": "W1CVJ46W",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\ManagedHelper\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\ManagedHelper\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\ManagedHelper\\Objects.js",
+			"libraries": [
+				"Managed"
+			],
+			"hash": "E8625616B47E11B33609FAFE33B0E83B522A7CDA99D0AF0D4223912F336EA45FE64ECF2074AF8390245C334763481B8669199E7E6FE2ACFB7A54C6DEDEB98F3E"
+		},
+		"KeyboardHelper": {
+			"id": "83W82SGR",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\KeyboardHelper\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\KeyboardHelper\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\KeyboardHelper\\Objects.js",
+			"libraries": [],
+			"hash": "DC3A0C12B00162BB38EAA4FE063DF420AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
+		},
+		"ListChecker": {
+			"id": "TOVDEVLS",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\ListChecker\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\ListChecker\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\ListChecker\\Objects.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "2FC7D82A68C60119601B57A072E17B72749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
+		}
+	},
+	"testcases": [
+		{
+			"name": "TableHandler",
+			"alias": "TableHandler",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\TableHandler\\Test.sstest",
+			"tags": "testcase",
+			"id": "UEA2OZHH",
+			"rep": "%WORKDIR%TestCases\\TableHandler\\Objects.js",
+			"user": "%WORKDIR%TestCases\\TableHandler\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "D25B88ACB55E52CC3DF505354B1A6C4419726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43E5F4B4D20BC2FC10E0BE8B15FF05D227"
+		},
+		{
+			"name": "ListChecker",
+			"alias": "ListChecker",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\ListChecker\\Test.sstest",
+			"tags": "testcase",
+			"id": "9ZI4BQJE",
+			"rep": "%WORKDIR%TestCases\\ListChecker\\Objects.js",
+			"user": "%WORKDIR%TestCases\\ListChecker\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "C2220A37ED52FE106BB8FCA4B2574D5E19726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF438B6809B9F106071EF92B3F4B659D3DCC"
+		},
+		{
+			"name": "PatternChecker",
+			"alias": "PatternChecker",
+			"vpath": "StringChecker",
+			"sstest": "%WORKDIR%TestCases\\StringChecker\\PatternChecker\\Test.sstest",
+			"tags": "testcase",
+			"id": "E3R7Y3CK",
+			"rep": "%WORKDIR%TestCases\\StringChecker\\PatternChecker\\Objects.js",
+			"user": "%WORKDIR%TestCases\\StringChecker\\PatternChecker\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "48780F489B87F85F668133DCF0A2A4FB19726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF435E247889201F414FE2FE03F1F58FC06D"
+		},
+		{
+			"name": "RegexChecker",
+			"alias": "RegexChecker",
+			"vpath": "StringChecker",
+			"sstest": "%WORKDIR%TestCases\\StringChecker\\RegexChecker\\Test.sstest",
+			"tags": "testcase",
+			"id": "4LW876S8",
+			"rep": "%WORKDIR%TestCases\\StringChecker\\RegexChecker\\Objects.js",
+			"user": "%WORKDIR%TestCases\\StringChecker\\RegexChecker\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "CD45B7E7987B055B81CB1F35F22EEC9E19726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43FE715EAD995A266863F5193B0DF66B39"
+		},
+		{
+			"name": "UniqueChecker",
+			"alias": "UniqueChecker",
+			"vpath": "StringChecker",
+			"sstest": "%WORKDIR%TestCases\\StringChecker\\UniqueChecker\\Test.sstest",
+			"tags": "testcase",
+			"id": "SOZ6PLCP",
+			"rep": "%WORKDIR%TestCases\\StringChecker\\UniqueChecker\\Objects.js",
+			"user": "%WORKDIR%TestCases\\StringChecker\\UniqueChecker\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "C200835FB0DE397EC2B1869810F60AFC19726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF431A044E09BE5CDA1ED9AEA8F87E1FA8E7"
+		}
+	],
+	"shared": [
+		{
+			"js": "%WORKDIR%.\\Common.js"
+		},
+		{
+			"data": "%WORKDIR%.\\Dropdowns.xlsx"
+		}
+	],
+	"testsets": [
+		{
+			"id": "8775c10e",
+			"name": "Default",
+			"description": "Default test set",
+			"configId": "8e4b379d",
+			"testcases": []
+		}
+	]
+}

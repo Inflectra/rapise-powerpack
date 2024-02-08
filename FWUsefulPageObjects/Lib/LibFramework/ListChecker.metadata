@@ -1,0 +1,48 @@
+{
+	"ListChecker": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "VerifyMenu",
+				"description": "Verify that `menuContents` has all lines/items from `expected` and nothing else.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/menuContents, /**string||string[]*/expected",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(12,10)"
+			},
+			{
+				"name": "VerifyMenuContains",
+				"description": "Verify that `menuContents` has all lines/items from `expected` and maybe something else.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/menuContents, /**string||string[]*/expected",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(20,10)"
+			},
+			{
+				"name": "CompareToDropdown",
+				"description": "Check that dropdown with `idList` defined in Dropdowns.xlsx has equals `menuContents` (has all same items, maybe in different order).\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/idList, /**string*/menuContents",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(85,10)"
+			},
+			{
+				"name": "GetDropdownList",
+				"description": "Return values of dropdown with id `idList` as array of strings. The list is taken\r\nfrom %WORKDIR%\\Dropdowns.xlsx unless optional `xlsPath` is specified.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/idList, /**string*/xlsPath",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(94,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "ListChecker helps comparing multiline strings with lists and dropdowns.",
+		"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js"
+	}
+}

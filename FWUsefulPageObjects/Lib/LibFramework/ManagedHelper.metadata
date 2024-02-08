@@ -1,0 +1,57 @@
+{
+	"ManagedHelper": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "PressModalButton",
+				"description": "Find and press a button in a modal dialog\r\n@param {string} buttonCaption - button caption, i.e. 'OK', 'Cancel' etc.\r\n@param {string} dialogCaption - dialog title\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/buttonCaption, /**string*/dialogCaption",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(14,10)"
+			},
+			{
+				"name": "FindModalDialog",
+				"description": "Find modal Managed dialog with given title within process with given `pid`.\r\n@param {string} dialogCaption - caption to look for\r\n@param {number} pid - optional PID of the application\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/dialogCaption, /**number*/pid",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(41,10)"
+			},
+			{
+				"name": "ContextMenuSelect",
+				"description": "Click menu item in the context menu by given `path`. When `path` is not set,\r\nreturn full contents of the context menu as list\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/path",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(86,10)"
+			},
+			{
+				"name": "GetContextMenuObject",
+				"description": "Return ManagedObject representing currently visible context menu\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(104,10)"
+			},
+			{
+				"name": "WaitForPopup",
+				"description": "Check for managed popup window with given `caption` to show up on the screen.\r\nLimit check with `timeout`.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/caption, /**number*/timeout",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(147,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "ManagedHelper handy methods for popup dialogs and context menus.",
+		"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js"
+	}
+}
