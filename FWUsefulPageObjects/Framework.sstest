@@ -113,9 +113,6 @@
         <Tags>shared</Tags>
       </TestFile>
       <TestFile>
-        <Path>%ENGINE%\Engine.sstest</Path>
-      </TestFile>
-      <TestFile>
         <Path>Main.js</Path>
       </TestFile>
       <TestFile>

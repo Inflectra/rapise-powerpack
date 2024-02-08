@@ -73,7 +73,43 @@
 				"returns": "",
 				"signature": "/**string*/message, /**string*/val",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(195,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(179,10)"
+			},
+			{
+				"name": "CheckContainsOneOf",
+				"description": "Check that given `val` contains at least one symbol from given string of `chars`.\r\nFunction returns `true` if `val` is unique, `false` otherwise.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/val, /**string*/chars",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(189,10)"
+			},
+			{
+				"name": "VerifyContainsOneOf",
+				"description": "Verify that given `val` contains at least one symbol from given string of `chars`. Write result to the report with provided `message`.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string*/val, /**string*/chars",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(204,10)"
+			},
+			{
+				"name": "CheckContainsNoneOf",
+				"description": "Check that given `val` contains none of symbols from given string of `chars`.\r\nFunction returns `true` if `val` is unique, `false` otherwise.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/val, /**string*/chars",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(215,10)"
+			},
+			{
+				"name": "VerifyContainsNoneOf",
+				"description": "Verify that given `val` contains none of symbols from given string of `chars`. Write result to the report with provided `message`.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string*/val, /**string*/chars",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(234,10)"
 			}
 		],
 		"isPageObject": true,

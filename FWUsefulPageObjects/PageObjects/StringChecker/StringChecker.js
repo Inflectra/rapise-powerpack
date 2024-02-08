@@ -164,22 +164,6 @@ function StringChecker_VerifyRegex(/**string*/message, /**string*/str, /**string
  */
 function StringChecker_CheckUnique(/**string*/val)
 {
-	if( Global.GetProperty(""+val, "StringChecker.json") )
-	{
-		return false;
-	} else {
-		Global.SetProperty(""+val, true);
-		return true;
-	}
-}
-
-/**
- * Check that given `val` is unique. I.e. it differs from all known previous values.
- *
- * Function returns `true` if `val` is unique, `false` otherwise.
- */
-function StringChecker_CheckUnique(/**string*/val)
-{
 	if( Global.GetProperty(""+val, false, "StringChecker.json") )
 	{
 		return false;
@@ -197,4 +181,57 @@ function StringChecker_VerifyUnique(/**string*/message, /**string*/val)
 	Tester.Assert(message, StringChecker_CheckUnique(val), ""+val);
 }
 
+/**
+ * Check that given `val` contains at least one symbol from given string of `chars`.
+ *
+ * Function returns `true` if `val` is unique, `false` otherwise.
+ */
+function StringChecker_CheckContainsOneOf(/**string*/val, /**string*/chars)
+{
+	// make sure it is string
+	val = ""+val;
+	for(var i=0;i<chars.length;i++) {
+		if( val.indexOf(chars.charAt(i))>=0 ) {
+			return true;
+		}
+	}
+	return false;
+}
 
+/**
+ * Verify that given `val` contains at least one symbol from given string of `chars`. Write result to the report with provided `message`. 
+ */
+function StringChecker_VerifyContainsOneOf(/**string*/message, /**string*/val, /**string*/chars)
+{
+	Tester.Assert(message, StringChecker.CheckContainsOneOf(val,chars), ""+val);
+}
+
+
+/**
+ * Check that given `val` contains none of symbols from given string of `chars`.
+ *
+ * Function returns `true` if `val` is unique, `false` otherwise.
+ */
+function StringChecker_CheckContainsNoneOf(/**string*/val, /**string*/chars)
+{
+	// make sure it is string
+	val = ""+val;
+	this.PMError = "";
+	for(var i=0;i<chars.length;i++) {
+		var c = chars.charAt(i);
+		var ind = val.indexOf(c);
+		if( ind>=0 ) {
+			this.PMError = c + " at "+ind;
+			return false;
+		}
+	}
+	return true;
+}
+
+/**
+ * Verify that given `val` contains none of symbols from given string of `chars`. Write result to the report with provided `message`. 
+ */
+function StringChecker_VerifyContainsNoneOf(/**string*/message, /**string*/val, /**string*/chars)
+{
+	Tester.Assert(message, StringChecker.CheckContainsNoneOf(val,chars), [new SeSReportText(""+val), new SeSReportText(this.PMError)]);
+}
