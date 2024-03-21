@@ -30,7 +30,7 @@ Upload `ionic-demo-app.apk` to BrowserStack and save the application URL, it loo
 
 Change the `BrowserStack Android App` profile and set `app` capability to this URL.
 
-### Run the Test
+## Running the Test
 
 Run `ImageGallery` test case and find a cat in screenshots captured by Rapise.
 
