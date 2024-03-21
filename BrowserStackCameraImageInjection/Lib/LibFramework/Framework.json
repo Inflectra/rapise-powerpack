@@ -1,0 +1,51 @@
+{
+	"testsets": [
+		{
+			"id": "f8b5dcfc",
+			"name": "Default",
+			"description": "Default test set",
+			"configId": "f429ae6d",
+			"testcases": []
+		}
+	],
+	"pageobjects": {
+		"ImageHelper": {
+			"id": "1SCCG2OF",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\ImageHelper\\ImageHelper.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\ImageHelper\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\ImageHelper\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\ImageHelper\\Objects.js",
+			"libraries": [],
+			"hash": "B9F3166E0BDDB5B67434D4108F521F1EAB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
+		}
+	},
+	"testcases": [
+		{
+			"name": "ImageGallery",
+			"alias": "ImageGallery",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\ImageGallery\\Test.sstest",
+			"tags": "testcase",
+			"id": "MRLI29N7",
+			"rep": "%WORKDIR%TestCases\\ImageGallery\\Objects.js",
+			"user": "%WORKDIR%TestCases\\ImageGallery\\User.js",
+			"libraries": [
+				"Mobile"
+			],
+			"hash": "5E4428321D575FB73E0980F0293AC63DBD4C038A59D427762554387152F623FFA892F1A9C88EAAC067A0BFD760073BF959C0D13C853A31B4C36561E15B75B0A37083AD82F88C48877FC5684041DC8CEE"
+		}
+	],
+	"shared": [
+		{
+			"data": "%WORKDIR%.\\cat.jpg"
+		},
+		{
+			"js": "%WORKDIR%.\\Common.js"
+		},
+		{
+			"data": "%WORKDIR%.\\Config.json"
+		}
+	]
+}

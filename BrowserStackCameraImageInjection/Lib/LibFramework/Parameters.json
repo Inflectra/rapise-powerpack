@@ -1,0 +1,22 @@
+{
+  "params": [
+    {
+      "name": "Command Interval",
+      "type": "number",
+      "defaultValue": 100
+    },
+    {
+      "name": "Mobile Profile",
+      "defaultValue": "BrowserStack Android Web",
+      "type": "mobile",
+      "description": "Please, specify mobile profile to use"
+    }
+  ],
+  "configs": [
+    {
+      "id": "f429ae6d",
+      "name": "Default",
+      "values": {}
+    }
+  ]
+}

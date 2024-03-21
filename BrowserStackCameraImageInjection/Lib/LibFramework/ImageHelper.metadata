@@ -1,0 +1,21 @@
+{
+	"ImageHelper": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "DoInjectImage",
+				"description": "Do an action\r\n@param {String} inputParam parameter description\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ fileName",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ImageHelper\\ImageHelper.js(11,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "ImageHelper description",
+		"src": "%WORKDIR%PageObjects\\ImageHelper\\ImageHelper.js"
+	}
+}

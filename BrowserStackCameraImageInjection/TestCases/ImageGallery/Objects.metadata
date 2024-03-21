@@ -1,0 +1,631 @@
+{
+	"Photos": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": "",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**number*/ x, /**number*/ y",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoPress",
+				"signature": "/**number*/ x, /**number*/ y, /**number*/ duration",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoLongPress",
+				"signature": "/**number*/ x, /**number*/ y",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoClear",
+				"signature": "",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": "/**string*/ text",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoFindByXPath",
+				"signature": "/**string*/ xpath",
+				"tag": "AndroidObject"
+			}
+		],
+		"properties": [
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Text",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ChildAt",
+				"setsign": "",
+				"getsign": "index",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ChildCount",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "NextSibling",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "PrevSibling",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Parent",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Property",
+				"setsign": "",
+				"getsign": "name",
+				"readonly": true,
+				"tag": "AndroidObject"
+			}
+		],
+		"items": null,
+		"version": 0,
+		"object_type": "AndroidLabel",
+		"object_flavor": "Label",
+		"object_name": "Photos",
+		"ignore_object_name": true,
+		"object_class": "android.widget.TextView",
+		"object_role": "param:object_flavor",
+		"object_text": "param:object_name",
+		"object_library": "Mobile",
+		"window_class": "param:object_library",
+		"window_name": "Device",
+		"xpath": "//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.widget.TabWidget/android.view.View[2]/android.view.View/android.widget.TextView"
+	},
+	"Take Photo": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": "",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**number*/ x, /**number*/ y",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoPress",
+				"signature": "/**number*/ x, /**number*/ y, /**number*/ duration",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoLongPress",
+				"signature": "/**number*/ x, /**number*/ y",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoClear",
+				"signature": "",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": "/**string*/ text",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoFindByXPath",
+				"signature": "/**string*/ xpath",
+				"tag": "AndroidObject"
+			}
+		],
+		"properties": [
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Text",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ChildAt",
+				"setsign": "",
+				"getsign": "index",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ChildCount",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "NextSibling",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "PrevSibling",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Parent",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Property",
+				"setsign": "",
+				"getsign": "name",
+				"readonly": true,
+				"tag": "AndroidObject"
+			}
+		],
+		"items": null,
+		"version": 0,
+		"object_type": "AndroidButton",
+		"object_flavor": "Button",
+		"object_name": "close",
+		"ignore_object_name": true,
+		"object_class": "android.widget.Button",
+		"object_role": "param:object_flavor",
+		"object_text": "param:object_name",
+		"object_library": "Mobile",
+		"window_class": "param:object_library",
+		"window_name": "Device",
+		"xpath": "//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]/android.view.View/android.widget.Button"
+	},
+	"Shutter Button": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": "",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**number*/ x, /**number*/ y",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoPress",
+				"signature": "/**number*/ x, /**number*/ y, /**number*/ duration",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoLongPress",
+				"signature": "/**number*/ x, /**number*/ y",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoClear",
+				"signature": "",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": "/**string*/ text",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoFindByXPath",
+				"signature": "/**string*/ xpath",
+				"tag": "AndroidObject"
+			}
+		],
+		"properties": [
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Text",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ChildAt",
+				"setsign": "",
+				"getsign": "index",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ChildCount",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "NextSibling",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "PrevSibling",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Parent",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Property",
+				"setsign": "",
+				"getsign": "name",
+				"readonly": true,
+				"tag": "AndroidObject"
+			}
+		],
+		"items": null,
+		"version": 0,
+		"object_type": "AndroidImageButton",
+		"object_flavor": "Button",
+		"object_name": "shutter_button",
+		"ignore_object_name": true,
+		"object_class": "android.widget.ImageButton",
+		"object_role": "param:object_flavor",
+		"object_text": "",
+		"object_library": "Mobile",
+		"window_class": "param:object_library",
+		"window_name": "Device",
+		"xpath": "//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[3]/android.widget.FrameLayout/android.widget.ImageButton",
+		"acc": "Take photo"
+	},
+	"Use Photo": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": "",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**number*/ x, /**number*/ y",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoPress",
+				"signature": "/**number*/ x, /**number*/ y, /**number*/ duration",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoLongPress",
+				"signature": "/**number*/ x, /**number*/ y",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoClear",
+				"signature": "",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": "/**string*/ text",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys",
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "DoFindByXPath",
+				"signature": "/**string*/ xpath",
+				"tag": "AndroidObject"
+			}
+		],
+		"properties": [
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Text",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ChildAt",
+				"setsign": "",
+				"getsign": "index",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "ChildCount",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "NextSibling",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "PrevSibling",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Parent",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "AndroidObject"
+			},
+			{
+				"name": "Property",
+				"setsign": "",
+				"getsign": "name",
+				"readonly": true,
+				"tag": "AndroidObject"
+			}
+		],
+		"items": null,
+		"version": 0,
+		"object_type": "AndroidImageButton",
+		"object_flavor": "Button",
+		"object_name": "shutter_button",
+		"ignore_object_name": true,
+		"object_class": "android.widget.ImageButton",
+		"object_role": "param:object_flavor",
+		"object_text": "",
+		"object_library": "Mobile",
+		"window_class": "param:object_library",
+		"window_name": "Device",
+		"xpath": "//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.view.ViewGroup[3]/android.view.ViewGroup[3]/android.widget.FrameLayout/android.widget.ImageButton",
+		"acc": "Done"
+	}
+}
