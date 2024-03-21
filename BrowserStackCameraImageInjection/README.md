@@ -14,6 +14,10 @@ More details:
     
 ## Configuring the Framework
 
+The steps presented below are also covered in this knowledge base article (with screenshots):
+
+https://www.inflectra.com/Support/KnowledgeBase/KB810.aspx
+
 ### Config.json
 
 This file is located in the root of the framework. Use it to set BrowserStack `User Name` and `Access Key`.
