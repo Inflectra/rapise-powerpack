@@ -24,7 +24,9 @@ The sample application was built from
 
 https://github.com/ionic-team/tutorial-photo-gallery-angular
 
-Find it in the root folder of the framework. Upload ionic-demo-app.apk to BrowserStack and save the application URL, it looks like:  `bs://3da26db3498dbe59aa76b06361907158fdf2d56e`.
+Find it in the root folder of the framework. 
+
+Upload `ionic-demo-app.apk` to BrowserStack and save the application URL, it looks like:  `bs://3da26db3498dbe59aa76b06361907158fdf2d56e`.
 
 Change the `BrowserStack Android App` profile and set `app` capability to this URL.
 
