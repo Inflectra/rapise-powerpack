@@ -6,10 +6,11 @@ This Framework demonstrates how to do
 
 ## Test Camera image capture and QR/Barcode scanning
 
-    BrowserStack enables you to test image capture and QR/Bar code scanning from BrowserStack’s mobile device camera. If your mobile app has features, such as check scanning, profile image capture, and QR/Bar code scanning, you can use this feature to automate the testing of such a feature in your app.
+> BrowserStack enables you to test image capture and QR/Bar code scanning from BrowserStack’s mobile device camera. If your mobile app has features, such as check scanning, profile image capture, and QR/Bar code scanning, you can use this feature to automate the testing of such a feature in your app.
     
 More details:
-    [https://www.browserstack.com/docs/app-automate/appium/advanced-features/camera-image-injection#1-how-browserstack-enables-camera-testing](https://www.browserstack.com/docs/app-automate/appium/advanced-features/camera-image-injection#1-how-browserstack-enables-camera-testing)
+
+[https://www.browserstack.com/docs/app-automate/appium/advanced-features/camera-image-injection#1-how-browserstack-enables-camera-testing](https://www.browserstack.com/docs/app-automate/appium/advanced-features/camera-image-injection#1-how-browserstack-enables-camera-testing)
     
 ## Configuring the Framework
 
