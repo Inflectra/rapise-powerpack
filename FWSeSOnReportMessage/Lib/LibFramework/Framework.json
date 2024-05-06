@@ -1,0 +1,39 @@
+{
+	"pageobjects": {},
+	"testcases": [
+		{
+			"name": "FailingTestCase",
+			"alias": "FailingTestCase",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\FailingTestCase\\Test.sstest",
+			"tags": "testcase",
+			"id": "0S6QXKUG",
+			"rep": "%WORKDIR%TestCases\\FailingTestCase\\Objects.js",
+			"user": "%WORKDIR%TestCases\\FailingTestCase\\User.js",
+			"libraries": [
+				"UIAutomation"
+			],
+			"hash": "7221A39FA731EDEA749E6595F72C76091D2FA1DCA88E65B3B094A5C1CC25D675E64ECF2074AF8390245C334763481B86A80568700D4E010B86A15CF3E333E9756695FFDF2899257E3DFE0262E393D657"
+		},
+		{
+			"name": "PassingTestCase",
+			"alias": "PassingTestCase",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\PassingTestCase\\Test.sstest",
+			"tags": "testcase",
+			"id": "CRF63Z2F",
+			"rep": "%WORKDIR%TestCases\\PassingTestCase\\Objects.js",
+			"user": "%WORKDIR%TestCases\\PassingTestCase\\User.js",
+			"libraries": [],
+			"hash": "4FFB35ACC0B8E82A54ABBD7F703A671A6908D9B4E626CBDF38E7816D0C147C02E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
+		}
+	],
+	"shared": [
+		{
+			"js": "%WORKDIR%Common.js"
+		},
+		{
+			"data": "%WORKDIR%MyReport.txt"
+		}
+	]
+}
