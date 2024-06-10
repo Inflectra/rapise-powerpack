@@ -27,9 +27,9 @@
         var stepMsg = testStep.keyword + (testStep.text || '') + ' - ' + Status[testStep.result.status];
         this.log('  ' + stepMsg + '\n')
         allSteps+=stepMsg+"<br/>";
-        allStepsPassed = allStepsPassed&&testStep.result.status==1;
+        allStepsPassed = allStepsPassed&&testStep.result.status=="PASSED";
       })
-      Tester.Assert(msg, allStepsPassed, allSteps);
+      Tester.SoftAssert(msg, allStepsPassed, allSteps);
       this.log('\n')
       Tester.EndTest();
     }

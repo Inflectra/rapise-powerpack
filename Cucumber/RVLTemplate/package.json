@@ -1,5 +1,5 @@
 {
-  "name": "cucrvl",
+  "name": "cucjs",
   "version": "1.0.0",
   "description": "",
   "main": "Main.js",
@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cucumber/cucumber": "^7.1.0"
+    "@cucumber/cucumber": "^7.1.0",
+    "deasync": "^0.1.30"
   }
 }

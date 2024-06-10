@@ -21,10 +21,32 @@ function Cucumber_Run(/**string*/featurePath)
 	{
 		featurePath = [g_helper.ResolveEnvironmentVariables(featurePath)];
 	}
-	var Cli = require('@cucumber/cucumber').Cli;
-	var runArgs = ['node', 'cucumber-js'].concat("--format", "./Lib/LibCucumberJs/CucTesterFormat.js", featurePath, "--format-options", '{"snippetInterface": "synchronous", "snippetSyntax": "./Lib/LibCucumberJs/RvlScriptSyntax.js", "colorsEnabled": false}');
-	var cli = new Cli({argv: runArgs, cwd: process.cwd(), stdout: process.stdout});
-	cli.run();
+	
+	var done = false;
+	
+	async function runCucumberTests()
+	{
+		try
+		{
+			var Cli = require('@cucumber/cucumber').Cli;
+			var runArgs = ['node', 'cucumber-js'].concat("--format", "./Lib/LibCucumberJs/CucTesterFormat.js", featurePath, "--format-options", '{"forceExit": false, "snippetInterface": "synchronous", "snippetSyntax": "./Lib/LibCucumberJs/RvlScriptSyntax.js", "colorsEnabled": false}');
+			var cli = new Cli({argv: runArgs, cwd: process.cwd(), stdout: process.stdout});
+			await cli.run();
+		} finally {
+			done = true;
+		}
+	}
+	
+	var deasync = require("deasync");
+	runCucumberTests();
+	while(!done)
+	{
+		deasync.runLoopOnce();
+	}
+	
+	if(l2) Log2("Cucumber.Run done");
+	CucumberDumpMissingImpl();
+
 }
 
 var _paramInfoCucumber_Run = {
@@ -152,11 +174,6 @@ function CucumberDumpMissingImpl()
 		
 		Log(res);
 	}
-}
-
-function TestFinish()
-{
-	CucumberDumpMissingImpl();
 }
 
 if (typeof(SeSGlobalObject) != "undefined")

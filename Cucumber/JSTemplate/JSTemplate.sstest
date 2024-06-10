@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" v="18" t="">
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" v="19" id="D3PIQH31" t="">
   <ScriptPath>Main.js</ScriptPath>
   <UserFunctionsPath>User.js</UserFunctionsPath>
   <ObjectsPath>Objects.js</ObjectsPath>
@@ -16,8 +16,9 @@
   <SaveRecordingScreenshots>false</SaveRecordingScreenshots>
   <SavePlaybackScreenshots>false</SavePlaybackScreenshots>
   <SavePlaybackScreenshotsInTestReport>false</SavePlaybackScreenshotsInTestReport>
-  <SaveScreenshotObjectOnly>false</SaveScreenshotObjectOnly>
+  <SaveScreenshotObjectOnly>true</SaveScreenshotObjectOnly>
   <SaveScreenshotsCaptureCursor>true</SaveScreenshotsCaptureCursor>
+  <SaveScreenshotOnFailure>true</SaveScreenshotOnFailure>
   <CommandLine />
   <EntryPoint>Test</EntryPoint>
   <WorkDir>.</WorkDir>
@@ -94,6 +95,7 @@
       </TestGroup>
       <TestGroup>
         <Name>Reports</Name>
+        <RealFolder>true</RealFolder>
         <IsFilterGroup>true</IsFilterGroup>
         <FilterWildcard>*.trp</FilterWildcard>
         <FilterPath>Reports</FilterPath>
@@ -116,7 +118,6 @@
       </TestFile>
     </TestFiles>
   </TestFiles>
-  <CustomStrings />
   <TestParams>
     <TestParam name="Browser" variable="g_browserLibrary" defaultValue="Firefox HTML" description="Please, specify browser type to use" output="false" ask="false">
       <PossibleValues />
@@ -129,7 +130,4 @@
     </TestParam>
   </TestParams>
   <Methodology>Web</Methodology>
-  <MethodologyOptions>
-    <ArrayOfObjectParam />
-  </MethodologyOptions>
 </Test>
