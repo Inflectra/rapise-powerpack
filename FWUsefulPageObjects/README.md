@@ -9,3 +9,4 @@ This Framework contains a number of useful general purpose Page Objects that may
 3. ManagedHelper 
 4. StringChecker 
 5. TableHandler 
+6. WebPageHelper

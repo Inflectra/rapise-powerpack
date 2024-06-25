@@ -52,6 +52,9 @@
           <TestFile>
             <Path>PageObjects\ListChecker\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>PageObjects\WebPageHelper\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>pageobjects</Tags>
       </TestGroup>
@@ -98,6 +101,9 @@
           </TestFile>
           <TestFile>
             <Path>TestCases\ListChecker\Test.sstest</Path>
+          </TestFile>
+          <TestFile>
+            <Path>TestCases\WebPageHelper\Test.sstest</Path>
           </TestFile>
         </TestFiles>
         <Tags>testcases</Tags>

@@ -62,6 +62,19 @@
 				"Web"
 			],
 			"hash": "2FC7D82A68C60119601B57A072E17B72749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
+		},
+		"WebPageHelper": {
+			"id": "S96HQ6I4",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\WebPageHelper\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\WebPageHelper\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\WebPageHelper\\Objects.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "7D80E119DC4D4FBDC08571C3160B3119749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
 		}
 	},
 	"testcases": [
@@ -92,6 +105,20 @@
 				"Web"
 			],
 			"hash": "C2220A37ED52FE106BB8FCA4B2574D5E19726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF438B6809B9F106071EF92B3F4B659D3DCC"
+		},
+		{
+			"name": "WebPageHelper",
+			"alias": "WebPageHelper",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\WebPageHelper\\Test.sstest",
+			"tags": "testcase",
+			"id": "67102HK3",
+			"rep": "%WORKDIR%TestCases\\WebPageHelper\\Objects.js",
+			"user": "%WORKDIR%TestCases\\WebPageHelper\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "E2AA84B808E21BBDEF0E9FC64873CCF419726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF4379052940713C135891F6758F5968A978"
 		},
 		{
 			"name": "PatternChecker",
@@ -138,10 +165,10 @@
 	],
 	"shared": [
 		{
-			"js": "%WORKDIR%.\\Common.js"
+			"js": "%WORKDIR%Common.js"
 		},
 		{
-			"data": "%WORKDIR%.\\Dropdowns.xlsx"
+			"data": "%WORKDIR%Dropdowns.xlsx"
 		}
 	],
 	"testsets": [

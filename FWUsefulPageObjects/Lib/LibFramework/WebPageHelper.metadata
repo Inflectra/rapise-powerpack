@@ -1,0 +1,93 @@
+{
+	"WebPageHelper": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "GetFullPageText",
+				"description": "Returns string containing all visible text on the current page.\r\nExample:\r\nvar page = WebPageHelper.GetFullPageText();\r\nTester.AssertContains('Welcome message found on the page', page, 'Welcome, Friend!')\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(18,10)"
+			},
+			{
+				"name": "DoClickByText",
+				"description": "Find an element by text and click on it. Take into account only element text.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/text",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(41,10)"
+			},
+			{
+				"name": "DoClickByPlaceholder",
+				"description": "Find an element by placeholder and click on it.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/placeholderText",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(65,10)"
+			},
+			{
+				"name": "DoClickByValue",
+				"description": "Find an element by value attribute and click on it.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/text",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(79,10)"
+			},
+			{
+				"name": "DoClickByTitle",
+				"description": "Find an element by title attribute and click on it.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/title",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(93,10)"
+			},
+			{
+				"name": "DoClickByName",
+				"description": "Find an element by name attribute and click on it. The name is usually invisible\r\nso you need to know it in advance.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/text",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(108,10)"
+			},
+			{
+				"name": "DoClickByClassName",
+				"description": "Find an element by CSS class name and click on it.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/text",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(122,10)"
+			},
+			{
+				"name": "DoClickById",
+				"description": "Find an element by ID.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/text",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(137,10)"
+			},
+			{
+				"name": "DoClickByTextTitlePlaceholder",
+				"description": "Find an element text, title or placeholder and click on it.\r\nThis is the most generic method for finding something on the page by visible\r\ntext and clicking on it. It covers buttons, links and various controls that\r\ninclude title, placeholder or hint.\r\nExample 1:\r\nWebPageHelper.DoClickByTextTitlePlaceholder('Enter username...'); // This should capture a placeholder\r\nExample 2:\r\nWebPageHelper.DoClickByTextTitlePlaceholder('Login'); // This should capture a button\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/text",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(161,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "WebPageHelper is designed to help doing various actions and checks",
+		"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js"
+	}
+}
