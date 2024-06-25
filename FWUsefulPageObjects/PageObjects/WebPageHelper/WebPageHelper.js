@@ -25,6 +25,32 @@ function WebPageHelper_GetFullPageText()
 	return "No BODY element found";
 }
 
+/**
+ * Check that page contains given `textToFind`. This action does not write to the report
+ * and simply returns `true` when text was found and `false` otherwise. You may pass the result
+ * to the assertion or if statement.
+ * Example:
+ * 	if( WebPageHelper.CheckPageContains('Welcome, Friend!') ) {
+ 			// Already logged in, need to log out first.
+ * 	}
+ */
+function WebPageHelper_CheckPageContains(/**string*/textToFind)
+{
+	var pageText = WebPageHelper.GetFullPageText();
+	return Text.Contains(pageText, textToFind);
+}
+
+/**
+ * Check that page contains given `textToFind` and write Pass or Fail to the report
+ * accordingly
+ * Example:
+ * 	WebPageHelper.VerifyPageContains('Page must have welcome message', 'Welcome, Friend!');
+ */
+function WebPageHelper_VerifyPageContains(/**string*/message, /**string*/textToFind)
+{
+	Tester.SoftAssert(message, WebPageHelper_CheckPageContains(textToFind), [textToFind]);
+}
+
 function _ClickByText(text)
 {
 	var el = Navigator.DOMFindByText(text);
@@ -76,14 +102,14 @@ function WebPageHelper_DoClickByPlaceholder(/**string*/placeholderText)
 /**
  * Find an element by value attribute and click on it.
  */
-function WebPageHelper_DoClickByValue(/**string*/text)
+function WebPageHelper_DoClickByValue(/**string*/value)
 {
-	if( _ClickByAttr("@value", text) ) 
+	if( _ClickByAttr("@value", value) ) 
 	{
 		return true;
 	}
 	
-	Tester.SoftAssert('Unable to find element by value text: '+text, false);
+	Tester.SoftAssert('Unable to find element by value text: '+value, false);
 	return false;
 }
 
@@ -105,44 +131,44 @@ function WebPageHelper_DoClickByTitle(/**string*/title)
  * Find an element by name attribute and click on it. The name is usually invisible
  * so you need to know it in advance.
  */
-function WebPageHelper_DoClickByName(/**string*/text)
+function WebPageHelper_DoClickByName(/**string*/name)
 {
-	var el = Navigator.DOMFindByName(text)
+	var el = Navigator.DOMFindByName(name)
 	if( el ) {
 		el.DoClick();
 		return true;
 	}
-	Tester.SoftAssert('Unable to find element by name: '+text, false);
+	Tester.SoftAssert('Unable to find element by name: '+name, false);
 	return false;
 }
 
 /**
  * Find an element by CSS class name and click on it.
  */
-function WebPageHelper_DoClickByClassName(/**string*/text)
+function WebPageHelper_DoClickByClassName(/**string*/className)
 {
-	var el = Navigator.DOMFindByXPath("css=."+text)
+	var el = Navigator.DOMFindByXPath("css=."+className)
 	if( el ) {
 		el.DoClick();
 		return true;
 	}
 	
-	Tester.SoftAssert('Unable to find element by class: '+text, false);
+	Tester.SoftAssert('Unable to find element by class: '+className, false);
 	return false;
 }
 
 /**
  * Find an element by ID.
  */
-function WebPageHelper_DoClickById(/**string*/text)
+function WebPageHelper_DoClickById(/**string*/id)
 {
-	var el = Navigator.DOMFindByXPath("css=#"+text)
+	var el = Navigator.DOMFindByXPath("css=#"+id)
 	if( el ) {
 		el.DoClick();
 		return true;
 	}
 	
-	Tester.SoftAssert('Unable to find element by Id: '+text, false);
+	Tester.SoftAssert('Unable to find element by Id: '+id, false);
 	return false;
 }
 

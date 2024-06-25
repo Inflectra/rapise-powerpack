@@ -13,13 +13,31 @@
 				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(18,10)"
 			},
 			{
+				"name": "CheckPageContains",
+				"description": "Check that page contains given `textToFind`. This action does not write to the report\r\nand simply returns `true` when text was found and `false` otherwise. You may pass the result\r\nto the assertion or if statement.\r\nExample:\r\nif( WebPageHelper.CheckPageContains('Welcome, Friend!') ) {\r\nAlready logged in, need to log out first.\r\n}\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/textToFind",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(37,10)"
+			},
+			{
+				"name": "VerifyPageContains",
+				"description": "Check that page contains given `textToFind` and write Pass or Fail to the report\r\naccordingly\r\nExample:\r\nWebPageHelper.VerifyPageContains('Page must have welcome message', 'Welcome, Friend!');\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string*/textToFind",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(49,10)"
+			},
+			{
 				"name": "DoClickByText",
 				"description": "Find an element by text and click on it. Take into account only element text.\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/text",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(41,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(67,10)"
 			},
 			{
 				"name": "DoClickByPlaceholder",
@@ -28,16 +46,16 @@
 				"returns": "",
 				"signature": "/**string*/placeholderText",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(65,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(91,10)"
 			},
 			{
 				"name": "DoClickByValue",
 				"description": "Find an element by value attribute and click on it.\r\n",
 				"type": "",
 				"returns": "",
-				"signature": "/**string*/text",
+				"signature": "/**string*/value",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(79,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(105,10)"
 			},
 			{
 				"name": "DoClickByTitle",
@@ -46,34 +64,34 @@
 				"returns": "",
 				"signature": "/**string*/title",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(93,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(119,10)"
 			},
 			{
 				"name": "DoClickByName",
 				"description": "Find an element by name attribute and click on it. The name is usually invisible\r\nso you need to know it in advance.\r\n",
 				"type": "",
 				"returns": "",
-				"signature": "/**string*/text",
+				"signature": "/**string*/name",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(108,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(134,10)"
 			},
 			{
 				"name": "DoClickByClassName",
 				"description": "Find an element by CSS class name and click on it.\r\n",
 				"type": "",
 				"returns": "",
-				"signature": "/**string*/text",
+				"signature": "/**string*/className",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(122,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(148,10)"
 			},
 			{
 				"name": "DoClickById",
 				"description": "Find an element by ID.\r\n",
 				"type": "",
 				"returns": "",
-				"signature": "/**string*/text",
+				"signature": "/**string*/id",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(137,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(163,10)"
 			},
 			{
 				"name": "DoClickByTextTitlePlaceholder",
@@ -82,7 +100,7 @@
 				"returns": "",
 				"signature": "/**string*/text",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(161,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(187,10)"
 			}
 		],
 		"isPageObject": true,
