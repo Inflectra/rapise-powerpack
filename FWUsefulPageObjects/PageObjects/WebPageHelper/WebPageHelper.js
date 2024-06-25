@@ -114,7 +114,8 @@ function WebPageHelper_DoClickByValue(/**string*/value)
 }
 
 /**
- * Find an element by title attribute and click on it.
+ * Find an element by title attribute and click on it. Title is usually visible as
+ * an element's tooltip.
  */
 function WebPageHelper_DoClickByTitle(/**string*/title)
 {
@@ -177,12 +178,14 @@ function WebPageHelper_DoClickById(/**string*/id)
  * 
  * This is the most generic method for finding something on the page by visible
  * text and clicking on it. It covers buttons, links and various controls that
- * include title, placeholder or hint.
+ * include title (title is usually shown as a tooltip), placeholder or hint.
  *
  * Example 1:
  *   WebPageHelper.DoClickByTextTitlePlaceholder('Enter username...'); // This should capture a placeholder
  * Example 2:
  *   WebPageHelper.DoClickByTextTitlePlaceholder('Login'); // This should capture a button
+ * Example 3:
+ *   WebPageHelper.DoClickByTextTitlePlaceholder('Press to log into the system'); // This should capture a tooltip
  */
 function WebPageHelper_DoClickByTextTitlePlaceholder(/**string*/text)
 {

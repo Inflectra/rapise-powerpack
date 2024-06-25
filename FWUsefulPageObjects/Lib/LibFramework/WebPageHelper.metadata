@@ -64,7 +64,7 @@
 				"returns": "",
 				"signature": "/**string*/title",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(119,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(120,10)"
 			},
 			{
 				"name": "DoClickByName",
@@ -73,7 +73,7 @@
 				"returns": "",
 				"signature": "/**string*/name",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(134,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(135,10)"
 			},
 			{
 				"name": "DoClickByClassName",
@@ -82,7 +82,7 @@
 				"returns": "",
 				"signature": "/**string*/className",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(148,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(149,10)"
 			},
 			{
 				"name": "DoClickById",
@@ -91,16 +91,16 @@
 				"returns": "",
 				"signature": "/**string*/id",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(163,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(164,10)"
 			},
 			{
 				"name": "DoClickByTextTitlePlaceholder",
-				"description": "Find an element text, title or placeholder and click on it.\r\nThis is the most generic method for finding something on the page by visible\r\ntext and clicking on it. It covers buttons, links and various controls that\r\ninclude title, placeholder or hint.\r\nExample 1:\r\nWebPageHelper.DoClickByTextTitlePlaceholder('Enter username...'); // This should capture a placeholder\r\nExample 2:\r\nWebPageHelper.DoClickByTextTitlePlaceholder('Login'); // This should capture a button\r\n",
+				"description": "Find an element text, title or placeholder and click on it.\r\nThis is the most generic method for finding something on the page by visible\r\ntext and clicking on it. It covers buttons, links and various controls that\r\ninclude title (title is usually shown as a tooltip), placeholder or hint.\r\nExample 1:\r\nWebPageHelper.DoClickByTextTitlePlaceholder('Enter username...'); // This should capture a placeholder\r\nExample 2:\r\nWebPageHelper.DoClickByTextTitlePlaceholder('Login'); // This should capture a button\r\nExample 3:\r\nWebPageHelper.DoClickByTextTitlePlaceholder('Press to log into the system'); // This should capture a tooltip\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/text",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(187,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(190,10)"
 			}
 		],
 		"isPageObject": true,
