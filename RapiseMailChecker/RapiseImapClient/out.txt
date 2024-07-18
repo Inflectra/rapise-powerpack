@@ -11,17 +11,24 @@ RapiseImapClient /imap:<imapsvr> /port:<port> /user:<emailAddr> /password:<passw
     /password:<password>
         Imap account password
     /folder:<mbfolder>
-        Folder to read, default is INBOX   
+        Folder to read, default is INBOX 
+    /plain
+        Convert HTML message body to plain text
 
     /command:<cmd>
       <cmd> is one of:
-        get     - read item by id
+        get     - read item by ID
         list    - list item headers and ID's
+        delete  - delete email item by ID
     These options are only valid with 'get' command:
     /id:<msgUid>
     These options are only valid with 'list' command:
     /days:<d>
         Number of days in the past to look up, default is 1
+    /attachments
+        Include attachments into output
+    /attachmentsExtract:<extractpath>
+        (requires /attachments) extract attachments as <extractpath>\a0.dat, <extractpath>\a1.dat, ...
 
     /mark
         Mark found item as read

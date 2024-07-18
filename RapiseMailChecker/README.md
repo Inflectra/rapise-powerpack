@@ -49,6 +49,7 @@ The command line utility is needed to access IMAP inbox and read an incoming ema
 
 ````
 RapiseImapClient.exe
+Missing /user:<username> argument
 Rapise Email Reader
 Usage:
 RapiseImapClient /imap:<imapsvr> /port:<port> /user:<emailAddr> /password:<password> /command:<cmd> [/folder:<mbfolder>] [/days:<d>] [/unread] [/mark] [/output:<file>]
@@ -61,17 +62,24 @@ RapiseImapClient /imap:<imapsvr> /port:<port> /user:<emailAddr> /password:<passw
     /password:<password>
         Imap account password
     /folder:<mbfolder>
-        Folder to read, default is INBOX   
+        Folder to read, default is INBOX 
+    /plain
+        Convert HTML message body to plain text
 
     /command:<cmd>
       <cmd> is one of:
-        get     - read item by id
+        get     - read item by ID
         list    - list item headers and ID's
+        delete  - delete email item by ID
     These options are only valid with 'get' command:
     /id:<msgUid>
     These options are only valid with 'list' command:
     /days:<d>
         Number of days in the past to look up, default is 1
+    /attachments
+        Include attachments into output
+    /attachmentsExtract:<extractpath>
+        (requires /attachments) extract attachments as <extractpath>\a0.dat, <extractpath>\a1.dat, ...
 
     /mark
         Mark found item as read
@@ -84,7 +92,7 @@ RapiseImapClient /imap:<imapsvr> /port:<port> /user:<emailAddr> /password:<passw
         <file> - path to file to save found message(s) in JSON format
 
 Exit code:
-0 when successful, 1 - message with UID not found, 2 no connection to mailbox
+0 when successfull, 1 - message with UID not found, 2 no connection to mailbox
 
 Examples:
 
