@@ -119,13 +119,14 @@
         <Tags>shared</Tags>
       </TestFile>
       <TestFile>
-        <Path>%ENGINE%\Engine.sstest</Path>
-      </TestFile>
-      <TestFile>
         <Path>Main.js</Path>
       </TestFile>
       <TestFile>
         <Path>Objects.js</Path>
+      </TestFile>
+      <TestFile>
+        <Path>README.md</Path>
+        <Tags>shared</Tags>
       </TestFile>
     </TestFiles>
   </TestFiles>

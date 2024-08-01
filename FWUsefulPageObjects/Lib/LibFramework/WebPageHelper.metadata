@@ -59,7 +59,7 @@
 			},
 			{
 				"name": "DoClickByTitle",
-				"description": "Find an element by title attribute and click on it.\r\n",
+				"description": "Find an element by title attribute and click on it. Title is usually visible as\r\nan element's tooltip.\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/title",
@@ -101,6 +101,26 @@
 				"signature": "/**string*/text",
 				"paramInfo": {},
 				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(190,10)"
+			},
+			{
+				"name": "DoFileDragAndDrop",
+				"description": "Uploads a file using drag-and-drop to a specified browser element.  \r\nThis function allows you to programmatically simulate a file drag-and-drop  \r\naction onto a specified target element in the browser. It creates a hidden  \r\nfile input element to handle the file upload process and dispatches  \r\nevents that simulate the drag-and-drop behavior.  \r\n@param {string|objectid} elOrXPath - The target element to receive the file.  \r\nThis can be an object reference or an XPath  \r\nselector string. Typically a `label` or `div`  \r\nelement where the file may be dropped.  \r\n@param {string} filePath - The path to the local file to upload. This can be an  \r\nabsolute path or a relative path with respect to a  \r\nframework directory.  \r\n@returns {boolean} Returns true if the upload was successful; otherwise, it   \r\nreturns false.  \r\n@example  \r\n```javascript\r\nExample usage of FileDragAndDropUpload function  \r\nvar success = WebPageHelper.DoFileDragAndDrop('//input[type=\"file\"]', '/path/to/file.txt');\r\nTester.SoftAssert(\"File uploaded.\", success, '/path/to/file.txt');\r\n```\r\n",
+				"type": "",
+				"returns": "'true' if the upload was successful; otherwise, it returns false.",
+				"signature": "/**string|objectid*/elOrXPath, /**string*/filePath",
+				"paramInfo": {
+					"elOrXPath": {
+						"type": "string|objectid",
+						"description": "The target element to receive the file. This can be an object reference or an XPath selector string. Typically a `label` or `div` element where the file may be dropped.",
+						"required": true
+					},
+					"filePath": {
+						"type": "string",
+						"description": "The path to the local file to upload. This can be an absolute path or a relative path with respect to a framework directory.",
+						"required": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(231,10)"
 			}
 		],
 		"isPageObject": true,
