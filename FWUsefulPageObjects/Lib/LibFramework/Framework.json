@@ -121,6 +121,18 @@
 			"hash": "E2AA84B808E21BBDEF0E9FC64873CCF419726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF436AF552227792CF33F7B636C4BA455975"
 		},
 		{
+			"name": "RebuildMetadata",
+			"alias": "RebuildMetadata",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\RebuildMetadata\\Test.sstest",
+			"tags": "testcase",
+			"id": "RO2G15R8",
+			"rep": "%WORKDIR%TestCases\\RebuildMetadata\\Objects.js",
+			"user": "%WORKDIR%TestCases\\RebuildMetadata\\User.js",
+			"libraries": [],
+			"hash": "BB49C3E48BC73FE26F57E58072E5EFBEC427E8F387D7159DEC94742B32CA1E60E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
+		},
+		{
 			"name": "PatternChecker",
 			"alias": "PatternChecker",
 			"vpath": "StringChecker",

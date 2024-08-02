@@ -105,6 +105,9 @@
           <TestFile>
             <Path>TestCases\WebPageHelper\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>TestCases\RebuildMetadata\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>testcases</Tags>
       </TestGroup>
@@ -117,6 +120,9 @@
       <TestFile>
         <Path>Dropdowns.xlsx</Path>
         <Tags>shared</Tags>
+      </TestFile>
+      <TestFile>
+        <Path>%ENGINE%\Engine.sstest</Path>
       </TestFile>
       <TestFile>
         <Path>Main.js</Path>
