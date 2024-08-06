@@ -1,0 +1,75 @@
+{
+	"ExtentReports": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "DoSayHello",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ExtentReports\\ExtentReports.js(10,10)"
+			},
+			{
+				"name": "Log",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ status, /**string*/ details",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ExtentReports\\ExtentReports.js(19,10)"
+			},
+			{
+				"name": "LogScreenshot",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ base64, /**string*/ title",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ExtentReports\\ExtentReports.js(28,10)"
+			},
+			{
+				"name": "CreateTest",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ name, /**string*/ description",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ExtentReports\\ExtentReports.js(37,10)"
+			},
+			{
+				"name": "Init",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ExtentReports\\ExtentReports.js(47,10)"
+			},
+			{
+				"name": "Finish",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ExtentReports\\ExtentReports.js(68,10)"
+			},
+			{
+				"name": "Clear",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ExtentReports\\ExtentReports.js(80,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "ExtentReports description",
+		"src": "%WORKDIR%PageObjects\\ExtentReports\\ExtentReports.js"
+	}
+}

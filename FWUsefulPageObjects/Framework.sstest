@@ -55,8 +55,20 @@
           <TestFile>
             <Path>PageObjects\WebPageHelper\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>PageObjects\ExtentReports\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>pageobjects</Tags>
+      </TestGroup>
+      <TestGroup>
+        <Name>Reports</Name>
+        <RealFolder>true</RealFolder>
+        <IsFilterGroup>true</IsFilterGroup>
+        <FilterWildcard>*.trp</FilterWildcard>
+        <FilterPath>Reports</FilterPath>
+        <Groups />
+        <TestFiles />
       </TestGroup>
       <TestGroup>
         <Name>Shared</Name>
@@ -75,6 +87,25 @@
         <FilterWildcard>*.*</FilterWildcard>
         <FilterPath>TestCases</FilterPath>
         <Groups>
+          <TestGroup>
+            <Name>ExtentReports</Name>
+            <RealFolder>true</RealFolder>
+            <IsFilterGroup>false</IsFilterGroup>
+            <FilterWildcard>*.*</FilterWildcard>
+            <FilterPath>TestCases/ExtentReports</FilterPath>
+            <Groups />
+            <TestFiles>
+              <TestFile>
+                <Path>TestCases\ExtentReports\LisLogin\Test.sstest</Path>
+              </TestFile>
+              <TestFile>
+                <Path>TestCases\ExtentReports\LisCreateNewBook\Test.sstest</Path>
+              </TestFile>
+              <TestFile>
+                <Path>TestCases\ExtentReports\LisFailedTestCase\Test.sstest</Path>
+              </TestFile>
+            </TestFiles>
+          </TestGroup>
           <TestGroup>
             <Name>StringChecker</Name>
             <RealFolder>true</RealFolder>

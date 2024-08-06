@@ -75,6 +75,19 @@
 				"Web"
 			],
 			"hash": "7D80E119DC4D4FBDC08571C3160B3119749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
+		},
+		"ExtentReports": {
+			"id": "GO55MH8M",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\ExtentReports\\ExtentReports.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\ExtentReports\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\ExtentReports\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\ExtentReports\\Objects.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "03687C658D78E7390D3EA1C4B2708CAC749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
 		}
 	},
 	"testcases": [
@@ -118,7 +131,49 @@
 			"libraries": [
 				"Web"
 			],
-			"hash": "E2AA84B808E21BBDEF0E9FC64873CCF419726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43C694DB7F5F8973EDA7AECE3EC1EF8E9C"
+			"hash": "E2AA84B808E21BBDEF0E9FC64873CCF419726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF435EAFE9F3ED34BA561DCE9FC1079E4D84"
+		},
+		{
+			"name": "LisLogin",
+			"alias": "LisLogin",
+			"vpath": "ExtentReports",
+			"sstest": "%WORKDIR%TestCases\\ExtentReports\\LisLogin\\Test.sstest",
+			"tags": "testcase",
+			"id": "FDKZI5AW",
+			"rep": "%WORKDIR%TestCases\\ExtentReports\\LisLogin\\Objects.js",
+			"user": "%WORKDIR%TestCases\\ExtentReports\\LisLogin\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "DF0AC9A62260A928D712852DD596AFE919726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B863517464438C7335BB560571632EEE934A7134C5EAC5926001E7CBD78E9BB3D3F"
+		},
+		{
+			"name": "LisCreateNewBook",
+			"alias": "LisCreateNewBook",
+			"vpath": "ExtentReports",
+			"sstest": "%WORKDIR%TestCases\\ExtentReports\\LisCreateNewBook\\Test.sstest",
+			"tags": "testcase",
+			"id": "9ZIYL20L",
+			"rep": "%WORKDIR%TestCases\\ExtentReports\\LisCreateNewBook\\Objects.js",
+			"user": "%WORKDIR%TestCases\\ExtentReports\\LisCreateNewBook\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "FE5CD0EA1E364C4F745E1050565D15BE19726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B8662549503F0FC46A54BD42B254F63F2ED3401DE1286FEC9DB3B8A1A99EC25748A"
+		},
+		{
+			"name": "LisFailedTestCase",
+			"alias": "LisFailedTestCase",
+			"vpath": "ExtentReports",
+			"sstest": "%WORKDIR%TestCases\\ExtentReports\\LisFailedTestCase\\Test.sstest",
+			"tags": "testcase",
+			"id": "MUUPUQVD",
+			"rep": "%WORKDIR%TestCases\\ExtentReports\\LisFailedTestCase\\Objects.js",
+			"user": "%WORKDIR%TestCases\\ExtentReports\\LisFailedTestCase\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "DDEB4F584037352B08D025BA14CFF17719726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF434F96679C537B07AA6399FDC60439C6E6"
 		},
 		{
 			"name": "PatternChecker",
