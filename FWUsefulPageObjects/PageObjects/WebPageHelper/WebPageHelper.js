@@ -201,3 +201,90 @@ function WebPageHelper_DoClickByTextTitlePlaceholder(/**string*/text)
 	return false;
 }
 
+
+/**
+ * Uploads a file using drag-and-drop to a specified browser element.  
+ *  
+ * This function allows you to programmatically simulate a file drag-and-drop  
+ * action onto a specified target element in the browser. It creates a hidden  
+ * file input element to handle the file upload process and dispatches  
+ * events that simulate the drag-and-drop behavior.  
+ *  
+ * @param {string|objectid} elOrXPath - The target element to receive the file.  
+ *                                      This can be an object reference or an XPath  
+ *                                      selector string. Typically a `label` or `div`  
+ *                                      element where the file may be dropped.  
+ * @param {string} filePath - The path to the local file to upload. This can be an  
+ *                            absolute path or a relative path with respect to a  
+ *                            framework directory.  
+ *   
+ * @returns {boolean} Returns true if the upload was successful; otherwise, it   
+ *                   returns false.  
+ *  
+ * @example  
+ * ```javascript
+ * // Example usage of FileDragAndDropUpload function  
+ * var success = WebPageHelper.DoFileDragAndDrop('//input[type="file"]', '/path/to/file.txt');
+ * Tester.SoftAssert("File uploaded.", success, '/path/to/file.txt');
+ * ```
+ */
+function WebPageHelper_DoFileDragAndDrop(/**string|objectid*/elOrXPath, /**string*/filePath)
+{
+	var el = elOrXPath;
+	if( !el ) {
+		el = "//input[@type='file']";
+	}
+	if(typeof el =='string' || (!el.el && el.xpath) ) {
+		el = Navigator.SeSFind(elOrXPath)
+	}
+	if( !el ) {
+		Tester.SoftAssert('FileDragAndDropUpload: element not found'+elOrXPath, false);
+		return false;
+	}
+	var rPath = File.ResolvePath(filePath);
+	var offsetX = 10;
+	var offsetY = 10;
+	function _doDragDrop(target, offsetX, offsetY) {
+		var document = target.ownerDocument || document;
+		var window = document.defaultView || window;
+		
+		var input = document.createElement('INPUT');
+		input.type = 'file';
+		input.style.display = 'none';
+		input.onchange = function () {
+			var rect = target.getBoundingClientRect(),
+					x = rect.left + (offsetX || (rect.width >> 1)),
+					y = rect.top + (offsetY || (rect.height >> 1)),
+					dataTransfer = { files: this.files };
+		
+			['dragenter', 'dragover', 'drop'].forEach(function (name) {
+				var evt = document.createEvent('MouseEvent');
+				evt.initMouseEvent(name, !0, !0, window, 0, 0, 0, x, y, !1, !1, !1, !1, 0, null);
+				evt.dataTransfer = dataTransfer;
+				target.dispatchEvent(evt);
+			});
+		
+			setTimeout(function () { document.body.removeChild(input); }, 25);
+		};
+		document.body.appendChild(input);
+		return input;
+	}
+	
+	var fakeElement = /**WebElementWrapper*/WebDriver.ExecuteScript(_doDragDrop+" return _doDragDrop(arguments[0], arguments[1], arguments[2]);", [el.element.e, offsetX, offsetY]);
+	fakeElement.SendKeys(rPath);
+	return true;
+}
+
+var _paramInfoWebPageHelper_DoFileDragAndDrop = {
+		elOrXPath: {
+				type: 'string|objectid',
+				description: 'The target element to receive the file. This can be an object reference or an XPath selector string. Typically a `label` or `div` element where the file may be dropped.',
+				required: true
+		},
+		filePath: {
+				type: 'string',
+				description: 'The path to the local file to upload. This can be an absolute path or a relative path with respect to a framework directory.',
+				required: true
+		},
+		_returns: '\'true\' if the upload was successful; otherwise, it returns false.'
+};

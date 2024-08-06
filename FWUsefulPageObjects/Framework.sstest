@@ -136,6 +136,9 @@
           <TestFile>
             <Path>TestCases\WebPageHelper\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>TestCases\RebuildMetadata\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>testcases</Tags>
       </TestGroup>
@@ -157,6 +160,10 @@
       </TestFile>
       <TestFile>
         <Path>Objects.js</Path>
+      </TestFile>
+      <TestFile>
+        <Path>README.md</Path>
+        <Tags>shared</Tags>
       </TestFile>
     </TestFiles>
   </TestFiles>

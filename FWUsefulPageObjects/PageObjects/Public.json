@@ -1,0 +1,482 @@
+{
+	"KeyboardHelper": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "PressAlt",
+				"description": "@PageObject KeyboardHelper provides handy way for pressing/releasing modified keys\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(6,10)"
+			},
+			{
+				"name": "ReleaseAlt",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(11,10)"
+			},
+			{
+				"name": "PressCtrl",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(16,10)"
+			},
+			{
+				"name": "ReleaseCtrl",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(21,10)"
+			},
+			{
+				"name": "PressShift",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(26,10)"
+			},
+			{
+				"name": "ReleaseShift",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(31,10)"
+			},
+			{
+				"name": "PressWin",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(36,10)"
+			},
+			{
+				"name": "ReleaseWin",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(41,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "KeyboardHelper provides handy way for pressing/releasing modified keys",
+		"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/KeyboardHelper"
+	},
+	"ListChecker": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "VerifyMenu",
+				"description": "Verify that `menuContents` has all lines/items from `expected` and nothing else.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/menuContents, /**string||string[]*/expected",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(12,10)"
+			},
+			{
+				"name": "VerifyMenuContains",
+				"description": "Verify that `menuContents` has all lines/items from `expected` and maybe something else.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/menuContents, /**string||string[]*/expected",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(20,10)"
+			},
+			{
+				"name": "CompareToDropdown",
+				"description": "Check that dropdown with `idList` defined in Dropdowns.xlsx has equals `menuContents` (has all same items, maybe in different order).\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/idList, /**string*/menuContents",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(85,10)"
+			},
+			{
+				"name": "GetDropdownList",
+				"description": "Return values of dropdown with id `idList` as array of strings. The list is taken\r\nfrom %WORKDIR%\\Dropdowns.xlsx unless optional `xlsPath` is specified.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/idList, /**string*/xlsPath",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(94,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "ListChecker helps comparing multiline strings with lists and dropdowns.",
+		"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/ListChecker"
+	},
+	"ManagedHelper": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "PressModalButton",
+				"description": "Find and press a button in a modal dialog\r\n@param {string} buttonCaption - button caption, i.e. 'OK', 'Cancel' etc.\r\n@param {string} dialogCaption - dialog title\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/buttonCaption, /**string*/dialogCaption",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(14,10)"
+			},
+			{
+				"name": "FindModalDialog",
+				"description": "Find modal Managed dialog with given title within process with given `pid`.\r\n@param {string} dialogCaption - caption to look for\r\n@param {number} pid - optional PID of the application\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/dialogCaption, /**number*/pid",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(41,10)"
+			},
+			{
+				"name": "ContextMenuSelect",
+				"description": "Click menu item in the context menu by given `path`. When `path` is not set,\r\nreturn full contents of the context menu as list\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/path",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(86,10)"
+			},
+			{
+				"name": "GetContextMenuObject",
+				"description": "Return ManagedObject representing currently visible context menu\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(104,10)"
+			},
+			{
+				"name": "WaitForPopup",
+				"description": "Check for managed popup window with given `caption` to show up on the screen.\r\nLimit check with `timeout`.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/caption, /**number*/timeout",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(147,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "ManagedHelper handy methods for popup dialogs and context menus.",
+		"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/ManagedHelper"
+	},
+	"StringChecker": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "CheckPattern",
+				"description": "Compare `str` with `pattern`. Pattern may contain fields defined in the `defObj`.\r\n`defObj` is a structure:\r\n{\r\nf: \"<range of values>\"\r\n}\r\nso each time 'f' is found in the pattern, it will be matched agains <range of values>.\r\nExample:\r\nStringChecker.CheckPattern('1-X', 'N-L', {N:\"0123456789\", L:\"XYZ\"});\r\nWill check that:\r\n- 1 is a number \r\n- '-' is exactly '-' (because it it is not a defined field)\r\n- X belongs to range X,Y or Z.\r\nFunction returns true if `str` matches the `pattern`. Otherwise it return false and global variable PMResult contains detailed information about the difference.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/str, /**string*/pattern, /**object*/defObj",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(32,10)"
+			},
+			{
+				"name": "VerifyPattern",
+				"description": "Match pattern using 'StringChecker.CheckPattern' and do an assertion for the result. `message` is an assertion message.\r\nWhen match is failed, detailed information about the difference is saved to the report.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string*/str, /**string*/pattern, /**object*/defObj",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(94,10)"
+			},
+			{
+				"name": "CheckPatternRVL",
+				"description": "Match pattern using 'StringChecker.CheckPattern'. The function returns `true` if match is successfull.\r\nThis version of function is dedicated to be used from RVL. Additional pattern fields may be passed as additional parameters (RVL array params).\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/str, /**string*/pattern",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(110,10)"
+			},
+			{
+				"name": "VerifyPatternRVL",
+				"description": "Match pattern using 'StringChecker.CheckPattern' and do an assertion for the result. `message` is an assertion message.\r\nWhen match is failed, detailed information about the difference is saved to the report.\r\nThis version of function is dedicated to be used from RVL. Additional pattern fields may be passed as additional parameters (RVL array params).\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string*/str, /**string*/pattern",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(120,10)"
+			},
+			{
+				"name": "CheckRegex",
+				"description": "Check if `str` matches given regular expression. Match means the \r\nwhole `str` is covered by regexp.\r\nIf match is partial, it is assumed that there is no match. For example:\r\nABC matches A.*\r\nbut\r\nABC does not match AB (because it is partial match, not covering trailing C)\r\nIf you pass in the RegExp object as `regexstr`, then match will be done using RegExp.test function. I.e. it may be either partial or full match depending on use of ^ and $.\r\nFunction returns true if `str` matches the `regexstr`. Otherwise it return `false`.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/str, /**string|RegEx*/regexstr",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(137,10)"
+			},
+			{
+				"name": "VerifyRegex",
+				"description": "Verify that `str` matches given regular expression `regexstr` using StringChecker.CheckRegex.\r\nWhen match is failed, detailed information about the difference is saved to the report.\r\nThis version of function is dedicated to be used from RVL. Additional pattern fields may be passed as additional parameters (RVL array params).\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string*/str, /**string|RegEx*/regexstr",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(154,10)"
+			},
+			{
+				"name": "CheckUnique",
+				"description": "Check that given `val` is unique. I.e. it differs from all known previous values.\r\nFunction returns `true` if `val` is unique, `false` otherwise.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/val",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(165,10)"
+			},
+			{
+				"name": "VerifyUnique",
+				"description": "Verify that given `val` is unique. Write result to the report with provided `message`.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string*/val",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(179,10)"
+			},
+			{
+				"name": "CheckContainsOneOf",
+				"description": "Check that given `val` contains at least one symbol from given string of `chars`.\r\nFunction returns `true` if `val` is unique, `false` otherwise.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/val, /**string*/chars",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(189,10)"
+			},
+			{
+				"name": "VerifyContainsOneOf",
+				"description": "Verify that given `val` contains at least one symbol from given string of `chars`. Write result to the report with provided `message`.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string*/val, /**string*/chars",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(204,10)"
+			},
+			{
+				"name": "CheckContainsNoneOf",
+				"description": "Check that given `val` contains none of symbols from given string of `chars`.\r\nFunction returns `true` if `val` is unique, `false` otherwise.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/val, /**string*/chars",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(215,10)"
+			},
+			{
+				"name": "VerifyContainsNoneOf",
+				"description": "Verify that given `val` contains none of symbols from given string of `chars`. Write result to the report with provided `message`.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string*/val, /**string*/chars",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(234,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "StringChecker helps comparing strings with regular patterns.",
+		"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/StringChecker"
+	},
+	"TableHandler": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "GetRowCount",
+				"description": "Get number of <tr> rows in the table\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js(9,10)"
+			},
+			{
+				"name": "DoClickCell",
+				"description": "@paraminfo\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/rowText, /**string*/colId",
+				"paramInfo": {
+					"rowText": {
+						"description": "Text to find"
+					},
+					"colId": {
+						"description": "Column caption for a cell to click in"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js(34,10)"
+			},
+			{
+				"name": "VerifyRow",
+				"description": "Find a row containing `rowText` and check that it also has cell having `otherText`.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/rowText, /**string*/otherText",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js(79,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "TableHandler makes it easy to work with <table></table> based tables.",
+		"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/TableHandler"
+	},
+	"WebPageHelper": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "GetFullPageText",
+				"description": "Returns string containing all visible text on the current page.\r\nExample:\r\nvar page = WebPageHelper.GetFullPageText();\r\nTester.AssertContains('Welcome message found on the page', page, 'Welcome, Friend!')\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(18,10)"
+			},
+			{
+				"name": "CheckPageContains",
+				"description": "Check that page contains given `textToFind`. This action does not write to the report\r\nand simply returns `true` when text was found and `false` otherwise. You may pass the result\r\nto the assertion or if statement.\r\nExample:\r\nif( WebPageHelper.CheckPageContains('Welcome, Friend!') ) {\r\nAlready logged in, need to log out first.\r\n}\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/textToFind",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(37,10)"
+			},
+			{
+				"name": "VerifyPageContains",
+				"description": "Check that page contains given `textToFind` and write Pass or Fail to the report\r\naccordingly\r\nExample:\r\nWebPageHelper.VerifyPageContains('Page must have welcome message', 'Welcome, Friend!');\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string*/textToFind",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(49,10)"
+			},
+			{
+				"name": "DoClickByText",
+				"description": "Find an element by text and click on it. Take into account only element text.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/text",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(67,10)"
+			},
+			{
+				"name": "DoClickByPlaceholder",
+				"description": "Find an element by placeholder and click on it.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/placeholderText",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(91,10)"
+			},
+			{
+				"name": "DoClickByValue",
+				"description": "Find an element by value attribute and click on it.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/value",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(105,10)"
+			},
+			{
+				"name": "DoClickByTitle",
+				"description": "Find an element by title attribute and click on it. Title is usually visible as\r\nan element's tooltip.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/title",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(120,10)"
+			},
+			{
+				"name": "DoClickByName",
+				"description": "Find an element by name attribute and click on it. The name is usually invisible\r\nso you need to know it in advance.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/name",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(135,10)"
+			},
+			{
+				"name": "DoClickByClassName",
+				"description": "Find an element by CSS class name and click on it.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/className",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(149,10)"
+			},
+			{
+				"name": "DoClickById",
+				"description": "Find an element by ID.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/id",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(164,10)"
+			},
+			{
+				"name": "DoClickByTextTitlePlaceholder",
+				"description": "Find an element text, title or placeholder and click on it.\r\nThis is the most generic method for finding something on the page by visible\r\ntext and clicking on it. It covers buttons, links and various controls that\r\ninclude title (title is usually shown as a tooltip), placeholder or hint.\r\nExample 1:\r\nWebPageHelper.DoClickByTextTitlePlaceholder('Enter username...'); // This should capture a placeholder\r\nExample 2:\r\nWebPageHelper.DoClickByTextTitlePlaceholder('Login'); // This should capture a button\r\nExample 3:\r\nWebPageHelper.DoClickByTextTitlePlaceholder('Press to log into the system'); // This should capture a tooltip\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/text",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(190,10)"
+			},
+			{
+				"name": "DoFileDragAndDrop",
+				"description": "Uploads a file using drag-and-drop to a specified browser element.  \r\nThis function allows you to programmatically simulate a file drag-and-drop  \r\naction onto a specified target element in the browser. It creates a hidden  \r\nfile input element to handle the file upload process and dispatches  \r\nevents that simulate the drag-and-drop behavior.  \r\n@param {string|objectid} elOrXPath - The target element to receive the file.  \r\nThis can be an object reference or an XPath  \r\nselector string. Typically a `label` or `div`  \r\nelement where the file may be dropped.  \r\n@param {string} filePath - The path to the local file to upload. This can be an  \r\nabsolute path or a relative path with respect to a  \r\nframework directory.  \r\n@returns {boolean} Returns true if the upload was successful; otherwise, it   \r\nreturns false.  \r\n@example  \r\n```javascript\r\nExample usage of FileDragAndDropUpload function  \r\nvar success = WebPageHelper.DoFileDragAndDrop('//input[type=\"file\"]', '/path/to/file.txt');\r\nTester.SoftAssert(\"File uploaded.\", success, '/path/to/file.txt');\r\n```\r\n",
+				"type": "",
+				"returns": "'true' if the upload was successful; otherwise, it returns false.",
+				"signature": "/**string|objectid*/elOrXPath, /**string*/filePath",
+				"paramInfo": {
+					"elOrXPath": {
+						"type": "string|objectid",
+						"description": "The target element to receive the file. This can be an object reference or an XPath selector string. Typically a `label` or `div` element where the file may be dropped.",
+						"required": true
+					},
+					"filePath": {
+						"type": "string",
+						"description": "The path to the local file to upload. This can be an absolute path or a relative path with respect to a framework directory.",
+						"required": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(231,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "WebPageHelper is designed to help doing various actions and checks",
+		"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/WebPageHelper"
+	}
+}

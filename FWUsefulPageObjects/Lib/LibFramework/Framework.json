@@ -224,6 +224,9 @@
 		},
 		{
 			"data": "%WORKDIR%Dropdowns.xlsx"
+		},
+		{
+			"data": "%WORKDIR%README.md"
 		}
 	],
 	"testsets": [

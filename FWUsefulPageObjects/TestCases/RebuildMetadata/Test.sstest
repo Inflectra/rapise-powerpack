@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" v="19" id="S96HQ6I4" t="">
-  <Tags>pageobject</Tags>
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" v="19" id="RO2G15R8" t="">
+  <Tags>testcase</Tags>
   <ScriptPath>Main.js</ScriptPath>
   <UserFunctionsPath>User.js</UserFunctionsPath>
   <ObjectsPath>Objects.js</ObjectsPath>
-  <ReportPath>WebPageHelper.trp</ReportPath>
+  <ReportPath>RebuildMetadata.trp</ReportPath>
   <CommandInterval>1000</CommandInterval>
   <IterationsCount>1</IterationsCount>
   <StopOnError>true</StopOnError>
@@ -48,10 +48,6 @@
       </TestFile>
       <TestFile>
         <Path>User.js</Path>
-      </TestFile>
-      <TestFile>
-        <Path>WebPageHelper.js</Path>
-        <Tags>pageobject</Tags>
       </TestFile>
     </TestFiles>
   </TestFiles>
