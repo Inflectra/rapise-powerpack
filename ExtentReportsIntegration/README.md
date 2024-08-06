@@ -12,7 +12,7 @@ Open solution in Visual Studio 2019/2022 and do Restore NuGet Packages.
 - ExtentReportsRunner - executor program for experiments.
 - ExtentReportsWrapper.Tests - tests for the library. 
 
-To use the library in your Rapise framework import [../FWUsefulPageObjects/PageObjects/ExtentReports/Test.sstest] page object.
+To use the library in your Rapise framework import [FWUsefulPageObjects > ExtentReports](../FWUsefulPageObjects/PageObjects/ExtentReports/Test.sstest) page object.
 
 
 ## Demo
