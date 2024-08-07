@@ -10,7 +10,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(18,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(20,10)"
 			},
 			{
 				"name": "CheckPageContains",
@@ -19,7 +19,7 @@
 				"returns": "",
 				"signature": "/**string*/textToFind",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(37,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(39,10)"
 			},
 			{
 				"name": "VerifyPageContains",
@@ -28,7 +28,7 @@
 				"returns": "",
 				"signature": "/**string*/message, /**string*/textToFind",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(49,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(51,10)"
 			},
 			{
 				"name": "DoClickByText",
@@ -37,7 +37,7 @@
 				"returns": "",
 				"signature": "/**string*/text",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(67,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(69,10)"
 			},
 			{
 				"name": "DoClickByPlaceholder",
@@ -46,7 +46,7 @@
 				"returns": "",
 				"signature": "/**string*/placeholderText",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(91,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(93,10)"
 			},
 			{
 				"name": "DoClickByValue",
@@ -55,7 +55,7 @@
 				"returns": "",
 				"signature": "/**string*/value",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(105,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(107,10)"
 			},
 			{
 				"name": "DoClickByTitle",
@@ -64,7 +64,7 @@
 				"returns": "",
 				"signature": "/**string*/title",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(120,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(122,10)"
 			},
 			{
 				"name": "DoClickByName",
@@ -73,7 +73,7 @@
 				"returns": "",
 				"signature": "/**string*/name",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(135,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(137,10)"
 			},
 			{
 				"name": "DoClickByClassName",
@@ -82,7 +82,7 @@
 				"returns": "",
 				"signature": "/**string*/className",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(149,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(151,10)"
 			},
 			{
 				"name": "DoClickById",
@@ -91,7 +91,7 @@
 				"returns": "",
 				"signature": "/**string*/id",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(164,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(166,10)"
 			},
 			{
 				"name": "DoClickByTextTitlePlaceholder",
@@ -100,7 +100,7 @@
 				"returns": "",
 				"signature": "/**string*/text",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(190,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(192,10)"
 			},
 			{
 				"name": "DoFileDragAndDrop",
@@ -120,12 +120,13 @@
 						"required": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(231,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(233,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "WebPageHelper is designed to help doing various actions and checks",
-		"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js"
+		"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js",
+		"version": "1.0.6"
 	}
 }

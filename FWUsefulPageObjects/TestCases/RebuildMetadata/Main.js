@@ -2,6 +2,8 @@
 
 function Test(params)
 {
+	SeSGenFramework();
+
 	var res = {};
 	SeSEachFile( '%WORKDIR%Lib/LibFramework/', '*.metadata', function(f) {
 		var m = JSON.parse(File.Read(f));

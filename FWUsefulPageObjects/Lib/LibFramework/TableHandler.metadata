@@ -10,7 +10,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js(9,10)"
+				"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js(11,10)"
 			},
 			{
 				"name": "DoClickCell",
@@ -26,7 +26,7 @@
 						"description": "Column caption for a cell to click in"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js(34,10)"
+				"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js(36,10)"
 			},
 			{
 				"name": "VerifyRow",
@@ -35,12 +35,13 @@
 				"returns": "",
 				"signature": "/**string*/rowText, /**string*/otherText",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js(79,10)"
+				"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js(81,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "TableHandler makes it easy to work with <table></table> based tables.",
-		"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js"
+		"src": "%WORKDIR%PageObjects\\TableHandler\\TableHandler.js",
+		"version": "1.0.1"
 	}
 }

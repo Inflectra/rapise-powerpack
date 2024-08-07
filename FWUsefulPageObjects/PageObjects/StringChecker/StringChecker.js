@@ -1,6 +1,8 @@
 
 /**
  * @PageObject StringChecker helps comparing strings with regular patterns.
+ *
+ * @Version 1.0.2
  */
 SeSPageObject("StringChecker");
 

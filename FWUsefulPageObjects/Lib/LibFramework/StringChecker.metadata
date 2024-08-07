@@ -10,7 +10,7 @@
 				"returns": "",
 				"signature": "/**string*/str, /**string*/pattern, /**object*/defObj",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(32,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(34,10)"
 			},
 			{
 				"name": "VerifyPattern",
@@ -19,7 +19,7 @@
 				"returns": "",
 				"signature": "/**string*/message, /**string*/str, /**string*/pattern, /**object*/defObj",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(94,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(96,10)"
 			},
 			{
 				"name": "CheckPatternRVL",
@@ -28,7 +28,7 @@
 				"returns": "",
 				"signature": "/**string*/str, /**string*/pattern",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(110,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(112,10)"
 			},
 			{
 				"name": "VerifyPatternRVL",
@@ -37,7 +37,7 @@
 				"returns": "",
 				"signature": "/**string*/message, /**string*/str, /**string*/pattern",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(120,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(122,10)"
 			},
 			{
 				"name": "CheckRegex",
@@ -46,7 +46,7 @@
 				"returns": "",
 				"signature": "/**string*/str, /**string|RegEx*/regexstr",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(137,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(139,10)"
 			},
 			{
 				"name": "VerifyRegex",
@@ -55,7 +55,7 @@
 				"returns": "",
 				"signature": "/**string*/message, /**string*/str, /**string|RegEx*/regexstr",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(154,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(156,10)"
 			},
 			{
 				"name": "CheckUnique",
@@ -64,7 +64,7 @@
 				"returns": "",
 				"signature": "/**string*/val",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(165,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(167,10)"
 			},
 			{
 				"name": "VerifyUnique",
@@ -73,7 +73,7 @@
 				"returns": "",
 				"signature": "/**string*/message, /**string*/val",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(179,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(181,10)"
 			},
 			{
 				"name": "CheckContainsOneOf",
@@ -82,7 +82,7 @@
 				"returns": "",
 				"signature": "/**string*/val, /**string*/chars",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(189,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(191,10)"
 			},
 			{
 				"name": "VerifyContainsOneOf",
@@ -91,7 +91,7 @@
 				"returns": "",
 				"signature": "/**string*/message, /**string*/val, /**string*/chars",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(204,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(206,10)"
 			},
 			{
 				"name": "CheckContainsNoneOf",
@@ -100,7 +100,7 @@
 				"returns": "",
 				"signature": "/**string*/val, /**string*/chars",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(215,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(217,10)"
 			},
 			{
 				"name": "VerifyContainsNoneOf",
@@ -109,12 +109,13 @@
 				"returns": "",
 				"signature": "/**string*/message, /**string*/val, /**string*/chars",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(234,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(236,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "StringChecker helps comparing strings with regular patterns.",
-		"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js"
+		"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js",
+		"version": "1.0.2"
 	}
 }

@@ -1,6 +1,8 @@
 
 /**
- * @PageObject KeyboardHelper provides handy way for pressing/releasing modified keys
+ * @PageObject KeyboardHelper provides handy way for pressing/releasing modified keys.
+ *
+ * @Version 1.0.1
  */
 
 function KeyboardHelper_PressAlt()

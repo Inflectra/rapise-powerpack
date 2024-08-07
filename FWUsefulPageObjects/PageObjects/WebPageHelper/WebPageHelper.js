@@ -6,6 +6,8 @@
  * but it is useful for writing sanity checks and quick validation scenarios.
  * The power of those methods are that they are cross-frame and are inteded to 
  * cover the whole visible contents of the page, rather than only the root frame.
+ *
+ * @Version 1.0.6
  */
 SeSPageObject("WebPageHelper");
 

@@ -4,6 +4,8 @@
  * - Work with popup dialogs (wait for appearance)
  * - Click context menu
  * - Return context menu items as list
+ *
+ * @Version 1.0.3
  */
 
 /**

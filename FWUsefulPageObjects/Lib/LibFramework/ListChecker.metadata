@@ -10,7 +10,7 @@
 				"returns": "",
 				"signature": "/**string*/menuContents, /**string||string[]*/expected",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(12,10)"
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(14,10)"
 			},
 			{
 				"name": "VerifyMenuContains",
@@ -19,7 +19,7 @@
 				"returns": "",
 				"signature": "/**string*/menuContents, /**string||string[]*/expected",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(20,10)"
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(22,10)"
 			},
 			{
 				"name": "CompareToDropdown",
@@ -28,7 +28,7 @@
 				"returns": "",
 				"signature": "/**string*/idList, /**string*/menuContents",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(85,10)"
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(87,10)"
 			},
 			{
 				"name": "GetDropdownList",
@@ -37,12 +37,13 @@
 				"returns": "",
 				"signature": "/**string*/idList, /**string*/xlsPath",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(94,10)"
+				"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js(96,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "ListChecker helps comparing multiline strings with lists and dropdowns.",
-		"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js"
+		"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js",
+		"version": "1.0.1"
 	}
 }

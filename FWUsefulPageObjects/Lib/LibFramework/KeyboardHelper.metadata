@@ -5,12 +5,12 @@
 		"actions": [
 			{
 				"name": "PressAlt",
-				"description": "@PageObject KeyboardHelper provides handy way for pressing/releasing modified keys\r\n",
+				"description": "@PageObject KeyboardHelper provides handy way for pressing/releasing modified keys.\r\n@Version 1.0.4\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(6,10)"
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(8,10)"
 			},
 			{
 				"name": "ReleaseAlt",
@@ -19,7 +19,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(11,10)"
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(13,10)"
 			},
 			{
 				"name": "PressCtrl",
@@ -28,7 +28,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(16,10)"
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(18,10)"
 			},
 			{
 				"name": "ReleaseCtrl",
@@ -37,7 +37,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(21,10)"
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(23,10)"
 			},
 			{
 				"name": "PressShift",
@@ -46,7 +46,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(26,10)"
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(28,10)"
 			},
 			{
 				"name": "ReleaseShift",
@@ -55,7 +55,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(31,10)"
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(33,10)"
 			},
 			{
 				"name": "PressWin",
@@ -64,7 +64,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(36,10)"
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(38,10)"
 			},
 			{
 				"name": "ReleaseWin",
@@ -73,12 +73,13 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(41,10)"
+				"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js(43,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
-		"description": "KeyboardHelper provides handy way for pressing/releasing modified keys",
-		"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js"
+		"description": "KeyboardHelper provides handy way for pressing/releasing modified keys.",
+		"src": "%WORKDIR%PageObjects\\KeyboardHelper\\KeyboardHelper.js",
+		"version": "1.0.1"
 	}
 }

@@ -10,7 +10,7 @@
 				"returns": "",
 				"signature": "/**string*/buttonCaption, /**string*/dialogCaption",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(14,10)"
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(16,10)"
 			},
 			{
 				"name": "FindModalDialog",
@@ -19,7 +19,7 @@
 				"returns": "",
 				"signature": "/**string*/dialogCaption, /**number*/pid",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(41,10)"
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(43,10)"
 			},
 			{
 				"name": "ContextMenuSelect",
@@ -28,7 +28,7 @@
 				"returns": "",
 				"signature": "/**string*/path",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(86,10)"
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(88,10)"
 			},
 			{
 				"name": "GetContextMenuObject",
@@ -37,7 +37,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(104,10)"
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(106,10)"
 			},
 			{
 				"name": "WaitForPopup",
@@ -46,12 +46,13 @@
 				"returns": "",
 				"signature": "/**string*/caption, /**number*/timeout",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(147,10)"
+				"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js(149,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "ManagedHelper handy methods for popup dialogs and context menus.",
-		"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js"
+		"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js",
+		"version": "1.0.3"
 	}
 }

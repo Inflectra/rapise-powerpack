@@ -3,6 +3,8 @@
  * @PageObject ListChecker helps comparing multiline strings with lists and dropdowns.
  * Expected list may be an array or also a multiline list. It may come from application,
  * from variable or from Dropdowns.
+ *
+ * @Version 1.0.1
  */
 SeSPageObject("ListChecker");
 

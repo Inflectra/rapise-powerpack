@@ -1,5 +1,7 @@
 /**
  * @PageObject TableHandler makes it easy to work with <table></table> based tables.
+ *
+ * @Version 1.0.1
  */
 SeSPageObject("TableHandler");
 
