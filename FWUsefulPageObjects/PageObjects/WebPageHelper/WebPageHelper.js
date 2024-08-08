@@ -225,7 +225,6 @@ function WebPageHelper_DoClickByTextTitlePlaceholder(/**string*/text)
  *  
  * @example  
  * ```javascript
- * // Example usage of FileDragAndDropUpload function  
  * var success = WebPageHelper.DoFileDragAndDrop('//input[type="file"]', '/path/to/file.txt');
  * Tester.SoftAssert("File uploaded.", success, '/path/to/file.txt');
  * ```
@@ -280,13 +279,52 @@ function WebPageHelper_DoFileDragAndDrop(/**string|objectid*/elOrXPath, /**strin
 var _paramInfoWebPageHelper_DoFileDragAndDrop = {
 		elOrXPath: {
 				type: 'string|objectid',
-				description: 'The target element to receive the file. This can be an object reference or an XPath selector string. Typically a `label` or `div` element where the file may be dropped.',
-				required: true
+				description: 'The target element to receive the file. This can be an object reference or an XPath selector string. Typically a `label` or `div` element where the file may be dropped.'
 		},
 		filePath: {
 				type: 'string',
-				description: 'The path to the local file to upload. This can be an absolute path or a relative path with respect to a framework directory.',
-				required: true
+				description: 'The path to the local file to upload. This can be an absolute path or a relative path with respect to a framework directory.'
+		},
+		_returns: '\'true\' if the upload was successful; otherwise, it returns false.'
+};
+
+/**
+ * Do triple-click on the element. May be useful to select the whole sencence or
+ * paragraph or input contents for further Copy+Paste.
+ *  
+ * @param {string|objectid} elOrXPath - The target element to click.  
+ *                                      This can be an object reference or an XPath  
+ *                                      selector string.
+ *
+ * @returns {boolean} Returns true triple click .  
+ *  
+ * @example  
+ * ```javascript
+ * // Select the whole header
+ * WebPageHelper.DoTripleClick('//h1');
+ * ```
+ */
+function WebPageHelper_DoTripleClick(/**string|objectid*/elOrXPath, /**number*/offsetX, /**number*/offsetY)
+{
+	var el = elOrXPath;
+	if(typeof el =='string' || (!el.el && el.xpath) ) {
+		el = Navigator.SeSFind(elOrXPath)
+	}
+	if( !el ) {
+		Tester.SoftAssert('WebPageHelper.DoTripleClick: element not found'+elOrXPath, false);
+		return false;
+	}
+	
+	WebDriver.Actions().Click(el.element).Click(el.element).Click(el.element).Perform();
+
+	//var res = /**WebElementWrapper*/WebDriver.ExecuteScript(_doTripleClick+" return _doTripleClick(arguments[0], arguments[1], arguments[2]);", [el.element.e, offsetX, offsetY]);
+	return true;
+}
+
+var _paramInfoWebPageHelper_DoTripleClick = {
+		elOrXPath: {
+				type: 'string|objectid',
+				description: 'The target element to click. This can be an object reference or an XPath selector string.'
 		},
 		_returns: '\'true\' if the upload was successful; otherwise, it returns false.'
 };
