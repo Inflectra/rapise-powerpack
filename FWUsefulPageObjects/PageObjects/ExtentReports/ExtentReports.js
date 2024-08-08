@@ -1,13 +1,16 @@
 
 /**
- * @PageObject ExtentReports description
+ * @PageObject ExtentReports provides JS interface to support for extentreports-csharp library. But the main thing is that it overrides SeSOnReportMessage and generates html-based ExtentReports report instead of default Rapise report.
+ * @see https://www.inflectra.com/Support/KnowledgeBase/KB861.aspx
+ * 
+ * @Version 1.0.0
  */
 SeSPageObject("ExtentReports");
 
 var _er = null;
 var _test = null;
 
-function ExtentReports_DoSayHello()
+function ExtentReports_Demo()
 {
 	ExtentReports.Init();
 	ExtentReports.CreateTest(global.g_testAliasName);
