@@ -11,6 +11,8 @@ This Framework contains a number of useful general purpose Page Objects that may
 5. TableHandler
 6. WebPageHelper
 7. ExtentReports
+8. PDF
+9. Playwright
 
 ## How to Use
 

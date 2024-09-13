@@ -263,6 +263,109 @@
 		"version": "1.0.3",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/ManagedHelper"
 	},
+	"PDF": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "GetFullText",
+				"description": "Parse PDF at `pdfPath` and return its text representation for further processing",
+				"type": "string",
+				"returns": "Text of the PDF file.",
+				"signature": "/**string*/pdfPath",
+				"paramInfo": {
+					"pdfPath": {
+						"description": "Path to input PDF file.",
+						"binding": "path",
+						"ext": "arf"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(7,10)"
+			},
+			{
+				"name": "Contains",
+				"description": "Parse PDF at `pdfPath` and check if it contains `textOrRegexp` value.",
+				"type": "string",
+				"returns": "`true` if text present in the PDF.",
+				"signature": "/**string*/pdfPath, /**string*/textOrRegexp",
+				"paramInfo": {
+					"pdfPath": {
+						"description": "Path to input PDF file.",
+						"binding": "path",
+						"ext": "arf"
+					},
+					"textOrRegexp": {
+						"description": "Either plain string, or something starting from regex: to look in the file"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(73,10)"
+			},
+			{
+				"name": "AssertContains",
+				"description": "Parse PDF at `pdfPath` and check if it contains `textOrRegexp` value writing \r\nwriting to the report as `assertionMessage`.",
+				"type": "string",
+				"returns": "Text of the PDF file.",
+				"signature": "/**string*/assertionMessage, /**string*/pdfPath, /**string*/textOrRegexp",
+				"paramInfo": {
+					"pdfPath": {
+						"description": "Path to input PDF file.",
+						"binding": "path",
+						"ext": "arf"
+					},
+					"textOrRegexp": {
+						"description": "Either plain string, or something starting from regex: to look in the file"
+					},
+					"assertionMessage": {
+						"description": "Line to write to the report"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(110,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "PDF handling: read text, check that PDF contains some text, assert PDF contains something.",
+		"src": "%WORKDIR%PageObjects\\PDF\\PDF.js",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/PDF"
+	},
+	"Playwright": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "DoPlay",
+				"description": "Run playwright test `cmdParams` and import results into Rapise test report.\r\n@param {String} `cmdParams` additional parameters. The params is anything mentioned here: https://playwright.dev/docs/test-cli going after `npx playwright test `\r\nExamples:\r\nRun all test *.spec.js / *.spec.ts files (with respect to playwright.config.ts / playwright.config.js)\r\nPlaywright.DoPlay();\r\nRun files that have my-spec or my-spec-2 in the file name\r\nPlaywright.DoPlay(\"my-spec my-spec-2\");\r\nRun tests that are in line 42 in my-spec.ts\r\nPlaywright.DoPlay(\"my-spec.ts:42\");\r\nRun tests in headed browsers\r\nPlaywright.DoPlay(\"--headed\");\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/cmdParams",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(107,10)"
+			},
+			{
+				"name": "DoInvoke",
+				"description": "Invoke user callback, passing current browser as a parameter: cb({page,expect,browser})\r\n@param {function} `callBack` your callback function fn(page,expect,browser) to invoke.\r\nExamples:\r\nPlaywright.DoInvoke(async ({page,expect}) {\r\nawait expect(page).not.toHaveURL('error');\r\n})\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**function*/callBack",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(146,10)"
+			},
+			{
+				"name": "DoImportJsonReport",
+				"description": "Import report in JSON format produced by Playwright earlier.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/path",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(156,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.",
+		"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/Playwright"
+	},
 	"StringChecker": {
 		"window_name": "PageObjects",
 		"flavor": "GlobalObject",

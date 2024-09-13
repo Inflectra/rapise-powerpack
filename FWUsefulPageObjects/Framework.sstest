@@ -58,6 +58,12 @@
           <TestFile>
             <Path>PageObjects\ExtentReports\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>PageObjects\Playwright\Test.sstest</Path>
+          </TestFile>
+          <TestFile>
+            <Path>PageObjects\PDF\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>pageobjects</Tags>
       </TestGroup>
@@ -103,6 +109,32 @@
               </TestFile>
               <TestFile>
                 <Path>TestCases\ExtentReports\LisFailedTestCase\Test.sstest</Path>
+              </TestFile>
+            </TestFiles>
+          </TestGroup>
+          <TestGroup>
+            <Name>PDF</Name>
+            <RealFolder>true</RealFolder>
+            <IsFilterGroup>false</IsFilterGroup>
+            <FilterWildcard>*.*</FilterWildcard>
+            <FilterPath>TestCases/PDF</FilterPath>
+            <Groups />
+            <TestFiles>
+              <TestFile>
+                <Path>TestCases\PDF\PDF Text Assert\Test.sstest</Path>
+              </TestFile>
+            </TestFiles>
+          </TestGroup>
+          <TestGroup>
+            <Name>Playwright</Name>
+            <RealFolder>true</RealFolder>
+            <IsFilterGroup>false</IsFilterGroup>
+            <FilterWildcard>*.*</FilterWildcard>
+            <FilterPath>TestCases/Playwright</FilterPath>
+            <Groups />
+            <TestFiles>
+              <TestFile>
+                <Path>TestCases\Playwright\Playwright Mix Mode\Test.sstest</Path>
               </TestFile>
             </TestFiles>
           </TestGroup>
