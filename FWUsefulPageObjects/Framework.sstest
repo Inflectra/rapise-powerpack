@@ -136,6 +136,9 @@
               <TestFile>
                 <Path>TestCases\Playwright\Playwright Mix Mode\Test.sstest</Path>
               </TestFile>
+              <TestFile>
+                <Path>TestCases\Playwright\Playwright Run Spec\Test.sstest</Path>
+              </TestFile>
             </TestFiles>
           </TestGroup>
           <TestGroup>
