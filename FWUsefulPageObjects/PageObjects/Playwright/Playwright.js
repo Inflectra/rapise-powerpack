@@ -1,6 +1,7 @@
 
 /**
  * @PageObject Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.
+ * @Version 0.0.2   
  */
 SeSPageObject("Playwright");
 
@@ -46,6 +47,10 @@ function _PlaywrightSyncRun(f) {
 
 async function getPlaywrightBrowser()
 {
+	if (!WebDriver.d)
+	{
+		WebDriver.ReconnectSession();
+	}
 	const playwright = require('playwright');
 	const cdpUrl = "http://"+WebDriver.d.GetDebuggerAddress();
 	const browser = await playwright.chromium.connectOverCDP(cdpUrl, {
