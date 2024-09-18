@@ -5,7 +5,7 @@
 		"actions": [
 			{
 				"name": "PressAlt",
-				"description": "@PageObject KeyboardHelper provides handy way for pressing/releasing modified keys.\r\n@Version 1.0.4\r\n",
+				"description": "@PageObject KeyboardHelper provides handy way for pressing/releasing modified keys.\r\n@Version 1.0.1\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "",
