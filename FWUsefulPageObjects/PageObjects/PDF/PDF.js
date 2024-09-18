@@ -1,5 +1,7 @@
 /**
  * @PageObject PDF handling: read text, check that PDF contains some text, assert PDF contains something.
+ * 
+ * @Version 1.0.0
  */
 
 SeSGlobalObject("PDF")
