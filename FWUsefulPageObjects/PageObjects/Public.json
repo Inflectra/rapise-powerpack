@@ -80,7 +80,7 @@
 		"actions": [
 			{
 				"name": "PressAlt",
-				"description": "@PageObject KeyboardHelper provides handy way for pressing/releasing modified keys.\r\n@Version 1.0.4\r\n",
+				"description": "@PageObject KeyboardHelper provides handy way for pressing/releasing modified keys.\r\n@Version 1.0.1\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "",
@@ -340,7 +340,7 @@
 				"returns": "",
 				"signature": "/**string*/cmdParams",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(111,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(112,10)"
 			},
 			{
 				"name": "DoInvoke",
@@ -349,7 +349,7 @@
 				"returns": "",
 				"signature": "/**function*/callBack",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(150,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(151,10)"
 			},
 			{
 				"name": "DoImportJsonReport",
@@ -358,13 +358,14 @@
 				"returns": "",
 				"signature": "/**string*/path",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(160,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(161,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.",
 		"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js",
+		"version": "0.0.2",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/Playwright"
 	},
 	"Sfdc": {
@@ -408,13 +409,31 @@
 				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(68,10)"
 			},
 			{
+				"name": "ClickButton",
+				"description": "Clicks button by name\r\n@param name Name of a button\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ name",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(93,10)"
+			},
+			{
+				"name": "SetTextField",
+				"description": "Sets text into a form field\r\n@param name Name of a field\r\n@param value Text to enter\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ name, /**string*/ value",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(113,10)"
+			},
+			{
 				"name": "SearchTable",
 				"description": "Searches data in a table.\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/ value",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(92,10)"
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(134,10)"
 			},
 			{
 				"name": "SelectComboboxItem",
@@ -423,7 +442,7 @@
 				"returns": "",
 				"signature": "/**string*/ name, /**string*/ item",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(116,10)"
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(158,10)"
 			},
 			{
 				"name": "SaveDom",
@@ -432,14 +451,14 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(155,10)"
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(197,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "Sfdc object to perform common actions like launch, navigate module, etc.",
 		"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js",
-		"version": "1.0.3",
+		"version": "1.0.4",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/Sfdc"
 	},
 	"StringChecker": {

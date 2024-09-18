@@ -1,0 +1,94 @@
+{
+	"Sfdc": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "Launch",
+				"description": "Launches Salesforce in a browser. SfdcUrl, UserName, Password must be set in Config.xlsx\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(14,10)"
+			},
+			{
+				"name": "OpenApp",
+				"description": "Opens application.\r\n@param app Name of an application (e.g. Service, Marketing, Sales).\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ app",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(29,10)"
+			},
+			{
+				"name": "NavigateModule",
+				"description": "Navigates to module using nav bar.\r\n@param module Name of a module (e.g. Leads, Contacts, Opportunities).\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ module",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(49,10)"
+			},
+			{
+				"name": "SelectListView",
+				"description": "Selects list view.\r\n@param view Name of a view. E.g. Recently Viewed, All Open Leads\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ view",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(68,10)"
+			},
+			{
+				"name": "ClickButton",
+				"description": "Clicks button by name\r\n@param name Name of a button\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ name",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(93,10)"
+			},
+			{
+				"name": "SetTextField",
+				"description": "Sets text into a form field\r\n@param name Name of a field\r\n@param value Text to enter\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ name, /**string*/ value",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(113,10)"
+			},
+			{
+				"name": "SearchTable",
+				"description": "Searches data in a table.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ value",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(134,10)"
+			},
+			{
+				"name": "SelectComboboxItem",
+				"description": "Selects item from a combobox\r\n@param item Item name.\r\n@param name Name of a combobox.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ name, /**string*/ item",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(158,10)"
+			},
+			{
+				"name": "SaveDom",
+				"description": "Saves DOM tree of the current page to dom.xml file.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(197,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "Sfdc object to perform common actions like launch, navigate module, etc.",
+		"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js",
+		"version": "1.0.4"
+	}
+}

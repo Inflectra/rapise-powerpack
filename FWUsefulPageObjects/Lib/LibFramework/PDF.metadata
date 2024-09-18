@@ -1,0 +1,67 @@
+{
+	"PDF": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "GetFullText",
+				"description": "Parse PDF at `pdfPath` and return its text representation for further processing",
+				"type": "string",
+				"returns": "Text of the PDF file.",
+				"signature": "/**string*/pdfPath",
+				"paramInfo": {
+					"pdfPath": {
+						"description": "Path to input PDF file.",
+						"binding": "path",
+						"ext": "arf"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(9,10)"
+			},
+			{
+				"name": "Contains",
+				"description": "Parse PDF at `pdfPath` and check if it contains `textOrRegexp` value.",
+				"type": "string",
+				"returns": "`true` if text present in the PDF.",
+				"signature": "/**string*/pdfPath, /**string*/textOrRegexp",
+				"paramInfo": {
+					"pdfPath": {
+						"description": "Path to input PDF file.",
+						"binding": "path",
+						"ext": "arf"
+					},
+					"textOrRegexp": {
+						"description": "Either plain string, or something starting from regex: to look in the file"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(75,10)"
+			},
+			{
+				"name": "AssertContains",
+				"description": "Parse PDF at `pdfPath` and check if it contains `textOrRegexp` value writing \r\nwriting to the report as `assertionMessage`.",
+				"type": "string",
+				"returns": "Text of the PDF file.",
+				"signature": "/**string*/assertionMessage, /**string*/pdfPath, /**string*/textOrRegexp",
+				"paramInfo": {
+					"pdfPath": {
+						"description": "Path to input PDF file.",
+						"binding": "path",
+						"ext": "arf"
+					},
+					"textOrRegexp": {
+						"description": "Either plain string, or something starting from regex: to look in the file"
+					},
+					"assertionMessage": {
+						"description": "Line to write to the report"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(112,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "PDF handling: read text, check that PDF contains some text, assert PDF contains something.",
+		"src": "%WORKDIR%PageObjects\\PDF\\PDF.js",
+		"version": "1.0.1"
+	}
+}

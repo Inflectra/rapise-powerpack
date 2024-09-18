@@ -2,7 +2,7 @@
 /**
  * @PageObject Sfdc object to perform common actions like launch, navigate module, etc.
  *
- * @Version 1.0.3
+ * @Version 1.0.4
  */
 SeSPageObject("Sfdc");
 
@@ -85,6 +85,48 @@ function Sfdc_SelectListView(/**string*/ view)
 		Tester.Assert("View element is not found: " + view, false);
 	}
 }
+
+/**
+ * Clicks button by name
+ * @param name Name of a button
+ */
+function Sfdc_ClickButton(/**string*/ name)
+{
+	var xpath = "//div[@title='" + name + "']";
+	var obj = Navigator.SeSFind(xpath);
+	if (obj)
+	{
+		obj.object_name = name;
+		obj.DoClick();
+	}
+	else
+	{
+		Tester.Assert("Button '" + name + "' is not found", false);
+	}
+}
+
+/**
+ * Sets text into a form field
+ * @param name Name of a field
+ * @param value Text to enter
+ */
+function Sfdc_SetTextField(/**string*/ name, /**string*/ value)
+{
+	var xpath = "//input[@name='" + name + "' or @placeholder='" + name + "']";
+	var obj = Navigator.SeSFind(xpath);
+	if (obj)
+	{
+		obj.object_name = name;
+		obj.DoSetText(value);
+	}
+	else
+	{
+		Tester.Assert("Input field '" + name + "' is not found", false);
+	}
+}
+
+/**
+
 
 /**
  * Searches data in a table.

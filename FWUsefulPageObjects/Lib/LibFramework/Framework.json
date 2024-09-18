@@ -124,7 +124,7 @@
 			"libraries": [
 				"Web"
 			],
-			"hash": "A0396036655928D048A1929EFAC83EA013E5AC06CA9336DAB72A46597F44D72468C7BF443CF916217AB7E7640CE1C1776E661038062DD844EDB384849E35676D"
+			"hash": "AFC8AD5E101D1EF49DDDC6D54E0D1E08749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B869A7FFBF7F30EB0396521BFCD1B8513F7"
 		}
 	},
 	"testcases": [
@@ -316,6 +316,15 @@
 		},
 		{
 			"data": "%WORKDIR%README.md"
+		}
+	],
+	"testsets": [
+		{
+			"id": "f52faa0c",
+			"name": "Default",
+			"description": "Default test set",
+			"configId": "34a9fb14",
+			"testcases": []
 		}
 	]
 }
