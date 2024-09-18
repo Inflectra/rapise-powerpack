@@ -326,8 +326,46 @@
 		"extend_rule": "",
 		"description": "PDF handling: read text, check that PDF contains some text, assert PDF contains something.",
 		"src": "%WORKDIR%PageObjects\\PDF\\PDF.js",
-		"version": "1.0.0",
+		"version": "1.0.1",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/PDF"
+	},
+	"Playwright": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "DoPlay",
+				"description": "Run playwright test `cmdParams` and import results into Rapise test report.\r\n@param {String} `cmdParams` additional parameters. The params is anything mentioned here: https://playwright.dev/docs/test-cli going after `npx playwright test `\r\nExamples:\r\nRun all test *.spec.js / *.spec.ts files (with respect to playwright.config.ts / playwright.config.js)\r\nPlaywright.DoPlay();\r\nRun files that have my-spec or my-spec-2 in the file name\r\nPlaywright.DoPlay(\"my-spec my-spec-2\");\r\nRun tests that are in line 42 in my-spec.ts\r\nPlaywright.DoPlay(\"my-spec.ts:42\");\r\nRun tests in headed browsers\r\nPlaywright.DoPlay(\"--headed\");\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/cmdParams",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(111,10)"
+			},
+			{
+				"name": "DoInvoke",
+				"description": "Invoke user callback, passing current browser as a parameter: cb({page,expect,browser})\r\n@param {function} `callBack` your callback function fn(page,expect,browser) to invoke.\r\nExamples:\r\nPlaywright.DoInvoke(async ({page,expect}) {\r\nawait expect(page).not.toHaveURL('error');\r\n})\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**function*/callBack",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(150,10)"
+			},
+			{
+				"name": "DoImportJsonReport",
+				"description": "Import report in JSON format produced by Playwright earlier.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/path",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(160,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.",
+		"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/Playwright"
 	},
 	"Sfdc": {
 		"window_name": "PageObjects",
@@ -335,7 +373,7 @@
 		"actions": [
 			{
 				"name": "Launch",
-				"description": "",
+				"description": "Launches Salesforce in a browser. SfdcUrl, UserName, Password must be set in Config.xlsx\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "",
@@ -344,7 +382,7 @@
 			},
 			{
 				"name": "OpenApp",
-				"description": "",
+				"description": "Opens application.\r\n@param app Name of an application (e.g. Service, Marketing, Sales).\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/ app",
@@ -353,7 +391,7 @@
 			},
 			{
 				"name": "NavigateModule",
-				"description": "",
+				"description": "Navigates to module using nav bar.\r\n@param module Name of a module (e.g. Leads, Contacts, Opportunities).\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/ module",
@@ -362,7 +400,7 @@
 			},
 			{
 				"name": "SelectListView",
-				"description": "",
+				"description": "Selects list view.\r\n@param view Name of a view. E.g. Recently Viewed, All Open Leads\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/ view",
@@ -371,7 +409,7 @@
 			},
 			{
 				"name": "SearchTable",
-				"description": "",
+				"description": "Searches data in a table.\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/ value",
@@ -380,7 +418,7 @@
 			},
 			{
 				"name": "SelectComboboxItem",
-				"description": "",
+				"description": "Selects item from a combobox\r\n@param item Item name.\r\n@param name Name of a combobox.\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/ name, /**string*/ item",
@@ -389,7 +427,7 @@
 			},
 			{
 				"name": "SaveDom",
-				"description": "",
+				"description": "Saves DOM tree of the current page to dom.xml file.\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "",
@@ -693,7 +731,7 @@
 			},
 			{
 				"name": "DoTripleClick",
-				"description": "Do triple-click on the element. May be useful to select the whole sencence or\r\nparagraph or input contents for further Copy+Paste.\r\n@param {string|objectid} elOrXPath - The target element to click.  \r\nThis can be an object reference or an XPath  \r\nselector string.\r\n@param {number} [offsetX] - X offset to click, optional, defaults to element's central point\r\n@param {number} [offsetY] - Y offset to click, optional, defaults to element's central point\r\n@returns {boolean} Returns true triple click .  \r\n@example  \r\n```javascript\r\nSelect the whole header\r\nWebPageHelper.DoTripleClick('//h1');\r\n```\r\n",
+				"description": "Do triple-click on the element. May be useful to select the whole sencence or\r\nparagraph or input contents for further Copy+Paste.\r\n@param {string|objectid} elOrXPath - The target element to click.  \r\nThis can be an object reference or an XPath  \r\nselector string.\r\n@returns {boolean} Returns true triple click .  \r\n@example  \r\n```javascript\r\nSelect the whole header\r\nWebPageHelper.DoTripleClick('//h1');\r\n```\r\n",
 				"type": "",
 				"returns": "'true' if the upload was successful; otherwise, it returns false.",
 				"signature": "/**string|objectid*/elOrXPath, /**number*/offsetX, /**number*/offsetY",

@@ -122,7 +122,7 @@
 			},
 			{
 				"name": "DoTripleClick",
-				"description": "Do triple-click on the element. May be useful to select the whole sencence or\r\nparagraph or input contents for further Copy+Paste.\r\n@param {string|objectid} elOrXPath - The target element to click.  \r\nThis can be an object reference or an XPath  \r\nselector string.\r\n@param {number} [offsetX] - X offset to click, optional, defaults to element's central point\r\n@param {number} [offsetY] - Y offset to click, optional, defaults to element's central point\r\n@returns {boolean} Returns true triple click .  \r\n@example  \r\n```javascript\r\nSelect the whole header\r\nWebPageHelper.DoTripleClick('//h1');\r\n```\r\n",
+				"description": "Do triple-click on the element. May be useful to select the whole sencence or\r\nparagraph or input contents for further Copy+Paste.\r\n@param {string|objectid} elOrXPath - The target element to click.  \r\nThis can be an object reference or an XPath  \r\nselector string.\r\n@returns {boolean} Returns true triple click .  \r\n@example  \r\n```javascript\r\nSelect the whole header\r\nWebPageHelper.DoTripleClick('//h1');\r\n```\r\n",
 				"type": "",
 				"returns": "'true' if the upload was successful; otherwise, it returns false.",
 				"signature": "/**string|objectid*/elOrXPath, /**number*/offsetX, /**number*/offsetY",
