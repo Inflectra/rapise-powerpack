@@ -13,6 +13,7 @@ This Framework contains a number of useful general purpose Page Objects that may
 7. ExtentReports
 8. PDF
 9. Playwright
+10. Sfdc
 
 ## How to Use
 

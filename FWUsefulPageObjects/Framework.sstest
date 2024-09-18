@@ -64,6 +64,9 @@
           <TestFile>
             <Path>PageObjects\PDF\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>PageObjects\Sfdc\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>pageobjects</Tags>
       </TestGroup>

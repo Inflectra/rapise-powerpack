@@ -87,7 +87,7 @@
 			"libraries": [
 				"Web"
 			],
-			"hash": "C1DD7FC8BC7CAFA239CA288BE4B62E7E13E5AC06CA9336DAB72A46597F44D72468C7BF443CF916217AB7E7640CE1C177194F5757AA13C099FA4F857915A9E7C0"
+			"hash": "03687C658D78E7390D3EA1C4B2708CAC749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
 		},
 		"Playwright": {
 			"id": "6GOP5744",
@@ -112,6 +112,19 @@
 				"Web"
 			],
 			"hash": "CE386036010D8AFE1B846E88F09CCA4A749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
+		},
+		"Sfdc": {
+			"id": "34ZKI23N",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\Sfdc\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\Sfdc\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\Sfdc\\Objects.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "E2478494AC34E1F30A5688C9BA907EE1749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B869A7FFBF7F30EB0396521BFCD1B8513F7"
 		}
 	},
 	"testcases": [
@@ -119,7 +132,7 @@
 			"name": "TableHandler",
 			"alias": "TableHandler",
 			"vpath": "",
-			"sstest": "%WORKDIR%TestCases\\TableHandler\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\TableHandler\\Test.sstest",
 			"tags": "testcase",
 			"id": "UEA2OZHH",
 			"rep": "%WORKDIR%TestCases\\TableHandler\\Objects.js",
@@ -133,7 +146,7 @@
 			"name": "ListChecker",
 			"alias": "ListChecker",
 			"vpath": "",
-			"sstest": "%WORKDIR%TestCases\\ListChecker\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\ListChecker\\Test.sstest",
 			"tags": "testcase",
 			"id": "9ZI4BQJE",
 			"rep": "%WORKDIR%TestCases\\ListChecker\\Objects.js",
@@ -147,7 +160,7 @@
 			"name": "WebPageHelper",
 			"alias": "WebPageHelper",
 			"vpath": "",
-			"sstest": "%WORKDIR%TestCases\\WebPageHelper\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\WebPageHelper\\Test.sstest",
 			"tags": "testcase",
 			"id": "67102HK3",
 			"rep": "%WORKDIR%TestCases\\WebPageHelper\\Objects.js",
@@ -161,7 +174,7 @@
 			"name": "RebuildMetadata",
 			"alias": "RebuildMetadata",
 			"vpath": "",
-			"sstest": "%WORKDIR%TestCases\\RebuildMetadata\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\RebuildMetadata\\Test.sstest",
 			"tags": "testcase",
 			"id": "RO2G15R8",
 			"rep": "%WORKDIR%TestCases\\RebuildMetadata\\Objects.js",
@@ -173,7 +186,7 @@
 			"name": "LisLogin",
 			"alias": "LisLogin",
 			"vpath": "ExtentReports",
-			"sstest": "%WORKDIR%TestCases\\ExtentReports\\LisLogin\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\ExtentReports\\LisLogin\\Test.sstest",
 			"tags": "testcase",
 			"id": "FDKZI5AW",
 			"rep": "%WORKDIR%TestCases\\ExtentReports\\LisLogin\\Objects.js",
@@ -181,13 +194,13 @@
 			"libraries": [
 				"Web"
 			],
-			"hash": "6115114EEA6F17F8D5CD120D25598946AB2864CD2804DDFD6D303E9AC979914468C7BF443CF916217AB7E7640CE1C1773517464438C7335BB560571632EEE934A7134C5EAC5926001E7CBD78E9BB3D3F"
+			"hash": "DF0AC9A62260A928D712852DD596AFE919726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B863517464438C7335BB560571632EEE934A7134C5EAC5926001E7CBD78E9BB3D3F"
 		},
 		{
 			"name": "LisCreateNewBook",
 			"alias": "LisCreateNewBook",
 			"vpath": "ExtentReports",
-			"sstest": "%WORKDIR%TestCases\\ExtentReports\\LisCreateNewBook\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\ExtentReports\\LisCreateNewBook\\Test.sstest",
 			"tags": "testcase",
 			"id": "9ZIYL20L",
 			"rep": "%WORKDIR%TestCases\\ExtentReports\\LisCreateNewBook\\Objects.js",
@@ -195,13 +208,13 @@
 			"libraries": [
 				"Web"
 			],
-			"hash": "687E9ECA39C53379503C85800B4EECABAB2864CD2804DDFD6D303E9AC979914468C7BF443CF916217AB7E7640CE1C17762549503F0FC46A54BD42B254F63F2ED3401DE1286FEC9DB3B8A1A99EC25748A"
+			"hash": "687E9ECA39C53379503C85800B4EECAB19726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B8662549503F0FC46A54BD42B254F63F2ED3401DE1286FEC9DB3B8A1A99EC25748A"
 		},
 		{
 			"name": "LisFailedTestCase",
 			"alias": "LisFailedTestCase",
 			"vpath": "ExtentReports",
-			"sstest": "%WORKDIR%TestCases\\ExtentReports\\LisFailedTestCase\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\ExtentReports\\LisFailedTestCase\\Test.sstest",
 			"tags": "testcase",
 			"id": "MUUPUQVD",
 			"rep": "%WORKDIR%TestCases\\ExtentReports\\LisFailedTestCase\\Objects.js",
@@ -209,13 +222,13 @@
 			"libraries": [
 				"Web"
 			],
-			"hash": "0E211C19ED1BA2788C1063194C17A67DAB2864CD2804DDFD6D303E9AC979914468C7BF443CF916217AB7E7640CE1C177194F5757AA13C099FA4F857915A9E7C04F96679C537B07AA6399FDC60439C6E6"
+			"hash": "DDEB4F584037352B08D025BA14CFF17719726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF434F96679C537B07AA6399FDC60439C6E6"
 		},
 		{
 			"name": "PDF Text Assert",
 			"alias": "PDF Text Assert",
 			"vpath": "PDF",
-			"sstest": "%WORKDIR%TestCases\\PDF\\PDF Text Assert\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\PDF\\PDF Text Assert\\Test.sstest",
 			"tags": "testcase",
 			"id": "00RK45TN",
 			"rep": "%WORKDIR%TestCases\\PDF\\PDF Text Assert\\Objects.js",
@@ -227,7 +240,7 @@
 			"name": "Playwright Mix Mode",
 			"alias": "Playwright Mix Mode",
 			"vpath": "Playwright",
-			"sstest": "%WORKDIR%TestCases\\Playwright\\Playwright Mix Mode\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\Playwright\\Playwright Mix Mode\\Test.sstest",
 			"tags": "testcase",
 			"id": "QEC2UBM6",
 			"rep": "%WORKDIR%TestCases\\Playwright\\Playwright Mix Mode\\Objects.js",
@@ -241,7 +254,7 @@
 			"name": "Playwright Run Spec",
 			"alias": "Playwright Run Spec",
 			"vpath": "Playwright",
-			"sstest": "%WORKDIR%TestCases\\Playwright\\Playwright Run Spec\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\Playwright\\Playwright Run Spec\\Test.sstest",
 			"tags": "testcase",
 			"id": "BLEM22GU",
 			"rep": "%WORKDIR%TestCases\\Playwright\\Playwright Run Spec\\Objects.js",
@@ -255,7 +268,7 @@
 			"name": "PatternChecker",
 			"alias": "PatternChecker",
 			"vpath": "StringChecker",
-			"sstest": "%WORKDIR%TestCases\\StringChecker\\PatternChecker\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\StringChecker\\PatternChecker\\Test.sstest",
 			"tags": "testcase",
 			"id": "E3R7Y3CK",
 			"rep": "%WORKDIR%TestCases\\StringChecker\\PatternChecker\\Objects.js",
@@ -269,7 +282,7 @@
 			"name": "RegexChecker",
 			"alias": "RegexChecker",
 			"vpath": "StringChecker",
-			"sstest": "%WORKDIR%TestCases\\StringChecker\\RegexChecker\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\StringChecker\\RegexChecker\\Test.sstest",
 			"tags": "testcase",
 			"id": "4LW876S8",
 			"rep": "%WORKDIR%TestCases\\StringChecker\\RegexChecker\\Objects.js",
@@ -283,7 +296,7 @@
 			"name": "UniqueChecker",
 			"alias": "UniqueChecker",
 			"vpath": "StringChecker",
-			"sstest": "%WORKDIR%TestCases\\StringChecker\\UniqueChecker\\Test.sstest",
+			"sstest": "%WORKDIR%..\\FWUsefulPageObjects/TestCases\\StringChecker\\UniqueChecker\\Test.sstest",
 			"tags": "testcase",
 			"id": "SOZ6PLCP",
 			"rep": "%WORKDIR%TestCases\\StringChecker\\UniqueChecker\\Objects.js",
@@ -296,13 +309,13 @@
 	],
 	"shared": [
 		{
-			"js": "%WORKDIR%Common.js"
+			"js": "%WORKDIR%..\\FWUsefulPageObjects/Common.js"
 		},
 		{
-			"data": "%WORKDIR%Dropdowns.xlsx"
+			"data": "%WORKDIR%..\\FWUsefulPageObjects/Dropdowns.xlsx"
 		},
 		{
-			"data": "%WORKDIR%README.md"
+			"data": "%WORKDIR%..\\FWUsefulPageObjects/README.md"
 		}
 	],
 	"testsets": [
