@@ -28,7 +28,20 @@
     <IsFilterGroup>false</IsFilterGroup>
     <FilterWildcard>*.*</FilterWildcard>
     <FilterPath />
-    <Groups />
+    <Groups>
+      <TestGroup>
+        <Name>PDF2Text</Name>
+        <IsFilterGroup>true</IsFilterGroup>
+        <FilterWildcard>*.*</FilterWildcard>
+        <FilterPath>PDF2Text</FilterPath>
+        <Groups />
+        <TestFiles>
+          <TestFile>
+            <Path>PDF2Text\pdfparse.js</Path>
+          </TestFile>
+        </TestFiles>
+      </TestGroup>
+    </Groups>
     <TestFiles>
       <TestFile>
         <Path>Main.js</Path>
@@ -39,6 +52,12 @@
       <TestFile>
         <Path>PDF.js</Path>
         <Tags>pageobject</Tags>
+      </TestFile>
+      <TestFile>
+        <Path>PDF16.png</Path>
+      </TestFile>
+      <TestFile>
+        <Path>PDF32.png</Path>
       </TestFile>
       <TestFile>
         <Path>User.js</Path>

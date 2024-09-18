@@ -41,6 +41,12 @@
         <Tags>pageobject</Tags>
       </TestFile>
       <TestFile>
+        <Path>Sfdc16.png</Path>
+      </TestFile>
+      <TestFile>
+        <Path>Sfdc32.png</Path>
+      </TestFile>
+      <TestFile>
         <Path>User.js</Path>
       </TestFile>
     </TestFiles>

@@ -53,6 +53,9 @@
         <Path>WebPageHelper.js</Path>
         <Tags>pageobject</Tags>
       </TestFile>
+      <TestFile>
+        <Path>WebPageHelper.svg</Path>
+      </TestFile>
     </TestFiles>
   </TestFiles>
   <TestParams>
