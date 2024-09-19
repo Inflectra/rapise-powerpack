@@ -69,7 +69,7 @@
 		],
 		"isPageObject": true,
 		"extend_rule": "",
-		"description": "ExtentReports provides JS interface to support for extentreports-csharp library. But the main thing is that it overrides SeSOnReportMessage and generates html-based ExtentReports report instead of default Rapise report.",
+		"description": "ExtentReports provides JS interface to support for extentreports-csharp library. But the main thing is that it overrides SeSOnReportMessage and generates html-based ExtentReports report instead of default Rapise report.\r\n@see https://www.inflectra.com/Support/KnowledgeBase/KB861.aspx",
 		"src": "%WORKDIR%PageObjects\\ExtentReports\\ExtentReports.js",
 		"version": "1.0.0",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/ExtentReports"
@@ -201,7 +201,7 @@
 		],
 		"isPageObject": true,
 		"extend_rule": "",
-		"description": "ListChecker helps comparing multiline strings with lists and dropdowns.",
+		"description": "ListChecker helps comparing multiline strings with lists and dropdowns.\r\nExpected list may be an array or also a multiline list. It may come from application,\r\nfrom variable or from Dropdowns.",
 		"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js",
 		"version": "1.0.1",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/ListChecker"
@@ -258,7 +258,7 @@
 		],
 		"isPageObject": true,
 		"extend_rule": "",
-		"description": "ManagedHelper handy methods for popup dialogs and context menus.",
+		"description": "ManagedHelper handy methods for popup dialogs and context menus.\r\n- Work with popup dialogs (wait for appearance)\r\n- Click context menu\r\n- Return context menu items as list",
 		"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js",
 		"version": "1.0.3",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/ManagedHelper"
@@ -765,7 +765,7 @@
 		],
 		"isPageObject": true,
 		"extend_rule": "",
-		"description": "WebPageHelper is designed to help doing various actions and checks",
+		"description": "WebPageHelper is designed to help doing various actions and checks\r\nwith the currently open web page without need to use XPath or objects. The\r\nmethods of WebPageHelper are in general slower than those having exact XPath, \r\nbut it is useful for writing sanity checks and quick validation scenarios.\r\nThe power of those methods are that they are cross-frame and are inteded to \r\ncover the whole visible contents of the page, rather than only the root frame.",
 		"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js",
 		"version": "1.0.6",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/WebPageHelper"

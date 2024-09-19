@@ -51,7 +51,7 @@
 		],
 		"isPageObject": true,
 		"extend_rule": "",
-		"description": "ManagedHelper handy methods for popup dialogs and context menus.",
+		"description": "ManagedHelper handy methods for popup dialogs and context menus.\r\n- Work with popup dialogs (wait for appearance)\r\n- Click context menu\r\n- Return context menu items as list",
 		"src": "%WORKDIR%PageObjects\\ManagedHelper\\ManagedHelper.js",
 		"version": "1.0.3"
 	}

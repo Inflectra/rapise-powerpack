@@ -69,7 +69,7 @@
 		],
 		"isPageObject": true,
 		"extend_rule": "",
-		"description": "ExtentReports provides JS interface to support for extentreports-csharp library. But the main thing is that it overrides SeSOnReportMessage and generates html-based ExtentReports report instead of default Rapise report.",
+		"description": "ExtentReports provides JS interface to support for extentreports-csharp library. But the main thing is that it overrides SeSOnReportMessage and generates html-based ExtentReports report instead of default Rapise report.\r\n@see https://www.inflectra.com/Support/KnowledgeBase/KB861.aspx",
 		"src": "%WORKDIR%PageObjects\\ExtentReports\\ExtentReports.js",
 		"version": "1.0.0"
 	}

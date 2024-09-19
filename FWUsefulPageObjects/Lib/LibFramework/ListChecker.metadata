@@ -42,7 +42,7 @@
 		],
 		"isPageObject": true,
 		"extend_rule": "",
-		"description": "ListChecker helps comparing multiline strings with lists and dropdowns.",
+		"description": "ListChecker helps comparing multiline strings with lists and dropdowns.\r\nExpected list may be an array or also a multiline list. It may come from application,\r\nfrom variable or from Dropdowns.",
 		"src": "%WORKDIR%PageObjects\\ListChecker\\ListChecker.js",
 		"version": "1.0.1"
 	}

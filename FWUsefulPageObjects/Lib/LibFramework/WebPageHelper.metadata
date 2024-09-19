@@ -137,7 +137,7 @@
 		],
 		"isPageObject": true,
 		"extend_rule": "",
-		"description": "WebPageHelper is designed to help doing various actions and checks",
+		"description": "WebPageHelper is designed to help doing various actions and checks\r\nwith the currently open web page without need to use XPath or objects. The\r\nmethods of WebPageHelper are in general slower than those having exact XPath, \r\nbut it is useful for writing sanity checks and quick validation scenarios.\r\nThe power of those methods are that they are cross-frame and are inteded to \r\ncover the whole visible contents of the page, rather than only the root frame.",
 		"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js",
 		"version": "1.0.6"
 	}
