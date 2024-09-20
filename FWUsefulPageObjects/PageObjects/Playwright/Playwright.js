@@ -1,7 +1,7 @@
 
 /**
  * @PageObject Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.
- * @Version 0.0.2   
+ * @Version 0.0.3
  */
 SeSPageObject("Playwright");
 
@@ -11,7 +11,7 @@ function _PlaywrightInit()
 	if (!File.FolderExists(g_workDir+'\\node_modules'))
 	{
 		const npmCmd = g_helper.ResolvePath("InstrumentJS/npm.cmd");
-		Global.DoCmd('"' + npmCmd + '"' + " install playwright @playwright/test", g_workDir, true, true);
+		Global.DoCmd('"' + npmCmd + '"' + " install playwright @playwright/test --prefix \"" + g_workDir + "\"", g_workDir, true, false);
 	}
 }
 
