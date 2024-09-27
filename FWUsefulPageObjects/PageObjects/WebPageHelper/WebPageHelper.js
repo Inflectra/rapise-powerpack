@@ -28,6 +28,25 @@ function WebPageHelper_GetFullPageText()
 }
 
 /**
+ * Returns string containing results of XPath query in multiline format - one item per line
+ * Example:
+ * 	var allLinks = WebPageHelper.GetXPathItemsAsList('//a');
+ * 	Tester.Message('All links on the page', allLinks);
+ */
+function WebPageHelper_GetXPathItemsAsList(/**string*/xpath)
+{
+	// Expand XPath values
+	xpath = RVL.FormatString(xpath);
+	var found = Navigator.DOMFindByXPath(xpath, true, 1000);
+	var res = Navigator.DOMQueryValue(null,xpath)
+	if(res && typeof res == 'string' && res.indexOf(';')>=0) {
+		return res.split(';').join('\n');
+	}
+	return res;
+}
+
+
+/**
  * Check that page contains given `textToFind`. This action does not write to the report
  * and simply returns `true` when text was found and `false` otherwise. You may pass the result
  * to the assertion or if statement.
@@ -161,7 +180,7 @@ function WebPageHelper_DoClickByClassName(/**string*/className)
 }
 
 /**
- * Find an element by ID.
+ * Find an element by ID and click.
  */
 function WebPageHelper_DoClickById(/**string*/id)
 {
@@ -172,6 +191,21 @@ function WebPageHelper_DoClickById(/**string*/id)
 	}
 	
 	Tester.SoftAssert('Unable to find element by Id: '+id, false);
+	return false;
+}
+
+/**
+ * Find an element by XPath and click.
+ */
+function WebPageHelper_DoClickByXPath(/**string*/xpath)
+{
+	var el = Navigator.DOMFindByXPath(xpath)
+	if( el ) {
+		el.DoClick();
+		return true;
+	}
+	
+	Tester.SoftAssert('Unable to find element by XPath: '+xpath, false);
 	return false;
 }
 
