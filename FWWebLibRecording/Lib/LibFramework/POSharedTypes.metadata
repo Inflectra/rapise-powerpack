@@ -1,0 +1,21 @@
+{
+	"POSharedTypes": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "DoAction",
+				"description": "Do an action\r\n@param {String} inputParam parameter description\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/inputParam",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\POSharedTypes\\POSharedTypes.js(11,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "POSharedTypes description",
+		"src": "%WORKDIR%PageObjects\\POSharedTypes\\POSharedTypes.js"
+	}
+}
