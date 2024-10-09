@@ -7,7 +7,7 @@
  * The power of those methods are that they are cross-frame and are inteded to 
  * cover the whole visible contents of the page, rather than only the root frame.
  *
- * @Version 1.0.6
+ * @Version 1.0.7
  */
 SeSPageObject("WebPageHelper");
 
@@ -38,10 +38,19 @@ function WebPageHelper_GetXPathItemsAsList(/**string*/xpath)
 	// Expand XPath values
 	xpath = RVL.FormatString(xpath);
 	var found = Navigator.DOMFindByXPath(xpath, true, 1000);
-	var res = Navigator.DOMQueryValue(null,xpath)
-	if(res && typeof res == 'string' && res.indexOf(';')>=0) {
-		return res.split(';').join('\n');
+	var res = "Nothing found";
+	if(found) {
+		res = "";
+		var sep = "";
+		for(var i=0;i<found.length;i++) {
+			res+=sep + found[i].GetText();
+			sep = "\n";
+		}
 	}
+	//var res = Navigator.DOMQueryValue(null,xpath)
+	//if(res && typeof res == 'string' && res.indexOf(';')>=0) {
+	//	return res.split(';').join('\n');
+	//}
 	return res;
 }
 
@@ -59,6 +68,48 @@ function WebPageHelper_CheckPageContains(/**string*/textToFind)
 {
 	var pageText = WebPageHelper.GetFullPageText();
 	return Text.Contains(pageText, textToFind);
+}
+
+/**
+ * Check that page contains given element, identified by label, /xpath, css= or text. Then check if it is displayed.
+ * Example:
+ * 	if( WebPageHelper.CheckVisible('Progress Dialog') ) {
+ 			// Dialog is available and displayed
+ * 	}
+ * Example:
+ * 	if( WebPageHelper.CheckPageContains('css=h1') ) {
+ 			// Title is available
+ * 	}
+ * Example:
+ * 	if( WebPageHelper.CheckPageContains('//h1') ) {
+ 			// Title is available
+ * 	}
+ */
+function WebPageHelper_CheckVisible(/**string*/objIdXPathLabelText)
+{
+	var found = _ResolveObject(objIdXPathLabelText);
+	if(found) {
+		return found.element.GetDisplayed();
+	}
+	return false;
+}
+
+var _paramInfoWebPageHelper_CheckVisible = {
+		objIdXPathLabelText: {
+				type: 'string|objectid',
+				description: 'The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).'
+		},
+		_returns: '\'true\' if the upload was successful; otherwise, it returns false.'
+};
+
+/**
+ * Check that page contains has a single given element visible
+ * Example:
+ * 	WebPageHelper.VerifyPageVisible('Must see a header', 'css=h1');
+ */
+function WebPageHelper_VerifyVisible(/**string*/message, /**string|objectid*/objIdXPathLabelText)
+{
+	Tester.SoftAssert(message, WebPageHelper_CheckVisible(objIdXPathLabelText), [objIdXPathLabelText]);
 }
 
 /**
@@ -362,3 +413,210 @@ var _paramInfoWebPageHelper_DoTripleClick = {
 		},
 		_returns: '\'true\' if the upload was successful; otherwise, it returns false.'
 };
+
+/**
+ * Do click on the element.
+ *  
+ * @param {string|objectid} objIdXPathLabelText - The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).
+ *
+ * @returns {boolean} Returns true when click succeeded.
+ *  
+ * @examples
+ * ```javascript
+ * // Click header by xpath
+ * WebPageHelper.DoClick('//h1');
+ * // Click header by css
+ * WebPageHelper.DoClick('css=h1');
+ * // Click header by text
+ * WebPageHelper.DoClick('Welcome to mycorp!');
+ * // Click header by object id (assuming there is welcomeObj object in the repository)
+ * WebPageHelper.DoClick('welcomeObj');
+ * ```
+ */
+function WebPageHelper_DoClick(/**string|objectid*/objIdXPathLabelText)
+{
+	var cb = /**HTMLObject*/_ResolveObject(objIdXPathLabelText);
+	if(cb) {
+		cb.DoClick()
+		return true;
+	} else {
+		Tester.SoftAssert("WebPageHelper.DoClick: Element not found: "+objIdXPathLabelText,false);
+	}
+	return false;
+}
+var _paramInfoWebPageHelper_DoClick = {
+		objIdXPathLabelText: {
+				type: 'string|objectid',
+				description: 'The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).'
+		},
+		_returns: '\'true\' if the upload was successful; otherwise, it returns false.'
+};
+
+/**
+ * Wait for given element to appear on the screen.
+ *  
+ * @param {string|objectid} objIdXPathLabelText - The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).
+ * @param {number} timeout - maximum wait time in milliseconds
+ *
+ * @returns {boolean} Returns true when element found and visible, false otherwise.
+ *  
+ * @examples
+ * ```javascript
+ * // Wait for confirmation message up to one minute
+ * WebPageHelper.WaitForVisible('Operation Succeeded!', 60000);
+ * ```
+ */
+function WebPageHelper_WaitForVisible(/**string|objectid*/objIdXPathLabelText, /**number*/timeout)
+{
+	timeout = timeout || 3000;
+	var _st = _SeSCurrMillis();
+	do
+	{
+		var cb = /**HTMLObject*/__ResolveObject(objIdXPathLabelText,true);
+		if( cb ) 
+		{
+			return cb;
+		}
+		Global.DoSleep(100);
+	} while ( _SeSCurrMillis()-_st < timeout );
+	
+	return false;
+}
+
+var _paramInfoWebPageHelper_WaitForVisible = {
+		objIdXPathLabelText: {
+				type: 'string|objectid',
+				description: 'The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).'
+		},
+		timeout: {
+			type: 'number',
+			description: 'Maximum time to wait, in milliseconds',
+			optional: true,
+			defaultValue: 30000
+		},
+		_returns: '\'true\' if the upload was successful; otherwise, it returns false.'
+};
+
+/**
+ * Wait while given element is on the screen. Useful to wait for progress bars that are
+ * shown while long operations are performed.
+ *  
+ * @param {string|objectid} objIdXPathLabelText - The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).
+ * @param {number} timeout - maximum wait time in milliseconds
+ *
+ * @returns {boolean} Returns `true` when element is finally invisible, `false` otherwise.
+ *  
+ * @examples
+ * ```javascript
+ * // Wait for operation to complete up to one two minutes
+ * WebPageHelper.WaitWhileVisible('Operation in progress, please wait!', 120000);
+ * ```
+ */
+function WebPageHelper_WaitWhileVisible(/**string|objectid*/objIdXPathLabelText, /**number*/timeout)
+{
+	timeout = timeout || 30000;
+	var _st = _SeSCurrMillis();
+	do
+	{
+		var cb = /**HTMLObject*/_ResolveObject(objIdXPathLabelText);
+		if(l3) Log3("WebPageHelper_WaitWhileVisible: Got: "+cb+" visible: "+(cb?cb.element.GetDisplayed():'--'));
+		if( !cb || !cb.element.GetDisplayed() ) 
+		{
+			return true;
+		}
+		Global.DoSleep(100);
+	} while ( _SeSCurrMillis()-_st < timeout );
+	
+	return false;
+}
+
+var _paramInfoWebPageHelper_WaitForVisible = {
+		objIdXPathLabelText: {
+				type: 'string|objectid',
+				description: 'The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).'
+		},
+		timeout: {
+			type: 'number',
+			description: 'Maximum time to wait, in milliseconds',
+			optional: true,
+			defaultValue: 30000
+		},
+		_returns: '\'true\' if the upload was successful; otherwise, it returns false.'
+};
+
+function _ResolveObject(/**string|object*/id,timeout)
+{
+	timeout = timeout || global.g_objectLookupAttempts*global.g_objectLookupAttemptInterval;
+	var _st = _SeSCurrMillis();
+	do
+	{
+		var res = __ResolveObject(id,true);
+		if(res) {
+			return res;
+		}
+		Global.DoSleep(100);
+	} while( timeout && _SeSCurrMillis() - _st < timeout );
+	return __ResolveObject(id,false);
+}
+
+function __ResolveObject(/**string|object*/id,noAssert)
+{
+	// We expect object to be one of:
+	// objectId
+	// xpath / css=
+	// label
+	// inner text
+	if( _SeSGetObjectInfo(id) ) {
+		return Global._DoWaitFor(id);
+	} else if( Navigator.isXPath(id) ) {
+		return Navigator.Find(id);
+	} else {
+		// Try to find by label
+		var xpath = "//*[@id=//label[normalize-space()="+_EscapeXPathAttr(id)+"]/@for]";
+		var found = Navigator.DOMFindByXPath(xpath, true);
+		if(!found || found.length==0) {
+			xpath = "//*[@id="+_EscapeXPathAttr(id)+"]";
+			found = Navigator.DOMFindByXPath(xpath, true);
+		}
+		if(!found || found.length==0) {
+			xpath = "//*[@aria-label="+_EscapeXPathAttr(id)+"]";
+			found = Navigator.DOMFindByXPath(xpath, true);
+		}
+		if(!found || found.length==0) {
+			xpath = "//*[text()="+_EscapeXPathAttr(id)+"]";
+			found = Navigator.DOMFindByXPath(xpath, true);
+		}
+		if(!found || found.length==0) {
+			xpath = "//*[normalize-space()="+_EscapeXPathAttr(id)+"]";
+			found = Navigator.DOMFindByXPath(xpath, true);
+		}
+		if(found) {
+			if(found>1) {
+				var displayed = [];
+				for(var i=0;i<found.length;i++) {
+					if(found[i].element.GetDisplayed()) {
+						displayed.puash(found[i]);
+					}
+				}
+				if(displayed.length==1) {
+					found = displayed;
+				}
+			}
+		
+			if(found.length==1) {
+				found[0].object_name = id;
+				return found[0];
+			}
+			
+			if(!noAssert) {
+				if(found.length>1) {
+					Tester.SoftAssert('More than one element found by locator: '+id, false, [""+found.length]);
+				}
+			}
+		}
+	}
+	if(!noAssert) {
+		Tester.SoftAssert('Nothing found by locator: '+id, false);
+	}
+	return null;
+}

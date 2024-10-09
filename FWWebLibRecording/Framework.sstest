@@ -86,6 +86,9 @@
           <TestFile>
             <Path>TestCases\T2\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>TestCases\T3\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>testcases</Tags>
       </TestGroup>

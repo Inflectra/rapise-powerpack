@@ -641,13 +641,45 @@
 				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(20,10)"
 			},
 			{
+				"name": "GetXPathItemsAsList",
+				"description": "Returns string containing results of XPath query in multiline format - one item per line\r\nExample:\r\nvar allLinks = WebPageHelper.GetXPathItemsAsList('//a');\r\nTester.Message('All links on the page', allLinks);\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/xpath",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(36,10)"
+			},
+			{
 				"name": "CheckPageContains",
 				"description": "Check that page contains given `textToFind`. This action does not write to the report\r\nand simply returns `true` when text was found and `false` otherwise. You may pass the result\r\nto the assertion or if statement.\r\nExample:\r\nif( WebPageHelper.CheckPageContains('Welcome, Friend!') ) {\r\nAlready logged in, need to log out first.\r\n}\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/textToFind",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(39,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(67,10)"
+			},
+			{
+				"name": "CheckVisible",
+				"description": "Check that page contains given element, identified by label, /xpath, css= or text. Then check if it is displayed.\r\nExample:\r\nif( WebPageHelper.CheckVisible('Progress Dialog') ) {\r\nDialog is available and displayed\r\n}\r\nExample:\r\nif( WebPageHelper.CheckPageContains('css=h1') ) {\r\nTitle is available\r\n}\r\nExample:\r\nif( WebPageHelper.CheckPageContains('//h1') ) {\r\nTitle is available\r\n}\r\n",
+				"type": "",
+				"returns": "'true' if the upload was successful; otherwise, it returns false.",
+				"signature": "/**string*/objIdXPathLabelText",
+				"paramInfo": {
+					"objIdXPathLabelText": {
+						"type": "string|objectid",
+						"description": "The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***)."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(88,10)"
+			},
+			{
+				"name": "VerifyVisible",
+				"description": "Check that page contains has a single given element visible\r\nExample:\r\nWebPageHelper.VerifyPageVisible('Must see a header', 'css=h1');\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string|objectid*/objIdXPathLabelText",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(110,10)"
 			},
 			{
 				"name": "VerifyPageContains",
@@ -656,7 +688,7 @@
 				"returns": "",
 				"signature": "/**string*/message, /**string*/textToFind",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(51,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(121,10)"
 			},
 			{
 				"name": "DoClickByText",
@@ -665,7 +697,7 @@
 				"returns": "",
 				"signature": "/**string*/text",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(69,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(139,10)"
 			},
 			{
 				"name": "DoClickByPlaceholder",
@@ -674,7 +706,7 @@
 				"returns": "",
 				"signature": "/**string*/placeholderText",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(93,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(163,10)"
 			},
 			{
 				"name": "DoClickByValue",
@@ -683,7 +715,7 @@
 				"returns": "",
 				"signature": "/**string*/value",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(107,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(177,10)"
 			},
 			{
 				"name": "DoClickByTitle",
@@ -692,7 +724,7 @@
 				"returns": "",
 				"signature": "/**string*/title",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(122,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(192,10)"
 			},
 			{
 				"name": "DoClickByName",
@@ -701,7 +733,7 @@
 				"returns": "",
 				"signature": "/**string*/name",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(137,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(207,10)"
 			},
 			{
 				"name": "DoClickByClassName",
@@ -710,16 +742,25 @@
 				"returns": "",
 				"signature": "/**string*/className",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(151,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(221,10)"
 			},
 			{
 				"name": "DoClickById",
-				"description": "Find an element by ID.\r\n",
+				"description": "Find an element by ID and click.\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/id",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(166,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(236,10)"
+			},
+			{
+				"name": "DoClickByXPath",
+				"description": "Find an element by XPath and click.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/xpath",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(251,10)"
 			},
 			{
 				"name": "DoClickByTextTitlePlaceholder",
@@ -728,7 +769,7 @@
 				"returns": "",
 				"signature": "/**string*/text",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(192,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(277,10)"
 			},
 			{
 				"name": "DoFileDragAndDrop",
@@ -746,7 +787,7 @@
 						"description": "The path to the local file to upload. This can be an absolute path or a relative path with respect to a framework directory."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(232,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(317,10)"
 			},
 			{
 				"name": "DoTripleClick",
@@ -760,14 +801,57 @@
 						"description": "The target element to click. This can be an object reference or an XPath selector string."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(307,10)"
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(392,10)"
+			},
+			{
+				"name": "DoClick",
+				"description": "Do click on the element.\r\n@param {string|objectid} objIdXPathLabelText - The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).\r\n@returns {boolean} Returns true when click succeeded.\r\n@examples\r\n```javascript\r\nClick header by xpath\r\nWebPageHelper.DoClick('//h1');\r\nClick header by css\r\nWebPageHelper.DoClick('css=h1');\r\nClick header by text\r\nWebPageHelper.DoClick('Welcome to mycorp!');\r\nClick header by object id (assuming there is welcomeObj object in the repository)\r\nWebPageHelper.DoClick('welcomeObj');\r\n```\r\n",
+				"type": "",
+				"returns": "'true' if the upload was successful; otherwise, it returns false.",
+				"signature": "/**string|objectid*/objIdXPathLabelText",
+				"paramInfo": {
+					"objIdXPathLabelText": {
+						"type": "string|objectid",
+						"description": "The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***)."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(436,10)"
+			},
+			{
+				"name": "WaitForVisible",
+				"description": "Wait for given element to appear on the screen.\r\n@param {string|objectid} objIdXPathLabelText - The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).\r\n@param {number} timeout - maximum wait time in milliseconds\r\n@returns {boolean} Returns true when element found and visible, false otherwise.\r\n@examples\r\n```javascript\r\nWait for confirmation message up to one minute\r\nWebPageHelper.WaitForVisible('Operation Succeeded!', 60000);\r\n```\r\n",
+				"type": "",
+				"returns": "'true' if the upload was successful; otherwise, it returns false.",
+				"signature": "/**string|objectid*/objIdXPathLabelText, /**number*/timeout",
+				"paramInfo": {
+					"objIdXPathLabelText": {
+						"type": "string|objectid",
+						"description": "The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***)."
+					},
+					"timeout": {
+						"type": "number",
+						"description": "Maximum time to wait, in milliseconds",
+						"optional": true,
+						"defaultValue": 30000
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(469,10)"
+			},
+			{
+				"name": "WaitWhileVisible",
+				"description": "Wait while given element is on the screen. Useful to wait for progress bars that are\r\nshown while long operations are performed.\r\n@param {string|objectid} objIdXPathLabelText - The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).\r\n@param {number} timeout - maximum wait time in milliseconds\r\n@returns {boolean} Returns `true` when element is finally invisible, `false` otherwise.\r\n@examples\r\n```javascript\r\nWait for operation to complete up to one two minutes\r\nWebPageHelper.WaitWhileVisible('Operation in progress, please wait!', 120000);\r\n```\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string|objectid*/objIdXPathLabelText, /**number*/timeout",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js(515,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "WebPageHelper is designed to help doing various actions and checks\r\nwith the currently open web page without need to use XPath or objects. The\r\nmethods of WebPageHelper are in general slower than those having exact XPath, \r\nbut it is useful for writing sanity checks and quick validation scenarios.\r\nThe power of those methods are that they are cross-frame and are inteded to \r\ncover the whole visible contents of the page, rather than only the root frame.",
 		"src": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js",
-		"version": "1.0.6",
+		"version": "1.0.7",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/WebPageHelper"
 	}
 }
