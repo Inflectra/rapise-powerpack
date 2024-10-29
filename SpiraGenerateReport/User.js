@@ -44,7 +44,21 @@ function SpiraUtil_QueryExecutionStatus72(projectId, testSetIds, model)
 	var testSets = [];
 	if (testSetIds)
 	{
-		testSets = SpiraUtil_GetTestSetsByIds(projectId, testSetIds);
+		var testSetsToCheck = SpiraUtil_GetTestSetsByIds(projectId, testSetIds);
+		var testSetsToday = SpiraUtil_GetTestSetsExecutedToday(projectId, null);
+		for(var i = 0; i < testSetsToCheck.length; i++)
+		{
+			var tsToCheck = testSetsToCheck[i];
+			for(var j = 0; j < testSetsToday.length; j++)
+			{
+				var tsToday = testSetsToday[j];
+				if (tsToCheck.TestSetId == tsToday.TestSetId)
+				{
+					testSets.push(tsToCheck);
+					break;
+				}
+			}
+		}
 	}
 	else
 	{
@@ -78,26 +92,32 @@ function SpiraUtil_QueryExecutionStatus72(projectId, testSetIds, model)
 			{
 				var testCaseMapping = testCaseMappings[j];
 				var tr = SpiraUtil_GetLatestTestRunForTestCaseMapping(projectId, testCaseMapping);
-				testSet.testRuns.push(tr);
-				
-				switch(tr.ExecutionStatusId)
+				if (tr)
 				{
-					case 1:
-						failed++;
-						break;
-					case 2:
-						passed++;
-						break;
-					case 5:
-						blocked++;
-						break;
-					default:
-						notrun++;
-						break;
+					testSet.testRuns.push(tr);
+					switch(tr.ExecutionStatusId)
+					{
+						case 1:
+							failed++;
+							break;
+						case 2:
+							passed++;
+							break;
+						case 5:
+							blocked++;
+							break;
+						default:
+							notrun++;
+							break;
+					}
+				}
+				else
+				{
+					notrun++;
 				}
 			}
 			
-			testSet.executionStatus = { passed: passed, failed: failed, blocked: blocked };
+			testSet.executionStatus = { passed: passed, failed: failed, blocked: blocked, notrun: notrun };
 		}
 	}
 }
@@ -202,6 +222,7 @@ function SpiraUtil_OutputReportHtml(model, fn)
 	var passed = 0;
 	var failed = 0;
 	var blocked = 0;
+	var notrun = 0;
 	
 	for(var i = 0; i < model.testSets.length; i++)
 	{
@@ -209,6 +230,7 @@ function SpiraUtil_OutputReportHtml(model, fn)
 		passed += testSet.executionStatus.passed;
 		failed += testSet.executionStatus.failed;
 		blocked += testSet.executionStatus.blocked;
+		notrun += testSet.executionStatus.notrun;
 	}
 
 	ln('<tr>');
@@ -217,6 +239,7 @@ function SpiraUtil_OutputReportHtml(model, fn)
 	ln('  <td><span style="color:green;font-size: large;">' + passed + '</span></td>');
 	ln('  <td><span style="' + (failed > 0 ? "color:red;" : "") + 'font-size: large;">' + failed + '</span></td>');
 	ln('  <td><span style="' + (blocked > 0 ? "color:red;" : "") + 'font-size: large;">' + blocked + '</span></td>');
+	ln('  <td><span style="' + (notrun > 0 ? "color:red;" : "") + 'font-size: large;">' + notrun + '</span></td>');
 	ln('</tr>');	
 	
 	for(var i = 0; i < model.testSets.length; i++)
@@ -240,6 +263,7 @@ function SpiraUtil_OutputReportHtml(model, fn)
 		ln('  <td><span>' + testSet.executionStatus.passed + '</span></td>');
 		ln('  <td><span style="' + (testSet.executionStatus.failed > 0 ? "color:red;" : "") + '">' + testSet.executionStatus.failed + '</span></td>');
 		ln('  <td><span style="' + (testSet.executionStatus.blocked > 0 ? "color:red;" : "") + '">' + testSet.executionStatus.blocked + '</td>');
+		ln('  <td><span style="' + (testSet.executionStatus.notrun > 0 ? "color:red;" : "") + '">' + testSet.executionStatus.notrun + '</td>');
 		ln('</tr>');
 	}
 	
@@ -418,6 +442,7 @@ function SpiraUtil_UploadReport(model, fn, projectId, incidentId)
 						var passed = 0;
 						var failed = 0;
 						var blocked = 0;
+						var notrun = 0;
 						
 						ln("<ul>");
 						for(var i = 0; i < model.testSets.length; i++)
@@ -426,6 +451,7 @@ function SpiraUtil_UploadReport(model, fn, projectId, incidentId)
 							passed += testSet.executionStatus.passed;
 							failed += testSet.executionStatus.failed;
 							blocked += testSet.executionStatus.blocked;
+							notrun += testSet.executionStatus.notrun;
 						}
 
 						ln("<h4>Executed Test Case Summary</h4>");
@@ -433,6 +459,7 @@ function SpiraUtil_UploadReport(model, fn, projectId, incidentId)
 						ln('<li>Passed: <span style="color:green;font-size: large;">' + passed + '</span></li>');
 						ln('<li>Failed: <span style="' + (failed > 0 ? "color:red;" : "") + 'font-size: large;">' + failed + '</span></li>');
 						ln('<li>Blocked: <span style="' + (blocked > 0 ? "color:red;" : "") + 'font-size: large;">' + blocked + '</span></li>');
+						ln('<li>NotRun: <span style="' + (notrun > 0 ? "color:red;" : "") + 'font-size: large;">' + notrun + '</span></li>');
 						ln("</ul>");
 						
 						ln("<h4>Failed Test Cases</h4>");
@@ -494,11 +521,13 @@ function SpiraUtil_UploadReport(model, fn, projectId, incidentId)
 
 						ln('<a target="_blank" href="' + backlink + '">Open report in Spira</a>');
 						
+						Tester.Message("Updating incident subject");
 						// update incident subject
 						var incident = SpiraUtil_GetIncidentById(projectId, incidentId);
 						if (incident)
 						{
-							incident.Name = "Rapise Nightly Tests (p/f/b): " + passed + "/" + failed + "/" + blocked;
+							incident.Name = "Rapise Nightly Tests (p/f/b/n): " + passed + "/" + failed + "/" + blocked + "/" + notrun;
+							Tester.Message("New subject: " + incident.Name);
 							SpiraUtil_UpdateIncident(projectId, incident);
 						}
 						
@@ -879,26 +908,30 @@ function SpiraUtil_GetTestRunFailureDetails(testRun, withScreenshots)
 	var lastImage = null;
 	var details = "";
 	var firstFailure = true;
-	for(var i = 0; i < testRun.TestRunSteps.length; i++)
+	
+	if (testRun.TestRunSteps)
 	{
-		var step = testRun.TestRunSteps[i];
-		if (step.ExecutionStatusId == 1)
+		for(var i = 0; i < testRun.TestRunSteps.length; i++)
 		{
-			if (!firstFailure)
+			var step = testRun.TestRunSteps[i];
+			if (step.ExecutionStatusId == 1)
 			{
-				details += step.Description + ", ";
+				if (!firstFailure)
+				{
+					details += step.Description + ", ";
+				}
+				else
+				{
+					firstFailure = false;
+				}
 			}
-			else
+			
+			if (withScreenshots)
 			{
-				firstFailure = false;
-			}
-		}
-		
-		if (withScreenshots)
-		{
-			if (("" + step.ActualResult).indexOf("rapise_report_embedded_image") != -1)
-			{
-				lastImage = step.ActualResult;
+				if (("" + step.ActualResult).indexOf("rapise_report_embedded_image") != -1)
+				{
+					lastImage = step.ActualResult;
+				}
 			}
 		}
 	}
