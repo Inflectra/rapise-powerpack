@@ -553,7 +553,25 @@
 				"returns": "",
 				"signature": "/**string*/message, /**string*/val, /**string*/chars",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(206,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(207,10)"
+			},
+			{
+				"name": "CheckMatchesOneOf",
+				"description": "Check that given `val` matches (i.e. equals or regex: matches) one of `values`. Values list may be an array or also a multiline list (i.e. \\n-separated string).\r\nFunction returns `true` if `val` is found among `values`, `false` otherwise.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/val, /**string|string[]*/values",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(218,10)"
+			},
+			{
+				"name": "VerifyMatchesOneOf",
+				"description": "Check that given `val` matches (i.e. equals or regex: matches) one of `values`. Values list may be an array or also a multiline list (i.e. \\n-separated string). Write result to the report with provided `message`.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message, /**string*/val, /**string|string[]*/values",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(239,10)"
 			},
 			{
 				"name": "CheckContainsNoneOf",
@@ -562,7 +580,7 @@
 				"returns": "",
 				"signature": "/**string*/val, /**string*/chars",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(217,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(249,10)"
 			},
 			{
 				"name": "VerifyContainsNoneOf",
@@ -571,7 +589,7 @@
 				"returns": "",
 				"signature": "/**string*/message, /**string*/val, /**string*/chars",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(236,10)"
+				"src": "%WORKDIR%PageObjects\\StringChecker\\StringChecker.js(268,10)"
 			}
 		],
 		"isPageObject": true,

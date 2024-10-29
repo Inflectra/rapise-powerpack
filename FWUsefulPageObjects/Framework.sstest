@@ -161,6 +161,9 @@
               <TestFile>
                 <Path>TestCases\StringChecker\UniqueChecker\Test.sstest</Path>
               </TestFile>
+              <TestFile>
+                <Path>TestCases\StringChecker\CheckOneOf\Test.sstest</Path>
+              </TestFile>
             </TestFiles>
           </TestGroup>
         </Groups>

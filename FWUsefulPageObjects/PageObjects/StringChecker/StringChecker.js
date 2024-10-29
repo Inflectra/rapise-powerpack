@@ -98,9 +98,9 @@ function StringChecker_VerifyPattern(/**string*/message, /**string*/str, /**stri
 	var res = StringChecker.CheckPattern(str, pattern, defObj);
 	if(res)
 	{
-		Tester.Assert(message, res, new SeSReportText("<font face='Courier'>"+pattern+"<br/>"+str+"</font>"));
+		Tester.SoftAssert(message, res, new SeSReportText("<font face='Courier'>"+pattern+"<br/>"+str+"</font>"));
 	} else {
-		Tester.Assert(message, res, new SeSReportText("<font face='Courier'>"+PMError+"</font>"));
+		Tester.SoftAssert(message, res, new SeSReportText("<font face='Courier'>"+PMError+"</font>"));
 	}
 	return res;
 }
@@ -156,7 +156,7 @@ function StringChecker_CheckRegex(/**string*/str, /**string|RegEx*/regexstr)
 function StringChecker_VerifyRegex(/**string*/message, /**string*/str, /**string|RegEx*/regexstr)
 {
 	var success = StringChecker.CheckRegex(str,regexstr);
-	Tester.Assert(message, success, [new SeSReportText("<font face='Courier'>"+regexstr+"<br/>"+str+"</font>")])
+	Tester.SoftAssert(message, success, [new SeSReportText("<font face='Courier'>"+regexstr+"<br/>"+str+"</font>")])
 }
 
 /**
@@ -180,7 +180,7 @@ function StringChecker_CheckUnique(/**string*/val)
  */
 function StringChecker_VerifyUnique(/**string*/message, /**string*/val)
 {
-	Tester.Assert(message, StringChecker_CheckUnique(val), ""+val);
+	Tester.SoftAssert(message, StringChecker_CheckUnique(val), ""+val);
 }
 
 /**
@@ -200,14 +200,46 @@ function StringChecker_CheckContainsOneOf(/**string*/val, /**string*/chars)
 	return false;
 }
 
+
 /**
  * Verify that given `val` contains at least one symbol from given string of `chars`. Write result to the report with provided `message`. 
  */
 function StringChecker_VerifyContainsOneOf(/**string*/message, /**string*/val, /**string*/chars)
 {
-	Tester.Assert(message, StringChecker.CheckContainsOneOf(val,chars), ""+val);
+	Tester.SoftAssert(message, StringChecker.CheckContainsOneOf(val,chars), ""+val);
 }
 
+
+/**
+ * Check that given `val` matches (i.e. equals or regex: matches) one of `values`. Values list may be an array or also a multiline list (i.e. \n-separated string).
+ *
+ * Function returns `true` if `val` is found among `values`, `false` otherwise.
+ */
+function StringChecker_CheckMatchesOneOf(/**string*/val, /**string|string[]*/values)
+{
+	// make sure it is string
+	val = ""+val;
+	
+	if( values instanceof Array ) {
+	} else if( typeof values == 'string' ) {
+		values = values.split('\n');
+	}
+	
+	for(var i=0;i<values.length;i++) {
+		if( SeSCheckString(val, values[i]) ) {
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ *  Check that given `val` matches (i.e. equals or regex: matches) one of `values`. Values list may be an array or also a multiline list (i.e. \n-separated string). Write result to the report with provided `message`. 
+ */
+function StringChecker_VerifyMatchesOneOf(/**string*/message, /**string*/val, /**string|string[]*/values)
+{
+	Tester.SoftAssert(message, StringChecker.CheckMatchesOneOf(val,values), [val,values]);
+}
 
 /**
  * Check that given `val` contains none of symbols from given string of `chars`.
@@ -235,5 +267,5 @@ function StringChecker_CheckContainsNoneOf(/**string*/val, /**string*/chars)
  */
 function StringChecker_VerifyContainsNoneOf(/**string*/message, /**string*/val, /**string*/chars)
 {
-	Tester.Assert(message, StringChecker.CheckContainsNoneOf(val,chars), [new SeSReportText(""+val), new SeSReportText(this.PMError)]);
+	Tester.SoftAssert(message, StringChecker.CheckContainsNoneOf(val,chars), [new SeSReportText(""+val), new SeSReportText(this.PMError)]);
 }
