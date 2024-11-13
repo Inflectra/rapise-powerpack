@@ -14,6 +14,7 @@ This Framework contains a number of useful general purpose Page Objects that may
 8. PDF
 9. Playwright
 10. Sfdc
+11. RapiseUtils
 
 ## How to Use
 

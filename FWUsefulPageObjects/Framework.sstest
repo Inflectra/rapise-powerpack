@@ -67,6 +67,9 @@
           <TestFile>
             <Path>PageObjects\Sfdc\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>PageObjects\RapiseUtils\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>pageobjects</Tags>
       </TestGroup>

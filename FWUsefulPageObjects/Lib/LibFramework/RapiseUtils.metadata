@@ -1,0 +1,21 @@
+{
+	"RapiseUtils": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "CleanAICommandCache",
+				"description": "Cleans AI cache, removes unused .json files from AI\\commands folder.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(10,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "RapiseUtils description",
+		"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js"
+	}
+}
