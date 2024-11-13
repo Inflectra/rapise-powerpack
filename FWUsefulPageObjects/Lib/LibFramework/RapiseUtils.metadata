@@ -10,12 +10,13 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(10,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(12,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
-		"description": "RapiseUtils description",
-		"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js"
+		"description": "RapiseUtils provides various actions to perform framework-oriented tasks.",
+		"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js",
+		"version": "1.0.0"
 	}
 }
