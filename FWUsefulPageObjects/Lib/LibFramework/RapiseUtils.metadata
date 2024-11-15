@@ -4,19 +4,37 @@
 		"flavor": "GlobalObject",
 		"actions": [
 			{
+				"name": "ConvertAICommandRepository",
+				"description": "Converts AI Command structure to new format: \r\nSingle ai.commands.json per Test Case/Page Object located in the same folder\r\nas an RVL file that contains these commands.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(14,10)"
+			},
+			{
 				"name": "CleanAICommandCache",
+				"description": "Cleans AI cache, removes unused commands from ai.commands.json files.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(56,10)"
+			},
+			{
+				"name": "CleanAICommandCacheDeprecated",
 				"description": "Cleans AI cache, removes unused .json files from AI\\commands folder.\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(12,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(149,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "RapiseUtils provides various actions to perform framework-oriented tasks.",
 		"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js",
-		"version": "1.0.0"
+		"version": "1.0.1"
 	}
 }
