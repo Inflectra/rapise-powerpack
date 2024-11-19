@@ -95,28 +95,38 @@ class ComputerUseImpl {
     }
     static convertToSendKeys(xdtoolKey) {
         const keyMap = {
-            "Return": "{ENTER}",
-            "BackSpace": "{BACKSPACE}",
-            "Tab": "{TAB}",
-            "Escape": "{ESC}",
+            "return": "{ENTER}",
+            "backspace": "{BACKSPACE}",
+            "tab": "{TAB}",
+            "escape": "{ESC}",
             "space": " ",
-            "F1": "{F1}", "F2": "{F2}", "F3": "{F3}", "F4": "{F4}",
-            "F5": "{F5}", "F6": "{F6}", "F7": "{F7}", "F8": "{F8}",
-            "F9": "{F9}", "F10": "{F10}", "F11": "{F11}", "F12": "{F12}",
+            "up": "{UP}",
+            "down": "{DOWN}",
+            "left": "{LEFT}",
+            "right": "{RIGHT}",
+            "home": "{HOME}",
+            "end": "{END}",
+            "page_up": "{PGUP}",
+            "page_down": "{PGDN}",
+            "insert": "{INS}",
+            "delete": "{DEL}",
+            "f1": "{F1}", "f2": "{F2}", "f3": "{F3}", "f4": "{F4}",
+            "f5": "{F5}", "f6": "{F6}", "f7": "{F7}", "f8": "{F8}",
+            "f9": "{F9}", "f10": "{F10}", "f11": "{F11}", "f12": "{F12}",
         };
         // Extract modifiers and main key
-        const parts = xdtoolKey.split(" ");
+        const parts = xdtoolKey.toLowerCase().split(" "); // Make case insensitive
         const modifiers = parts.slice(0, -1); // All but last part
         const mainKey = parts[parts.length - 1];
         // Handle key mapping
         let sendKey = keyMap[mainKey] || mainKey; // Map or leave unchanged
         // Apply modifiers
         for (const mod of modifiers) {
-            if (mod === "Ctrl")
+            if (mod === "ctrl")
                 sendKey = `^${sendKey}`;
-            if (mod === "Alt")
+            if (mod === "alt")
                 sendKey = `%${sendKey}`;
-            if (mod === "Shift")
+            if (mod === "shift")
                 sendKey = `+${sendKey}`;
         }
         return sendKey;
