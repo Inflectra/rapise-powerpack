@@ -87,7 +87,7 @@ class TargetWindowScreenRegion {
 	 */
 	DoSendKeys(keys)
 	{
-		Global.DoSendKeys(keys);
+		Global._DoSendKeys(keys);
 	}
 
 	/**
