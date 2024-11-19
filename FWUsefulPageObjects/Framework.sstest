@@ -38,6 +38,9 @@
         <Groups />
         <TestFiles>
           <TestFile>
+            <Path>PageObjects\AiRobot\Test.sstest</Path>
+          </TestFile>
+          <TestFile>
             <Path>PageObjects\TableHandler\Test.sstest</Path>
           </TestFile>
           <TestFile>
@@ -68,7 +71,7 @@
             <Path>PageObjects\Sfdc\Test.sstest</Path>
           </TestFile>
           <TestFile>
-            <Path>PageObjects\AiRobot\Test.sstest</Path>
+            <Path>PageObjects\RapiseUtils\Test.sstest</Path>
           </TestFile>
         </TestFiles>
         <Tags>pageobjects</Tags>

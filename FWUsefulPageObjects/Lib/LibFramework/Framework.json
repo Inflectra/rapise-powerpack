@@ -1,5 +1,16 @@
 {
 	"pageobjects": {
+		"AiRobot": {
+			"id": "I9PEAKFU",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\AiRobot\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\AiRobot\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\AiRobot\\Objects.js",
+			"libraries": [],
+			"hash": "920AA0D1B44DC8D11508C6D8B0CE2F82AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF434842C1BE60EE82C285F69B58CD2DD34C"
+		},
 		"TableHandler": {
 			"id": "X3LD3VKB",
 			"tags": "pageobject",
@@ -126,16 +137,16 @@
 			],
 			"hash": "A0396036655928D048A1929EFAC83EA013E5AC06CA9336DAB72A46597F44D72468C7BF443CF916217AB7E7640CE1C1776E661038062DD844EDB384849E35676D83CA1072E082878E94B107A912E7CDF5"
 		},
-		"AiRobot": {
-			"id": "I9PEAKFU",
+		"RapiseUtils": {
+			"id": "E3MNM97W",
 			"tags": "pageobject",
-			"js": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js",
+			"js": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js",
 			"vpath": "",
-			"user": "%WORKDIR%PageObjects\\AiRobot\\User.js",
-			"sstest": "%WORKDIR%PageObjects\\AiRobot\\Test.sstest",
-			"rep": "%WORKDIR%PageObjects\\AiRobot\\Objects.js",
+			"user": "%WORKDIR%PageObjects\\RapiseUtils\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\RapiseUtils\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\RapiseUtils\\Objects.js",
 			"libraries": [],
-			"hash": "920AA0D1B44DC8D11508C6D8B0CE2F82AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF434842C1BE60EE82C285F69B58CD2DD34C"
+			"hash": "CB383892EDA30E863EBF957E63C64C9B79617E1CBCA600337726CEF1205C51D668C7BF443CF916217AB7E7640CE1C177194F5757AA13C099FA4F857915A9E7C0F29492B9CACD6A4F4F2E4BD649444DED"
 		}
 	},
 	"testcases": [
@@ -196,7 +207,7 @@
 		{
 			"name": "Computer Use Direct",
 			"alias": "Computer Use Direct",
-			"vpath": "AI Robot\\Bedrock",
+			"vpath": "",
 			"sstest": "%WORKDIR%TestCases\\AI Robot\\Bedrock\\Computer Use Direct\\Test.sstest",
 			"tags": "testcase",
 			"id": "LBQX41EM",
