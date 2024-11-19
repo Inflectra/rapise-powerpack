@@ -237,7 +237,7 @@ class ComputerUseImpl {
         }
     }
     static async processResponse(payload, imgMeta, response, chatStatus, window) {
-        var _a, _b, _c, _d;
+        var _a, _b, _c;
         window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`);
         chatStatus.input_tokens += response.usage.input_tokens;
         chatStatus.output_tokens += response.usage.output_tokens;
@@ -267,8 +267,10 @@ class ComputerUseImpl {
                         content: [toolResultPayload],
                     });
                 }
-                finally {
-                    window.ActionEnd(actionKey, (_d = cumulativeResult.output) !== null && _d !== void 0 ? _d : cumulativeResult.error);
+                catch (error) {
+                    // Call ActionEnd only if an exception occurs
+                    window.ActionEnd(actionKey, `Error: ${error.message}`);
+                    throw error; // Rethrow the error to propagate it
                 }
             }
         }
@@ -330,14 +332,6 @@ class ComputerUseImpl {
                         display_width_px: imgMeta.metadata_scaled.width,
                         display_number: 0,
                     },
-                    {
-                        type: "bash_20241022",
-                        name: "bash",
-                    },
-                    {
-                        type: "text_editor_20241022",
-                        name: "str_replace_editor",
-                    },
                 ],
                 anthropic_beta: ["computer-use-2024-10-22"],
             };
@@ -396,7 +390,8 @@ class ComputerUseImpl {
         } while (true);
         // Register the final state after exiting the loop
         window.RegisterResponse(payload, response, imgMeta, chatStatus);
-        chatStatus.success = chatStatus.stop_reason === "tool_use"; // Mark success based on stop reason
+        // Update success based on the final stop reason
+        chatStatus.success = chatStatus.stop_reason === "end_turn";
         window.Log(`Final response: ${JSON.stringify(response, null, 2)}`);
         return chatStatus; // Return the updated chatStatus
     }

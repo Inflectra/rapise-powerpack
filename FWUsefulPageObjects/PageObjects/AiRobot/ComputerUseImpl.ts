@@ -468,8 +468,10 @@ export class ComputerUseImpl {
             role: "user",
             content: [toolResultPayload],
           });
-        } finally {
-          window.ActionEnd(actionKey, cumulativeResult.output ?? cumulativeResult.error);
+        } catch (error) {
+          // Call ActionEnd only if an exception occurs
+          window.ActionEnd(actionKey, `Error: ${(error as Error).message}`);
+          throw error; // Rethrow the error to propagate it
         }
       }
     }
@@ -549,14 +551,6 @@ export class ComputerUseImpl {
             display_width_px: imgMeta.metadata_scaled.width!,
             display_number: 0,
           },
-          {
-            type: "bash_20241022",
-            name: "bash",
-          },
-          {
-            type: "text_editor_20241022",
-            name: "str_replace_editor",
-          },
         ],
         anthropic_beta: ["computer-use-2024-10-22"],
       };
@@ -624,7 +618,8 @@ export class ComputerUseImpl {
     // Register the final state after exiting the loop
     window.RegisterResponse(payload, response, imgMeta, chatStatus);
   
-    chatStatus.success = chatStatus.stop_reason === "tool_use"; // Mark success based on stop reason
+    // Update success based on the final stop reason
+    chatStatus.success = chatStatus.stop_reason === "end_turn";
     window.Log(`Final response: ${JSON.stringify(response, null, 2)}`);
   
     return chatStatus; // Return the updated chatStatus
