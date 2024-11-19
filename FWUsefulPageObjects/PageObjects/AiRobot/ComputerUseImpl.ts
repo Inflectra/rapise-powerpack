@@ -190,6 +190,14 @@ interface TargetWindow {
   ): void;
 }
 
+function isValidationException(response: any): boolean {
+  return (
+    typeof response === "object" &&
+    response !== null &&
+    response.name === "ValidationException" &&
+    response.$fault === "client"
+  );
+}
 
 export class ComputerUseImpl {
   private static MAX_SCALING_TARGETS: Record<string, Dimensions> = {
@@ -483,7 +491,6 @@ export class ComputerUseImpl {
     return response.stop_reason === "tool_use";
   }
   
-  
   public static async toolUseLoop(
     prompt: string,
     window: TargetWindow,
@@ -575,23 +582,29 @@ export class ComputerUseImpl {
         break;
       }
   
-      if (!response) {
-        let retries = 0;
-        while (retries < 3) {
-          try {
+      let retries = 0;
+      while (retries < 3) {
+        try {
+          if (!response) {
             response = AiServerClient.QueryRaw(payload, { defaultModelApiType: "bedrock" });
             window.Log("Fetched a new response from the server.");
             chatStatus.prompt_queries++; // Increment prompt query count
-            break; // Exit retry loop on success
-          } catch (error: any) {
-            retries++;
-            window.Log(`Retry ${retries}: Error querying the API - ${error.message}`);
-            if (error.message.includes("ValidationError") && retries < 3) {
-              window.Log("Retrying due to ValidationError...");
-            } else {
-              throw new Error(`Failed after ${retries} retries: ${error.message}`);
-            }
           }
+  
+          // Check if the response indicates a ValidationException
+          if (response && isValidationException(response)) {
+            retries++;
+            window.Log(`Retry ${retries}: ValidationException detected in response.`);
+            response = undefined; // Clear response to retry
+            if (retries >= 3) {
+              throw new Error("Exceeded maximum retries due to ValidationException.");
+            }
+            continue; // Retry logic
+          }
+  
+          break; // Exit retry loop if no ValidationException
+        } catch (error: any) {
+          throw new Error(`Failed after ${retries} retries: ${error.message}`);
         }
       }
   
@@ -624,7 +637,6 @@ export class ComputerUseImpl {
   
     return chatStatus; // Return the updated chatStatus
   }
-  
   
 }
 
