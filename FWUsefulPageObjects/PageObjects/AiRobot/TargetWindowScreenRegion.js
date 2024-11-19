@@ -115,6 +115,9 @@ class TargetWindowScreenRegion {
 	
 	ActionEnd(actionkey, output)
 	{
+		// Don't reflect in the log, we track it for all other actions.
+		if(actionKey.indexOf("screenshot")==0) return;
+
 		var data = [actionkey];
 		this.GetScreenshot();
 		if(this.lastImage)
