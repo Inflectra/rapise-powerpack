@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.4
+ * @Version 0.0.5
  */
 SeSPageObject("AiRobot");
 
@@ -125,15 +125,15 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
  * 
  * Example 1: 
  *  Navigator.Open("https://v3.libraryinformationsystem.org/");
- * 	AiRobot.DoInBrowser("Login as borrower/borrower");
+ * 	AiRobot.DoWebBrowser("Login as borrower/borrower");
  * 
  * Example 2:
  *  // Navigator open earlier and browser is logged in
- * 	AiRobot.DoInBrowser("Change the genre of the book 'The Sign of the Four' to 'Detective Fiction'.");
+ * 	AiRobot.DoWebBrowser("Change the genre of the book 'The Sign of the Four' to 'Detective Fiction'.");
  * 
  * Note to keep your window small. Something bigger than 1024x768 may lead to incorrect clicks.
  */
-function AiRobot_DoInBrowser( /**string*/ prompt, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
+function AiRobot_DoWebBrowser( /**string*/ prompt, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
 {
 	var success = false;
 	_RobotSyncRun(async () => {
@@ -147,7 +147,7 @@ function AiRobot_DoInBrowser( /**string*/ prompt, /**number*/ timeout, /**number
 	return success;
 }
 
-var _paramInfoAiRobot_DoInBrowser = {
+var _paramInfoAiRobot_DoWebBrowser = {
 	prompt: _AiRobotParamInfo.Message,
 	token_limit: _AiRobotParamInfo.token_limit,
 	max_tokens: _AiRobotParamInfo.max_tokens,
