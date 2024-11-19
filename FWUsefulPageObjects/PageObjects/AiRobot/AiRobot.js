@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.6
+ * @Version 0.0.7
  */
 SeSPageObject("AiRobot");
 
@@ -118,8 +118,7 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 	_AiRobotInit();
 	var p = File.ResolvePath('%WORKDIR%/PageObjects/AiRobot/ComputerUseImpl.js')
 	const ComputerUseImplClass = require(p).ComputerUseImpl;
-	//await ComputerUseImplClass.ToolUseChat("Login as librarian/librarian", navWindow, navWindow.LoadResponse());
-	const status = await ComputerUseImplClass.ToolUseChat(prompt, navWindow, null, 10000, 5);
+	const status = await ComputerUseImplClass.toolUseLoop(prompt, targetWindow, max_tokens, n_last_images, timeout, token_limit);
 	Tester.Assert("AiRobot done: " + prompt, true, [JSON.stringify(status, null, 2)])
 	return status && status.success;
 }

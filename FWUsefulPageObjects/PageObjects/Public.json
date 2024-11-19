@@ -35,7 +35,7 @@
 						"defaultValue": 30000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(140,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(139,10)"
 			},
 			{
 				"name": "DoFullScreen",
@@ -69,7 +69,7 @@
 						"defaultValue": 30000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(167,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(166,10)"
 			},
 			{
 				"name": "DoScreenRegion",
@@ -103,7 +103,7 @@
 						"defaultValue": 30000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(193,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(192,10)"
 			},
 			{
 				"name": "DoWindow",
@@ -140,7 +140,7 @@
 						"defaultValue": 30000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(218,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(217,10)"
 			},
 			{
 				"name": "DoObject",
@@ -177,14 +177,14 @@
 						"defaultValue": 30000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(276,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(275,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to\r\nfind reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.",
 		"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js",
-		"version": "0.0.6",
+		"version": "0.0.7",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/AiRobot"
 	},
 	"ExtentReports": {
