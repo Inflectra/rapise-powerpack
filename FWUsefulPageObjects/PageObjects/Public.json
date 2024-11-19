@@ -1,4 +1,118 @@
 {
+	"AiRobot": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "DoInBrowser",
+				"description": "Do fully automation AI interactions with currently active web browser window.\r\nExample 1: \r\nNavigator.Open(\"https://v3.libraryinformationsystem.org/\");\r\nAiRobot.DoInBrowser(\"Login as borrower/borrower\");\r\nExample 2:\r\nNavigator open earlier and browser is logged in\r\nAiRobot.DoInBrowser(\"Change the genre of the book 'The Sign of the Four' to 'Detective Fiction'.\");\r\nNote to keep your window small. Something bigger than 1024x768 may lead to incorrect clicks.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/prompt, /**number*/timeout, /**number*/n_last_images, /**number*/max_tokens, /**number*/token_limit",
+				"paramInfo": {
+					"token_limit": {
+						"type": "number",
+						"description": "Token limit to be used for whole prompt.",
+						"optional": true,
+						"defaultValue": 1000000
+					},
+					"max_tokens": {
+						"type": "number",
+						"description": "Maximum amount of tokens per response.",
+						"optional": true,
+						"defaultValue": 1000
+					},
+					"n_last_images": {
+						"type": "number",
+						"description": "Number of images to remember.",
+						"optional": true,
+						"defaultValue": 5
+					},
+					"timeout": {
+						"type": "number",
+						"description": "Maximum time to wait, in milliseconds",
+						"optional": true,
+						"defaultValue": 30000
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(105,10)"
+			},
+			{
+				"name": "DoFullScreen",
+				"description": "Do fully automation AI interactions first screen.\r\nExample 1: AiRobot.DoFullScreen(\"Press 'Excel' launch icon on the desktop.\");\r\nIt is bad idea to use this function if screen size is higher than 1280x768.\r\n@param {String} prompt parameter description\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/prompt, /**number*/timeout, /**number*/n_last_images, /**number*/max_tokens, /**number*/token_limit",
+				"paramInfo": {
+					"token_limit": {
+						"type": "number",
+						"description": "Token limit to be used for whole prompt.",
+						"optional": true,
+						"defaultValue": 1000000
+					},
+					"max_tokens": {
+						"type": "number",
+						"description": "Maximum amount of tokens per response.",
+						"optional": true,
+						"defaultValue": 1000
+					},
+					"n_last_images": {
+						"type": "number",
+						"description": "Number of images to remember.",
+						"optional": true,
+						"defaultValue": 5
+					},
+					"timeout": {
+						"type": "number",
+						"description": "Maximum time to wait, in milliseconds",
+						"optional": true,
+						"defaultValue": 30000
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(133,10)"
+			},
+			{
+				"name": "DoScreenRegion",
+				"description": "Do fully automation AI interactions first screen.\r\nExample 1: AiRobot.DoScreenRegion(\"Press 'Excel' launch icon on the desktop.\", 0, 0, 1280, 768);\r\nIt is bad idea to use this function if screen size is higher than 1280x768.\r\n@param {String} prompt parameter description\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/prompt, /**number*/x, /**number*/y, /**number*/w, /**number*/h, /**number*/timeout, /**number*/n_last_images, /**number*/max_tokens, /**number*/token_limit",
+				"paramInfo": {
+					"token_limit": {
+						"type": "number",
+						"description": "Token limit to be used for whole prompt.",
+						"optional": true,
+						"defaultValue": 1000000
+					},
+					"max_tokens": {
+						"type": "number",
+						"description": "Maximum amount of tokens per response.",
+						"optional": true,
+						"defaultValue": 1000
+					},
+					"n_last_images": {
+						"type": "number",
+						"description": "Number of images to remember.",
+						"optional": true,
+						"defaultValue": 5
+					},
+					"timeout": {
+						"type": "number",
+						"description": "Maximum time to wait, in milliseconds",
+						"optional": true,
+						"defaultValue": 30000
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(162,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to\r\nfind reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.",
+		"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js",
+		"version": "0.0.3",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/AiRobot"
+	},
 	"ExtentReports": {
 		"window_name": "PageObjects",
 		"flavor": "GlobalObject",

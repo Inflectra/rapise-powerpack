@@ -67,6 +67,9 @@
           <TestFile>
             <Path>PageObjects\Sfdc\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>PageObjects\AiRobot\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>pageobjects</Tags>
       </TestGroup>
@@ -96,6 +99,29 @@
         <FilterWildcard>*.*</FilterWildcard>
         <FilterPath>TestCases</FilterPath>
         <Groups>
+          <TestGroup>
+            <Name>AI Robot</Name>
+            <RealFolder>true</RealFolder>
+            <IsFilterGroup>false</IsFilterGroup>
+            <FilterWildcard>*.*</FilterWildcard>
+            <FilterPath>TestCases/AI Robot</FilterPath>
+            <Groups>
+              <TestGroup>
+                <Name>Bedrock</Name>
+                <RealFolder>true</RealFolder>
+                <IsFilterGroup>false</IsFilterGroup>
+                <FilterWildcard>*.*</FilterWildcard>
+                <FilterPath>TestCases/AI Robot/Bedrock</FilterPath>
+                <Groups />
+                <TestFiles>
+                  <TestFile>
+                    <Path>TestCases\AI Robot\Bedrock\Computer Use Direct\Test.sstest</Path>
+                  </TestFile>
+                </TestFiles>
+              </TestGroup>
+            </Groups>
+            <TestFiles />
+          </TestGroup>
           <TestGroup>
             <Name>ExtentReports</Name>
             <RealFolder>true</RealFolder>
