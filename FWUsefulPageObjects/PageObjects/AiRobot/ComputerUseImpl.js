@@ -126,7 +126,7 @@ class ComputerUseImpl {
             }
             // Map keys and wrap with braces if not already wrapped
             const mappedKeys = keys
-                .map((key) => keyMap[key] || `{${key.toUpperCase()}}`) // Map or use {key}
+                .map((key) => keyMap[key] || `{${key}}`) // Map or use {key} in lowercase
                 .join(""); // Join if multiple keys are provided
             // Apply modifiers
             let sendKey = mappedKeys;
