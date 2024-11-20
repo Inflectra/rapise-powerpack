@@ -102,6 +102,11 @@ class TargetWindowScreenRegion {
 		}
 	}
 
+	AssistantText(msg)
+	{
+		Tester.Message("Assistant: "+msg);
+	}
+
 	Log(msg)
 	{
 		Log2(msg);

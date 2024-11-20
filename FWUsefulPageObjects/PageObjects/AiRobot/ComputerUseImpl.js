@@ -282,9 +282,9 @@ class ComputerUseImpl {
         const scaleFactor = imgMeta.scale_factor;
         for (const contentItem of response.content) {
             if (contentItem.type === "text") {
-                // Log the text content to the window
+                // Use AssistantText to display just the text content
                 if (contentItem.text) {
-                    window.Log(`Assistant text: ${contentItem.text}`);
+                    window.AssistantText(contentItem.text);
                 }
                 continue;
             }

@@ -164,31 +164,42 @@ class ToolResult {
   }
 }
 
-interface TargetWindow {
-  GetScreenshot(): string;
-  DoClick(clickType: "L" | "R" | "M" | "LD" | "RD" | "MD"): void;
-  DoMouseMove(x: number, y: number): void;
-  DoMouseDragTo(x: number, y: number): void;
-  DoSendKeys(keys: string): void;
-  GetCursorPosition(): { x: number; y: number };
-  Log(msg: string): void;
-  ActionStart(actionKey: string, msg: string): void;
-  ActionEnd(actionKey: string, output?: string): void;
+export type TargetWindow = {
+  // Screenshot and cursor
+  GetScreenshot: () => string;
+  GetCursorPosition: () => { x: number; y: number };
 
-  /**
-   * Registers the payload, response, image metadata, and chat status for tracking or debugging.
-   * @param payload The payload sent to the API.
-   * @param response The response received from the API.
-   * @param imgMeta The metadata of the processed image.
-   * @param chatStatus The current status of the chat session.
-   */
-  RegisterResponse(
+  // Mouse actions
+  DoClick: (clickType: "L" | "R" | "M" | "LD" | "RD" | "MD") => void;
+  DoMouseMove: (x: number, y: number) => void;
+  DoMouseDragTo: (x: number, y: number) => void;
+  DoLMouseDown: () => void;
+  DoRMouseDown: () => void;
+  DoMMouseDown: () => void;
+  DoLMouseUp: () => void;
+  DoRMouseUp: () => void;
+  DoMMouseUp: () => void;
+
+  // Keyboard actions
+  DoSendKeys: (keys: string) => void;
+
+  // Logging and assistant-specific messaging
+  Log: (msg: string) => void;
+  AssistantText: (msg: string) => void;
+
+  // Action lifecycle management
+  ActionStart: (actionKey: string, msg: string) => void;
+  ActionEnd: (actionKey: string, output: string | undefined) => void;
+
+  // Response registration
+  RegisterResponse: (
     payload: AnthropicPayload,
     response: AnthropicResponse,
     imgMeta: ProcessImageResult,
-    chatStatus: any
-  ): void;
-}
+    chatStatus: ChatStatus
+  ) => void;
+};
+
 
 export interface ChatStatus {
   start: Date;            // The start time of the loop
@@ -470,7 +481,7 @@ export class ComputerUseImpl {
       }
     }
   }
-  
+
   private static isValidationException(response: any): boolean {
     return (
       typeof response === "object" &&
@@ -499,9 +510,9 @@ export class ComputerUseImpl {
   
     for (const contentItem of response.content) {
       if (contentItem.type === "text") {
-        // Log the text content to the window
+        // Use AssistantText to display just the text content
         if (contentItem.text) {
-          window.Log(`Assistant text: ${contentItem.text}`);
+          window.AssistantText(contentItem.text);
         }
         continue;
       } else if (contentItem.type === "tool_use") {
@@ -538,7 +549,7 @@ export class ComputerUseImpl {
     }
   
     return response.stop_reason === "tool_use";
-  }  
+  }
 
   public static async toolUseLoop(
     prompt: string,
@@ -691,7 +702,4 @@ export class ComputerUseImpl {
   
     return chatStatus; // Return the updated chatStatus
   }
-  
-  
 }
-
