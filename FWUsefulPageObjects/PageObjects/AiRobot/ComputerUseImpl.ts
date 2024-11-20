@@ -286,23 +286,44 @@ export class ComputerUseImpl {
       "f9": "{F9}", "f10": "{F10}", "f11": "{F11}", "f12": "{F12}",
     };
   
-    // Extract modifiers and main key
-    const parts = xdtoolKey.toLowerCase().split(" "); // Make case insensitive
-    const modifiers = parts.slice(0, -1); // All but last part
-    const mainKey = parts[parts.length - 1];
+    // Split the input into key combinations separated by spaces
+    const combinations = xdtoolKey.split(" ");
+    const convertedCombinations: string[] = [];
   
-    // Handle key mapping
-    let sendKey = keyMap[mainKey] || mainKey; // Map or leave unchanged
+    for (const combo of combinations) {
+      // Split individual combination into modifiers and main keys (separated by '+')
+      const parts = combo.toLowerCase().split("+");
+      const modifiers: string[] = [];
+      const keys: string[] = [];
   
-    // Apply modifiers
-    for (const mod of modifiers) {
-      if (mod === "ctrl") sendKey = `^${sendKey}`;
-      if (mod === "alt") sendKey = `%${sendKey}`;
-      if (mod === "shift") sendKey = `+${sendKey}`;
+      for (const part of parts) {
+        if (["ctrl", "alt", "shift"].includes(part)) {
+          modifiers.push(part); // Collect modifiers
+        } else {
+          keys.push(part); // Collect the main key(s)
+        }
+      }
+  
+      // Map keys and wrap with braces if not already wrapped
+      const mappedKeys = keys
+        .map((key) => keyMap[key] || `{${key.toUpperCase()}}`) // Map or use {key}
+        .join(""); // Join if multiple keys are provided
+  
+      // Apply modifiers
+      let sendKey = mappedKeys;
+      for (const mod of modifiers) {
+        if (mod === "ctrl") sendKey = `^${sendKey}`;
+        if (mod === "alt") sendKey = `%${sendKey}`;
+        if (mod === "shift") sendKey = `+${sendKey}`;
+      }
+  
+      convertedCombinations.push(sendKey);
     }
   
-    return sendKey;
+    // Join individual key combinations with a space
+    return convertedCombinations.join(" ");
   }
+  
   
   private static async processToolUseAction(
     action: ToolUseAction,
