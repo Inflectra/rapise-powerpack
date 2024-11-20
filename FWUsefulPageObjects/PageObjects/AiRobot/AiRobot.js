@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.14
+ * @Version 0.0.15
  */
 SeSPageObject("AiRobot");
 
@@ -113,6 +113,21 @@ var _AiRobotParamInfo = {
 	_returns: '`true` if the upload was successful; otherwise, it returns `false`.'
 };
 
+/*
+export interface ChatStatus {
+  start: Date;            // The start time of the loop
+  end?: Date;             // The end time of the loop
+  duration?: number;      // Duration in milliseconds
+  prompt: string;         // The initial prompt
+  input_tokens: number;   // Total input tokens used
+  output_tokens: number;  // Total output tokens received
+  stop_reason: string;    // Reason for stopping the loop
+  success: boolean;       // Indicates if the loop was successful
+  tool_invocations: number; // Number of tool invocations
+  prompt_queries: number; // Number of prompt queries made
+}
+*/
+
 async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
 {
 	_AiRobotInit();
@@ -120,6 +135,28 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 	const ComputerUseImplClass = require(p).ComputerUseImpl;
 	const status = await ComputerUseImplClass.toolUseLoop(prompt, targetWindow, max_tokens, n_last_images, timeout, token_limit);
 	Tester.Assert("AiRobot done: " + prompt, true, [JSON.stringify(status, null, 2)])
+
+	const statFileName = "AI/robot_stat.json";
+	let input_tokens = Global.GetProperty("input_tokens", 0, statFileName);
+	let output_tokens = Global.GetProperty("output_tokens", 0, statFileName);
+	let prompt_queries = Global.GetProperty("prompt_queries", 0, statFileName);
+	let tool_invocations = Global.GetProperty("tool_invocations", 0, statFileName);
+
+	input_tokens += status.input_tokens;
+	output_tokens += status.output_tokens;
+	prompt_queries += status.prompt_queries;
+	tool_invocations += status.tool_invocations;
+
+	Global.SetProperty("input_tokens", input_tokens, statFileName);
+	Global.SetProperty("output_tokens", output_tokens, statFileName);
+	Global.SetProperty("prompt_queries", prompt_queries, statFileName);
+	Global.SetProperty("tool_invocations", tool_invocations, statFileName);
+	Global.SetProperty("last_status", status, statFileName);
+
+	let prompt_history = Global.GetProperty("prompt_history", [], statFileName);
+	prompt_history.push({prompt, status});
+	Global.SetProperty("prompt_history", prompt_history, statFileName);
+
 	return status && status.success;
 }
 

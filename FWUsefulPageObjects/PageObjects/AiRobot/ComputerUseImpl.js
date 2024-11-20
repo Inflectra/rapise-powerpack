@@ -46,12 +46,6 @@ class ToolResult {
         return new ToolResult(Object.assign(Object.assign({}, this), changes));
     }
 }
-function isValidationException(response) {
-    return (typeof response === "object" &&
-        response !== null &&
-        response.name === "ValidationException" &&
-        response.$fault === "client");
-}
 class ComputerUseImpl {
     static getBestTarget(width, height) {
         for (const target of Object.values(this.MAX_SCALING_TARGETS)) {
@@ -252,6 +246,14 @@ class ComputerUseImpl {
             }
         }
     }
+    static isValidationException(response) {
+        var _a;
+        return (typeof response === "object" &&
+            response !== null &&
+            response.name === "ValidationException" &&
+            response.$fault === "client" &&
+            ((_a = response.$metadata) === null || _a === void 0 ? void 0 : _a.httpStatusCode) === 400);
+    }
     static async processResponse(payload, imgMeta, response, chatStatus, window) {
         var _a, _b, _c;
         window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`);
@@ -377,7 +379,7 @@ class ComputerUseImpl {
                         chatStatus.prompt_queries++; // Increment prompt query count
                     }
                     // Check if the response indicates a ValidationException
-                    if (response && isValidationException(response)) {
+                    if (response && this.isValidationException(response)) {
                         retries++;
                         window.Log(`Retry ${retries}: ValidationException detected in response.`);
                         response = undefined; // Clear response to retry
@@ -407,6 +409,9 @@ class ComputerUseImpl {
                 break;
             response = undefined; // Clear response to fetch a new one in the next iteration
         } while (true);
+        // Finalize `end` and `duration`
+        chatStatus.end = new Date();
+        chatStatus.duration = chatStatus.end.getTime() - chatStatus.start.getTime();
         // Register the final state after exiting the loop
         window.RegisterResponse(payload, response, imgMeta, chatStatus);
         // Update success based on the final stop reason

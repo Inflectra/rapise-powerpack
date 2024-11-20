@@ -190,13 +190,17 @@ interface TargetWindow {
   ): void;
 }
 
-function isValidationException(response: any): boolean {
-  return (
-    typeof response === "object" &&
-    response !== null &&
-    response.name === "ValidationException" &&
-    response.$fault === "client"
-  );
+export interface ChatStatus {
+  start: Date;            // The start time of the loop
+  end?: Date;             // The end time of the loop
+  duration?: number;      // Duration in milliseconds
+  prompt: string;         // The initial prompt
+  input_tokens: number;   // Total input tokens used
+  output_tokens: number;  // Total output tokens received
+  stop_reason: string;    // Reason for stopping the loop
+  success: boolean;       // Indicates if the loop was successful
+  tool_invocations: number; // Number of tool invocations
+  prompt_queries: number; // Number of prompt queries made
 }
 
 export class ComputerUseImpl {
@@ -299,7 +303,6 @@ export class ComputerUseImpl {
   
     return sendKey;
   }
-  
   
   private static async processToolUseAction(
     action: ToolUseAction,
@@ -444,7 +447,16 @@ export class ComputerUseImpl {
         }
       }
     }
-  }  
+  }
+  private static isValidationException(response: any): boolean {
+    return (
+      typeof response === "object" &&
+      response !== null &&
+      response.name === "ValidationException" &&
+      response.$fault === "client" &&
+      response.$metadata?.httpStatusCode === 400
+    );
+  }
 
   private static async processResponse(
     payload: AnthropicPayload,
@@ -509,16 +521,16 @@ export class ComputerUseImpl {
       payload?: AnthropicPayload;
       response?: AnthropicResponse;
       imgMeta?: ProcessImageResult;
-      chatStatus?: any;
+      chatStatus?: ChatStatus;
     },
     max_tokens: number = 10000,
     n_last_images: number = 3,
     timeout: number = 300000, // Default timeout: 5 minutes
     token_limit: number = 1000000 // Default token limit: 1 million
-  ): Promise<any> {
+  ): Promise<ChatStatus> {
     const shouldIgnoreLast = last?.chatStatus?.stop_reason !== "tool_use";
   
-    const chatStatus = !shouldIgnoreLast && last?.chatStatus
+    const chatStatus: ChatStatus = !shouldIgnoreLast && last?.chatStatus
       ? last.chatStatus
       : {
           start: new Date(),
@@ -603,7 +615,7 @@ export class ComputerUseImpl {
           }
   
           // Check if the response indicates a ValidationException
-          if (response && isValidationException(response)) {
+          if (response && this.isValidationException(response)) {
             retries++;
             window.Log(`Retry ${retries}: ValidationException detected in response.`);
             response = undefined; // Clear response to retry
@@ -639,6 +651,10 @@ export class ComputerUseImpl {
       response = undefined; // Clear response to fetch a new one in the next iteration
     } while (true);
   
+    // Finalize `end` and `duration`
+    chatStatus.end = new Date();
+    chatStatus.duration = chatStatus.end.getTime() - chatStatus.start.getTime();
+  
     // Register the final state after exiting the loop
     window.RegisterResponse(payload, response, imgMeta, chatStatus);
   
@@ -648,6 +664,7 @@ export class ComputerUseImpl {
   
     return chatStatus; // Return the updated chatStatus
   }
+  
   
 }
 
