@@ -282,7 +282,10 @@ class ComputerUseImpl {
         const scaleFactor = imgMeta.scale_factor;
         for (const contentItem of response.content) {
             if (contentItem.type === "text") {
-                // Handle text blocks as needed
+                // Log the text content to the window
+                if (contentItem.text) {
+                    window.Log(`Assistant text: ${contentItem.text}`);
+                }
                 continue;
             }
             else if (contentItem.type === "tool_use") {
@@ -400,6 +403,7 @@ class ComputerUseImpl {
                     if (response && this.isValidationException(response)) {
                         retries++;
                         window.Log(`Retry ${retries}: ValidationException detected in response.`);
+                        Global.DoSleep(1000); // Delay for 1 second
                         response = undefined; // Clear response to retry
                         if (retries >= 3) {
                             throw new Error("Exceeded maximum retries due to ValidationException.");

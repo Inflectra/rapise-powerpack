@@ -6,9 +6,10 @@ interface Tester {
   Message(message: string): void;
 }
 
-interface Navigator {
-  [key: string]: any;
-}
+
+declare var Global: {
+  DoSleep: (milliseconds: number) => void;
+};
 
 interface AiServerClient {
   QueryRaw(payload: any, options: any): any;
@@ -28,7 +29,6 @@ interface SeSReportImage {
 
 // Declare external objects
 declare var Tester: Tester;
-declare var Navigator: Navigator;
 declare var AiServerClient: AiServerClient;
 declare var WebDriver: WebDriver;
 declare var SeSReportImage: SeSReportImage;
@@ -470,6 +470,7 @@ export class ComputerUseImpl {
       }
     }
   }
+  
   private static isValidationException(response: any): boolean {
     return (
       typeof response === "object" &&
@@ -484,7 +485,7 @@ export class ComputerUseImpl {
     payload: AnthropicPayload,
     imgMeta: ProcessImageResult,
     response: AnthropicResponse,
-    chatStatus: any,
+    chatStatus: ChatStatus,
     window: TargetWindow
   ): Promise<boolean> {
     window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`);
@@ -498,7 +499,10 @@ export class ComputerUseImpl {
   
     for (const contentItem of response.content) {
       if (contentItem.type === "text") {
-        // Handle text blocks as needed
+        // Log the text content to the window
+        if (contentItem.text) {
+          window.Log(`Assistant text: ${contentItem.text}`);
+        }
         continue;
       } else if (contentItem.type === "tool_use") {
         chatStatus.tool_invocations++; // Increment tool invocation count
@@ -534,8 +538,8 @@ export class ComputerUseImpl {
     }
   
     return response.stop_reason === "tool_use";
-  }
-  
+  }  
+
   public static async toolUseLoop(
     prompt: string,
     window: TargetWindow,
@@ -543,7 +547,7 @@ export class ComputerUseImpl {
       payload?: AnthropicPayload;
       response?: AnthropicResponse;
       imgMeta?: ProcessImageResult;
-      chatStatus?: ChatStatus;
+      chatStatus?: any;
     },
     max_tokens: number = 10000,
     n_last_images: number = 3,
@@ -640,6 +644,7 @@ export class ComputerUseImpl {
           if (response && this.isValidationException(response)) {
             retries++;
             window.Log(`Retry ${retries}: ValidationException detected in response.`);
+            Global.DoSleep(1000); // Delay for 1 second
             response = undefined; // Clear response to retry
             if (retries >= 3) {
               throw new Error("Exceeded maximum retries due to ValidationException.");
