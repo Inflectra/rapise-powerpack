@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.25
+ * @Version 0.0.26
  */
 SeSPageObject("AiRobot");
 
@@ -76,7 +76,7 @@ function _AiRobotInit()
 	// Restore packages if needed
 	if (!File.FolderExists(g_workDir + '\\node_modules') || !File.FolderExists(g_workDir + '\\node_modules\\sharp'))
 	{
-		Global.DoCmd('TestCases\\install\\install.cmd', g_workDir, true, true);
+		Global.DoCmd('PageObjects\\AiRobot\\install.cmd', g_workDir, true, true);
 	}
 }
 
