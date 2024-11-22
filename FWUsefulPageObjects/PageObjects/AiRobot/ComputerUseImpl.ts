@@ -562,7 +562,7 @@ export class ComputerUseImpl {
     },
     max_tokens: number = 10000,
     n_last_images: number = 3,
-    timeout: number = 300000, // Default timeout: 5 minutes
+    timeout: number = 600000, // Default timeout: 10 minutes
     token_limit: number = 1000000 // Default token limit: 1 million
   ): Promise<ChatStatus> {
     const shouldIgnoreLast = last?.chatStatus?.stop_reason !== "tool_use";

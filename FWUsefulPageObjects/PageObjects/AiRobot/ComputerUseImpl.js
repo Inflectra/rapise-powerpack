@@ -318,7 +318,7 @@ class ComputerUseImpl {
         }
         return response.stop_reason === "tool_use";
     }
-    static async toolUseLoop(prompt, window, last, max_tokens = 10000, n_last_images = 3, timeout = 300000, // Default timeout: 5 minutes
+    static async toolUseLoop(prompt, window, last, max_tokens = 10000, n_last_images = 3, timeout = 600000, // Default timeout: 10 minutes
     token_limit = 1000000 // Default token limit: 1 million
     ) {
         var _a;

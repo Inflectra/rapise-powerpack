@@ -32,7 +32,7 @@
 						"type": "number",
 						"description": "Maximum time to wait, in milliseconds",
 						"optional": true,
-						"defaultValue": 30000
+						"defaultValue": 600000
 					}
 				},
 				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(185,10)"
@@ -66,7 +66,7 @@
 						"type": "number",
 						"description": "Maximum time to wait, in milliseconds",
 						"optional": true,
-						"defaultValue": 30000
+						"defaultValue": 600000
 					}
 				},
 				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(212,10)"
@@ -100,7 +100,7 @@
 						"type": "number",
 						"description": "Maximum time to wait, in milliseconds",
 						"optional": true,
-						"defaultValue": 30000
+						"defaultValue": 600000
 					}
 				},
 				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(238,10)"
@@ -137,7 +137,7 @@
 						"type": "number",
 						"description": "Maximum time to wait, in milliseconds",
 						"optional": true,
-						"defaultValue": 30000
+						"defaultValue": 600000
 					}
 				},
 				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(263,10)"
@@ -174,7 +174,7 @@
 						"type": "number",
 						"description": "Maximum time to wait, in milliseconds",
 						"optional": true,
-						"defaultValue": 30000
+						"defaultValue": 600000
 					}
 				},
 				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(321,10)"
@@ -184,7 +184,7 @@
 		"extend_rule": "",
 		"description": "AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to\r\nfind reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.",
 		"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js",
-		"version": "0.0.26",
+		"version": "0.0.27",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/AiRobot"
 	},
 	"ExtentReports": {
