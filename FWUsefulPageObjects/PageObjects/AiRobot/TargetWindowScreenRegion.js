@@ -26,14 +26,13 @@ class TargetWindowScreenRegion {
 
 	static FromScreenRegion(x,y,w,h)
 	{
-		var /**HWNDWrapper*/hwndWrapper = g_util.GetDesktopWindow(); 
-		return TargetWindowScreenRegion.FromHWND(x,y,w,h);
+		return new TargetWindowScreenRegion(x,y,w,h);
 	}
 
 	static FromScreen()
 	{
 		var /**HWNDWrapper*/hwndWrapper = g_util.GetDesktopWindow(); 
-		return TargetWindowScreenRegion.FromHWND(hwndWrapper.PosX, hwndWrapper.PosY, hwndWrapper.PosWidth, hwndWrapper.PosHeight);
+		return TargetWindowScreenRegion.FromScreenRegion(hwndWrapper.PosX, hwndWrapper.PosY, hwndWrapper.PosWidth, hwndWrapper.PosHeight);
 	}
 
 	/**
