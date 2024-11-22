@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.22
+ * @Version 0.0.25
  */
 SeSPageObject("AiRobot");
 
@@ -76,8 +76,7 @@ function _AiRobotInit()
 	// Restore packages if needed
 	if (!File.FolderExists(g_workDir + '\\node_modules') || !File.FolderExists(g_workDir + '\\node_modules\\sharp'))
 	{
-		const npmCmd = g_helper.ResolvePath("InstrumentJS/npm.cmd");
-		Global.DoCmd('"' + npmCmd + '"' + " install sharp --prefix \"" + g_workDir + "\"", g_workDir, true, false);
+		Global.DoCmd('TestCases\\install\\install.cmd', g_workDir, true, true);
 	}
 }
 
@@ -128,13 +127,14 @@ export interface ChatStatus {
 }
 */
 
+global.g_aiRobotStats = {input_tokens: 0, output_tokens: 0, prompt_queries: 0, tool_invocations: 0};
+
 async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
 {
 	_AiRobotInit();
 	var p = File.ResolvePath('%WORKDIR%/PageObjects/AiRobot/ComputerUseImpl.js')
 	const ComputerUseImplClass = require(p).ComputerUseImpl;
 	const status = await ComputerUseImplClass.toolUseLoop(prompt, targetWindow, max_tokens, n_last_images, timeout, token_limit);
-	Tester.Assert("AiRobot done: " + prompt, true, [JSON.stringify(status, null, 2)])
 
 	const statFileName = "AI/robot_stat.json";
 	let input_tokens = Global.GetProperty("input_tokens", 0, statFileName);
@@ -147,6 +147,12 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 	prompt_queries += status.prompt_queries;
 	tool_invocations += status.tool_invocations;
 
+	// Update global.g_aiRobotStats by adding the values from the current status
+	global.g_aiRobotStats.input_tokens += status.input_tokens;
+	global.g_aiRobotStats.output_tokens += status.output_tokens;
+	global.g_aiRobotStats.prompt_queries += status.prompt_queries;
+	global.g_aiRobotStats.tool_invocations += status.tool_invocations;
+
 	Global.SetProperty("input_tokens", input_tokens, statFileName);
 	Global.SetProperty("output_tokens", output_tokens, statFileName);
 	Global.SetProperty("prompt_queries", prompt_queries, statFileName);
@@ -156,6 +162,9 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 	let prompt_history = Global.GetProperty("prompt_history", [], statFileName);
 	prompt_history.push({prompt, status});
 	Global.SetProperty("prompt_history", prompt_history, statFileName);
+
+	Tester.Assert("AiRobot done: " + prompt, true, [JSON.stringify(status, null, 2), "Totals for this test run", JSON.stringify(global.g_aiRobotStats, null, 2)])
+
 
 	return status && status.success;
 }

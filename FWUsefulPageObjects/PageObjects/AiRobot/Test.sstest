@@ -45,6 +45,9 @@
         <Path>ComputerUseImpl.ts</Path>
       </TestFile>
       <TestFile>
+        <Path>install.cmd</Path>
+      </TestFile>
+      <TestFile>
         <Path>Main.js</Path>
       </TestFile>
       <TestFile>
