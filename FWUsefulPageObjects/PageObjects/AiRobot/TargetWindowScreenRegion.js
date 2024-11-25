@@ -110,6 +110,11 @@ class TargetWindowScreenRegion {
 	{
 		Log2(msg);
 	}
+
+	PrintReportMessage(/**string*/message)
+	{
+		Tester.Message(message,"AiRobot");
+	}
 	
 	ActionStart(actionkey, msg)
 	{
@@ -120,7 +125,7 @@ class TargetWindowScreenRegion {
 	ActionEnd(actionkey, output)
 	{
 		// Don't reflect in the log, we track it for all other actions.
-		if(actionkey.indexOf("screenshot")==0) return;
+		if(actionkey.indexOf("screenshot")==0||actionkey.indexOf("rapise")==0) return;
 
 		var data = [actionkey];
 		this.GetScreenshot(true);
@@ -155,4 +160,19 @@ class TargetWindowScreenRegion {
 			)
 		);
 	}
+
+	  // Assertion management
+	  Assert(/**string*/message, /**boolean*/pass, /**string*/optAdditionalData)
+	  {
+		Tester.SoftAssert(message, pass, optAdditionalData)
+	  };
+
+	  // Return value management
+	  SetReturnValue(val) {
+		this.returnValue = val;
+	  }
+	  GetReturnValue()
+	  {
+		return this.returnValue;
+	  }
 }

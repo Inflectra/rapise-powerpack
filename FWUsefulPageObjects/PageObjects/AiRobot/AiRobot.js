@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.29
+ * @Version 0.0.30
  */
 SeSPageObject("AiRobot");
 
@@ -163,10 +163,13 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 	prompt_history.push({prompt, status});
 	Global.SetProperty("prompt_history", prompt_history, statFileName);
 
-	Tester.Assert("AiRobot done: " + prompt, true, [JSON.stringify(status, null, 2), "Totals for this test run", JSON.stringify(global.g_aiRobotStats, null, 2)])
+	var result = new SeSDoActionResult(status && status.success,
+		 targetWindow.GetReturnValue(), 
+		 "AiRobot done: " + prompt,
+		 [JSON.stringify(status, null, 2), "Totals for this test run", JSON.stringify(global.g_aiRobotStats, null, 2)]
+		);
 
-
-	return status && status.success;
+	return result;
 }
 
 /**
@@ -187,7 +190,6 @@ function AiRobot_DoWebBrowser( /**string*/ prompt, /**number*/ timeout, /**numbe
 	var success = false;
 	_RobotSyncRun(async () => {
 		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
-		//Navigator.Open("https://v3.libraryinformationsystem.org/");
 		Navigator.Open("");
 		const navWindow = TargetWindowScreenRegion.FromWebDriver();
 		success = await _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
@@ -214,7 +216,6 @@ function AiRobot_DoFullScreen( /**string*/ prompt, /**number*/ timeout, /**numbe
 	var success = false;
 	_RobotSyncRun(async () => {
 		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
-		//Navigator.Open("https://v3.libraryinformationsystem.org/");
 		const navWindow = TargetWindowScreenRegion.FromScreen();
 		success = _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
 	});

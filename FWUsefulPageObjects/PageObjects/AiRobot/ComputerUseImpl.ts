@@ -52,35 +52,69 @@ interface ProcessImageResult {
   metadata_scaled: sharp.Metadata; // Metadata of the scaled image
 }
 
-interface AnthropicPayload {
+type AnthropicPayload = {
   anthropic_version: string;
   max_tokens: number;
-  messages: {
-    role: string;
-    content: { type: string; text?: string; source?: { type: string; media_type: string; data: string } }[];
-  }[];
-  tools: {
-    type: string;
-    name: string;
-    display_height_px?: number;
-    display_width_px?: number;
-    display_number?: number;
-  }[];
+  messages: Array<{
+    role: "user" | "assistant";
+    content: Array<
+      | {
+          type: "text";
+          text: string;
+        }
+      | {
+          type: "image";
+          source: {
+            type: "base64";
+            media_type: string;
+            data: string;
+          };
+        }
+      | {
+          type: "tool_use";
+          name: string; // Generic name for tools
+          input: {
+            action: Action; // Refers to the Action type
+            text?: string; // Optional message or logging text
+            pass?: boolean; // Used with "rapise_assert"
+            val?: string | number | boolean; // Used with "rapise_set_return_value"
+            additionalData?: string; // Optional additional data for assertions
+            coordinate?: [number, number]; // Optional coordinates for mouse actions
+          };
+        }
+    >;
+  }>;
+  tools: Array<any>; // Generic type for tools
   anthropic_beta: string[];
-}
+};
 
-interface AnthropicResponseContent {
-  type: "text" | "tool_use" | "tool_result";
-  text?: string; // For text content
-  input?: {
-    action?: string;
-    coordinate?: [number, number];
-    text?: string; // Added here to capture text input for tool_use
-  };
-  id?: string; // For identifying tool_use blocks
-  name?: string; // Name of the tool being invoked
-  content?: any[]; // For tool_result content blocks
-}
+
+type AnthropicResponseContent =
+  | {
+      type: "text";
+      text: string; // Assistant's textual response
+    }
+  | {
+      type: "image";
+      source: {
+        type: "base64";
+        media_type: string; // Media type (e.g., "image/png")
+        data: string; // Base64-encoded image
+      };
+    }
+  | {
+      type: "tool_use";
+      name: string; // Tool name (e.g., "computer", "rapise_assert", etc.)
+      input: {
+        action: Action; // Refers to the Action type
+        text?: string; // Optional text for actions like "type", "key", or logging
+        pass?: boolean; // For "rapise_assert"
+        val?: string | number | boolean; // For "rapise_set_return_value"
+        additionalData?: string; // Optional additional context for assertions
+        coordinate?: [number, number]; // Coordinates for mouse actions
+      };
+      id: string; // Unique identifier for the tool invocation
+    };
 
 
 interface AnthropicResponseUsage {
@@ -100,6 +134,9 @@ interface AnthropicResponse {
 }
 
 type Action =
+  | "rapise_assert"
+  | "rapise_set_return_value"
+  | "rapise_print_message"
   | "key"
   | "type"
   | "mouse_move"
@@ -111,11 +148,15 @@ type Action =
   | "screenshot"
   | "cursor_position";
 
-interface ToolUseAction {
-  action: Action;
-  text?: string;
-  coordinate?: [number, number];
-}
+  type ToolUseAction = {
+    action: Action; // Use the Action type here
+    text?: string; // Optional text for typing, logging, or assertions
+    coordinate?: [number, number]; // Optional coordinates for mouse-related actions
+    pass?: boolean; // Optional boolean for assertion success/failure
+    val?: string | number | boolean; // Optional value for setting return values
+    additionalData?: string; // Optional additional context for assertions
+  };
+  
 
 class ToolResult {
   output: string | null = null;
@@ -164,42 +205,43 @@ class ToolResult {
   }
 }
 
-export type TargetWindow = {
-  // Screenshot and cursor
-  GetScreenshot: () => string;
-  GetCursorPosition: () => { x: number; y: number };
+interface TargetWindow {
+  // Mouse Actions
+  DoMouseMove(x: number, y: number): void; // Move the mouse to a specific coordinate
+  DoClick(clickType: "L" | "R" | "M" | "LD"): void; // Perform left, right, middle, or double click
+  DoMouseDragTo(x: number, y: number): void; // Drag the mouse to a specific coordinate
 
-  // Mouse actions
-  DoClick: (clickType: "L" | "R" | "M" | "LD" | "RD" | "MD") => void;
-  DoMouseMove: (x: number, y: number) => void;
-  DoMouseDragTo: (x: number, y: number) => void;
-  DoLMouseDown: () => void;
-  DoRMouseDown: () => void;
-  DoMMouseDown: () => void;
-  DoLMouseUp: () => void;
-  DoRMouseUp: () => void;
-  DoMMouseUp: () => void;
+  // Keyboard Actions
+  DoSendKeys(keys: string): void; // Simulate typing or key presses
 
-  // Keyboard actions
-  DoSendKeys: (keys: string) => void;
+  // Screen-Related Actions
+  GetScreenshot(): string; // Capture and return a Base64-encoded screenshot
+  GetCursorPosition(): { x: number; y: number }; // Retrieve the current cursor position
 
-  // Logging and assistant-specific messaging
-  Log: (msg: string) => void;
-  AssistantText: (msg: string) => void;
+  // Logging and Reporting
+  Log(message: string): void; // Log a general-purpose message
+  PrintReportMessage(message: string): void; // Log a report-specific message for rapise_print_message
+  AssistantText(message: string): void; // Display assistant messages or instructions
 
-  // Action lifecycle management
-  ActionStart: (actionKey: string, msg: string) => void;
-  ActionEnd: (actionKey: string, output: string | undefined) => void;
+  // Assertions
+  Assert(message: string, pass: boolean, additionalData?: string): void; // Perform an assertion
 
-  // Response registration
-  RegisterResponse: (
-    payload: AnthropicPayload,
-    response: AnthropicResponse,
-    imgMeta: ProcessImageResult,
-    chatStatus: ChatStatus
-  ) => void;
-};
+  // Return Values
+  SetReturnValue(val: string | number | boolean): void; // Set a return value for later use
+  GetReturnValue(): string | number | boolean; // Retrieve the previously set return value
 
+  // Response Registration
+  RegisterResponse(
+    payload: any,
+    response: any,
+    chatStatus: any,
+    imgMeta: any
+  ): void; // Register the payload, response, status, and image metadata
+
+  // Action Tracking
+  ActionStart(actionKey: string, message: string): void; // Log the start of an action with a key and message
+  ActionEnd(actionKey: string, output: string): void; // Log the end of an action with its key and result
+}
 
 export interface ChatStatus {
   start: Date;            // The start time of the loop
@@ -336,105 +378,117 @@ export class ComputerUseImpl {
   }
   
   
-  
   private static async processToolUseAction(
     action: ToolUseAction,
     window: TargetWindow,
     scaleFactor: number
   ): Promise<ToolResult> {
-    const result = new ToolResult({});
-    const actionKey = `${action.action}-${Date.now()}`;
-
     try {
-      window.ActionStart(actionKey, `Starting action: ${action.action}`);
-
       switch (action.action) {
+        // Mouse actions
         case "mouse_move":
           if (!action.coordinate) {
-            throw new Error("coordinate is required for mouse_move actions");
+            throw new Error("Coordinate is required for mouse_move action.");
           }
           const [moveX, moveY] = this.applyScaling(action.coordinate, scaleFactor);
-          window.Log(`Processing mouse_move to: (${moveX}, ${moveY})`);
+          window.Log(`Moving mouse to (${moveX}, ${moveY})`);
           window.DoMouseMove(moveX, moveY);
-          result.output = `Mouse moved to (${moveX}, ${moveY})`;
-          break;
-
+          return new ToolResult({ output: `Mouse moved to (${moveX}, ${moveY})` });
+  
+        case "left_click":
+          window.Log("Performing left click.");
+          window.DoClick("L");
+          return new ToolResult({ output: "Left click performed." });
+  
         case "left_click_drag":
           if (!action.coordinate) {
-            throw new Error("coordinate is required for left_click_drag actions");
+            throw new Error("Coordinate is required for left_click_drag action.");
           }
           const [dragX, dragY] = this.applyScaling(action.coordinate, scaleFactor);
-          window.Log(`Processing left_click_drag to: (${dragX}, ${dragY})`);
+          window.Log(`Dragging mouse to (${dragX}, ${dragY})`);
           window.DoMouseDragTo(dragX, dragY);
-          result.output = `Dragged mouse to (${dragX}, ${dragY})`;
-          break;
-
-        case "left_click":
-          window.Log("Performing left click");
-          window.DoClick("L");
-          result.output = "Performed left click";
-          break;
-
+          return new ToolResult({ output: `Mouse dragged to (${dragX}, ${dragY})` });
+  
         case "right_click":
-          window.Log("Performing right click");
+          window.Log("Performing right click.");
           window.DoClick("R");
-          result.output = "Performed right click";
-          break;
-
+          return new ToolResult({ output: "Right click performed." });
+  
         case "middle_click":
-          window.Log("Performing middle click");
+          window.Log("Performing middle click.");
           window.DoClick("M");
-          result.output = "Performed middle click";
-          break;
-
+          return new ToolResult({ output: "Middle click performed." });
+  
         case "double_click":
-          window.Log("Performing double click");
+          window.Log("Performing double click.");
           window.DoClick("LD");
-          result.output = "Performed double click";
-          break;
-
+          return new ToolResult({ output: "Double click performed." });
+  
+        // Keyboard actions
         case "key":
           if (!action.text) {
-            throw new Error("text is required for key actions");
+            throw new Error("Key text is required for key action.");
           }
-          const sendKeys = this.convertToSendKeys(action.text);
-          window.Log(`Sending keys: ${sendKeys}`);
-          window.DoSendKeys(sendKeys);
-          result.output = `Sent keys: ${sendKeys}`;
-          break;
-
+          const sendKey = this.convertToSendKeys(action.text);
+          window.Log(`Sending key: "${action.text}"`);
+          window.DoSendKeys(sendKey);
+          return new ToolResult({ output: `Key "${action.text}" sent.` });
+  
         case "type":
           if (!action.text) {
-            throw new Error("text is required for type actions");
+            throw new Error("Text is required for type action.");
           }
-          window.Log(`Typing text: ${action.text}`);
-          window.DoSendKeys(action.text); // Sends text directly without key conversion
-          result.output = `Typed text: ${action.text}`;
-          break;
-
-        case "screenshot":
-          window.Log("Taking screenshot");
-          result.base64_image = window.GetScreenshot();
-          result.output = "Screenshot taken";
-          break;
-
+          window.Log(`Typing text: "${action.text}"`);
+          window.DoSendKeys(action.text);
+          return new ToolResult({ output: `Typed text: "${action.text}".` });
+  
+        // Utility actions
         case "cursor_position":
-          window.Log("Fetching cursor position");
+          window.Log("Getting cursor position.");
           const cursorPosition = window.GetCursorPosition();
-          result.output = `Cursor position: (${cursorPosition.x}, ${cursorPosition.y})`;
-          break;
-
+          return new ToolResult({ output: `Cursor is at position (${cursorPosition.x}, ${cursorPosition.y}).` });
+  
+        case "screenshot":
+          window.Log("Capturing screenshot.");
+          const screenshotBase64 = window.GetScreenshot();
+          return new ToolResult({
+            output: "Screenshot captured.",
+            base64_image: screenshotBase64,
+          });
+  
+        // Rapise tool actions
+        case "rapise_assert":
+          if (typeof action.text !== "string" || typeof action.pass !== "boolean") {
+            throw new Error("Text and pass must be provided for rapise_assert action.");
+          }
+          window.Log(`Performing assertion: "${action.text}", Pass: ${action.pass}`);
+          window.Assert(action.text, action.pass, action.additionalData);
+          return new ToolResult({ output: `Assertion executed: ${action.text}, Pass: ${action.pass}.` });
+  
+        case "rapise_set_return_value":
+          if (action.val === undefined) {
+            throw new Error("Value must be provided for rapise_set_return_value action.");
+          }
+          window.Log(`Setting return value to: ${action.val}`);
+          window.SetReturnValue(action.val);
+          return new ToolResult({ output: `Return value set to: ${action.val}` });
+  
+        case "rapise_print_message":
+          if (!action.text) {
+            throw new Error("Text must be provided for rapise_print_message action.");
+          }
+          window.PrintReportMessage(action.text);
+          return new ToolResult({ output: `Message logged: "${action.text}".` });
+  
+        // Unknown or unsupported action
         default:
-          throw new Error(`Invalid action: ${action.action}`);
+          throw new Error(`Unsupported action: ${action.action}`);
       }
-    } catch (error) {
-      result.error = `Failed to perform action ${action.action}: ${(error as Error).message}`;
-    } finally {
-      window.ActionEnd(actionKey, result.output ?? result.error);
+    } catch (error: any) {
+      window.Log(`Error occurred during action "${action.action}": ${error.message}`);
+      return new ToolResult({ error: error.message });
     }
-
-    return result;
-  }
+  }  
 
   private static makeToolResultPayload(result: ToolResult, toolUseId: string): any {
     const toolResultContent: any[] = [];
@@ -558,7 +612,7 @@ export class ComputerUseImpl {
       payload?: AnthropicPayload;
       response?: AnthropicResponse;
       imgMeta?: ProcessImageResult;
-      chatStatus?: any;
+      chatStatus?: ChatStatus;
     },
     max_tokens: number = 10000,
     n_last_images: number = 3,
@@ -617,6 +671,45 @@ export class ComputerUseImpl {
             display_height_px: imgMeta.metadata_scaled.height!,
             display_width_px: imgMeta.metadata_scaled.width!,
             display_number: 0,
+          },
+          {
+            name: "rapise_assert",
+            description: "Perform an assertion during the automation process",
+            input_schema: {
+              type: "object",
+              properties: {
+                text: { type: "string", description: "The assertion message or condition" },
+                pass: { type: "boolean", description: "Whether the assertion passed or failed" },
+                additionalData: {
+                  type: "string",
+                  description: "Optional additional context for the assertion",
+                  nullable: true,
+                },
+              },
+              required: ["text", "pass"],
+            },
+          },
+          {
+            name: "rapise_set_return_value",
+            description: "Set a return value for later use",
+            input_schema: {
+              type: "object",
+              properties: {
+                val: { type: ["string", "number", "boolean"], description: "The value to set" },
+              },
+              required: ["val"],
+            },
+          },
+          {
+            name: "rapise_print_message",
+            description: "Log a message during the automation process",
+            input_schema: {
+              type: "object",
+              properties: {
+                text: { type: "string", description: "The message to log" },
+              },
+              required: ["text"],
+            },
           },
         ],
         anthropic_beta: ["computer-use-2024-10-22"],
@@ -702,4 +795,5 @@ export class ComputerUseImpl {
   
     return chatStatus; // Return the updated chatStatus
   }
+  
 }

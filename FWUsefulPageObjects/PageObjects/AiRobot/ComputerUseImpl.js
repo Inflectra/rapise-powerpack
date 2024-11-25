@@ -144,88 +144,99 @@ class ComputerUseImpl {
         return convertedCombinations.join(" ");
     }
     static async processToolUseAction(action, window, scaleFactor) {
-        var _a;
-        const result = new ToolResult({});
-        const actionKey = `${action.action}-${Date.now()}`;
         try {
-            window.ActionStart(actionKey, `Starting action: ${action.action}`);
             switch (action.action) {
+                // Mouse actions
                 case "mouse_move":
                     if (!action.coordinate) {
-                        throw new Error("coordinate is required for mouse_move actions");
+                        throw new Error("Coordinate is required for mouse_move action.");
                     }
                     const [moveX, moveY] = this.applyScaling(action.coordinate, scaleFactor);
-                    window.Log(`Processing mouse_move to: (${moveX}, ${moveY})`);
+                    window.Log(`Moving mouse to (${moveX}, ${moveY})`);
                     window.DoMouseMove(moveX, moveY);
-                    result.output = `Mouse moved to (${moveX}, ${moveY})`;
-                    break;
+                    return new ToolResult({ output: `Mouse moved to (${moveX}, ${moveY})` });
+                case "left_click":
+                    window.Log("Performing left click.");
+                    window.DoClick("L");
+                    return new ToolResult({ output: "Left click performed." });
                 case "left_click_drag":
                     if (!action.coordinate) {
-                        throw new Error("coordinate is required for left_click_drag actions");
+                        throw new Error("Coordinate is required for left_click_drag action.");
                     }
                     const [dragX, dragY] = this.applyScaling(action.coordinate, scaleFactor);
-                    window.Log(`Processing left_click_drag to: (${dragX}, ${dragY})`);
+                    window.Log(`Dragging mouse to (${dragX}, ${dragY})`);
                     window.DoMouseDragTo(dragX, dragY);
-                    result.output = `Dragged mouse to (${dragX}, ${dragY})`;
-                    break;
-                case "left_click":
-                    window.Log("Performing left click");
-                    window.DoClick("L");
-                    result.output = "Performed left click";
-                    break;
+                    return new ToolResult({ output: `Mouse dragged to (${dragX}, ${dragY})` });
                 case "right_click":
-                    window.Log("Performing right click");
+                    window.Log("Performing right click.");
                     window.DoClick("R");
-                    result.output = "Performed right click";
-                    break;
+                    return new ToolResult({ output: "Right click performed." });
                 case "middle_click":
-                    window.Log("Performing middle click");
+                    window.Log("Performing middle click.");
                     window.DoClick("M");
-                    result.output = "Performed middle click";
-                    break;
+                    return new ToolResult({ output: "Middle click performed." });
                 case "double_click":
-                    window.Log("Performing double click");
+                    window.Log("Performing double click.");
                     window.DoClick("LD");
-                    result.output = "Performed double click";
-                    break;
+                    return new ToolResult({ output: "Double click performed." });
+                // Keyboard actions
                 case "key":
                     if (!action.text) {
-                        throw new Error("text is required for key actions");
+                        throw new Error("Key text is required for key action.");
                     }
-                    const sendKeys = this.convertToSendKeys(action.text);
-                    window.Log(`Sending keys: ${sendKeys}`);
-                    window.DoSendKeys(sendKeys);
-                    result.output = `Sent keys: ${sendKeys}`;
-                    break;
+                    const sendKey = this.convertToSendKeys(action.text);
+                    window.Log(`Sending key: "${action.text}"`);
+                    window.DoSendKeys(sendKey);
+                    return new ToolResult({ output: `Key "${action.text}" sent.` });
                 case "type":
                     if (!action.text) {
-                        throw new Error("text is required for type actions");
+                        throw new Error("Text is required for type action.");
                     }
-                    window.Log(`Typing text: ${action.text}`);
-                    window.DoSendKeys(action.text); // Sends text directly without key conversion
-                    result.output = `Typed text: ${action.text}`;
-                    break;
-                case "screenshot":
-                    window.Log("Taking screenshot");
-                    result.base64_image = window.GetScreenshot();
-                    result.output = "Screenshot taken";
-                    break;
+                    window.Log(`Typing text: "${action.text}"`);
+                    window.DoSendKeys(action.text);
+                    return new ToolResult({ output: `Typed text: "${action.text}".` });
+                // Utility actions
                 case "cursor_position":
-                    window.Log("Fetching cursor position");
+                    window.Log("Getting cursor position.");
                     const cursorPosition = window.GetCursorPosition();
-                    result.output = `Cursor position: (${cursorPosition.x}, ${cursorPosition.y})`;
-                    break;
+                    return new ToolResult({ output: `Cursor is at position (${cursorPosition.x}, ${cursorPosition.y}).` });
+                case "screenshot":
+                    window.Log("Capturing screenshot.");
+                    const screenshotBase64 = window.GetScreenshot();
+                    return new ToolResult({
+                        output: "Screenshot captured.",
+                        base64_image: screenshotBase64,
+                    });
+                // Rapise tool actions
+                case "rapise_assert":
+                    if (typeof action.text !== "string" || typeof action.pass !== "boolean") {
+                        throw new Error("Text and pass must be provided for rapise_assert action.");
+                    }
+                    window.Log(`Performing assertion: "${action.text}", Pass: ${action.pass}`);
+                    window.Assert(action.text, action.pass, action.additionalData);
+                    return new ToolResult({ output: `Assertion executed: ${action.text}, Pass: ${action.pass}.` });
+                case "rapise_set_return_value":
+                    if (action.val === undefined) {
+                        throw new Error("Value must be provided for rapise_set_return_value action.");
+                    }
+                    window.Log(`Setting return value to: ${action.val}`);
+                    window.SetReturnValue(action.val);
+                    return new ToolResult({ output: `Return value set to: ${action.val}` });
+                case "rapise_print_message":
+                    if (!action.text) {
+                        throw new Error("Text must be provided for rapise_print_message action.");
+                    }
+                    window.PrintReportMessage(action.text);
+                    return new ToolResult({ output: `Message logged: "${action.text}".` });
+                // Unknown or unsupported action
                 default:
-                    throw new Error(`Invalid action: ${action.action}`);
+                    throw new Error(`Unsupported action: ${action.action}`);
             }
         }
         catch (error) {
-            result.error = `Failed to perform action ${action.action}: ${error.message}`;
+            window.Log(`Error occurred during action "${action.action}": ${error.message}`);
+            return new ToolResult({ error: error.message });
         }
-        finally {
-            window.ActionEnd(actionKey, (_a = result.output) !== null && _a !== void 0 ? _a : result.error);
-        }
-        return result;
     }
     static makeToolResultPayload(result, toolUseId) {
         const toolResultContent = [];
@@ -370,6 +381,45 @@ class ComputerUseImpl {
                         display_height_px: imgMeta.metadata_scaled.height,
                         display_width_px: imgMeta.metadata_scaled.width,
                         display_number: 0,
+                    },
+                    {
+                        name: "rapise_assert",
+                        description: "Perform an assertion during the automation process",
+                        input_schema: {
+                            type: "object",
+                            properties: {
+                                text: { type: "string", description: "The assertion message or condition" },
+                                pass: { type: "boolean", description: "Whether the assertion passed or failed" },
+                                additionalData: {
+                                    type: "string",
+                                    description: "Optional additional context for the assertion",
+                                    nullable: true,
+                                },
+                            },
+                            required: ["text", "pass"],
+                        },
+                    },
+                    {
+                        name: "rapise_set_return_value",
+                        description: "Set a return value for later use",
+                        input_schema: {
+                            type: "object",
+                            properties: {
+                                val: { type: ["string", "number", "boolean"], description: "The value to set" },
+                            },
+                            required: ["val"],
+                        },
+                    },
+                    {
+                        name: "rapise_print_message",
+                        description: "Log a message during the automation process",
+                        input_schema: {
+                            type: "object",
+                            properties: {
+                                text: { type: "string", description: "The message to log" },
+                            },
+                            required: ["text"],
+                        },
                     },
                 ],
                 anthropic_beta: ["computer-use-2024-10-22"],
