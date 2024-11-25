@@ -545,7 +545,7 @@ export class ComputerUseImpl {
       response.$metadata?.httpStatusCode === 400
     );
   }
-
+  
   private static async processResponse(
     payload: AnthropicPayload,
     imgMeta: ProcessImageResult,
@@ -564,36 +564,69 @@ export class ComputerUseImpl {
   
     for (const contentItem of response.content) {
       if (contentItem.type === "text") {
-        // Use AssistantText to display just the text content
         if (contentItem.text) {
           window.AssistantText(contentItem.text);
         }
         continue;
       } else if (contentItem.type === "tool_use") {
-        chatStatus.tool_invocations++; // Increment tool invocation count
+        chatStatus.tool_invocations++;
   
-        const action: ToolUseAction = {
-          action: contentItem.input?.action as Action,
-          text: contentItem.input?.text, // Assign from contentItem.input.text
-          coordinate: contentItem.input?.coordinate as [number, number] | undefined,
-        };
+        const toolName = contentItem.name; // Identify the tool name
+        const actionInput = contentItem.input;
+        const actionId = contentItem.id;
   
-        const actionKey = `${action.action}-${Date.now()}`;
-        window.ActionStart(actionKey, action.action); // Pass only the action text into ActionStart
+        const actionKey = `${toolName}-${actionId}`;
+        window.ActionStart(actionKey, `Executing action: ${toolName}`);
   
         try {
+          // Construct the ToolUseAction based on the tool name
+          let action: ToolUseAction;
+  
+          switch (toolName) {
+            case "rapise_assert":
+            case "rapise_set_return_value":
+            case "rapise_print_message":
+              action = {
+                action: toolName as Action,
+                text: actionInput.text,
+                pass: actionInput.pass,
+                val: actionInput.val,
+                additionalData: actionInput.additionalData,
+              };
+              break;
+  
+            case "computer":
+              action = {
+                action: actionInput.action as Action,
+                text: actionInput.text,
+                coordinate: actionInput.coordinate as [number, number] | undefined,
+              };
+              break;
+  
+            default:
+              throw new Error(`Unsupported tool name: ${toolName}`);
+          }
+  
           const result = await this.processToolUseAction(action, window, scaleFactor);
           cumulativeResult = cumulativeResult.add(result);
   
+          // Prepare the tool result payload
           const toolResultPayload = this.makeToolResultPayload(result, contentItem.id);
           payload.messages.push({
             role: "user",
             content: [toolResultPayload],
           });
+  
         } catch (error) {
-          // Call ActionEnd only if an exception occurs
           window.ActionEnd(actionKey, `Error: ${(error as Error).message}`);
-          throw error; // Rethrow the error to propagate it
+          // Prepare the error result payload
+          const errorResult = new ToolResult({ error: (error as Error).message });
+          const toolResultPayload = this.makeToolResultPayload(errorResult, contentItem.id);
+          payload.messages.push({
+            role: "user",
+            content: [toolResultPayload],
+          });
+          // Optionally, you might want to rethrow the error or handle it accordingly
         }
       }
     }
@@ -674,7 +707,7 @@ export class ComputerUseImpl {
           },
           {
             name: "rapise_assert",
-            description: "Perform an assertion during the automation process",
+            description: "Perform an assertion during the automation process. Only do this when user asks to check or validate something explicitly.",
             input_schema: {
               type: "object",
               properties: {
@@ -691,7 +724,7 @@ export class ComputerUseImpl {
           },
           {
             name: "rapise_set_return_value",
-            description: "Set a return value for later use",
+            description: "Set a return value for later use. Do this when user asks to store a value for later use or to capture some value.",
             input_schema: {
               type: "object",
               properties: {
@@ -702,7 +735,7 @@ export class ComputerUseImpl {
           },
           {
             name: "rapise_print_message",
-            description: "Log a message during the automation process",
+            description: "Log a message during the automation process. Do this when user explicitly asks to output or print something (print to report, show in the report etc)",
             input_schema: {
               type: "object",
               properties: {

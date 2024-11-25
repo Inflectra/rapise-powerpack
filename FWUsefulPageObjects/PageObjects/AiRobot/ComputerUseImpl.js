@@ -284,7 +284,6 @@ class ComputerUseImpl {
             ((_a = response.$metadata) === null || _a === void 0 ? void 0 : _a.httpStatusCode) === 400);
     }
     static async processResponse(payload, imgMeta, response, chatStatus, window) {
-        var _a, _b, _c;
         window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`);
         chatStatus.input_tokens += response.usage.input_tokens;
         chatStatus.output_tokens += response.usage.output_tokens;
@@ -293,24 +292,46 @@ class ComputerUseImpl {
         const scaleFactor = imgMeta.scale_factor;
         for (const contentItem of response.content) {
             if (contentItem.type === "text") {
-                // Use AssistantText to display just the text content
                 if (contentItem.text) {
                     window.AssistantText(contentItem.text);
                 }
                 continue;
             }
             else if (contentItem.type === "tool_use") {
-                chatStatus.tool_invocations++; // Increment tool invocation count
-                const action = {
-                    action: (_a = contentItem.input) === null || _a === void 0 ? void 0 : _a.action,
-                    text: (_b = contentItem.input) === null || _b === void 0 ? void 0 : _b.text,
-                    coordinate: (_c = contentItem.input) === null || _c === void 0 ? void 0 : _c.coordinate,
-                };
-                const actionKey = `${action.action}-${Date.now()}`;
-                window.ActionStart(actionKey, action.action); // Pass only the action text into ActionStart
+                chatStatus.tool_invocations++;
+                const toolName = contentItem.name; // Identify the tool name
+                const actionInput = contentItem.input;
+                const actionId = contentItem.id;
+                const actionKey = `${toolName}-${actionId}`;
+                window.ActionStart(actionKey, `Executing action: ${toolName}`);
                 try {
+                    // Construct the ToolUseAction based on the tool name
+                    let action;
+                    switch (toolName) {
+                        case "rapise_assert":
+                        case "rapise_set_return_value":
+                        case "rapise_print_message":
+                            action = {
+                                action: toolName,
+                                text: actionInput.text,
+                                pass: actionInput.pass,
+                                val: actionInput.val,
+                                additionalData: actionInput.additionalData,
+                            };
+                            break;
+                        case "computer":
+                            action = {
+                                action: actionInput.action,
+                                text: actionInput.text,
+                                coordinate: actionInput.coordinate,
+                            };
+                            break;
+                        default:
+                            throw new Error(`Unsupported tool name: ${toolName}`);
+                    }
                     const result = await this.processToolUseAction(action, window, scaleFactor);
                     cumulativeResult = cumulativeResult.add(result);
+                    // Prepare the tool result payload
                     const toolResultPayload = this.makeToolResultPayload(result, contentItem.id);
                     payload.messages.push({
                         role: "user",
@@ -318,9 +339,15 @@ class ComputerUseImpl {
                     });
                 }
                 catch (error) {
-                    // Call ActionEnd only if an exception occurs
                     window.ActionEnd(actionKey, `Error: ${error.message}`);
-                    throw error; // Rethrow the error to propagate it
+                    // Prepare the error result payload
+                    const errorResult = new ToolResult({ error: error.message });
+                    const toolResultPayload = this.makeToolResultPayload(errorResult, contentItem.id);
+                    payload.messages.push({
+                        role: "user",
+                        content: [toolResultPayload],
+                    });
+                    // Optionally, you might want to rethrow the error or handle it accordingly
                 }
             }
         }
@@ -384,7 +411,7 @@ class ComputerUseImpl {
                     },
                     {
                         name: "rapise_assert",
-                        description: "Perform an assertion during the automation process",
+                        description: "Perform an assertion during the automation process. Only do this when user asks to check or validate something explicitly.",
                         input_schema: {
                             type: "object",
                             properties: {
@@ -401,7 +428,7 @@ class ComputerUseImpl {
                     },
                     {
                         name: "rapise_set_return_value",
-                        description: "Set a return value for later use",
+                        description: "Set a return value for later use. Do this when user asks to store a value for later use or to capture some value.",
                         input_schema: {
                             type: "object",
                             properties: {
@@ -412,7 +439,7 @@ class ComputerUseImpl {
                     },
                     {
                         name: "rapise_print_message",
-                        description: "Log a message during the automation process",
+                        description: "Log a message during the automation process. Do this when user explicitly asks to output or print something (print to report, show in the report etc)",
                         input_schema: {
                             type: "object",
                             properties: {

@@ -4,6 +4,7 @@ class TargetWindowScreenRegion {
 	oy = 0;
 	w = 0;
 	h = 0;
+	returnValue = undefined;
 	
 	constructor(ox,oy,w,h)
 	{

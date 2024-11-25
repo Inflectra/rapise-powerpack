@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.30
+ * @Version 0.0.32
  */
 SeSPageObject("AiRobot");
 
@@ -217,7 +217,7 @@ function AiRobot_DoFullScreen( /**string*/ prompt, /**number*/ timeout, /**numbe
 	_RobotSyncRun(async () => {
 		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
 		const navWindow = TargetWindowScreenRegion.FromScreen();
-		success = _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
+		success = await _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
 	});
 
 	return success;
@@ -242,7 +242,7 @@ function AiRobot_DoScreenRegion( /**string*/ prompt, /**number*/ x, /**number*/ 
 	_RobotSyncRun(async () => {
 		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
 		const navWindow = TargetWindowScreenRegion.FromScreenRegion(x, y, w, h);
-		success = _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
+		success = await _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
 	});
 
 	return success;
@@ -289,7 +289,7 @@ function AiRobot_DoWindow( /**string*/ prompt, /**string*/ window_title, /**numb
 				}
 
 				const navWindow = TargetWindowScreenRegion.FromHWND(wnd);
-				success = _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
+				success = await _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
 			} else {
 				Tester.SoftAssert("AiRobot.DoWindow: None of found windows are visible: " + window_title, false);
 			}
@@ -331,7 +331,7 @@ function AiRobot_DoObject( /**string*/ prompt, /**objectid|SeSObject*/ objectId,
 		_RobotSyncRun(async () => {
 			eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
 			const navWindow = TargetWindowScreenRegion.FromScreenRegion(obj.GetX(), obj.GetY(), obj.GetWidth(), obj.GetHeight());
-			success = _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
+			success = await _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
 		});
 	}
 
