@@ -32,7 +32,7 @@ class TargetWindowScreenRegion {
 	static FromScreen()
 	{
 		var /**HWNDWrapper*/hwndWrapper = g_util.GetDesktopWindow(); 
-		return TargetWindowScreenRegion.FromScreenRegion(hwndWrapper.PosX, hwndWrapper.PosY, hwndWrapper.PosWidth, hwndWrapper.PosHeight);
+		return TargetWindowScreenRegion.FromHWND(hwndWrapper);
 	}
 
 	/**
