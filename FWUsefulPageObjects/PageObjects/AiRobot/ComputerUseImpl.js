@@ -352,7 +352,8 @@ class ComputerUseImpl {
             }
         }
         if (cumulativeResult.isNonEmpty()) {
-            window.Log(`Tool execution result: ${JSON.stringify(cumulativeResult, null, 2)}`);
+            const { base64_image, output, error, system } = cumulativeResult;
+            window.Log(`Tool execution result: ${JSON.stringify({ output, error, system }, null, 2)}`);
         }
         return response.stop_reason === "tool_use";
     }
