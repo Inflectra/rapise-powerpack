@@ -1,8 +1,9 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.35
+ * @Version 0.0.36
  */
+ 
 SeSPageObject("AiRobot");
 
 function _RobotSyncRun(f)
@@ -137,10 +138,13 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 	var p = File.ResolvePath('%WORKDIR%/PageObjects/AiRobot/ComputerUseImpl.js')
 	const ComputerUseImplClass = require(p).ComputerUseImpl;
 
-	if(typeof timeout==='undefined') timeout = AiRobot.config.timeout;
-	if(typeof n_last_images==='undefined') n_last_images = AiRobot.config.n_last_images;
-	if(typeof max_tokens==='undefined') max_tokens = AiRobot.config.max_tokens;
-	if(typeof token_limit==='undefined') token_limit = AiRobot.config.token_limit;
+	if(AiRobot.config)
+	{
+		if(typeof timeout==='undefined') timeout = AiRobot.config.timeout;
+		if(typeof n_last_images==='undefined') n_last_images = AiRobot.config.n_last_images;
+		if(typeof max_tokens==='undefined') max_tokens = AiRobot.config.max_tokens;
+		if(typeof token_limit==='undefined') token_limit = AiRobot.config.token_limit;	
+	}
 
 	const status = await ComputerUseImplClass.toolUseLoop(prompt, targetWindow, max_tokens, n_last_images, timeout, token_limit, this.system_prompt);
 
