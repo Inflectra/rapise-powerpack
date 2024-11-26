@@ -773,6 +773,7 @@ export class ComputerUseImpl {
       }
   
       let retries = 0;
+      let delay = 1000;
       while (retries < 3) {
         try {
           if (!response) {
@@ -785,11 +786,12 @@ export class ComputerUseImpl {
           if (response && this.isValidationException(response)) {
             retries++;
             window.Log(`Retry ${retries}: ValidationException detected in response.`);
-            Global.DoSleep(1000); // Delay for 1 second
+            Global.DoSleep(delay); // Delay for 1 second
             response = undefined; // Clear response to retry
             if (retries >= 3) {
               throw new Error("Exceeded maximum retries due to ValidationException.");
             }
+            delay=delay*3;
             continue; // Retry logic
           }
   
