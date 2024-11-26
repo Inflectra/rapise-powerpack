@@ -1,7 +1,9 @@
+const { time } = require("console");
+
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.32
+ * @Version 0.0.33
  */
 SeSPageObject("AiRobot");
 
@@ -134,7 +136,13 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 	_AiRobotInit();
 	var p = File.ResolvePath('%WORKDIR%/PageObjects/AiRobot/ComputerUseImpl.js')
 	const ComputerUseImplClass = require(p).ComputerUseImpl;
-	const status = await ComputerUseImplClass.toolUseLoop(prompt, targetWindow, max_tokens, n_last_images, timeout, token_limit);
+
+	if(typeof timeout==='undefined') timeout = AiRobot.config.timeout;
+	if(typeof n_last_images==='undefined') n_last_images = AiRobot.config.n_last_images;
+	if(typeof max_tokens==='undefined') max_tokens = AiRobot.config.max_tokens;
+	if(typeof token_limit==='undefined') token_limit = AiRobot.config.token_limit;
+
+	const status = await ComputerUseImplClass.toolUseLoop(prompt, targetWindow, max_tokens, n_last_images, timeout, token_limit, this.system_prompt);
 
 	const statFileName = "AI/robot_stat.json";
 	let input_tokens = Global.GetProperty("input_tokens", 0, statFileName);
@@ -173,6 +181,38 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 }
 
 /**
+ * Set common execution parameters and limitations.
+ **/
+function AiRobot_DoConfigure(/**string*/system_prompt, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
+{
+	AiRobot.config = {system_prompt, timeout, n_last_images, max_tokens, token_limit};
+}
+
+var _paramInfoAiRobot_DoConfigure = {
+	system_prompt: {
+		type: 'string',
+		description: 'Additional prompt to be used for all interactions.'
+	},
+	token_limit: _AiRobotParamInfo.token_limit,
+	max_tokens: _AiRobotParamInfo.max_tokens,
+	n_last_images: _AiRobotParamInfo.n_last_images,
+	timeout: _AiRobotParamInfo.timeout,
+};
+
+/**
+ * Add a the following system prompt:
+ *   After each step, take a screenshot and carefully evaluate if you have achieved the right outcome. Explicitly show your thinking: "I have evaluated step X..." If not correct, try again. Only when you confirm a step was executed correctly should you move on to the next one.
+ * 
+ *   As recommended here:
+ *   https://docs.anthropic.com/en/docs/build-with-claude/computer-use#optimize-model-performance-with-prompting
+ */
+function AiRobot_SetSelfCheck()
+{
+	this.config = this.config || {};
+	this.config.system_prompt = "After each step, take a screenshot and carefully evaluate if you have achieved the right outcome. Explicitly show your thinking: 'I have evaluated step X...' If not correct, try again. Only when you confirm a step was executed correctly should you move on to the next one.";
+}
+
+/**
  * Do fully automation AI interactions with currently active web browser window.
  * 
  * Example 1: 
@@ -199,7 +239,7 @@ function AiRobot_DoWebBrowser( /**string*/ prompt, /**number*/ timeout, /**numbe
 }
 
 var _paramInfoAiRobot_DoWebBrowser = {
-	prompt: _AiRobotParamInfo.Message,
+	prompt: _AiRobotParamInfo.prompt,
 	token_limit: _AiRobotParamInfo.token_limit,
 	max_tokens: _AiRobotParamInfo.max_tokens,
 	n_last_images: _AiRobotParamInfo.n_last_images,
@@ -224,7 +264,7 @@ function AiRobot_DoFullScreen( /**string*/ prompt, /**number*/ timeout, /**numbe
 }
 
 var _paramInfoAiRobot_DoFullScreen = {
-	prompt: _AiRobotParamInfo.Message,
+	prompt: _AiRobotParamInfo.prompt,
 	token_limit: _AiRobotParamInfo.token_limit,
 	max_tokens: _AiRobotParamInfo.max_tokens,
 	n_last_images: _AiRobotParamInfo.n_last_images,
@@ -249,7 +289,7 @@ function AiRobot_DoScreenRegion( /**string*/ prompt, /**number*/ x, /**number*/ 
 }
 
 var _paramInfoAiRobot_DoScreenRegion = {
-	prompt: _AiRobotParamInfo.Message,
+	prompt: _AiRobotParamInfo.prompt,
 	token_limit: _AiRobotParamInfo.token_limit,
 	max_tokens: _AiRobotParamInfo.max_tokens,
 	n_last_images: _AiRobotParamInfo.n_last_images,
@@ -294,14 +334,14 @@ function AiRobot_DoWindow( /**string*/ prompt, /**string*/ window_title, /**numb
 				Tester.SoftAssert("AiRobot.DoWindow: None of found windows are visible: " + window_title, false);
 			}
 		} else {
-			Tester.SoftAssert("AiRobot.DoWindow: Now window found by title: " + window_title, true, ["Using window: " + wnd.Text, "Total windows found: " + foundWindows.length]);
+			Tester.SoftAssert("AiRobot.DoWindow: No window found by title: " + window_title, false);
 		}
 	});
 	return success;
 }
 
 var _paramInfoAiRobot_DoWindow = {
-	prompt: _AiRobotParamInfo.Message,
+	prompt: _AiRobotParamInfo.prompt,
 	window_title: {
 		description: "Exact window title or regex to match window title, i.e. Calculator or regex:Calc.*"
 	},
@@ -339,7 +379,7 @@ function AiRobot_DoObject( /**string*/ prompt, /**objectid|SeSObject*/ objectId,
 }
 
 var _paramInfoAiRobot_DoObject = {
-	prompt: _AiRobotParamInfo.Message,
+	prompt: _AiRobotParamInfo.prompt,
 	object_id: {
 		description: "Object whose screen rectangle will be shown to AI robot to interact with."
 	},

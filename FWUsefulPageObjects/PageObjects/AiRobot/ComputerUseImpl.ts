@@ -54,6 +54,7 @@ interface ProcessImageResult {
 
 type AnthropicPayload = {
   anthropic_version: string;
+  system?: string;
   max_tokens: number;
   messages: Array<{
     role: "user" | "assistant";
@@ -545,7 +546,7 @@ export class ComputerUseImpl {
       response.$metadata?.httpStatusCode === 400
     );
   }
-  
+
   private static async processResponse(
     payload: AnthropicPayload,
     imgMeta: ProcessImageResult,
@@ -650,7 +651,8 @@ export class ComputerUseImpl {
     max_tokens: number = 10000,
     n_last_images: number = 3,
     timeout: number = 600000, // Default timeout: 10 minutes
-    token_limit: number = 1000000 // Default token limit: 1 million
+    token_limit: number = 1000000, // Default token limit: 1 million
+    system_prompt?: string
   ): Promise<ChatStatus> {
     const shouldIgnoreLast = last?.chatStatus?.stop_reason !== "tool_use";
   
@@ -685,6 +687,7 @@ export class ComputerUseImpl {
       payload = {
         anthropic_version: "bedrock-2023-05-31",
         max_tokens,
+        system: system_prompt,
         messages: [
           {
             role: "user",
