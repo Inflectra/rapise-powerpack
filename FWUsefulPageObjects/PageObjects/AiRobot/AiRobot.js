@@ -1,5 +1,3 @@
-const { time } = require("console");
-
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
@@ -7,7 +5,8 @@ const { time } = require("console");
  */
 SeSPageObject("AiRobot");
 
-function _RobotSyncRun(f) {
+function _RobotSyncRun(f)
+{
 	const deasync = require("deasync");
 	let asyncResult = undefined;
 	let asyncDone = false;
@@ -37,7 +36,8 @@ function _RobotSyncRun(f) {
 	return asyncResult;
 }
 
-function _extractFirstEntryAfterCallLog(callStack) {
+function _extractFirstEntryAfterCallLog(callStack)
+{
 	// Find the index of "Call log:" in the stack
 	const callLogIndex = callStack.indexOf("Call log:");
 
