@@ -472,20 +472,21 @@ class ComputerUseImpl {
             }
             let retries = 0;
             let delay = 1000;
-            while (retries < 3) {
+            while (retries < 10) {
                 try {
-                    if (!response) {
+                    if (!response || this.isValidationException(response)) {
                         response = AiServerClient.QueryRaw(payload, { defaultModelApiType: "bedrock" });
-                        window.Log("Fetched a new response from the server.");
                         chatStatus.prompt_queries++; // Increment prompt query count
                     }
+                    // Register the payload, response, image metadata, and chatStatus
+                    window.RegisterResponse(payload, response, imgMeta, chatStatus);
                     // Check if the response indicates a ValidationException
                     if (response && this.isValidationException(response)) {
                         retries++;
                         window.Log(`Retry ${retries}: ValidationException detected in response.`);
                         Global.DoSleep(delay); // Delay for 1 second
                         response = undefined; // Clear response to retry
-                        if (retries >= 3) {
+                        if (retries >= 1) {
                             throw new Error("Exceeded maximum retries due to ValidationException.");
                         }
                         delay = delay * 3;
@@ -497,8 +498,6 @@ class ComputerUseImpl {
                     throw new Error(`Failed after ${retries} retries: ${error.message}`);
                 }
             }
-            // Register the payload, response, image metadata, and chatStatus
-            window.RegisterResponse(payload, response, imgMeta, chatStatus);
             // Filter out older images if n_last_images is specified
             this.filterRecentImages(payload.messages, n_last_images);
             // Add the assistant's response to the payload before processing

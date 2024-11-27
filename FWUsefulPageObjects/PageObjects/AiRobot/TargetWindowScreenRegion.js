@@ -14,6 +14,11 @@ class TargetWindowScreenRegion {
 	}
 
 	static FromHWND(/**HWNDWrapper*/hwndWrapper) {
+		if(hwndWrapper.Iconic||hwndWrapper.IsVisible())
+		{
+			hwndWrapper.Restore();
+		}
+		
 		return new TargetWindowScreenRegion(hwndWrapper.PosX, hwndWrapper.PosY, hwndWrapper.PosWidth, hwndWrapper.PosHeight)
 	}
 

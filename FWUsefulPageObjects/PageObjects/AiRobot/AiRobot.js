@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.40
+ * @Version 0.0.41
  */
 
 SeSPageObject("AiRobot");
@@ -198,6 +198,7 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 function AiRobot_DoConfigure(/**string*/system_prompt, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
 {
 	AiRobot.config = {system_prompt, timeout, n_last_images, max_tokens, token_limit};
+	return true;
 }
 
 var _paramInfoAiRobot_DoConfigure = {
