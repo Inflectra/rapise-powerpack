@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.38
+ * @Version 0.0.39
  */
 
 SeSPageObject("AiRobot");
@@ -318,8 +318,15 @@ function AiRobot_DoWindow( /**string*/ prompt, /**string*/ window_title, /**numb
 	var success = false;
 	_RobotSyncRun(async () => {
 		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
-		var foundWindows = g_util.FindWindows(window_title, 'regex:.*');
+		var foundWindows = null;
 
+		for(var i=0;i<global.g_objectLookupAttempts;i++)
+		{
+			foundWindows = g_util.FindWindows(window_title, 'regex:.*');
+			if(foundWindows && foundWindows.length) break;
+			Global.DoSleep(global.g_objectLookupAttemptInterval);
+		}
+		
 		if (foundWindows && foundWindows.length)
 		{
 			var visibleFound = 0;
