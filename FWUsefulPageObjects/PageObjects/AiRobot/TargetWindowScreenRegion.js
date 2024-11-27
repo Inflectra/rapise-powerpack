@@ -93,7 +93,14 @@ class TargetWindowScreenRegion {
 
 	AssistantText(msg) {
 		if (l2) {
-			Tester.Message("Assistant: " + msg);
+			var data = [];
+			this.lastImage = null;
+			this.GetScreenshot(true);
+			if (this.lastImage) {
+				data.push(new SeSReportImage(this.lastImage));
+			}
+	
+			Tester.Message("Assistant: " + msg, data);
 		}
 	}
 
