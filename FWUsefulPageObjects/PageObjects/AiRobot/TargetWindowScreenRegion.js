@@ -118,6 +118,7 @@ class TargetWindowScreenRegion {
 		if (actionkey.indexOf("screenshot") == 0 || actionkey.indexOf("rapise") == 0) return;
 
 		var data = [actionkey];
+		this.lastImage = null;
 		this.GetScreenshot(true);
 		if (this.lastImage) {
 			data.push(new SeSReportImage(this.lastImage));
@@ -151,6 +152,21 @@ class TargetWindowScreenRegion {
 
 	// Assertion management
 	Assert(/**string*/message, /**boolean*/pass, /**string*/optAdditionalData) {
+		var data = optAdditionalData;
+		if(typeof data == 'undefined') {
+			data = [];
+		} else if(!Array.isArray(data)) {
+			data = [data];
+		}
+		
+		if(l2) {
+			this.lastImage = null;
+			this.GetScreenshot(true);
+			if (this.lastImage) {
+				data.push(new SeSReportImage(this.lastImage));
+			}
+		}
+		
 		Tester.SoftAssert(message, pass, optAdditionalData)
 	};
 

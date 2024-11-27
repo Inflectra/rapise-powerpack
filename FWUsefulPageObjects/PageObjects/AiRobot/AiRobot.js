@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.36
+ * @Version 0.0.37
  */
  
 SeSPageObject("AiRobot");
@@ -175,10 +175,18 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 	prompt_history.push({prompt, status});
 	Global.SetProperty("prompt_history", prompt_history, statFileName);
 
-	var result = new SeSDoActionResult(status && status.success,
-		 targetWindow.GetReturnValue(), 
-		 "AiRobot done: " + prompt,
-		 [JSON.stringify(status, null, 2), "Totals for this test run", JSON.stringify(global.g_aiRobotStats, null, 2)]
+	let data = [JSON.stringify(status, null, 2), "Totals for this test run", JSON.stringify(global.g_aiRobotStats, null, 2)];
+	data.push(new SeSReportImage(targetWindow.lastImage));
+	const val = targetWindow.GetReturnValue();
+	
+	if(typeof val != 'undefined') data.push(val);
+	
+	var result = new SeSDoActionResult(
+			status && status.success,
+			val,
+			"AiRobot done: " + prompt,
+			data,
+			{comment:val}
 		);
 
 	return result;
