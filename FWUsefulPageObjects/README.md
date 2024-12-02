@@ -15,6 +15,8 @@ This Framework contains a number of useful general purpose Page Objects that may
 9. Playwright
 10. Sfdc
 11. RapiseUtils
+12. AiRobot
+13. AiTester
 
 ## How to Use
 

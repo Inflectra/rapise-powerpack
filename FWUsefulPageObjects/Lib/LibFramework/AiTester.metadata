@@ -1,0 +1,264 @@
+{
+	"AiTester": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "SetDefaultWorkflow",
+				"description": "Sets default workflow.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ workflow",
+				"paramInfo": {
+					"workflow": {
+						"description": "Name or Id of the workflow to set as default."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(94,10)"
+			},
+			{
+				"name": "LogSessions",
+				"description": "Enables/disables session logging.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**boolean*/ b",
+				"paramInfo": {
+					"b": {
+						"description": "If `true` - a session will be created for each AI request. Review the sessions in the AI Dashboard."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(108,11)"
+			},
+			{
+				"name": "StackWebImage",
+				"description": "Adds browser screenshot to the batch to send along with the AiTester.DoMultiImageQuery.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(122,10)"
+			},
+			{
+				"name": "StackImage",
+				"description": "Adds a screenshot to the batch to send along with the AiTester.DoMultiImageQuery.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**ImageWrapper*/ iw",
+				"paramInfo": {
+					"iw": {
+						"description": "Image object."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(134,10)"
+			},
+			{
+				"name": "DoTextQuery",
+				"description": "Sends a text query to AI model using specified or default workflow.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(148,10)"
+			},
+			{
+				"name": "DoWebImageVerify",
+				"description": "Sends a text query along with a browser screenshot to AI model using specified or default workflow. Verifies the result.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**string*/ assertion, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"assertion": {
+						"description": "Assertion to test against the response."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(161,10)"
+			},
+			{
+				"name": "DoWebImageQuery",
+				"description": "Sends a text query along with a browser screenshot to AI model using specified or default workflow.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(182,10)"
+			},
+			{
+				"name": "DoMultiImageQuery",
+				"description": "Sends a text query along with the set of images added via AiTester.StackWebImage. Clears the stack after the query.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(196,10)"
+			},
+			{
+				"name": "DoImageQuery",
+				"description": "Sends a text query along with an image to AI model using specified or default workflow.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**ImageWrapper*/ iw, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"iw": {
+						"description": "Image to send."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(211,10)"
+			},
+			{
+				"name": "DoObjectQuery",
+				"description": "Sends a text query along with a screenshot of an object to AI model using specified or default workflow.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**objectId*/ objectId, /**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"objectId": {
+						"description": "ID of an object in the object repository."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(225,10)"
+			},
+			{
+				"name": "DoWindowQuery",
+				"description": "Sends a text query along with a screenshot of a window with the given title to AI model using specified or default workflow.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ title, /**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"title": {
+						"description": "Window title. Supports regular expressions."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(252,10)"
+			},
+			{
+				"name": "DoFullScreenQuery",
+				"description": "Sends a text query along with a screenshot of a desktop to AI model using specified or default workflow.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(280,10)"
+			},
+			{
+				"name": "Assert",
+				"description": "Tests assertion against the text.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ text, /**string*/ assertion",
+				"paramInfo": {
+					"assertion": {
+						"description": "Assertion to test against the response."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(303,11)"
+			},
+			{
+				"name": "AssertLastResponse",
+				"description": "Tests assertion against the last response.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ assertion",
+				"paramInfo": {
+					"assertion": {
+						"description": "Assertion to test against the response."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(316,11)"
+			},
+			{
+				"name": "SoftAssert",
+				"description": "Tests soft assertion against the response.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ text, /**string*/ assertion",
+				"paramInfo": {
+					"text": {
+						"description": "Input text."
+					},
+					"assertion": {
+						"description": "Assertion to test against the response."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(329,11)"
+			},
+			{
+				"name": "SoftAssertLastResponse",
+				"description": "Tests soft assertion against the last response.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ assertion",
+				"paramInfo": {
+					"assertion": {
+						"description": "Assertion to test against the response."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(343,11)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,\r\nperform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle\r\nother tasks that require AI processing.",
+		"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js",
+		"version": "0.0.1"
+	}
+}

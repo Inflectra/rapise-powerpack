@@ -1,0 +1,243 @@
+{
+	"AiTester": {
+		"window_name": "Global Objects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "SetDefaultWorkflow",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ workflow",
+				"paramInfo": {
+					"workflow": {
+						"description": "Name or Id of the workflow to set as default."
+					}
+				}
+			},
+			{
+				"name": "LogSessions",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**boolean*/ b",
+				"paramInfo": {
+					"b": {
+						"description": "If `true` - a session will be created for each AI request. Review the sessions in the AI Dashboard."
+					}
+				}
+			},
+			{
+				"name": "StackWebImage",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {}
+			},
+			{
+				"name": "StackImage",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**ImageWrapper*/ iw",
+				"paramInfo": {
+					"iw": {
+						"description": "Image object."
+					}
+				}
+			},
+			{
+				"name": "DoTextQuery",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				}
+			},
+			{
+				"name": "DoWebImageVerify",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**string*/ assertion, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"assertion": {
+						"description": "Assertion to test against the response."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				}
+			},
+			{
+				"name": "DoWebImageQuery",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				}
+			},
+			{
+				"name": "DoMultiImageQuery",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				}
+			},
+			{
+				"name": "DoImageQuery",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**ImageWrapper*/ iw, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"iw": {
+						"description": "Image to send."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				}
+			},
+			{
+				"name": "DoObjectQuery",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**objectId*/ objectId, /**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"objectId": {
+						"description": "ID of an object in the object repository."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				}
+			},
+			{
+				"name": "DoWindowQuery",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ title, /**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"title": {
+						"description": "Window title. Supports regular expressions."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				}
+			},
+			{
+				"name": "DoFullScreenQuery",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ query, /**string*/ workflow",
+				"paramInfo": {
+					"query": {
+						"description": "Text query to send."
+					},
+					"workflow": {
+						"description": "Name or Id of the workflow to use. Default value is `AI Chat`. You may set the workflow with AiTester.SetDefaultWorkflow.",
+						"optional": true
+					}
+				}
+			},
+			{
+				"name": "Assert",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ text, /**string*/ assertion",
+				"paramInfo": {
+					"assertion": {
+						"description": "Assertion to test against the response."
+					}
+				}
+			},
+			{
+				"name": "AssertLastResponse",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ assertion",
+				"paramInfo": {
+					"assertion": {
+						"description": "Assertion to test against the response."
+					}
+				}
+			},
+			{
+				"name": "SoftAssert",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ text, /**string*/ assertion",
+				"paramInfo": {
+					"text": {
+						"description": "Input text."
+					},
+					"assertion": {
+						"description": "Assertion to test against the response."
+					}
+				}
+			},
+			{
+				"name": "SoftAssertLastResponse",
+				"description": "",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ assertion",
+				"paramInfo": {
+					"assertion": {
+						"description": "Assertion to test against the response."
+					}
+				}
+			}
+		]
+	}
+}

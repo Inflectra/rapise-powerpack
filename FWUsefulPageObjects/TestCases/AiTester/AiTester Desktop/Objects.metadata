@@ -1,0 +1,271 @@
+{
+	"App": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/x, /**number*/y, /**number*/ duration",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ keys",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoSendText",
+				"signature": "/**string*/ text",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "dumpProperties, maxDepth, trimValue, indent, filePath, append, ignoreProps"
+			},
+			{
+				"name": "DoGetWidgetProperty",
+				"signature": "name"
+			},
+			{
+				"name": "DoFindByText",
+				"signature": "textOrRegexp, depth"
+			},
+			{
+				"name": "DoFindElementByCondition",
+				"signature": "scope, condition"
+			},
+			{
+				"name": "DoFindElementsByCondition",
+				"signature": "scope, condition"
+			},
+			{
+				"name": "DoFindByLocation",
+				"signature": "strLocation"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "TypeName",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "AutomationId",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Parent",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "NextSibling",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "PrevSibling",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "IndexInParent",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "ChildrenCount",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "ChildAt",
+				"setsign": "",
+				"getsign": "ind",
+				"readonly": true
+			},
+			{
+				"name": "Visible",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			}
+		],
+		"items": null,
+		"version": 0,
+		"object_type": "UIAObject",
+		"object_flavor": "UIAutomation",
+		"object_name": "Untitled - Notepad",
+		"ignore_object_name": true,
+		"object_class": "Window",
+		"object_role": "param:object_class",
+		"object_text": "",
+		"object_library": "UIAutomation",
+		"window_class": "Notepad",
+		"window_name": "param:object_name",
+		"location": "Untitled - Notepad"
+	}
+}

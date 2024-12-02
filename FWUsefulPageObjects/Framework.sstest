@@ -70,6 +70,9 @@
           <TestFile>
             <Path>PageObjects\RapiseUtils\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>PageObjects\AiTester\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>pageobjects</Tags>
       </TestGroup>
@@ -99,6 +102,22 @@
         <FilterWildcard>*.*</FilterWildcard>
         <FilterPath>TestCases</FilterPath>
         <Groups>
+          <TestGroup>
+            <Name>AiTester</Name>
+            <RealFolder>true</RealFolder>
+            <IsFilterGroup>false</IsFilterGroup>
+            <FilterWildcard>*.*</FilterWildcard>
+            <FilterPath>TestCases/AiTester</FilterPath>
+            <Groups />
+            <TestFiles>
+              <TestFile>
+                <Path>TestCases\AiTester\AiTester Web\Test.sstest</Path>
+              </TestFile>
+              <TestFile>
+                <Path>TestCases\AiTester\AiTester Desktop\Test.sstest</Path>
+              </TestFile>
+            </TestFiles>
+          </TestGroup>
           <TestGroup>
             <Name>ExtentReports</Name>
             <RealFolder>true</RealFolder>
