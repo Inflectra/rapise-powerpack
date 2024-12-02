@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "build": "tsc ComputerUse.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^22.9.0",
+    "sharp": "^0.33.5"
+  }
+}
