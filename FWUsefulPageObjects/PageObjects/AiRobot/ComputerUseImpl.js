@@ -289,6 +289,7 @@ class ComputerUseImpl {
         chatStatus.output_tokens += response.usage.output_tokens;
         chatStatus.stop_reason = response.stop_reason;
         let cumulativeResult = new ToolResult({});
+        const toolResultsPayload = [];
         const scaleFactor = imgMeta.scale_factor;
         for (const contentItem of response.content) {
             if (contentItem.type === "text") {
@@ -332,21 +333,13 @@ class ComputerUseImpl {
                     const result = await this.processToolUseAction(action, window, scaleFactor);
                     cumulativeResult = cumulativeResult.add(result);
                     // Prepare the tool result payload
-                    const toolResultPayload = this.makeToolResultPayload(result, contentItem.id);
-                    payload.messages.push({
-                        role: "user",
-                        content: [toolResultPayload],
-                    });
+                    toolResultsPayload.push(this.makeToolResultPayload(result, contentItem.id));
                 }
                 catch (error) {
                     window.ActionEnd(actionKey, `Error: ${error.message}`);
                     // Prepare the error result payload
                     const errorResult = new ToolResult({ error: error.message });
-                    const toolResultPayload = this.makeToolResultPayload(errorResult, contentItem.id);
-                    payload.messages.push({
-                        role: "user",
-                        content: [toolResultPayload],
-                    });
+                    toolResultsPayload.push(this.makeToolResultPayload(errorResult, contentItem.id));
                     // Optionally, you might want to rethrow the error or handle it accordingly
                 }
             }
@@ -354,6 +347,10 @@ class ComputerUseImpl {
         if (cumulativeResult.isNonEmpty()) {
             const { base64_image, output, error, system } = cumulativeResult;
             window.Log(`Tool execution result: ${JSON.stringify({ output, error, system }, null, 2)}`);
+            payload.messages.push({
+                role: "user",
+                content: toolResultsPayload,
+            });
         }
         return response.stop_reason === "tool_use";
     }

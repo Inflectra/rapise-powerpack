@@ -251,7 +251,7 @@
 		"extend_rule": "",
 		"description": "AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to\r\nfind reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.",
 		"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js",
-		"version": "0.0.41",
+		"version": "0.0.42",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/AiRobot"
 	},
 	"AiTester": {
@@ -512,7 +512,7 @@
 		],
 		"isPageObject": true,
 		"extend_rule": "",
-		"description": "AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,\r\nperform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle\r\nother tasks that require AI processing.",
+		"description": "AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,\nperform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle\nother tasks that require AI processing.",
 		"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js",
 		"version": "0.0.1",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/AiTester"
