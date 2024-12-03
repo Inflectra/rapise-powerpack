@@ -95,7 +95,16 @@
         <FilterWildcard>*.*</FilterWildcard>
         <FilterPath>Shared</FilterPath>
         <Groups />
-        <TestFiles />
+        <TestFiles>
+          <TestFile>
+            <Path>Shared\AppBaseLine.png</Path>
+            <Tags>shared</Tags>
+          </TestFile>
+          <TestFile>
+            <Path>Shared\AppNewVersion.png</Path>
+            <Tags>shared</Tags>
+          </TestFile>
+        </TestFiles>
         <Tags>sharedfiles</Tags>
       </TestGroup>
       <TestGroup>
@@ -127,7 +136,7 @@
               </TestGroup>
             </Groups>
             <TestFiles />
-          </TestGroup>        
+          </TestGroup>
           <TestGroup>
             <Name>AiTester</Name>
             <RealFolder>true</RealFolder>

@@ -143,6 +143,28 @@ var _paramInfoAiTester_StackImage = {
 }
 
 /**
+ * Adds a screenshot file to the batch to send along with the AiTester.DoMultiImageQuery.
+ */
+function AiTester_StackImageFile(/**string*/ path)
+{
+	var fullPath = Global.GetFullPath(path);
+	if (File.Exists(fullPath))
+	{
+		var iw = new ActiveXObject("SeSWrappers.Utils.ImageWrapper");
+		iw.Load(fullPath);
+		aiTesterImages.push(iw);
+	}
+}
+
+var _paramInfoAiTester_StackImageFile = {
+	path: {
+		description: "Image object.",
+		binding: "path",
+		ext: "gif;png;tiff;bmp;jpg;jpeg"
+	}
+}
+
+/**
  * Sends a text query to AI model using specified or default workflow.
  */
 function AiTester_DoTextQuery(/**string*/ query, /**string*/ workflow)
@@ -229,7 +251,7 @@ function AiTester_DoObjectQuery(/**objectId*/ objectId, /**string*/ query, /**st
 		return new SeSDoActionResult(false, null, "objectId is not set");
 	}
 	
-	var obj = Global.DoWaitFor(objectId);
+	var obj = Global._DoWaitFor(objectId);
 	
 	if (!obj)
 	{

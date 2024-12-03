@@ -52,6 +52,21 @@
 				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(134,10)"
 			},
 			{
+				"name": "StackImageFile",
+				"description": "Adds a screenshot file to the batch to send along with the AiTester.DoMultiImageQuery.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ path",
+				"paramInfo": {
+					"path": {
+						"description": "Image object.",
+						"binding": "path",
+						"ext": "gif;png;tiff;bmp;jpg;jpeg"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(148,10)"
+			},
+			{
 				"name": "DoTextQuery",
 				"description": "Sends a text query to AI model using specified or default workflow.\r\n",
 				"type": "",
@@ -66,7 +81,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(148,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(170,10)"
 			},
 			{
 				"name": "DoWebImageVerify",
@@ -86,7 +101,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(161,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(183,10)"
 			},
 			{
 				"name": "DoWebImageQuery",
@@ -103,7 +118,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(182,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(204,10)"
 			},
 			{
 				"name": "DoMultiImageQuery",
@@ -120,7 +135,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(196,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(218,10)"
 			},
 			{
 				"name": "DoImageQuery",
@@ -140,7 +155,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(211,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(233,10)"
 			},
 			{
 				"name": "DoObjectQuery",
@@ -160,7 +175,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(225,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(247,10)"
 			},
 			{
 				"name": "DoWindowQuery",
@@ -180,7 +195,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(252,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(274,10)"
 			},
 			{
 				"name": "DoFullScreenQuery",
@@ -197,7 +212,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(280,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(302,10)"
 			},
 			{
 				"name": "Assert",
@@ -210,7 +225,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(303,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(325,11)"
 			},
 			{
 				"name": "AssertLastResponse",
@@ -223,7 +238,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(316,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(338,11)"
 			},
 			{
 				"name": "SoftAssert",
@@ -239,7 +254,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(329,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(351,11)"
 			},
 			{
 				"name": "SoftAssertLastResponse",
@@ -252,7 +267,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(343,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(365,11)"
 			}
 		],
 		"isPageObject": true,
