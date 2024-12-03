@@ -350,9 +350,9 @@ class ComputerUseImpl {
         }
         return response.stop_reason === "tool_use";
     }
-    static async toolUseLoop(prompt, window, last, max_tokens = 10000, n_last_images = 3, timeout = 600000, // Default timeout: 10 minutes
+    static async toolUseLoop(prompt, window, system_prompt, max_tokens = 10000, n_last_images = 3, timeout = 600000, // Default timeout: 10 minutes
     token_limit = 1000000, // Default token limit: 1 million
-    system_prompt) {
+    last) {
         var _a;
         const shouldIgnoreLast = ((_a = last === null || last === void 0 ? void 0 : last.chatStatus) === null || _a === void 0 ? void 0 : _a.stop_reason) !== "tool_use";
         const chatStatus = !shouldIgnoreLast && (last === null || last === void 0 ? void 0 : last.chatStatus)

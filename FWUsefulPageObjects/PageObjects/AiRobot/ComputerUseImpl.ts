@@ -642,17 +642,17 @@ export class ComputerUseImpl {
   public static async toolUseLoop(
     prompt: string,
     window: TargetWindow,
-    last: {
-      payload?: AnthropicPayload;
-      response?: AnthropicResponse;
-      imgMeta?: ProcessImageResult;
-      chatStatus?: ChatStatus;
-    },
+    system_prompt?: string,
     max_tokens: number = 10000,
     n_last_images: number = 3,
     timeout: number = 600000, // Default timeout: 10 minutes
     token_limit: number = 1000000, // Default token limit: 1 million
-    system_prompt?: string
+    last?: {
+      payload?: AnthropicPayload;
+      response?: AnthropicResponse;
+      imgMeta?: ProcessImageResult;
+      chatStatus?: ChatStatus;
+    }
   ): Promise<ChatStatus> {
     const shouldIgnoreLast = last?.chatStatus?.stop_reason !== "tool_use";
   
