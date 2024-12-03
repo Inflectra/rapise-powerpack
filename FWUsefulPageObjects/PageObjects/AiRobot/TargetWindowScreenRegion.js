@@ -41,7 +41,7 @@ class TargetWindowScreenRegion {
 	 * @returns A base64-encoded string representing the screenshot.
 	 */
 	GetScreenshot() {
-		var res = this.GetScreenshotImpl(2);
+		var res = this.GetScreenshotImpl();
 		if(l3) {
 			const data = [];
 			data.push(new SeSReportImage(this.lastImage));
@@ -54,7 +54,7 @@ class TargetWindowScreenRegion {
 		return res;
 	}
 
-	GetScreenshotImpl(cursor) {
+	GetScreenshotImpl(cursor=1) {
 		var iw = SeSCaptureImageDefaultImpl(this.ox, this.oy, this.w, this.h, cursor);
 		this.lastImage = iw;
 		return iw.ToBase64Bitmap();
@@ -66,7 +66,20 @@ class TargetWindowScreenRegion {
 	 * "LD" (double left click), "RD" (double right click), or "MD" (double middle click).
 	 */
 	DoClick(clickType) {
-		Global.DoClick(clickType)
+		var iw1 = null, iw2 = null;
+		if(l3) {
+			this.GetScreenshotImpl();
+			iw1 = this.lastImage;
+		}
+		Global.DoClick(clickType);
+		if(l3) {
+			this.GetScreenshotImpl();
+			iw2 = this.lastImage;
+			const data = [];
+			data.push(new SeSReportImage(iw1));
+			data.push(new SeSReportImage(iw2));
+			Tester.Message(clickType+" Click", data);
+		}
 	}
 
 	/**
@@ -85,10 +98,23 @@ class TargetWindowScreenRegion {
 	 * @param y The y-coordinate to drag the mouse pointer to.
 	 */
 	DoMouseDragTo(x, y) {
+		var iw1 = null, iw2 = null;
+		if(l3) {
+			this.GetScreenshotImpl();
+			iw1 = this.lastImage;
+		}
 		g_util.LButtonDown();
 		Global.DoSleep(50)
 		Global.DoMouseMove(x + this.ox, y + this.oy, 500);
 		g_util.LButtonUp();
+		if(l3) {
+			this.GetScreenshotImpl();
+			iw2 = this.lastImage;
+			const data = [];
+			data.push(new SeSReportImage(iw1));
+			data.push(new SeSReportImage(iw2));
+			Tester.Message("Drag to: "+x+"/"+y, data);
+		}
 	}
 
 	/**
@@ -96,7 +122,20 @@ class TargetWindowScreenRegion {
 	 * @param keys A string representing the keys to be sent.
 	 */
 	DoSendKeys(keys) {
+		var iw1 = null, iw2 = null;
+		if(l3) {
+			this.GetScreenshotImpl();
+			iw1 = this.lastImage;
+		}
 		Global._DoSendKeys(keys);
+		if(l3) {
+			this.GetScreenshotImpl();
+			iw2 = this.lastImage;
+			const data = [];
+			data.push(new SeSReportImage(iw1));
+			data.push(new SeSReportImage(iw2));
+			Tester.Message("Sending keys: "+keys, data);
+		}
 	}
 
 	/**
