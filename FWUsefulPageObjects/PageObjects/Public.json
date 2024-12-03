@@ -251,7 +251,7 @@
 		"extend_rule": "",
 		"description": "AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to\r\nfind reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.",
 		"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js",
-		"version": "0.0.44",
+		"version": "0.0.45",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/AiRobot"
 	},
 	"AiTester": {

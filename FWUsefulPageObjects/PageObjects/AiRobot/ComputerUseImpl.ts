@@ -671,6 +671,8 @@ export class ComputerUseImpl {
   
     let payload: AnthropicPayload;
     let imgMeta: ProcessImageResult;
+
+    window.Log(prompt);
   
     if (!shouldIgnoreLast && last?.payload) {
       payload = last.payload;
@@ -750,7 +752,6 @@ export class ComputerUseImpl {
         ],
         anthropic_beta: ["computer-use-2024-10-22"],
       };
-      window.Log("Created a new payload for the chat session.");
     }
   
     const startTime = Date.now();

@@ -369,6 +369,7 @@ class ComputerUseImpl {
             };
         let payload;
         let imgMeta;
+        window.Log(prompt);
         if (!shouldIgnoreLast && (last === null || last === void 0 ? void 0 : last.payload)) {
             payload = last.payload;
             imgMeta = last.imgMeta;
@@ -446,7 +447,6 @@ class ComputerUseImpl {
                 ],
                 anthropic_beta: ["computer-use-2024-10-22"],
             };
-            window.Log("Created a new payload for the chat session.");
         }
         const startTime = Date.now();
         let response = !shouldIgnoreLast ? last === null || last === void 0 ? void 0 : last.response : undefined;
