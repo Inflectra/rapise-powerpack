@@ -40,20 +40,22 @@ class TargetWindowScreenRegion {
 	 * Takes a screenshot of the current window and returns it as a base64-encoded string.
 	 * @returns A base64-encoded string representing the screenshot.
 	 */
-	GetScreenshot(cursor = false) {
-		var res = this.GetScreenshotImpl();
+	GetScreenshot() {
+		var res = this.GetScreenshotImpl(2);
 		if(l3) {
 			const data = [];
 			data.push(new SeSReportImage(this.lastImage));
 			const {x,y,w,h} = {...this};
-			data.push(`${JSON.stringify({x,y,w,h})}`)
-			Tester.Message("Screen:" + msg, data);
+			data.push(JSON.stringify({x,y,w,h}));
+			global.g_aiRobotScreen = global.g_aiRobotScreen || 0;
+			Tester.Message("Screen:" + global.g_aiRobotScreen, data);
+			global.g_aiRobotScreen++;
 		}
 		return res;
 	}
 
 	GetScreenshotImpl(cursor) {
-		var iw = SeSCaptureImageDefaultImpl(this.ox, this.oy, this.w, this.h, cursor?2:1);
+		var iw = SeSCaptureImageDefaultImpl(this.ox, this.oy, this.w, this.h, cursor);
 		this.lastImage = iw;
 		return iw.ToBase64Bitmap();
 	}
