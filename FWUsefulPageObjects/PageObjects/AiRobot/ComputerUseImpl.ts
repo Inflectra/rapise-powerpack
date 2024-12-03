@@ -553,7 +553,7 @@ export class ComputerUseImpl {
     chatStatus: ChatStatus,
     window: TargetWindow
   ): Promise<boolean> {
-    window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`);
+    //window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`);
   
     chatStatus.input_tokens += response.usage.input_tokens;
     chatStatus.output_tokens += response.usage.output_tokens;
