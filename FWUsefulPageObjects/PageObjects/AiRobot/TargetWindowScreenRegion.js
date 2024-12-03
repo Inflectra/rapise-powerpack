@@ -73,6 +73,7 @@ class TargetWindowScreenRegion {
 		}
 		Global.DoClick(clickType);
 		if(l3) {
+			Global.DoSleep(50); // Git a bit of time for animations to complete.
 			this.GetScreenshotImpl();
 			iw2 = this.lastImage;
 			const data = [];
