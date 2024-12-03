@@ -539,11 +539,10 @@ export class ComputerUseImpl {
 
   private static isValidationException(response: any): boolean {
     return (
-      typeof response === "object" &&
-      response !== null &&
-      response.name === "ValidationException" &&
-      response.$fault === "client" &&
-      response.$metadata?.httpStatusCode === 400
+      response == null ||
+      (
+        typeof response === "object" && response.$fault
+      )
     );
   }
 
@@ -790,7 +789,7 @@ export class ComputerUseImpl {
             window.Log(`Retry ${retries}: ValidationException detected in response.`);
             Global.DoSleep(delay); // Delay for 1 second
             response = undefined; // Clear response to retry
-            if (retries >= 1) {
+            if (retries >= 3) {
               throw new Error("Exceeded maximum retries due to ValidationException.");
             }
             delay=delay*3;

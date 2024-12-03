@@ -276,12 +276,8 @@ class ComputerUseImpl {
         }
     }
     static isValidationException(response) {
-        var _a;
-        return (typeof response === "object" &&
-            response !== null &&
-            response.name === "ValidationException" &&
-            response.$fault === "client" &&
-            ((_a = response.$metadata) === null || _a === void 0 ? void 0 : _a.httpStatusCode) === 400);
+        return (response == null ||
+            (typeof response === "object" && response.$fault));
     }
     static async processResponse(payload, imgMeta, response, chatStatus, window) {
         window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`);
@@ -483,7 +479,7 @@ class ComputerUseImpl {
                         window.Log(`Retry ${retries}: ValidationException detected in response.`);
                         Global.DoSleep(delay); // Delay for 1 second
                         response = undefined; // Clear response to retry
-                        if (retries >= 1) {
+                        if (retries >= 3) {
                             throw new Error("Exceeded maximum retries due to ValidationException.");
                         }
                         delay = delay * 3;

@@ -39,7 +39,7 @@
 						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(198,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(200,10)"
 			},
 			{
 				"name": "SetSelfCheck",
@@ -48,7 +48,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(222,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(224,10)"
 			},
 			{
 				"name": "DoWebBrowser",
@@ -86,7 +86,7 @@
 						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(241,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(243,10)"
 			},
 			{
 				"name": "DoFullScreen",
@@ -124,7 +124,7 @@
 						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(267,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(269,10)"
 			},
 			{
 				"name": "DoScreenRegion",
@@ -162,7 +162,7 @@
 						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(292,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(294,10)"
 			},
 			{
 				"name": "DoWindow",
@@ -203,7 +203,7 @@
 						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(317,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(319,10)"
 			},
 			{
 				"name": "DoObject",
@@ -244,14 +244,14 @@
 						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(382,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(384,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to\r\nfind reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.",
 		"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js",
-		"version": "0.0.42",
+		"version": "0.0.44",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/AiRobot"
 	},
 	"AiTester": {
