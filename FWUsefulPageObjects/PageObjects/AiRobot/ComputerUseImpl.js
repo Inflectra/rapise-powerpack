@@ -280,7 +280,7 @@ class ComputerUseImpl {
             (typeof response === "object" && response.$fault));
     }
     static async processResponse(payload, imgMeta, response, chatStatus, window) {
-        //window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`);
+        window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`, 4);
         chatStatus.input_tokens += response.usage.input_tokens;
         chatStatus.output_tokens += response.usage.output_tokens;
         chatStatus.stop_reason = response.stop_reason;
@@ -342,7 +342,7 @@ class ComputerUseImpl {
         }
         if (cumulativeResult.isNonEmpty()) {
             const { base64_image, output, error, system } = cumulativeResult;
-            window.Log(`Tool execution result: ${JSON.stringify({ output, error, system }, null, 2)}`);
+            window.Log(`Tool execution result: ${JSON.stringify({ output, error, system }, null, 2)}`, 4);
             payload.messages.push({
                 role: "user",
                 content: toolResultsPayload,
@@ -511,7 +511,7 @@ class ComputerUseImpl {
         window.RegisterResponse(payload, response, imgMeta, chatStatus);
         // Update success based on the final stop reason
         chatStatus.success = chatStatus.stop_reason === "end_turn";
-        window.Log(`Final response: ${JSON.stringify(response, null, 2)}`);
+        window.Log(`Final response: ${JSON.stringify(response, null, 2)}`, 3);
         return chatStatus; // Return the updated chatStatus
     }
 }

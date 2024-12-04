@@ -163,8 +163,18 @@ class TargetWindowScreenRegion {
 		}
 	}
 
-	Log(msg) {
-		if (l3) {
+	Log(msg, level=3) {
+		if (
+			(level>3&&l4)
+			||
+			(level>2&&l3)
+			||
+			(level>1&&l2)
+			||
+			(level>0&&l1)
+			||
+			(level==0&&l0)
+		) {
 			Tester.Message(msg);
 		}
 		Log2(msg);

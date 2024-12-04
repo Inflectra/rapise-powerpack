@@ -220,7 +220,7 @@ interface TargetWindow {
   GetCursorPosition(): { x: number; y: number }; // Retrieve the current cursor position
 
   // Logging and Reporting
-  Log(message: string): void; // Log a general-purpose message
+  Log(message: string, level?:number): void; // Log a general-purpose message
   PrintReportMessage(message: string): void; // Log a report-specific message for rapise_print_message
   AssistantText(message: string): void; // Display assistant messages or instructions
 
@@ -553,7 +553,7 @@ export class ComputerUseImpl {
     chatStatus: ChatStatus,
     window: TargetWindow
   ): Promise<boolean> {
-    //window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`);
+    window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`, 4);
   
     chatStatus.input_tokens += response.usage.input_tokens;
     chatStatus.output_tokens += response.usage.output_tokens;
@@ -627,7 +627,7 @@ export class ComputerUseImpl {
   
     if (cumulativeResult.isNonEmpty()) {
       const {base64_image, output, error, system} = cumulativeResult;
-      window.Log(`Tool execution result: ${JSON.stringify({output, error, system}, null, 2)}`);
+      window.Log(`Tool execution result: ${JSON.stringify({output, error, system}, null, 2)}`, 4);
 
       payload.messages.push({
         role: "user",
@@ -829,7 +829,7 @@ export class ComputerUseImpl {
   
     // Update success based on the final stop reason
     chatStatus.success = chatStatus.stop_reason === "end_turn";
-    window.Log(`Final response: ${JSON.stringify(response, null, 2)}`);
+    window.Log(`Final response: ${JSON.stringify(response, null, 2)}`, 3);
   
     return chatStatus; // Return the updated chatStatus
   }
