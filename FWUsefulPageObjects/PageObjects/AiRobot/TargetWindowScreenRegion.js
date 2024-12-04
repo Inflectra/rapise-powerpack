@@ -165,19 +165,19 @@ class TargetWindowScreenRegion {
 
 	Log(msg, level=3) {
 		if (
-			(level>3&&l4)
+			(level==4&&l4)
 			||
-			(level>2&&l3)
+			(level==3&&l3)
 			||
-			(level>1&&l2)
+			(level==2&&l2)
 			||
-			(level>0&&l1)
+			(level==1&&l1)
 			||
 			(level==0&&l0)
 		) {
 			Tester.Message(msg);
 		}
-		Log2(msg);
+		if(l2) Log2(msg);
 	}
 
 	PrintReportMessage(/**string*/message) {
