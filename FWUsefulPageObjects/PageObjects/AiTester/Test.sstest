@@ -25,6 +25,7 @@
   <WorkDir>..\..</WorkDir>
   <TestFiles>
     <Name>Test</Name>
+    <RealFolder>true</RealFolder>
     <IsFilterGroup>false</IsFilterGroup>
     <FilterWildcard>*.*</FilterWildcard>
     <FilterPath />
@@ -33,6 +34,9 @@
       <TestFile>
         <Path>AiTester.js</Path>
         <Tags>pageobject</Tags>
+      </TestFile>
+      <TestFile>
+        <Path>AiTester.svg</Path>
       </TestFile>
       <TestFile>
         <Path>Main.js</Path>
