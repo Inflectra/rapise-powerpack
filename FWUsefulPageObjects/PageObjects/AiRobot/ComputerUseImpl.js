@@ -511,7 +511,7 @@ class ComputerUseImpl {
         window.RegisterResponse(payload, response, imgMeta, chatStatus);
         // Update success based on the final stop reason
         chatStatus.success = chatStatus.stop_reason === "end_turn";
-        window.Log(`Final response: ${JSON.stringify(response, null, 2)}`, 3);
+        window.Log(`Final response: ${JSON.stringify(response, null, 2)}`, 4);
         return chatStatus; // Return the updated chatStatus
     }
 }
