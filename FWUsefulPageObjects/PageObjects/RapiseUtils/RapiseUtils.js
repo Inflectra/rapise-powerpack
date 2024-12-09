@@ -2,7 +2,7 @@
 /**
  * @PageObject RapiseUtils provides various actions to perform framework-oriented tasks.
  * 
- * @Version 1.0.2
+ * @Version 1.0.3
  */
 SeSPageObject("RapiseUtils");
 
@@ -248,6 +248,14 @@ function RapiseUtils_CleanAICommandCacheDeprecated()
  */
 function RapiseUtils_DoImportManual(/**number*/ projectId, /**number*/ testCaseFolderId)
 {
+	if(!testCaseFolderId)
+	{
+		var rapiseApp = g_util.GetRapiseApp();
+		rapiseApp.ShowMainWindow();
+		testCaseFolderId = rapiseApp.DoUserAction("AddInSpiraTest.SelectSpiraFolder");
+		projectId = rapiseApp.DoUserAction("AddInSpiraTest.GetLastProjectId");
+	}
+	
 	var tcFolders = SpiraImporterLoadTestCaseFolders(projectId, testCaseFolderId);
 	
 	if (!tcFolders)
@@ -266,6 +274,8 @@ function RapiseUtils_DoImportManual(/**number*/ projectId, /**number*/ testCaseF
 	
 	var cnts = JSON.stringify(tcRootFolder, null, 2);
 	File.Write("ManualExport.json", cnts);	
+	
+	SpiraImporterImportTestCases(tcRootFolder);
 	
 	return true;
 }

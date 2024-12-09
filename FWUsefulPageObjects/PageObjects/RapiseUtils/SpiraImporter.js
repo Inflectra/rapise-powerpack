@@ -69,10 +69,10 @@ function SpiraImporterLoadTestCases(projectId, tcFolder)
 
 	if (testCases != null)
 	{
-		for(var i = 0; i < testCases.length; i++)
-		{
-			SpiraImporterLoadTestSteps(testCases[i]);
-		}
+//		for(var i = 0; i < testCases.length; i++)
+//		{
+//			SpiraImporterLoadTestSteps(testCases[i]);
+//		}
 	}
 	
 	tcFolder.TestCases = testCases;
@@ -103,3 +103,176 @@ function SpiraImporterLoadTestCases(projectId, tcFolder)
 	testCase.TestSteps = testSteps;
  }
 
+
+//#region Importer
+
+function SpiraImporterTraverseTestCaseFolders(folder, cb, currentPath = "") {
+	// Construct the current path (avoid leading slash if at root)
+	const newPath = currentPath ? currentPath + "/" + folder.Name : folder.Name;
+
+	// Call cb on each test case in this folder
+	if (folder.TestCases && folder.TestCases.length > 0) {
+		for (let i = 0; i < folder.TestCases.length; i++) {
+			const tc = folder.TestCases[i];
+			cb(newPath, tc);
+		}
+	}
+
+	// Recurse into child folders if they exist
+	if (folder.Children && folder.Children.length > 0) {
+		for (let j = 0; j < folder.Children.length; j++) {
+			const childFolder = folder.Children[j];
+			SpiraImporterTraverseTestCaseFolders(childFolder, cb, newPath);
+		}
+	}
+}
+
+global.g_spiraJsonPath = "%WORKDIR%Lib\\LibFramework\\Spira.json";
+
+function SpiraImporterGetSpiraJson()
+{
+	let json = {};
+	if( File.Exists(global.g_spiraJsonPath) )
+	{
+		json = File.Read(global.g_spiraJsonPath);
+	} 
+	
+	const spiraJson = JSON.parse(json);
+	if(!spiraJson.projectId)
+	{
+		Tester.Assert('This framework must be syncrhonized with Spira first. Use Spira Dashboard to synchronize.', false);
+		return null;
+	}
+	
+	spiraJson.testcases = spiraJson.testcases || [];
+	return spiraJson;
+}
+
+function SpiraImporterRegisterTC(testCaseId, spiraId)
+{
+	const data = SpiraImporterGetSpiraJson();
+	const foundSpira = SpiraImporterFindTCIdBySpiraId(spiraId);
+	const foundTC = SpiraImporterFindSpiraIdByTCId(testCaseId);
+	if (foundSpira)
+	{
+		if ("" + foundSpira != "" + spiraId) {
+			Tester.SoftAssert("Test case: " + testCaseId + " already attached to another spira test case: " + spiraId, false);
+			return false;
+		}
+	} else if (foundTC) {
+		if ("" + foundTC != "" + testCaseId) {
+			Tester.SoftAssert("There is another test case: " + testCaseId + " for a give spira test case: " + spiraId, false);
+			return false;
+		}
+	} else {
+		data.testcases.push({ id: testCaseId, spiraId });
+		File.Write(global.g_spiraJsonPath, JSON.stringify(data, null, "\t"));
+	}
+	return true;
+}
+
+function SpiraImporterFindTCIdBySpiraId(spiraId)
+{
+	const data = SpiraImporterGetSpiraJson();
+
+	for (let i = 0; i < data.testcases.length; i++) {
+		if (data.testcases[i].spiraId === spiraId) {
+			return data.testcases[i].id;
+		}
+	}
+	return null; // not found
+}
+
+function SpiraImporterFindSpiraIdByTCId(testCaseId)
+{
+	const data = SpiraImporterGetSpiraJson();
+	for (let i = 0; i < data.testcases.length; i++) {
+		if (data.testcases[i].id === testCaseId) {
+			return data.testcases[i].spiraId;
+		}
+	}
+	return null; // not found
+}
+
+function SpiraImporterImportTestCases(data)
+{
+
+	function areTimesEqual(concurrencyDateStr, lastUpdateDateStr) {
+	  // Attempt to normalize concurrencyDateStr to an ISO-like format
+	  // The given format: "2024-12-09 10:23:31.977"
+	  // Replace the space with 'T' and append 'Z' to assume UTC:
+	  let normalizedConcurrency = concurrencyDateStr.replace(" ", "T") + "Z";
+	
+	  // lastUpdateDateStr should already be in ISO format: "2024-12-09T10:23:31.977Z"
+	  // In case it's not, we assume it is and trust Date parsing.
+	
+	  let date1 = new Date(normalizedConcurrency);
+	  let date2 = new Date(lastUpdateDateStr);
+	
+	  // Compare their numeric values (milliseconds since epoch)
+	  return date1.getTime() === date2.getTime();
+	}
+
+	// Call it to check there is proper Spira.json available
+	SpiraImporterGetSpiraJson();
+
+	var rapiseApp = g_util.GetRapiseApp();
+
+	let totalImported = 0;
+	let totalCreated = 0;
+
+	SpiraImporterTraverseTestCaseFolders(data, function (path, testCase) {
+		Tester.Message(`Checking ${path}/${testCase.Name}`, `Id: ${testCase.TestCaseId} Folder: ${testCase.TestCaseFolderId}`);
+
+		const spiraId = testCase.TestCaseId;
+		const tcId = SpiraImporterFindTCIdBySpiraId(spiraId);
+
+		let tc = null;
+		if (tcId)
+		{
+			tc = rapiseApp.GetTestById(tcId);
+		}
+		if (!tc)
+		{
+			tc = rapiseApp.CreateTestCase(testCase.Name, "TestCases/" + path, true);
+			Tester.Message("Created: " + testCase.Name, path);
+			totalCreated++;
+			SpiraImporterRegisterTC(tc.Id, testCase.TestCaseId);
+		} else {
+			Log("Found existing TC");
+		}
+
+		const rmtPath = tc.GetAbsolutePath("ManualSteps.rmt");
+		let changed = true;
+		if( File.Exists(rmtPath) ) {
+			const rmt = JSON.parse(File.Read(rmtPath));
+			const rmtLastModified = rmt.ConcurrencyDate;
+			const spiraLastModified = testCase.LastUpdateDate;
+			
+			if( areTimesEqual(rmtLastModified, spiraLastModified) )
+			{
+				changed = false;
+				Tester.Message('Test Case is the same, keep it.', [rmtLastModified, spiraLastModified])
+			}
+			
+		}
+
+		if(changed)
+		{
+			Tester.Message('Test Case Changed, re-importing and marking as draft.', tc.Name)
+			rapiseApp.ImportManual(tc, testCase.ProjectId, testCase.TestCaseId);
+			rapiseApp.BeginUpdate();
+			tc.AddTag("draft");
+			rapiseApp.EndUpdate();
+		}
+		
+		totalImported++;
+	});
+
+	Tester.Assert(`Imported: ${totalImported} Created: ${totalCreated}`, true);
+	
+	rapiseApp.SaveAll();
+	
+	rapiseApp.DoGlobalCommand("SoftRefreshSpiraDashboard");
+}
+//#endregion Importer
