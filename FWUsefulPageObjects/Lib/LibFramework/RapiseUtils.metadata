@@ -10,7 +10,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(14,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(16,10)"
 			},
 			{
 				"name": "CleanAICommandCache",
@@ -19,7 +19,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(56,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(58,10)"
 			},
 			{
 				"name": "CleanAICommandCacheDeprecated",
@@ -28,13 +28,22 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(149,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(151,10)"
+			},
+			{
+				"name": "DoImportManual",
+				"description": "Loads test case hierarchy recursively\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**number*/ projectId, /**number*/ testCaseFolderId",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(249,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "RapiseUtils provides various actions to perform framework-oriented tasks.",
 		"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js",
-		"version": "1.0.1"
+		"version": "1.0.2"
 	}
 }

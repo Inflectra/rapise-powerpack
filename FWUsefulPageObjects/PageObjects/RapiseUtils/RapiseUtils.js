@@ -2,9 +2,11 @@
 /**
  * @PageObject RapiseUtils provides various actions to perform framework-oriented tasks.
  * 
- * @Version 1.0.1
+ * @Version 1.0.2
  */
 SeSPageObject("RapiseUtils");
+
+eval(File.IncludeOnce('%WORKDIR%/PageObjects/RapiseUtils/SpiraImporter.js'));
 
 /**
  * Converts AI Command structure to new format: 
@@ -241,3 +243,29 @@ function RapiseUtils_CleanAICommandCacheDeprecated()
 }
 
 
+/**
+ * Loads test case hierarchy recursively
+ */
+function RapiseUtils_DoImportManual(/**number*/ projectId, /**number*/ testCaseFolderId)
+{
+	var tcFolders = SpiraImporterLoadTestCaseFolders(projectId, testCaseFolderId);
+	
+	if (!tcFolders)
+	{
+		return new SeSDoActionResult(false, null, "Failed to load Test Case Folders.");
+	}
+	
+	var tcRootFolder = SpiraImporterBuildTestCaseFolderHierarchy(tcFolders, testCaseFolderId);
+	
+	if (!tcRootFolder)
+	{
+		return new SeSDoActionResult(false, null, "Failed to find root Test Case Folder.");
+	}
+	
+	SpiraImporterLoadTestCases(projectId, tcRootFolder);
+	
+	var cnts = JSON.stringify(tcRootFolder, null, 2);
+	File.Write("ManualExport.json", cnts);	
+	
+	return true;
+}

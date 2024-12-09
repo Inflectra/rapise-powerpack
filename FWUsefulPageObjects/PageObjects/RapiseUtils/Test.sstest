@@ -55,6 +55,9 @@
         <Path>RapiseUtils.svg</Path>
       </TestFile>
       <TestFile>
+        <Path>SpiraImporter.js</Path>
+      </TestFile>
+      <TestFile>
         <Path>User.js</Path>
       </TestFile>
     </TestFiles>
