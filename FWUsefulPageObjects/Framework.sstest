@@ -128,14 +128,26 @@
                 <FilterWildcard>*.*</FilterWildcard>
                 <FilterPath>TestCases/AI Robot/Bedrock</FilterPath>
                 <Groups />
-                <TestFiles>
-                  <TestFile>
-                    <Path>TestCases\AI Robot\Bedrock\Computer Use Direct\Test.sstest</Path>
-                  </TestFile>
-                </TestFiles>
+                <TestFiles />
               </TestGroup>
             </Groups>
             <TestFiles />
+          </TestGroup>
+          <TestGroup>
+            <Name>AiRobot</Name>
+            <RealFolder>true</RealFolder>
+            <IsFilterGroup>false</IsFilterGroup>
+            <FilterWildcard>*.*</FilterWildcard>
+            <FilterPath>TestCases/AiRobot</FilterPath>
+            <Groups />
+            <TestFiles>
+              <TestFile>
+                <Path>TestCases\AiRobot\Robot Edits a Book\Test.sstest</Path>
+              </TestFile>
+              <TestFile>
+                <Path>TestCases\AiRobot\Robot Uses a Calculator\Test.sstest</Path>
+              </TestFile>
+            </TestFiles>
           </TestGroup>
           <TestGroup>
             <Name>AiTester</Name>

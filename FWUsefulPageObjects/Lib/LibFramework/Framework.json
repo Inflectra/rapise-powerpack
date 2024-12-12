@@ -225,18 +225,84 @@
 			"hash": "BB49C3E48BC73FE26F57E58072E5EFBE34AB073B29872F2171E1B0470B0063EDE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
 		},
 		{
-			"name": "Computer Use Direct",
-			"alias": "Computer Use Direct",
-			"vpath": "AI Robot\\Bedrock",
-			"sstest": "%WORKDIR%TestCases\\AI Robot\\Bedrock\\Computer Use Direct\\Test.sstest",
+			"name": "Robot Edits a Book",
+			"alias": "Robot Edits a Book",
+			"vpath": "AiRobot",
+			"sstest": "%WORKDIR%TestCases\\AiRobot\\Robot Edits a Book\\Test.sstest",
 			"tags": "testcase",
-			"id": "LBQX41EM",
-			"rep": "%WORKDIR%TestCases\\AI Robot\\Bedrock\\Computer Use Direct\\Objects.js",
-			"user": "%WORKDIR%TestCases\\AI Robot\\Bedrock\\Computer Use Direct\\User.js",
+			"id": "QNCXX07S",
+			"rep": "%WORKDIR%TestCases\\AiRobot\\Robot Edits a Book\\Objects.js",
+			"user": "%WORKDIR%TestCases\\AiRobot\\Robot Edits a Book\\User.js",
 			"libraries": [
 				"Web"
 			],
-			"hash": "30F07FA18083B22FF6AA58418A71812019726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF4369B734568C0012314CBB629FD9D931A0"
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - Chrome",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "C4338C50B9E60135E15F6A3E568AD37319726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43C826F9565908A70CA631FE768758BA6A"
+		},
+		{
+			"name": "Robot Uses a Calculator",
+			"alias": "Robot Uses a Calculator",
+			"vpath": "AiRobot",
+			"sstest": "%WORKDIR%TestCases\\AiRobot\\Robot Uses a Calculator\\Test.sstest",
+			"tags": "testcase",
+			"id": "Y49WOIF4",
+			"rep": "%WORKDIR%TestCases\\AiRobot\\Robot Uses a Calculator\\Objects.js",
+			"user": "%WORKDIR%TestCases\\AiRobot\\Robot Uses a Calculator\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - Chrome",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "524FF2EF26459018BB1E5BFB6F71B90A19726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43FB4643C1989BB9BC170AF25B4CB5E0B0"
 		},
 		{
 			"name": "AiTester Web",

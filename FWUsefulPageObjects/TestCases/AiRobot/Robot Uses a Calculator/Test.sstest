@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
-<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" v="19" id="LBQX41EM" t="">
+<Test xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" v="19" id="Y49WOIF4" t="">
   <Tags>testcase</Tags>
   <ScriptPath>Main.js</ScriptPath>
   <UserFunctionsPath>User.js</UserFunctionsPath>
   <ObjectsPath>Objects.js</ObjectsPath>
-  <ReportPath>Computer Use Direct.trp</ReportPath>
+  <ReportPath>Robot Uses a Calculator.trp</ReportPath>
   <CommandInterval>1000</CommandInterval>
   <IterationsCount>1</IterationsCount>
   <StopOnError>true</StopOnError>
@@ -22,7 +22,7 @@
   <SaveScreenshotOnFailure>true</SaveScreenshotOnFailure>
   <CommandLine />
   <EntryPoint>Test</EntryPoint>
-  <WorkDir>..\..\..\..\.</WorkDir>
+  <WorkDir>..\..\..\</WorkDir>
   <TestFiles>
     <Name>Test</Name>
     <IsFilterGroup>false</IsFilterGroup>
