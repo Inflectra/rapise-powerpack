@@ -1,0 +1,29 @@
+{
+  "HL8F-GOLJ-E4HK": {
+    "sessionId": "e7015be1-d105-43dc-9ac1-67ed2bf4df49",
+    "prompt": "Log into the libraryinformationsystem as librarian/librarian.\nEdit the book 'Walden', change genre to 'Fantasy'.\nThen log out.",
+    "code": {
+      "sequence": [
+        {
+          "pos": 1,
+          "code": "Navigator.Open(\"https://v3.libraryinformationsystem.org/\")"
+        },
+        {
+          "pos": 2,
+          "code": "LISCommon.DoLogin(\"librarian\", \"librarian\")"
+        },
+        {
+          "pos": 3,
+          "code": "AiRobot.DoWebBrowser(\"Change genre of the book 'Walden' to 'Fantasy'\")"
+        },
+        {
+          "pos": 4,
+          "code": "LISCommon.DoLogout()"
+        }
+      ]
+    },
+    "response": "```javascript\nNavigator.Open(\"https://v3.libraryinformationsystem.org/\")\nLISCommon.DoLogin(\"librarian\", \"librarian\")\nAiRobot.DoWebBrowser(\"Change genre of the book 'Walden' to 'Fantasy'\")\nLISCommon.DoLogout()\n```\n",
+    "sourceFile": "%WORKDIR%TestCases\\Robot and AI\\Main.rvl.xlsx",
+    "sourceTab": "RVL"
+  }
+}

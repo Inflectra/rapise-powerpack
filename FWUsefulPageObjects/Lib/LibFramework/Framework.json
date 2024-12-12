@@ -265,6 +265,46 @@
 			"hash": "C4338C50B9E60135E15F6A3E568AD37319726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43C826F9565908A70CA631FE768758BA6A"
 		},
 		{
+			"name": "Robot and Assertions",
+			"alias": "Robot and Assertions",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\AiRobot\\Robot and Assertions\\Test.sstest",
+			"tags": "testcase",
+			"id": "2JLJBDJ6",
+			"rep": "%WORKDIR%TestCases\\AiRobot\\Robot and Assertions\\Objects.js",
+			"user": "%WORKDIR%TestCases\\AiRobot\\Robot and Assertions\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - Chrome",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "9FEFF2D8BDD4F8119106597016EEA1ED3137ED0AD3EF1D708A1D9EE454D84E07E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF4384E5A453D8EC74EE5E33F62A41013EB5"
+		},
+		{
 			"name": "Robot Uses a Calculator",
 			"alias": "Robot Uses a Calculator",
 			"vpath": "AiRobot",
@@ -303,6 +343,86 @@
 				}
 			},
 			"hash": "524FF2EF26459018BB1E5BFB6F71B90A19726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43FB4643C1989BB9BC170AF25B4CB5E0B0"
+		},
+		{
+			"name": "Robot And Desktop",
+			"alias": "Robot And Desktop",
+			"vpath": "AiRobot",
+			"sstest": "%WORKDIR%TestCases\\AiRobot\\Robot And Desktop\\Test.sstest",
+			"tags": "testcase",
+			"id": "XSVIPMU8",
+			"rep": "%WORKDIR%TestCases\\AiRobot\\Robot And Desktop\\Objects.js",
+			"user": "%WORKDIR%TestCases\\AiRobot\\Robot And Desktop\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - Chrome",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "47121568E79A51B6D1D7572D00BFE7363137ED0AD3EF1D708A1D9EE454D84E07E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF4340443F10B9B30D15E3F4F7290D8FC7E2"
+		},
+		{
+			"name": "Robot and AI",
+			"alias": "Robot and AI",
+			"vpath": "AiRobot",
+			"sstest": "%WORKDIR%TestCases\\AiRobot\\Robot and AI\\Test.sstest",
+			"tags": "testcase",
+			"id": "CIU7B7SO",
+			"rep": "%WORKDIR%TestCases\\AiRobot\\Robot and AI\\Objects.js",
+			"user": "%WORKDIR%TestCases\\AiRobot\\Robot and AI\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - Chrome",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "E05B5C96C2E2D484894E55A6C6E532103137ED0AD3EF1D708A1D9EE454D84E07E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF431CC83B35A0309077D83125461F512277"
 		},
 		{
 			"name": "AiTester Web",

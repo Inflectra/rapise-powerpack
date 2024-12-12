@@ -115,25 +115,6 @@
         <FilterPath>TestCases</FilterPath>
         <Groups>
           <TestGroup>
-            <Name>AI Robot</Name>
-            <RealFolder>true</RealFolder>
-            <IsFilterGroup>false</IsFilterGroup>
-            <FilterWildcard>*.*</FilterWildcard>
-            <FilterPath>TestCases/AI Robot</FilterPath>
-            <Groups>
-              <TestGroup>
-                <Name>Bedrock</Name>
-                <RealFolder>true</RealFolder>
-                <IsFilterGroup>false</IsFilterGroup>
-                <FilterWildcard>*.*</FilterWildcard>
-                <FilterPath>TestCases/AI Robot/Bedrock</FilterPath>
-                <Groups />
-                <TestFiles />
-              </TestGroup>
-            </Groups>
-            <TestFiles />
-          </TestGroup>
-          <TestGroup>
             <Name>AiRobot</Name>
             <RealFolder>true</RealFolder>
             <IsFilterGroup>false</IsFilterGroup>
@@ -145,7 +126,16 @@
                 <Path>TestCases\AiRobot\Robot Edits a Book\Test.sstest</Path>
               </TestFile>
               <TestFile>
+                <Path>TestCases\AiRobot\Robot and Assertions\Test.sstest</Path>
+              </TestFile>
+              <TestFile>
                 <Path>TestCases\AiRobot\Robot Uses a Calculator\Test.sstest</Path>
+              </TestFile>
+              <TestFile>
+                <Path>TestCases\AiRobot\Robot And Desktop\Test.sstest</Path>
+              </TestFile>
+              <TestFile>
+                <Path>TestCases\AiRobot\Robot and AI\Test.sstest</Path>
               </TestFile>
             </TestFiles>
           </TestGroup>
