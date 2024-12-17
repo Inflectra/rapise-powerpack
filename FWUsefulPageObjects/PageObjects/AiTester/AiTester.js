@@ -2,7 +2,7 @@
  * @PageObject AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,
  * perform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle
  * other tasks that require AI processing.
- * @Version 0.0.2
+ * @Version 0.0.3
  */
 SeSPageObject("AiTester");
 
@@ -10,6 +10,7 @@ var aiTesterDefaultWorkflow = "faf4fdc9-08b0-4ef5-8194-1b60849caacc"; // AI Chat
 var aiTesterLogSessions = false;
 
 var aiTesterLastResponse;
+var aiTesterLastQuery;
 var aiTesterImages = [];
 
 var aiTesterParamInfo = {
@@ -40,7 +41,7 @@ var aiTesterParamInfo = {
  	}
 };
 
-var aiTesterAssertionSystemPrompt = "Test the provided ASSERTION against the RESPONSE. If assertion is valid return 1, if not return 0.\nASSERTION: ${assertion}\nRESPONSE: ${response}";
+var aiTesterAssertionSystemPrompt = "Test the provided ASSERTION against the RESPONSE. If assertion is valid return 1, if not return explanation.\nASSERTION: ${assertion}\nRESPONSE: ${response}";
 
 function AiTesterGetWorkflow(/**string*/ workflow)
 {
@@ -325,7 +326,12 @@ function AiTesterMakeAssertionQuery(response, assertion)
  function AiTester_Assert(/**string*/ text, /**string*/ assertion)
  {
 	var result = AiTesterMakeAssertionQuery(text, assertion);
-	Tester.Assert(assertion, result == "1");
+	var data = [];
+	if( result!="1" )
+	{
+		data.push(result);
+	}
+	Tester.Assert(assertion, result == "1", data);
  }
 
  var _paramInfoAiTester_Assert = {
@@ -337,8 +343,14 @@ function AiTesterMakeAssertionQuery(response, assertion)
  */
  function AiTester_AssertLastResponse(/**string*/ assertion)
  {
+	var data = [aiTesterLastResponse];
 	var result = AiTesterMakeAssertionQuery(aiTesterLastResponse, assertion);
-	Tester.Assert(assertion, result == "1");
+	if( result!="1" )
+	{
+		data.push(result);
+	}
+	
+	Tester.Assert(assertion, result == "1", data);
  }
  
  var _paramInfoAiTester_AssertLastResponse = {
@@ -351,7 +363,12 @@ function AiTesterMakeAssertionQuery(response, assertion)
  function AiTester_SoftAssert(/**string*/ text, /**string*/ assertion)
  {
 	var result = AiTesterMakeAssertionQuery(text, assertion);
-	Tester.SoftAssert(assertion, result == "1");
+	var data = [];
+	if( result!="1" )
+	{
+		data.push(result);
+	}
+	Tester.SoftAssert(assertion, result == "1", data);
  }
  
  var _paramInfoAiTester_SoftAssert = {
@@ -364,8 +381,13 @@ function AiTesterMakeAssertionQuery(response, assertion)
  */
  function AiTester_SoftAssertLastResponse(/**string*/ assertion)
  {
+	var data = [aiTesterLastResponse];
 	var result = AiTesterMakeAssertionQuery(aiTesterLastResponse, assertion);
-	Tester.SoftAssert(assertion, result == "1");
+	if( result!="1" )
+	{
+		data.push(result);
+	}
+	Tester.SoftAssert(assertion, result == "1", data);
  }
  
  var _paramInfoAiTester_SoftAssertLastResponse = {
@@ -380,6 +402,7 @@ function AiTesterDoImageQueryImpl(/**string*/ query, /**ImageWrapper[]*/ images,
 	workflow = workflow || aiTesterDefaultWorkflow;
 
 	aiTesterLastResponse = undefined;
+	aiTesterLastQuery = query;
 
 	if (!query)
 	{
@@ -443,5 +466,5 @@ function AiTesterAssertion(/**string*/ response, /**string*/ assertion)
 	aQuery = aQuery.replace("${assertion}", assertion);
 	aQuery = aQuery.replace("${response}", response);
 	var result = AiTester_DoTextQuery(aQuery);
-	return new SeSDoActionResult(result == "1", response, undefined, undefined, {comment:response});
+	return new SeSDoActionResult(result == "1", response, undefined, [response, result], {comment:response});
 }

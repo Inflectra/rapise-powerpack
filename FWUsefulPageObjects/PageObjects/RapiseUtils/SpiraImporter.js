@@ -66,14 +66,6 @@ function SpiraImporterLoadTestCases(projectId, tcFolder)
 	{
 		testCases = req.GetResponseBodyObject();
 	}
-
-	if (testCases != null)
-	{
-//		for(var i = 0; i < testCases.length; i++)
-//		{
-//			SpiraImporterLoadTestSteps(testCases[i]);
-//		}
-	}
 	
 	tcFolder.TestCases = testCases;
 
@@ -132,15 +124,19 @@ global.g_spiraJsonPath = "%WORKDIR%Lib\\LibFramework\\Spira.json";
 function SpiraImporterGetSpiraJson()
 {
 	let json = {};
+	const failMsg = 'This framework must be syncrhonized with Spira first. Use Spira Dashboard to synchronize.';
 	if( File.Exists(global.g_spiraJsonPath) )
 	{
 		json = File.Read(global.g_spiraJsonPath);
-	} 
+	} else {
+		Tester.Assert(failMsg, false);
+		return null;
+	}
 	
 	const spiraJson = JSON.parse(json);
 	if(!spiraJson.projectId)
 	{
-		Tester.Assert('This framework must be syncrhonized with Spira first. Use Spira Dashboard to synchronize.', false);
+		Tester.Assert(failMsg, false);
 		return null;
 	}
 	
