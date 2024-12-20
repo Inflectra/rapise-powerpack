@@ -1,6 +1,6 @@
 {
 	"Term": {
-		"window_name": "Global Objects",
+		"window_name": "PageObjects",
 		"flavor": "GlobalObject",
 		"actions": [
 			{
@@ -9,7 +9,8 @@
 				"type": "",
 				"returns": "",
 				"signature": "exeName, partOfCmd",
-				"paramInfo": {}
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term\\Term.js(12,10)"
 			},
 			{
 				"name": "FindOrAttach",
@@ -17,7 +18,8 @@
 				"type": "",
 				"returns": "",
 				"signature": "url, bAttach",
-				"paramInfo": {}
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term\\Term.js(53,10)"
 			},
 			{
 				"name": "Screenshot",
@@ -25,7 +27,8 @@
 				"type": "",
 				"returns": "",
 				"signature": "comment",
-				"paramInfo": {}
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term\\Term.js(100,10)"
 			},
 			{
 				"name": "SendString",
@@ -33,7 +36,8 @@
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/str",
-				"paramInfo": {}
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term\\Term.js(134,10)"
 			},
 			{
 				"name": "SendInput",
@@ -41,7 +45,8 @@
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/str",
-				"paramInfo": {}
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term\\Term.js(140,10)"
 			},
 			{
 				"name": "EnsureText",
@@ -49,16 +54,23 @@
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/text, /**number*/timeout, /**boolean*/failIfNotFound",
-				"paramInfo": {}
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term\\Term.js(151,10)"
 			},
 			{
 				"name": "SendCommand",
 				"description": "",
 				"type": "",
 				"returns": "",
-				"signature": "/**string*/qry",
-				"paramInfo": {}
+				"signature": "/**string*/cmd",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term\\Term.js(180,10)"
 			}
-		]
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "Term description",
+		"src": "%WORKDIR%PageObjects\\Term\\Term.js",
+		"version": "0.0.2"
 	}
 }

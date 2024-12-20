@@ -1,10 +1,7 @@
-
-//########## Script Steps ##############
+//Add Test Cases to the Framework
 
 function Test(params)
 {
-	
-	RVL.DoPlayScript("%WORKDIR%\\Main.rvl.xlsx", "RVL");
-	
+	Tester.Assert("Framework should not be executed. Run a test case.", false);
 }
 

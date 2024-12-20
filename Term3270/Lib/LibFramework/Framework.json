@@ -1,0 +1,47 @@
+{
+	"pageobjects": {
+		"Term": {
+			"id": "86ZHHT2B",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\Term\\Term.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\Term\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\Term\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\Term\\Objects.js",
+			"libraries": [],
+			"hash": "07C584E58B2961FBC2EDF1021A0E0E9BAB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43FC3397FB474E86846449C70001819814"
+		}
+	},
+	"testcases": [
+		{
+			"name": "AS400",
+			"alias": "AS400",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\AS400\\Test.sstest",
+			"tags": "testcase",
+			"id": "9U0T7FT3",
+			"rep": "%WORKDIR%TestCases\\AS400\\Objects.js",
+			"user": "%WORKDIR%TestCases\\AS400\\User.js",
+			"libraries": [],
+			"testParams": {
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "BA1CFDEDAFA2C56F532962DD1FFCB4A06908D9B4E626CBDF38E7816D0C147C02E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF4327B3D53D885FF3A1E4B428F50A4B742E"
+		}
+	],
+	"shared": [
+		{
+			"js": "%WORKDIR%Common.js"
+		},
+		{
+			"data": "%WORKDIR%README.md"
+		}
+	]
+}
