@@ -1,10 +1,10 @@
 ![Download](https://github.githubassets.com/images/icons/emoji/unicode/23ec.png?v8) [Download Now](https://inflectra.github.io/DownGit/#/home?url=https://github.com/Inflectra/rapise-powerpack/tree/master/Term3270)
 
-# LibTerm3270
+# Term 3270
 
 This sample contains real example of interacting with green screen terminal through 3270 terminal emulator.
 
-The sample relies on the `LibTerm3270`. You may copy it into your framework to re-use the same functionality for your own purpose.
+The sample relies on the `Term` Module that contains x3270 terminal emulator. You may [import](https://rapisedoc.inflectra.com/Guide/Frameworks/pageobjects/#importing-page-objects) `Term` into your framework to re-use the same functionality for your own purpose.
 
 ## About x3270 Terminal Emulator
 
