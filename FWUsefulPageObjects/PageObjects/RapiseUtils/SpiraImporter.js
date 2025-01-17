@@ -210,12 +210,17 @@ function SpiraImporterImportTestCases(data)
 	}
 
 	// Call it to check there is proper Spira.json available
-	SpiraImporterGetSpiraJson();
+	var spiraJson = SpiraImporterGetSpiraJson();
 
 	var rapiseApp = g_util.GetRapiseApp();
 
 	let totalImported = 0;
 	let totalCreated = 0;
+
+	if( ""+data.TestCaseFolderId==""+spiraJson.testCasesFolderId ) {
+		// When we are importing from the framework own folder, ignore that root folder name in the path.
+		data.Name = "";
+	}
 
 	SpiraImporterTraverseTestCaseFolders(data, function (path, testCase) {
 		Tester.Message(`Checking ${path}/${testCase.Name}`, `Id: ${testCase.TestCaseId} Folder: ${testCase.TestCaseFolderId}`);
@@ -230,10 +235,15 @@ function SpiraImporterImportTestCases(data)
 		}
 		if (!tc)
 		{
-			tc = rapiseApp.CreateTestCase(testCase.Name, "TestCases/" + path, true);
-			Tester.Message("Created: " + testCase.Name, path);
-			totalCreated++;
-			SpiraImporterRegisterTC(tc.Id, testCase.TestCaseId);
+			if( testCase.AutomationAttachmentId ) {
+				Tester.Message(`Skip test case: ${path}/${testCase.Name}, it is already automated and not found in this framework`);
+				return;
+			} else {
+				tc = rapiseApp.CreateTestCase(testCase.Name, path, true);
+				Tester.Message("Created: " + testCase.Name, path);
+				totalCreated++;
+				SpiraImporterRegisterTC(tc.Id, testCase.TestCaseId);
+			}
 		} else {
 			Log("Found existing TC");
 		}
