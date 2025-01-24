@@ -268,12 +268,27 @@
 					}
 				},
 				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(382,11)"
+			},
+			{
+				"name": "DoAnalyzeReport",
+				"description": "Analyzes TRP report and provides root cause analysis.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ path",
+				"paramInfo": {
+					"path": {
+						"descripton": "Path to TRP report.",
+						"binding": "path",
+						"ext": "trp"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(400,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,\r\nperform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle\r\nother tasks that require AI processing.",
 		"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js",
-		"version": "0.0.3"
+		"version": "0.0.4"
 	}
 }

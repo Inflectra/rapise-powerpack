@@ -2,7 +2,7 @@
  * @PageObject AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,
  * perform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle
  * other tasks that require AI processing.
- * @Version 0.0.3
+ * @Version 0.0.4
  */
 SeSPageObject("AiTester");
 
@@ -393,6 +393,167 @@ function AiTesterMakeAssertionQuery(response, assertion)
  var _paramInfoAiTester_SoftAssertLastResponse = {
  	assertion: aiTesterParamInfo.assertion
  }
+
+/**
+ * Analyzes TRP report and provides root cause analysis.
+ */
+function AiTester_DoAnalyzeReport(/**string*/ path)
+{
+	if (!Global.GetRapiseVersion("8.4"))
+	{
+		Tester.Assert("To analyze reports with AI you need Rapise 8.4+", false);
+	}
+	
+	var jsonPath = path + ".json";
+	if (!AiTesterConvertTrpToJson(path, jsonPath))
+	{
+		return false;
+	}
+	
+	var jsonData = JSON.parse(File.Read(jsonPath));
+	var skipImages = false;
+	var jsonFileInfo = File.Info(jsonPath);
+	if (jsonFileInfo.Size > 1000000)
+	{
+		skipImages = true;
+	}
+	
+	if (skipImages) 
+	{
+		var entries = jsonData.entries;
+		let lastImageData = null;
+		let lastImageEntryIndex = null;
+		
+		// Find the last image data entry across all entries and record its entry index
+		for (let i=0; i<entries.length; i++) 
+		{
+		  const entry = entries[i];
+		  for (const data of entry.data) 
+		  {
+			if (data.attributes.some(attr => attr.name === "type" && attr.value === "image")) 
+			{
+			  lastImageData = data;
+			  lastImageEntryIndex = i;
+			}
+		  }
+		}
+	
+		if (lastImageData)
+		{
+	
+			// Filter each log entry, setting `data` to be just the last image data entry or empty array if none
+			jsonData.entries = entries.map((entry, index) => {
+				if (index === lastImageEntryIndex)
+				{
+					return {
+						...entry,
+						data: entry.data.filter(data=> data === lastImageData)
+					}
+				}
+				else
+				{
+					return { ...entry, data: entry.data.filter(d => !d.attributes.some(attr => attr.name === "type" && attr.value === "image")) };
+				}
+			
+			});
+		}
+	}
+	
+	var payload = AiTesterConvertTrpToOpenAIPayload(jsonData);
+	if (payload)
+	{
+		File.Write(path + ".payload.json", JSON.stringify(payload, null, "  "));
+	}
+	else
+	{
+		return false;
+	}
+	var result = AiServerClient.Query(payload, { defaultModelApiType: "openai" });
+	if (result)
+	{
+		Tester.Message("Report Analysis", new SeSReportText("<pre>" + result.response.content.replace(/\n/ig,"<br/>") + "</pre>"));
+	}
+	else
+	{
+		return false;
+	}
+
+	return true;
+}
+
+var _paramInfoAiTester_DoAnalyzeReport = {
+	path: {
+		descripton: "Path to TRP report.",
+		binding: "path",
+		ext: "trp"
+	}
+}
+
+/**
+ * Converts TRP report into JSON format.
+ */
+function AiTesterConvertTrpToJson(path, outputPath)
+{
+	var ldr = new ActiveXObject("Rapise.LogLoader");
+	ldr.LoadTrp(path);
+	if (!ldr.ExportAsJson(outputPath))
+	{
+		Log(ldr.ExportErrors);
+		return false;
+	}
+	return true;
+}
+
+/**
+ * Converts report in JSON format into OpenAI request for report analysis.
+ */
+function AiTesterConvertTrpToOpenAIPayload(model) 
+{
+	const messages = [
+		{
+		  role: "system",
+		  content: "This is an execution report for an automated UI test. What can be the root cause of the failure?"
+		},
+	];
+	
+	model.entries.forEach((entry, index) => {
+		const attributesMarkdown = entry.attributes
+			.map(attr => `**${attr.name}**: ${attr.value}`)
+			.join("\n");
+	
+		let dataText = "";
+	
+		if (entry.data)
+		{
+			dataText = entry.data
+				.filter(dataEntry => !dataEntry.attributes.some(attr => attr.name === "type" && attr.value === "image"))
+				.map(dataEntry => dataEntry.value)
+				.join("\n");
+		
+			const dataImages = entry.data
+				.filter(dataEntry => dataEntry.attributes.some(attr => attr.name === "type" && attr.value === "image"));
+		
+			dataImages.forEach(dataEntry => {
+				messages.push({
+					role: "user",
+					content: [{
+						type: "image_url",
+						image_url: { url: `data:image/png;base64,${dataEntry.value}` }
+					}]
+				});
+			});
+		}
+	
+		messages.push({
+			role: "user",
+			content: `### Log Entry ${index + 1}\n\n${attributesMarkdown}\n\n${dataText}`
+		});
+	});
+	
+	return {
+		messages
+	};
+}
 
 /**
  * Sends a text query along with an image to AI model using specified workflow.
