@@ -31,19 +31,28 @@
 				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(151,10)"
 			},
 			{
+				"name": "GetRapiseApp",
+				"description": "Get RapiseApp object representing instance of Rapise running this test case.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(248,10)"
+			},
+			{
 				"name": "DoImportManual",
 				"description": "Loads test case hierarchy recursively\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**number*/ projectId, /**number*/ testCaseFolderId",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(249,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(284,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "RapiseUtils provides various actions to perform framework-oriented tasks.",
 		"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js",
-		"version": "1.0.6"
+		"version": "1.0.7"
 	}
 }

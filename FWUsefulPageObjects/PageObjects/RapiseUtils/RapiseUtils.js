@@ -2,7 +2,7 @@
 /**
  * @PageObject RapiseUtils provides various actions to perform framework-oriented tasks.
  * 
- * @Version 1.0.6
+ * @Version 1.0.7
  */
 SeSPageObject("RapiseUtils");
 
@@ -242,6 +242,41 @@ function RapiseUtils_CleanAICommandCacheDeprecated()
 	return result;
 }
 
+/**
+ * Get RapiseApp object representing instance of Rapise running this test case.
+ */
+function RapiseUtils_GetRapiseApp()
+{
+	if(!Global.GetRapiseVersion("8.3.31.41"))
+	{
+		var rapiseApp = g_util.GetRapiseApp();
+		Log("Using RapiseApp: "+app+" (Version: "+Global.GetRapiseVersion()+")" );
+		return rapiseApp;
+	} else {
+		var rapiseApps = g_util.GetRapiseApps();
+		var myPid = g_util.GetCurrentProcessId();
+		if(l2) Log2("Rapise apps found: "+rapiseApps.length);
+		for(var i=0;i<rapiseApps.length;i++)
+		{
+			var app = rapiseApps[i];
+			if(l2) Log2("RapiseApp: "+i+": "+app+" PID: "+app.PID);
+			if( app.PID == myPid) {
+				if(l3) Log3("It's me, I'll take it");
+				Log("Using RapiseApp: "+app.GetInfo());
+				return app;
+			} else {
+				var chldPidsStr = g_util.GetChildProcessesForPid(app.PID);
+				var chldPids = JSON.parse(chldPidsStr);
+				if( chldPids.includes(myPid) ) {
+					if(l3) Log3("It's my parent, I'll take it");
+					Log("Using RapiseApp: "+app.GetInfo());
+					return app;
+				}
+			}
+		}
+	}
+	return null;
+}
 
 /**
  * Loads test case hierarchy recursively
@@ -250,7 +285,7 @@ function RapiseUtils_DoImportManual(/**number*/ projectId, /**number*/ testCaseF
 {
 	if(!testCaseFolderId)
 	{
-		var rapiseApp = g_util.GetRapiseApp();
+		var rapiseApp = RapiseUtils_GetRapiseApp();
 		rapiseApp.ShowMainWindow();
 		testCaseFolderId = rapiseApp.DoUserAction("AddInSpiraTest.SelectSpiraFolder");
 		projectId = rapiseApp.DoUserAction("AddInSpiraTest.GetLastProjectId");
