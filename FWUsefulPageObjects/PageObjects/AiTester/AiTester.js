@@ -2,7 +2,7 @@
  * @PageObject AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,
  * perform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle
  * other tasks that require AI processing.
- * @Version 0.0.4
+ * @Version 0.0.5
  */
 SeSPageObject("AiTester");
 
@@ -397,7 +397,7 @@ function AiTesterMakeAssertionQuery(response, assertion)
 /**
  * Analyzes TRP report and provides root cause analysis.
  */
-function AiTester_DoAnalyzeReport(/**string*/ path)
+function AiTester_DoAnalyzeReport(/**string*/ title, /**string*/ path)
 {
 	if (!Global.GetRapiseVersion("8.4"))
 	{
@@ -471,7 +471,7 @@ function AiTester_DoAnalyzeReport(/**string*/ path)
 	var result = AiServerClient.Query(payload, { defaultModelApiType: "openai" });
 	if (result)
 	{
-		Tester.Message("Report Analysis", new SeSReportText("<pre>" + result.response.content.replace(/\n/ig,"<br/>") + "</pre>"));
+		Tester.Message("Report Analysis for " + title, new SeSReportText("<pre>" + result.response.content.replace(/\n/ig,"<br/>") + "</pre>"));
 	}
 	else
 	{
@@ -482,6 +482,9 @@ function AiTester_DoAnalyzeReport(/**string*/ path)
 }
 
 var _paramInfoAiTester_DoAnalyzeReport = {
+	title: {
+		description: "Report message title."
+	},
 	path: {
 		descripton: "Path to TRP report.",
 		binding: "path",
