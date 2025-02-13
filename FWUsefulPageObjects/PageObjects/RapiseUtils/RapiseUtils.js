@@ -2,7 +2,7 @@
 /**
  * @PageObject RapiseUtils provides various actions to perform framework-oriented tasks.
  * 
- * @Version 1.0.7
+ * @Version 1.0.8
  */
 SeSPageObject("RapiseUtils");
 
@@ -247,7 +247,7 @@ function RapiseUtils_CleanAICommandCacheDeprecated()
  */
 function RapiseUtils_GetRapiseApp()
 {
-	if(!Global.GetRapiseVersion("8.3.31.41"))
+	if(!Global.GetRapiseVersion("8.4"))
 	{
 		var rapiseApp = g_util.GetRapiseApp();
 		Log("Using RapiseApp: "+app+" (Version: "+Global.GetRapiseVersion()+")" );
