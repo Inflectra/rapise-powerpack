@@ -2,7 +2,7 @@
  * @PageObject AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,
  * perform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle
  * other tasks that require AI processing.
- * @Version 0.0.5
+ * @Version 0.0.6
  */
 SeSPageObject("AiTester");
 
@@ -404,15 +404,15 @@ function AiTester_DoAnalyzeReport(/**string*/ title, /**string*/ path)
 		Tester.Assert("To analyze reports with AI you need Rapise 8.4+", false);
 	}
 	
-	var jsonPath = path + ".json";
+	const jsonPath = path + ".json";
 	if (!AiTesterConvertTrpToJson(path, jsonPath))
 	{
 		return false;
 	}
 	
-	var jsonData = JSON.parse(File.Read(jsonPath));
-	var skipImages = false;
-	var jsonFileInfo = File.Info(jsonPath);
+	const jsonData = JSON.parse(File.Read(jsonPath));
+	let skipImages = false;
+	const jsonFileInfo = File.Info(jsonPath);
 	if (jsonFileInfo.Size > 1000000)
 	{
 		skipImages = true;
@@ -420,7 +420,7 @@ function AiTester_DoAnalyzeReport(/**string*/ title, /**string*/ path)
 	
 	if (skipImages) 
 	{
-		var entries = jsonData.entries;
+		const entries = jsonData.entries;
 		let lastImageData = null;
 		let lastImageEntryIndex = null;
 		
@@ -459,7 +459,7 @@ function AiTester_DoAnalyzeReport(/**string*/ title, /**string*/ path)
 		}
 	}
 	
-	var payload = AiTesterConvertTrpToOpenAIPayload(jsonData);
+	const payload = AiTesterConvertTrpToOpenAIPayload(jsonData);
 	if (payload)
 	{
 		File.Write(path + ".payload.json", JSON.stringify(payload, null, "  "));
@@ -468,17 +468,17 @@ function AiTester_DoAnalyzeReport(/**string*/ title, /**string*/ path)
 	{
 		return false;
 	}
-	var result = AiServerClient.Query(payload, { defaultModelApiType: "openai" });
-	if (result)
+	const result = AiServerClient.Query(payload, { });
+	if (result?.response?.content)
 	{
+		const content = result.response.content;
 		Tester.Message("Report Analysis for " + title, new SeSReportText("<pre>" + result.response.content.replace(/\n/ig,"<br/>") + "</pre>"));
+		return content;
 	}
 	else
 	{
 		return false;
 	}
-
-	return true;
 }
 
 var _paramInfoAiTester_DoAnalyzeReport = {
@@ -608,14 +608,14 @@ function AiTesterDoImageQueryImpl(/**string*/ query, /**ImageWrapper[]*/ images,
 
 	AiServerClient.SetCurrentContext();
 	var response = AiServerClient.QueryWorkflow(payload);
-	Log("AI Query: " + query);
-	Log("AI Answer:" + response);
+	Log("AI Query: " + (query.length < 512 ? query : query.substring(0, 512) + "..."));
+	Log("AI Answer:" + (response.length < 512 ? response : response.substring(0, 512) + "..."));
 	
 	aiTesterLastResponse = response;
 	
 	if (!images || images.length == 0)
 	{
-		return response;
+		return new SeSDoActionResult(true, response, undefined, ["<pre>" + response.replace(/\n/ig,"<br/>") + "</pre>"], {comment:response});
 	}
 	
 	return new SeSDoActionResult(true, response, undefined, [response].concat(reportImages), {comment:response});
