@@ -2,7 +2,7 @@
  * @PageObject AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,
  * perform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle
  * other tasks that require AI processing.
- * @Version 0.0.6
+ * @Version 0.0.7
  */
 SeSPageObject("AiTester");
 
@@ -515,7 +515,7 @@ function AiTesterConvertTrpToOpenAIPayload(model)
 	const messages = [
 		{
 		  role: "system",
-		  content: "This is an execution report for an automated UI test. What can be the root cause of the failure?"
+		  content: "This is an execution report for an automated UI test. Analyize the report and the attached screenshots (they may display errors or look wierd). What can be the root cause of the failure?"
 		},
 	];
 	

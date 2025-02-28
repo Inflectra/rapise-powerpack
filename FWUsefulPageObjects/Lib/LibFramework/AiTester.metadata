@@ -292,6 +292,6 @@
 		"extend_rule": "",
 		"description": "AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,\r\nperform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle\r\nother tasks that require AI processing.",
 		"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js",
-		"version": "0.0.6"
+		"version": "0.0.7"
 	}
 }
