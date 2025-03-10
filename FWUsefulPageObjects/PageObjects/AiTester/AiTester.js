@@ -2,7 +2,7 @@
  * @PageObject AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,
  * perform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle
  * other tasks that require AI processing.
- * @Version 0.0.7
+ * @Version 0.0.8
  */
 SeSPageObject("AiTester");
 
@@ -477,6 +477,7 @@ function AiTester_DoAnalyzeReport(/**string*/ title, /**string*/ path)
 	}
 	else
 	{
+		Tester.Message("AI query returned no response, error: " + result?.message);
 		return false;
 	}
 }
