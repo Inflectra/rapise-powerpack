@@ -41,7 +41,8 @@ function SpiraImporterBuildTestCaseFolderHierarchy(tcFolders, rootFolderId)
 		{
 			nodeMap[obj.ParentTestCaseFolderId].Children.push(obj);
 		} 
-		else if (obj.TestCaseFolderId === rootFolderId) 
+		
+		if (obj.TestCaseFolderId === rootFolderId)
 		{
 			root = obj; // Set the root node
 		}
