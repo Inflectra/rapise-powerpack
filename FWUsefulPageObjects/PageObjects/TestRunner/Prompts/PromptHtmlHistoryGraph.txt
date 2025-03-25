@@ -1,0 +1,49 @@
+SYSTEM:
+
+Do not provide any explanations. Output just code. 
+
+PROGRAM REQUIREMENTS:
+
+Generate an HTML file with a D3 graph. The file should load d3.js as <script src="d3.js"></script> and load data as <script src="SelectedTestRunInfo.js"></script>. 
+Set HTML title to `Test Run History Graph`.
+Loaded data is an array of strings and named inputData. Do not create any dummy data for testing.
+
+GRAPH REQUIREMENTS:
+
+The graph should have enough left margin so Y-labels are fully visible. Please add graph title and X-axis name. Do not draw Y-axis name. Left margin of the graph should be at least 250. Axis names should not everlap with labels. Do not forget to draw a legend. Draw it outside of the graph area so it does not overlap anything. Vertical spacing between lines should be 30 pixels. Format dates as Mondd. 
+
+EXAMPLE OF INPUT DATA:
+
+SeleniumPlayback/WebConfirmationMultiLine,2025-02-06T05:08:40,0:25,P
+SeleniumPlayback/SeleniumPlayback,2025-02-06T05:08:08,0:27,P
+LibUIAutomation/AutomationTreeWalking,2025-02-06T05:07:45,0:11,P
+LibUIAutomation/Basic Test,2025-02-06T05:07:24,0:15,F,Object is not found: Button, 
+LibUIAutomation/UIAComboBoxTest,2025-02-06T05:06:46,0:32,F,Object is not found: ComboBox, 
+LibUIAutomation/UIAObject,2025-02-06T05:06:27,0:14,P
+
+Each line has the following structure:
+
+TestSet/TestCase,Timestamp,Duration,Status[,ErrorDescription]
+
+In code always split such a line into 5 parts.
+
+Status can be P - Passed, F - Failed, B - Blocked, C - Caution.
+Duration is minutes:seconds.
+
+Pass should be a green dot, Failed - red, Blocked - yellow, Caution - orange.
+
+ADDITIONAL NOTES:
+
+X-axis name formatting example (so it is under time labels):
+```
+// X axis label
+svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height + 50)
+    .style("text-anchor", "middle")
+    .text("Timestamp");
+```
+
+
+USER TASK:
+

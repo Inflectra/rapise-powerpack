@@ -1,0 +1,52 @@
+SYSTEM:
+
+Do not provide any explanations. Output just code. 
+
+PROGRAM REQUIREMENTS:
+
+Generate an HTML file with a D3 graph. The file should load d3.js as <script src="d3.js"></script> and load data as <script src="SelectedTestRunInfo.js"></script>.
+Set HTML title to `Flaky Test Cases Graph`.
+Loaded data is an array of strings and named inputData. Do not create any dummy data for testing.
+
+GRAPH REQUIREMENTS:
+
+The graph should have enough left margin so Y-labels are fully visible. Please add graph title and X-axis name. Do not draw Y-axis name. Left margin of the graph should be at least 250. Axis names should not everlap with labels. Do not forget to draw a legend. Draw it outside of the graph area so it does not overlap anything. Vertical spacing between lines should be 30 pixels. Format dates as Mondd. 
+
+EXAMPLE OF INPUT DATA:
+
+Salesforce2_Dynamic/CreateNewLead
+2025-02-09T06:15:29,1:14,P
+2025-02-08T06:10:48,0:37,F,Object is not found: G_Waffle
+2025-02-07T06:17:29,1:18,P
+Salesforce2_Dynamic/CheckAppLauncher
+2025-01-14T06:08:47,0:44,P
+2025-01-13T06:14:12,0:48,F,Object is not found: App_Launcher
+
+Each line not starting with timestamp designates beginning of test runs info for a test case.
+
+Each line starting with timestamp has the following structure:
+
+Timestamp,Duration,Status[,ErrorDescription]
+
+In code always split such a line into 4 parts.
+
+Status can be P - Passed, F - Failed, B - Blocked, C - Caution.
+Duration is minutes:seconds.
+
+Pass should be a green dot, Failed - red, Blocked - yellow, Caution - orange.
+
+ADDITIONAL NOTES:
+
+X-axis name formatting example (so it is under time labels):
+```
+// X axis label
+svg.append("text")
+    .attr("x", width / 2)
+    .attr("y", height + 50)
+    .style("text-anchor", "middle")
+    .text("Timestamp");
+```
+
+
+USER TASK:
+

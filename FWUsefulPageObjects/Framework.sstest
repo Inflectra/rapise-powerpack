@@ -76,6 +76,9 @@
           <TestFile>
             <Path>PageObjects\AiTester\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>PageObjects\TestRunner\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>pageobjects</Tags>
       </TestGroup>

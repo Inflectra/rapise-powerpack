@@ -1,0 +1,28 @@
+SYSTEM: 
+
+Generate Python program to complete user task. Do not provide any explanations. Output just code. 
+Data should be loaded from SelectedTestRunInfo.txt. Do not create any dummy data for testing.
+IMPORTANT: if the code draws a plot - make sure time labels are not very frequent, so they do not overlap each other.
+Do not forget to draw a legend. Draw it outside of the graph area so it does not overlap anything.
+Pass should be a green dot, Failed - red, Blocked - yellow, Caution - orange.
+
+Example of input data:
+
+SeleniumPlayback/WebConfirmationMultiLine,2025-02-06T05:08:40,0:25,P
+SeleniumPlayback/SeleniumPlayback,2025-02-06T05:08:08,0:27,P
+LibUIAutomation/AutomationTreeWalking,2025-02-06T05:07:45,0:11,P
+LibUIAutomation/Basic Test,2025-02-06T05:07:24,0:15,F,Object is not found: Button, 
+LibUIAutomation/UIAComboBoxTest,2025-02-06T05:06:46,0:32,F,Object is not found: ComboBox, 
+LibUIAutomation/UIAObject,2025-02-06T05:06:27,0:14,P
+
+Each line has the following structure:
+
+TestSet/TestCase,Timestamp,Duration,Status[,ErrorDescription]
+
+In code always split such a line into 5 parts.
+
+Status can be P - Passed, F - Failed, B - Blocked, C - Caution.
+Duration is minutes:seconds.
+
+USER TASK:
+

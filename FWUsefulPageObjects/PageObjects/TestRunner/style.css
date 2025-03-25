@@ -1,0 +1,95 @@
+/* style.css */
+
+/* General styles for the document */
+body {
+    font-family: sans-serif;
+    font-size: 12pt;
+    margin: 20px;
+}
+
+/* Styles for headings */
+h1 {
+    font-size: 24pt;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 18pt;
+    color: #444;
+    margin-bottom: 8px;
+}
+
+/* Styles for paragraphs */
+p {
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+/* Styles for lists */
+ul, ol {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+li {
+    margin-bottom: 5px;
+}
+
+/* Styles for links */
+a {
+    color: #007bff; /* Bootstrap primary color */
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Styles for code blocks */
+pre {
+    background-color: #f8f8f8;
+    padding: 10px;
+    border: 1px solid #ddd;
+    overflow-x: auto;
+}
+
+code {
+    font-family: monospace;
+    font-size: 10pt;
+}
+
+
+/* Styles specifically for tables */
+table {
+    border-collapse: collapse; /* Important for collapsing borders */
+    width: 100%; /* Make the table fill the available width */
+    margin-bottom: 15px; /* Add spacing below the table */
+}
+
+th, td {
+    border: 1px solid #ddd; /* Add a border to table headers and data cells */
+    padding: 8px; /* Add some padding for readability */
+    text-align: left; /* Align text to the left (default) */
+}
+
+th {
+    background-color: #f2f2f2; /* Give table headers a light background */
+    font-weight: bold; /* Make header text bold */
+}
+
+/* Optional: Style for the table header row */
+thead {
+    background-color: #eee;
+}
+
+/* Optional: Style for even/odd rows */
+tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Style for task list items */
+li > input[type="checkbox"] {
+  margin-right: 0.25em;
+  vertical-align: middle;
+}

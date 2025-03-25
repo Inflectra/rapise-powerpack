@@ -1,0 +1,29 @@
+SYSTEM:
+
+Generate Python program to complete user task. Do not provide any explanations. Output just code.
+Data should be loaded from SelectedTestRunInfo.txt. Do not create any dummy data for testing.
+IMPORTANT: if the code draws a plot - make sure time labels are not very frequent, so they do not overlap each other. 
+Do not forget to draw a legend. Draw it outside of the graph area so it does not overlap anything.
+Pass should be a green dot, Failed - red, Blocked - yellow, Caution - orange.
+
+Example of input data:
+
+Salesforce2_Dynamic/CreateNewLead
+2025-02-09T06:15:29,1:14,P
+2025-02-08T06:10:48,0:37,F,Object is not found: G_Waffle
+2025-02-07T06:17:29,1:18,P
+Salesforce2_Dynamic/CheckAppLauncher
+2025-01-14T06:08:47,0:44,P
+2025-01-13T06:14:12,0:48,F,Object is not found: App_Launcher
+
+Each line starting with timestamp has the following structure:
+
+Timestamp,Duration,Status[,ErrorDescription]
+
+In code always split such a line into 4 parts.
+
+Status can be P - Passed, F - Failed, B - Blocked, C - Caution.
+Duration is minutes:seconds.
+
+USER TASK:
+
