@@ -10,13 +10,13 @@ This Framework contains a number of useful general purpose Modules that may be u
 4. StringChecker
 5. TableHandler
 6. WebPageHelper
-7. ExtentReports
+7. [ExtentReports](https://www.inflectra.com/Support/KnowledgeBase/KB861.aspx)
 8. PDF
-9. Playwright
+9. [Playwright](https://www.inflectra.com/Support/KnowledgeBase/KB880.aspx)
 10. Sfdc
 11. RapiseUtils
-12. AiRobot
-13. AiTester
+12. [AiRobot](https://www.inflectra.com/Support/KnowledgeBase/KB884.aspx)
+13. [AiTester](https://www.inflectra.com/Support/KnowledgeBase/KB883.aspx)
 
 ## How to Use
 
