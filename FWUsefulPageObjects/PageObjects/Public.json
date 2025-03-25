@@ -877,7 +877,7 @@
 		"extend_rule": "",
 		"description": "PDF handling: read text, check that PDF contains some text, assert PDF contains something.",
 		"src": "%WORKDIR%PageObjects\\PDF\\PDF.js",
-		"version": "1.0.1",
+		"version": "1.0.2",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/PDF"
 	},
 	"Playwright": {

@@ -57,6 +57,9 @@
         <Path>package.json</Path>
       </TestFile>
       <TestFile>
+        <Path>package-lock.json</Path>
+      </TestFile>
+      <TestFile>
         <Path>TargetWindowScreenRegion.js</Path>
       </TestFile>
       <TestFile>

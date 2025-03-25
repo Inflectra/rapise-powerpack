@@ -37,6 +37,12 @@
         <Groups />
         <TestFiles>
           <TestFile>
+            <Path>PDF2Text\package.json</Path>
+          </TestFile>
+          <TestFile>
+            <Path>PDF2Text\package-lock.json</Path>
+          </TestFile>
+          <TestFile>
             <Path>PDF2Text\pdfparse.js</Path>
           </TestFile>
         </TestFiles>
