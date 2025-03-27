@@ -106,13 +106,18 @@
 				"description": "Converts Markdown to PDF and opens the result.\r\n",
 				"type": "",
 				"returns": "",
-				"signature": "/**string*/ mdFileName, /**string*/ pdfFileName",
+				"signature": "/**string*/ mdFileName, /**string*/ pdfFileName, /**boolean*/ open",
 				"paramInfo": {
 					"mdFileName": {
 						"description": "Input file in Markdown format."
 					},
 					"pdfFileName": {
 						"description": "Output file in PDF format."
+					},
+					"open": {
+						"description": "Set to `true` to open the result once generated.",
+						"optional": true,
+						"defaultValue": false
 					}
 				},
 				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(321,10)"
@@ -131,7 +136,7 @@
 						"description": "Output file in PDF format."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(343,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(352,10)"
 			},
 			{
 				"name": "DoReportToPdf",
@@ -165,7 +170,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(375,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(384,10)"
 			},
 			{
 				"name": "DoAnalyzeRunHistory",
@@ -200,7 +205,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(484,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(493,10)"
 			},
 			{
 				"name": "DoAnalyzeFlakyTestCases",
@@ -231,7 +236,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(548,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(557,10)"
 			},
 			{
 				"name": "DoSaveFileToSpira",
@@ -250,7 +255,7 @@
 						"description": "Path to the file to save."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(607,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(616,10)"
 			},
 			{
 				"name": "SetParameter",
@@ -266,7 +271,7 @@
 						"description": "Parameter value."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(663,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(672,10)"
 			},
 			{
 				"name": "DoDailySummaryReport",
@@ -286,13 +291,13 @@
 						"defaultValue": "DailySummaryReport"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(682,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(691,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "TestRunner. Allows to easily rerun failed tests. \r\nHelps to analyze failures, flaky test cases  and generate reports and graphs.",
 		"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js",
-		"version": "0.0.1"
+		"version": "0.0.2"
 	}
 }

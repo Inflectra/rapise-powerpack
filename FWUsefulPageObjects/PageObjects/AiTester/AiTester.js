@@ -2,7 +2,7 @@
  * @PageObject AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,
  * perform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle
  * other tasks that require AI processing.
- * @Version 0.0.8
+ * @Version 0.0.9
  */
 SeSPageObject("AiTester");
 
@@ -427,15 +427,22 @@ function AiTester_DoAnalyzeReport(/**string*/ title, /**string*/ path)
 		// Find the last image data entry across all entries and record its entry index
 		for (let i=0; i<entries.length; i++) 
 		{
-		  const entry = entries[i];
-		  for (const data of entry.data) 
-		  {
-			if (data.attributes.some(attr => attr.name === "type" && attr.value === "image")) 
+			const entry = entries[i];
+			if (entry.data)
 			{
-			  lastImageData = data;
-			  lastImageEntryIndex = i;
+				for (const data of entry.data)
+				{
+					if (data.attributes.some(attr => attr.name === "type" && attr.value === "image")) 
+					{
+						lastImageData = data;
+						lastImageEntryIndex = i;
+					}
+				}
 			}
-		  }
+			else
+			{
+				entry.data = [];
+			}
 		}
 	
 		if (lastImageData)

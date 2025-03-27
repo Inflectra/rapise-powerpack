@@ -1,7 +1,7 @@
  /**
  * @PageObject TestRunner. Allows to easily rerun failed tests. 
  * Helps to analyze failures, flaky test cases  and generate reports and graphs.
- * @Version 0.0.1
+ * @Version 0.0.2
  */
 SeSPageObject("TestRunner");
 
@@ -318,13 +318,17 @@ var _paramInfoTestRunner_DoAiReportHtml = {
 /**
  * Converts Markdown to PDF and opens the result.
  */
-function TestRunner_DoMarkdownToPdf(/**string*/ mdFileName, /**string*/ pdfFileName)
+function TestRunner_DoMarkdownToPdf(/**string*/ mdFileName, /**string*/ pdfFileName, /**boolean*/ open)
 {
 	TestRunnerUtil.CheckCompatibility();
 	TestRunnerUtil.Init();
 
 	PdfUtil.ConvertMDtoPDF(mdFileName, pdfFileName);
-	Global.DoCmd(pdfFileName, null, false);
+	
+	if (open)
+	{
+		Global.DoCmd(pdfFileName, null, false);
+	}
 	return true;
 }
 
@@ -334,6 +338,11 @@ var _paramInfoTestRunner_DoMarkdownToPdf = {
 	},
 	pdfFileName: {
 		description: "Output file in PDF format."
+	},
+	open: {
+		description: "Set to `true` to open the result once generated.",
+		optional: true,
+		defaultValue: false
 	}
 }
 
