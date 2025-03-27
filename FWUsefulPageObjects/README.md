@@ -14,7 +14,7 @@ This Framework contains a number of useful general purpose Modules that may be u
 8. PDF
 9. [Playwright](https://www.inflectra.com/Support/KnowledgeBase/KB880.aspx)
 10. Sfdc
-11. RapiseUtils
+11. [RapiseUtils](https://www.inflectra.com/Support/KnowledgeBase/KB894.aspx)
 12. [AiRobot](https://www.inflectra.com/Support/KnowledgeBase/KB884.aspx)
 13. [AiTester](https://www.inflectra.com/Support/KnowledgeBase/KB883.aspx)
 14. [TestRunner](https://www.inflectra.com/Support/KnowledgeBase/KB893.aspx)
