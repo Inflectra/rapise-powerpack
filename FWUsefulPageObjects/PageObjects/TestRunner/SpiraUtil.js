@@ -31,7 +31,7 @@ const SpiraUtil =
 		{
 			const testSetId = testSetIds[i];
 			let testSet = null;
-			if (typeof(testSetId) == "number")
+			if (typeof(testSetId) == "number" || !isNaN(testSetId-0))
 			{
 				testSet = SpiraUtil.GetTestSetById(projectId, testSetId);
 			}

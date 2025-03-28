@@ -1258,7 +1258,29 @@
 		"flavor": "GlobalObject",
 		"actions": [
 			{
-				"name": "DoAnalyzeFailures",
+				"name": "DoAnalyzeFailuresFor",
+				"description": "Discovers failed test sets, corresponding test runs and executes root cause analysis for each failed test case.\r\n@returns Path to generated summary PDF document.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/ projectNameOrId, /**string*/ testSetNamesOrIds, /**string*/ summaryReportName",
+				"paramInfo": {
+					"projectNameOrId": {
+						"description": "Name or Id of a project in Spira to query.",
+						"defaultValue": 1
+					},
+					"testSetNamesOrIds": {
+						"description": "Test set Name or Id, or comma-separated list of Names/Ids, or an array of Names/Ids"
+					},
+					"summaryReportName": {
+						"description": "Name for the summary report file (without extension).",
+						"defaultValue": "Failure Analysis Summary Report",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(19,10)"
+			},
+			{
+				"name": "DoAnalyzeFailuresRvl",
 				"description": "Discovers failed test sets, corresponding test runs and executes root cause analysis for each failed test case.\r\n@returns Path to generated summary PDF document.\r\n",
 				"type": "",
 				"returns": "",
@@ -1271,10 +1293,11 @@
 					},
 					"summaryReportName": {
 						"description": "Name for the summary report file (without extension).",
-						"defaultValue": "Failure Analysis Summary Report"
+						"defaultValue": "Failure Analysis Summary Report",
+						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(19,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(78,10)"
 			},
 			{
 				"name": "DoRerunFailedAndNotRun",
@@ -1289,7 +1312,7 @@
 						"ext": "rvl.xlsx"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(126,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(202,10)"
 			},
 			{
 				"name": "DoAiReport",
@@ -1307,7 +1330,7 @@
 						"defaultValue": "TestRunInfo"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(158,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(234,10)"
 			},
 			{
 				"name": "DoAiReportPy",
@@ -1330,7 +1353,7 @@
 						"defaultValue": ""
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(195,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(271,10)"
 			},
 			{
 				"name": "DoAiReportHtml",
@@ -1353,7 +1376,7 @@
 						"defaultValue": ""
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(236,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(312,10)"
 			},
 			{
 				"name": "DoMarkdownToPdf",
@@ -1363,10 +1386,14 @@
 				"signature": "/**string*/ mdFileName, /**string*/ pdfFileName, /**boolean*/ open",
 				"paramInfo": {
 					"mdFileName": {
-						"description": "Input file in Markdown format."
+						"description": "Input file in Markdown format.",
+						"binding": "path",
+						"ext": "md"
 					},
 					"pdfFileName": {
-						"description": "Output file in PDF format."
+						"description": "Output file in PDF format.",
+						"binding": "path",
+						"ext": "pdf"
 					},
 					"open": {
 						"description": "Set to `true` to open the result once generated.",
@@ -1374,7 +1401,7 @@
 						"defaultValue": false
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(321,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(397,10)"
 			},
 			{
 				"name": "DoTrpToPdf",
@@ -1384,13 +1411,17 @@
 				"signature": "/**string*/ trpFileName, /**string*/ pdfFileName",
 				"paramInfo": {
 					"trpFileName": {
-						"description": "Input file in TRP format."
+						"description": "Input file in TRP format.",
+						"binding": "path",
+						"ext": "trp"
 					},
 					"pdfFileName": {
-						"description": "Output file in PDF format."
+						"description": "Output file in PDF format.",
+						"binding": "path",
+						"ext": "pdf"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(352,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(432,10)"
 			},
 			{
 				"name": "DoReportToPdf",
@@ -1400,10 +1431,14 @@
 				"signature": "/**string*/ trpFileName, /**string*/ pdfFileName, /**string*/ browserType, /**string*/ browserPath",
 				"paramInfo": {
 					"trpFileName": {
-						"description": "Input file in TRP format."
+						"description": "Input file in TRP format.",
+						"binding": "path",
+						"ext": "trp"
 					},
 					"pdfFileName": {
-						"description": "Output file in PDF format."
+						"description": "Output file in PDF format.",
+						"binding": "path",
+						"ext": "pdf"
 					},
 					"browserType": {
 						"descritpion": "`chrome` or `edge`.",
@@ -1424,34 +1459,38 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(384,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(468,10)"
 			},
 			{
 				"name": "DoAnalyzeRunHistory",
 				"description": "Queries test run history from Spira and saves data for further use by DoAiReport* actions.\r\n",
 				"type": "",
 				"returns": "",
-				"signature": "/**number*/ projectId, /**boolean*/ automated, /**number*/ days, /**number*/ batchSize, /**boolean*/ failuresOnly, /**string*/ baseName",
+				"signature": "/**string*/ projectNameOrId, /**boolean*/ automated, /**number*/ days, /**number*/ batchSize, /**boolean*/ failuresOnly, /**string*/ baseName",
 				"paramInfo": {
-					"projectId": {
-						"description": "Id of project in Spira to query.",
-						"defaultValue": 1
+					"projectNameOrId": {
+						"description": "Name or Id of a project in Spira to query.",
+						"defaultValue": "TBD"
 					},
 					"automated": {
 						"description": "If `true`, query automated test runs; otherwise, query manual.",
-						"defaultValue": true
+						"defaultValue": true,
+						"optional": true
 					},
 					"days": {
 						"description": "Query all test runs not older than the specified number of days.",
-						"defaultValue": 7
+						"defaultValue": 7,
+						"optional": true
 					},
 					"batchSize": {
 						"description": "Number of test runs to query in each batch request. Change to achieve better performance.",
-						"defaultValue": 5000
+						"defaultValue": 5000,
+						"optional": true
 					},
 					"failuresOnly": {
 						"description": "Process only those test runs that did not pass.",
-						"defaultValue": true
+						"defaultValue": true,
+						"optional": true
 					},
 					"baseName": {
 						"description": "Base name for intermediate data files.",
@@ -1459,30 +1498,38 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(493,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(581,10)"
 			},
 			{
 				"name": "DoAnalyzeFlakyTestCases",
 				"description": "Discovers flaky tests and saves their test run data for further use by  DoAiReport* actions.\r\n",
 				"type": "",
 				"returns": "",
-				"signature": "/**number*/ projectId, /**boolean*/ automated, /**number*/ runCount, /**number*/ batchSize, /**number*/ tcCount, /**string*/ baseName",
+				"signature": "/**string*/ projectNameOrId, /**boolean*/ automated, /**number*/ runCount, /**number*/ batchSize, /**number*/ tcCount, /**string*/ baseName",
 				"paramInfo": {
-					"projectId": {
-						"description": "Id of project in Spira to query."
+					"projectNameOrId": {
+						"description": "Name or Id of a project in Spira to query.",
+						"defaultValue": "TBD"
 					},
 					"automated": {
 						"description": "If `true` - query automated test runs, otherwise query manual.",
-						"defaultValue": true
+						"defaultValue": true,
+						"optional": true
 					},
 					"runCount": {
-						"description": "Number of recent test runs to query."
+						"description": "Number of recent test runs to query.",
+						"defaultValue": 10000,
+						"optional": true
 					},
 					"batchSize": {
-						"description": "Number of test runs to query in each batch request. Change to achieve better performance."
+						"description": "Number of test runs to query in each batch request. Change to achieve better performance.",
+						"defaultValue": 5000,
+						"optional": true
 					},
 					"tcCount": {
-						"description": "Number of top flaky test cases to analyze."
+						"description": "Number of top flaky test cases to analyze.",
+						"defaultValue": 20,
+						"optional": true
 					},
 					"baseName": {
 						"description": "Base name for intermediate data files.",
@@ -1490,7 +1537,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(557,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(654,10)"
 			},
 			{
 				"name": "DoSaveFileToSpira",
@@ -1506,26 +1553,27 @@
 						"description": "Id of the document folder in Spira."
 					},
 					"path": {
-						"description": "Path to the file to save."
+						"description": "Path to the file to save.",
+						"binding": "path"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(616,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(727,10)"
 			},
 			{
 				"name": "SetParameter",
 				"description": "",
 				"type": "",
 				"returns": "",
-				"signature": "/**string*/ name, /**object*/ value",
+				"signature": "/**string*/ name, /**string|number*/ value",
 				"paramInfo": {
 					"name": {
-						"description": "Parameter name."
+						"description": "Parameter name. Supported names are:\n  - ExcludeFromAnalysis - comma-separated list of Test Case names to exclude\n  - MinNumberOfTestRuns - if a test case has less than this specified number of runs then it will be excluded from DoAnalyzeFlakyTestCases. Default value is 10.\n  - MaxNumberOfTestRuns - maximum number of test runs that can be fetched from Spira. The default value is 100,000. The more data you fetch, the greater the load on the server and the longer it takes.\n  - BaseName - set this property to avoid passing it explicitly to various methods of TestRunner. Some methods that generate data will prepend the base name to the file names they produce. Also, TestRunner.DoAiReport* methods will grab data from the files with this prefix."
 					},
 					"value": {
 						"description": "Parameter value."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(672,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(784,10)"
 			},
 			{
 				"name": "DoDailySummaryReport",
@@ -1545,14 +1593,14 @@
 						"defaultValue": "DailySummaryReport"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(691,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(802,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "TestRunner. Allows to easily rerun failed tests. \r\nHelps to analyze failures, flaky test cases  and generate reports and graphs.",
 		"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js",
-		"version": "0.0.2",
+		"version": "0.0.3",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/TestRunner"
 	},
 	"WebPageHelper": {

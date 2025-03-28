@@ -1,7 +1,7 @@
  /**
  * @PageObject TestRunner. Allows to easily rerun failed tests. 
  * Helps to analyze failures, flaky test cases  and generate reports and graphs.
- * @Version 0.0.2
+ * @Version 0.0.3
  */
 SeSPageObject("TestRunner");
 
@@ -16,7 +16,66 @@ const DefaultBaseName = "TestRunInfo";
  * Discovers failed test sets, corresponding test runs and executes root cause analysis for each failed test case.
  * @returns Path to generated summary PDF document.
  */
-function TestRunner_DoAnalyzeFailures(/**string*/ rvlPath, /**string*/ summaryReportName)
+function TestRunner_DoAnalyzeFailuresFor(/**string*/ projectNameOrId, /**string*/ testSetNamesOrIds, /**string*/ summaryReportName)
+{
+	summaryReportName = summaryReportName || "Failure Analysis Summary Report";
+
+	TestRunnerUtil.CheckCompatibility();
+
+	const res = AiServerClient.SpiraSetCredentials();
+	if (!res || !res.status)
+	{
+		return new SeSDoActionResult(false, null, res?.message);
+	}
+	
+	const projectId = Spira.GetProjectId(projectNameOrId);
+	if (typeof(testSetNamesOrIds) == "number")
+	{
+		testSetNamesOrIds = [testSetNamesOrIds];
+	}
+	else if (typeof(testSetNamesOrIds) == "string")
+	{
+		if (testSetNamesOrIds.indexOf(",") != -1)
+		{
+			const _testSets = [];
+			testSetNamesOrIds.split(',')
+				.map(item => item.trim()) 
+				.filter(item => item !== "")
+				.forEach(item => {
+					_testSets.push(item);
+				});
+			testSetNamesOrIds = _testSets;
+		}
+		else
+		{
+			testSetNamesOrIds = [testSetNamesOrIds];
+		}
+	}
+	
+	const testSets = SpiraUtil.GetTestSetsByIds(projectId, testSetNamesOrIds);
+	return TestRunnerAnalyzeTestSetFailures(testSets, summaryReportName);
+}
+
+var _paramInfoTestRunner_DoAnalyzeFailuresFor = {
+	projectNameOrId: {
+		description: "Name or Id of a project in Spira to query.",
+		defaultValue: 1
+	},
+	testSetNamesOrIds: {
+		description: "Test set Name or Id, or comma-separated list of Names/Ids, or an array of Names/Ids",
+	},
+	summaryReportName: {
+		description: "Name for the summary report file (without extension).",
+		defaultValue: "Failure Analysis Summary Report",
+		optional: true
+	}
+}
+
+/**
+ * Discovers failed test sets, corresponding test runs and executes root cause analysis for each failed test case.
+ * @returns Path to generated summary PDF document.
+ */
+function TestRunner_DoAnalyzeFailuresRvl(/**string*/ rvlPath, /**string*/ summaryReportName)
 {
 	summaryReportName = summaryReportName || "Failure Analysis Summary Report";
 
@@ -31,84 +90,24 @@ function TestRunner_DoAnalyzeFailures(/**string*/ rvlPath, /**string*/ summaryRe
 	if (File.Exists(rvlPath))
 	{
 		let summaryReportContent = "";
+		const testSets = [];
 	
 		TestRunnerUtil.DiscoverTestSets(rvlPath, true, function(testSetId, hostToken, projectId, failed) {
 			if (failed)
 			{
-				Tester.Message(`Searching for failed test runs in test set: ${testSetId}`);
 				const ts = SpiraUtil.GetTestSet(projectId, testSetId);
-				const mappings = SpiraUtil.GetTestSetTestCaseMapping(projectId, testSetId);
-				if (mappings)
-				{
-					for(let i = 0; i < mappings.length; i++)
-					{
-						const tcm = mappings[i];
-						//Tester.Message(tcm.TestCaseId);
-						const testRun = SpiraUtil.GetLatestRunForTestCase(projectId, tcm.TestCaseId);
-						if (testRun && testRun.length)
-						{
-							const tr = testRun[0];
-							if (tr.ExecutionStatusId == 1 /*failed*/)
-							{
-								Tester.Message(`Failed TC/TR: ${tcm.TestCaseId} / ${tr.TestRunId}`);
-								const attachments = SpiraUtil.GetTestRunAttachments(projectId, tr.TestRunId);
-								if (attachments && attachments.length)
-								{
-									const trpDocument = attachments.find(a => a.FilenameOrUrl == "last.trp");
-									if (trpDocument)
-									{
-										const trpDocumentId = trpDocument.AttachmentId;
-										Tester.Message(`Loading last.trp: ${trpDocumentId}`);
-										const trpPath = Global.GetFullPath(TestRunnerSettings.GetDataPath(`${tr.TestRunId}.trp`));
-										const downloadRes = AiServerClient.SpiraDownloadDocument(projectId, trpDocumentId, trpPath);
-										if (downloadRes.status)
-										{
-											const tc = SpiraUtil.GetTestCase(projectId, tcm.TestCaseId);
-											const title = `${tc.ProjectName}\\${ts.Name}\\${tc.Name}`;
-											const analysis = AiTester.DoAnalyzeReport(title, trpPath);
-											if (analysis)
-											{
-												summaryReportContent += `## ${title}\n\n${analysis}\n\n\n\n`;
-											
-												const mdFileName  =  Global.GetFullPath(TestRunnerSettings.GetDataPath(`${tr.TestRunId}_analysis.md`));
-												File.Write(mdFileName, `## ${title}\n\n${analysis}`);
-												
-												const pdfFileName =  Global.GetFullPath(TestRunnerSettings.GetDataPath(`${tc.ProjectName}_${ts.Name}_${tc.Name}_${tr.TestRunId}_analysis.pdf`));
-												PdfUtil.ConvertMDtoPDF(mdFileName, pdfFileName);
-											}
-										}
-										else
-										{
-											Tester.Message(downloadRes.message);
-										}
-									}
-								}
-							}
-						}
-					}
-				}
+				testSets.push(ts);
 			}
 		});
 		
-		if (summaryReportContent)
-		{
-			const mdFileName  =  Global.GetFullPath(TestRunnerSettings.GetDataPath(`${summaryReportName}.md`));
-			File.Write(mdFileName, `# ${summaryReportName}\n\n`);
-			File.Append(mdFileName, summaryReportContent);
-			
-			const pdfFileName =  Global.GetFullPath(TestRunnerSettings.GetDataPath(`${summaryReportName}.pdf`));
-			PdfUtil.ConvertMDtoPDF(mdFileName, pdfFileName);
-			return pdfFileName;
-		}
-
-		return new SeSDoActionResult(true, null);
+		return TestRunnerAnalyzeTestSetFailures(testSets, summaryReportName);
 	}
 
 	Log(`Error: RVL file not found: ${rvlPath}`);
 	return new SeSDoActionResult(false, null, `RVL file not found: ${rvlPath}`);
 }
 
-var _paramInfoTestRunner_DoAnalyzeFailures = {
+var _paramInfoTestRunner_DoAnalyzeFailuresRvl = {
 	rvlPath: {
 		description: "Path to RVL script that triggers Spira.RunTestSet actions.",
 		binding: "path",
@@ -116,8 +115,85 @@ var _paramInfoTestRunner_DoAnalyzeFailures = {
 	},
 	summaryReportName: {
 		description: "Name for the summary report file (without extension).",
-		defaultValue: "Failure Analysis Summary Report"
+		defaultValue: "Failure Analysis Summary Report",
+		optional: true
 	}
+}
+
+function TestRunnerAnalyzeTestSetFailures(testSets, summaryReportName)
+{
+	let summaryReportContent = "";
+
+	for(let ti in testSets)
+	{
+		const ts = testSets[ti];
+		const testSetId = ts.TestSetId;
+		const projectId = ts.ProjectId;
+		Tester.Message(`Searching for failed test runs in test set: ${testSetId}`);
+		const mappings = SpiraUtil.GetTestSetTestCaseMapping(projectId, testSetId);
+		if (mappings)
+		{
+			for(let i = 0; i < mappings.length; i++)
+			{
+				const tcm = mappings[i];
+				//Tester.Message(tcm.TestCaseId);
+				const testRun = SpiraUtil.GetLatestRunForTestCase(projectId, tcm.TestCaseId);
+				if (testRun && testRun.length)
+				{
+					const tr = testRun[0];
+					if (tr.ExecutionStatusId == 1 /*failed*/)
+					{
+						Tester.Message(`Failed TC/TR: ${tcm.TestCaseId} / ${tr.TestRunId}`);
+						const attachments = SpiraUtil.GetTestRunAttachments(projectId, tr.TestRunId);
+						if (attachments && attachments.length)
+						{
+							const trpDocument = attachments.find(a => a.FilenameOrUrl == "last.trp");
+							if (trpDocument)
+							{
+								const trpDocumentId = trpDocument.AttachmentId;
+								Tester.Message(`Loading last.trp: ${trpDocumentId}`);
+								const trpPath = Global.GetFullPath(TestRunnerSettings.GetDataPath(`${tr.TestRunId}.trp`));
+								const downloadRes = AiServerClient.SpiraDownloadDocument(projectId, trpDocumentId, trpPath);
+								if (downloadRes.status)
+								{
+									const tc = SpiraUtil.GetTestCase(projectId, tcm.TestCaseId);
+									const title = `${tc.ProjectName}\\${ts.Name}\\${tc.Name}`;
+									const analysis = AiTester.DoAnalyzeReport(title, trpPath);
+									if (analysis)
+									{
+										summaryReportContent += `## ${title}\n\n${analysis}\n\n\n\n`;
+									
+										const mdFileName  =  Global.GetFullPath(TestRunnerSettings.GetDataPath(`${tr.TestRunId}_analysis.md`));
+										File.Write(mdFileName, `## ${title}\n\n${analysis}`);
+										
+										const pdfFileName =  Global.GetFullPath(TestRunnerSettings.GetDataPath(`${tc.ProjectName}_${ts.Name}_${tc.Name}_${tr.TestRunId}_analysis.pdf`));
+										PdfUtil.ConvertMDtoPDF(mdFileName, pdfFileName);
+									}
+								}
+								else
+								{
+									Tester.Message(downloadRes.message);
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	if (summaryReportContent)
+	{
+		const mdFileName  =  Global.GetFullPath(TestRunnerSettings.GetDataPath(`${summaryReportName}.md`));
+		File.Write(mdFileName, `# ${summaryReportName}\n\n`);
+		File.Append(mdFileName, summaryReportContent);
+		
+		const pdfFileName =  Global.GetFullPath(TestRunnerSettings.GetDataPath(`${summaryReportName}.pdf`));
+		PdfUtil.ConvertMDtoPDF(mdFileName, pdfFileName);
+		return pdfFileName;
+	}
+
+	return new SeSDoActionResult(true, null);
 }
 
 /**
@@ -334,10 +410,14 @@ function TestRunner_DoMarkdownToPdf(/**string*/ mdFileName, /**string*/ pdfFileN
 
 var _paramInfoTestRunner_DoMarkdownToPdf = {
 	mdFileName: {
-		description: "Input file in Markdown format."
+		description: "Input file in Markdown format.",
+		binding: "path",
+		ext: "md"
 	},
 	pdfFileName: {
-		description: "Output file in PDF format."
+		description: "Output file in PDF format.",
+		binding: "path",
+		ext: "pdf"
 	},
 	open: {
 		description: "Set to `true` to open the result once generated.",
@@ -374,10 +454,14 @@ function TestRunner_DoTrpToPdf(/**string*/ trpFileName, /**string*/ pdfFileName)
 
 var _paramInfoTestRunner_DoTrpToPdf = {
 	trpFileName: {
-		description: "Input file in TRP format."
+		description: "Input file in TRP format.",
+		binding: "path",
+		ext: "trp"
 	},
 	pdfFileName: {
-		description: "Output file in PDF format."
+		description: "Output file in PDF format.",
+		binding: "path",
+		ext: "pdf"
 	}
 }
 
@@ -466,10 +550,14 @@ function TestRunner_DoReportToPdf(/**string*/ trpFileName, /**string*/ pdfFileNa
 
 var _paramInfoTestRunner_DoReportToPdf = {
 	trpFileName: {
-		description: "Input file in TRP format."
+		description: "Input file in TRP format.",
+		binding: "path",
+		ext: "trp"
 	},
 	pdfFileName: {
-		description: "Output file in PDF format."
+		description: "Output file in PDF format.",
+		binding: "path",
+		ext: "pdf"
 	},
 	browserType: {
 		descritpion: "`chrome` or `edge`.",
@@ -490,9 +578,11 @@ var _paramInfoTestRunner_DoReportToPdf = {
 /**
  * Queries test run history from Spira and saves data for further use by DoAiReport* actions.
  */
-function TestRunner_DoAnalyzeRunHistory(/**number*/ projectId, /**boolean*/ automated, /**number*/ days, /**number*/ batchSize, /**boolean*/ failuresOnly, /**string*/ baseName)
+function TestRunner_DoAnalyzeRunHistory(/**string*/ projectNameOrId, /**boolean*/ automated, /**number*/ days, /**number*/ batchSize, /**boolean*/ failuresOnly, /**string*/ baseName)
 {
 	TestRunnerUtil.CheckCompatibility();
+	
+	const projectId = Spira.GetProjectId(projectNameOrId);
 
 	if (!baseName)
 	{
@@ -504,6 +594,9 @@ function TestRunner_DoAnalyzeRunHistory(/**number*/ projectId, /**boolean*/ auto
 	{
 		automated = true;
 	}
+	
+	days = days || 7;
+	batchSize = batchSize || 5000;
 	
 	TestRunnerUtil.Init();
 
@@ -524,25 +617,29 @@ function TestRunner_DoAnalyzeRunHistory(/**number*/ projectId, /**boolean*/ auto
 }
 
 var _paramInfoTestRunner_DoAnalyzeRunHistory = {
-	projectId: {
-		description: "Id of project in Spira to query.",
-		defaultValue: 1
+	projectNameOrId: {
+		description: "Name or Id of a project in Spira to query.",
+		defaultValue: "TBD"
 	},
 	automated: {
 		description: "If `true`, query automated test runs; otherwise, query manual.",
-		defaultValue: true
+		defaultValue: true,
+		optional: true
 	},
 	days: {
 		description: "Query all test runs not older than the specified number of days.",
-		defaultValue: 7
+		defaultValue: 7,
+		optional: true
 	},
 	batchSize: {
 		description: "Number of test runs to query in each batch request. Change to achieve better performance.",
-		defaultValue: 5000
+		defaultValue: 5000,
+		optional: true
 	},
 	failuresOnly: {
 		description: "Process only those test runs that did not pass.",
-		defaultValue: true
+		defaultValue: true,
+		optional: true
 	},
 	baseName: {
 		description: "Base name for intermediate data files.",
@@ -554,9 +651,11 @@ var _paramInfoTestRunner_DoAnalyzeRunHistory = {
 /**
  * Discovers flaky tests and saves their test run data for further use by  DoAiReport* actions.
  */
-function TestRunner_DoAnalyzeFlakyTestCases(/**number*/ projectId, /**boolean*/ automated, /**number*/ runCount, /**number*/ batchSize, /**number*/ tcCount, /**string*/ baseName)
+function TestRunner_DoAnalyzeFlakyTestCases(/**string*/ projectNameOrId, /**boolean*/ automated, /**number*/ runCount, /**number*/ batchSize, /**number*/ tcCount, /**string*/ baseName)
 {
 	TestRunnerUtil.CheckCompatibility();
+
+	const projectId = Spira.GetProjectId(projectNameOrId);
 
 	if (!baseName)
 	{
@@ -568,6 +667,10 @@ function TestRunner_DoAnalyzeFlakyTestCases(/**number*/ projectId, /**boolean*/ 
 	{
 		automated = true;
 	}
+	
+	runCount = runCount || 10000;
+	batchSize = batchSize || 5000;
+	tcCount = tcCount || 20;
 	
 	TestRunnerUtil.Init();
 
@@ -587,21 +690,29 @@ function TestRunner_DoAnalyzeFlakyTestCases(/**number*/ projectId, /**boolean*/ 
 }
 
 var _paramInfoTestRunner_DoAnalyzeFlakyTestCases = {
-	projectId: {
-		description: "Id of project in Spira to query."
+	projectNameOrId: {
+		description: "Name or Id of a project in Spira to query.",
+		defaultValue: "TBD"
 	},
 	automated: {
 		description: "If `true` - query automated test runs, otherwise query manual.",
-		defaultValue: true
+		defaultValue: true,
+		optional: true
 	},
 	runCount: {
-		description: "Number of recent test runs to query."
+		description: "Number of recent test runs to query.",
+		defaultValue: 10000,
+		optional: true
 	},
 	batchSize: {
-		description: "Number of test runs to query in each batch request. Change to achieve better performance."
+		description: "Number of test runs to query in each batch request. Change to achieve better performance.",
+		defaultValue: 5000,
+		optional: true
 	},
 	tcCount: {
-		description: "Number of top flaky test cases to analyze."
+		description: "Number of top flaky test cases to analyze.",
+		defaultValue: 20,
+		optional: true
 	},
 	baseName: {
 		description: "Base name for intermediate data files.",
@@ -665,20 +776,20 @@ var _paramInfoTestRunner_DoSaveFileToSpira = {
 		description: "Id of the document folder in Spira."
 	},
 	path: {
-		description: "Path to the file to save."
+		description: "Path to the file to save.",
+		binding: "path"
 	}
 };
 
-function TestRunner_SetParameter(/**string*/ name, /**object*/ value)
+function TestRunner_SetParameter(/**string*/ name, /**string|number*/ value)
 {
 	TestRunnerUtil.CheckCompatibility();
-
-	Global.SetProperty(name, value, TestRunnerSettings.ConfigFileName);
+	TestRunnerSettings.SetParameter(name, value);
 }
 
 var _paramInfoTestRunner_SetParameter = {
 	name: {
-		description: "Parameter name."
+		description: "Parameter name. Supported names are:\n  - ExcludeFromAnalysis - comma-separated list of Test Case names to exclude\n  - MinNumberOfTestRuns - if a test case has less than this specified number of runs then it will be excluded from DoAnalyzeFlakyTestCases. Default value is 10.\n  - MaxNumberOfTestRuns - maximum number of test runs that can be fetched from Spira. The default value is 100,000. The more data you fetch, the greater the load on the server and the longer it takes.\n  - BaseName - set this property to avoid passing it explicitly to various methods of TestRunner. Some methods that generate data will prepend the base name to the file names they produce. Also, TestRunner.DoAiReport* methods will grab data from the files with this prefix."
 	},
 	value: {
 		description: "Parameter value."

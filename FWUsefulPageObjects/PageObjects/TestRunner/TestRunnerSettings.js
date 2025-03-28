@@ -29,6 +29,18 @@ const TestRunnerSettings =
 		}
 	},
 	
+	SetParameter(name, value)
+	{
+		if (typeof(value) == "string")
+		{
+			if (name == "MinNumberOfTestRuns" || name == "MaxNumberOfTestRuns")
+			{
+				value = parseInt(value);
+			}
+		}
+		Global.SetProperty(name, value, this.ConfigFileName);
+	},
+	
 	GetDataPath(fileName)
 	{
 		const basePath =  Global.GetProperty("DataFolder", "AiReports", this.ConfigFileName);
