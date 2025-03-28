@@ -58,6 +58,9 @@
         <Path>d3.js</Path>
       </TestFile>
       <TestFile>
+        <Path>Dropdowns.xlsx</Path>
+      </TestFile>
+      <TestFile>
         <Path>Main.js</Path>
       </TestFile>
       <TestFile>

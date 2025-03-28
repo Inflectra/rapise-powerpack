@@ -346,6 +346,6 @@
 		"extend_rule": "",
 		"description": "TestRunner. Allows to easily rerun failed tests. \r\nHelps to analyze failures, flaky test cases  and generate reports and graphs.",
 		"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js",
-		"version": "0.0.3"
+		"version": "0.0.4"
 	}
 }
