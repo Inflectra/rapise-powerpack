@@ -273,28 +273,57 @@ const SpiraUtil =
 		{
 			return {"Name" : "Undefined"};
 		}
-	
+
 		if (this.testSetCache[testSetId])
 		{
 			return this.testSetCache[testSetId];
 		}
-	
-		const query = "projects/{project_id}/test-sets/{test_set_id}";
 		
-		const req = SpiraApiUtil_GetSpiraRequest("GET", query);
-		req.SetParameter('project_id', projectId);
-		req.SetParameter('test_set_id', testSetId);
-		
-		const response = req._DoExecute();
-		
-		if(response.status)
+		if(typeof(testSetId)=='number' || !isNaN(testSetId-0))
 		{
-			const ts = req.GetResponseBodyObject();
-			this.testSetCache[testSetId] = ts;
-			return ts;
-		} else {
-			SpiraApiUtil_LogError('Test set query failed in project: ' + projectId);
-			return false;
+			const query = "projects/{project_id}/test-sets/{test_set_id}";
+			
+			const req = SpiraApiUtil_GetSpiraRequest("GET", query);
+			req.SetParameter('project_id', projectId);
+			req.SetParameter('test_set_id', testSetId);
+			
+			const response = req._DoExecute();
+			
+			if(response.status)
+			{
+				const ts = req.GetResponseBodyObject();
+				this.testSetCache[testSetId] = ts;
+				return ts;
+			} else {
+				SpiraApiUtil_LogError('Test set query failed in project: ' + projectId);
+				return false;
+			}
+		}
+		else
+		{
+			const query = "projects/{project_id}/test-sets/search?starting_row=0&number_of_rows=5";
+			const req = SpiraApiUtil_GetSpiraRequest("POST", query);
+	
+			req.SetParameter('project_id', projectId);
+			req.SetRequestBodyObject([
+				{
+					"PropertyName": "Name",
+					"StringValue": testSetId
+				}
+			]);
+			var res = req._DoExecute();
+			
+			if( res.status && req.GetResponseBodyObject() && req.GetResponseBodyObject().length==1 )
+			{
+				const ts = req.GetResponseBodyObject()[0];
+				this.testSetCache[testSetId] = ts;
+				return ts;
+			}
+			else
+			{
+				SpiraApiUtil_LogError('Test set query failed in project: ' + projectId);
+				return false;
+			}
 		}
 	},
 

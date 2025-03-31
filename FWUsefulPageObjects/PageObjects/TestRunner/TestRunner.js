@@ -1,7 +1,7 @@
  /**
  * @PageObject TestRunner. Allows to easily rerun failed tests. 
  * Helps to analyze failures, flaky test cases  and generate reports and graphs.
- * @Version 0.0.6
+ * @Version 0.0.7
  */
 SeSPageObject("TestRunner");
 
@@ -46,6 +46,8 @@ function TestRunner_DoAnalyzeFailuresFor(/**string*/ projectNameOrId, /**string*
 	{
 		return new SeSDoActionResult(false, null, res?.message);
 	}
+	
+	TestRunnerUtil.Init();
 	
 	const projectId = Spira.GetProjectId(projectNameOrId);
 	if (typeof(testSetNamesOrIds) == "number")
@@ -105,6 +107,8 @@ function TestRunner_DoAnalyzeFailuresRvl(/**string*/ rvlPath, /**string*/ summar
 	{
 		return new SeSDoActionResult(false, null, res?.message);
 	}
+	
+	TestRunnerUtil.Init();
 	
 	if (File.Exists(rvlPath))
 	{
