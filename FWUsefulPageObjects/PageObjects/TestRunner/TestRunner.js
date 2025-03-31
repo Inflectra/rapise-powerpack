@@ -1,7 +1,7 @@
  /**
  * @PageObject TestRunner. Allows to easily rerun failed tests. 
  * Helps to analyze failures, flaky test cases  and generate reports and graphs.
- * @Version 0.0.5
+ * @Version 0.0.6
  */
 SeSPageObject("TestRunner");
 
@@ -216,11 +216,22 @@ function TestRunnerAnalyzeTestSetFailures(testSets, summaryReportName)
 }
 
 /**
- * Reruns test sets that were not executed or failed. Returns the number of scheduled test sets.
+ * Discovers test sets triggered with `Spira.RunTestSet` in a given RVL script, and reruns those that were not executed or failed on the day of running this action. If `rvlPath` is not set then executing RVL script is scanned. Returns the number of scheduled test sets.
  */
 function TestRunner_DoRerunFailedAndNotRun(/**string*/ rvlPath)
 {
 	TestRunnerUtil.CheckCompatibility();
+	
+	if (!rvlPath)
+	{
+		if(RVL._current_rvl_execution_stack) 
+		{
+			const stackItem = RVL._current_rvl_execution_stack.CurrentItem;
+			const item = stackItem.CurrItem();
+			const script = stackItem.Block.Script;
+			rvlPath = script.FileName;
+		}
+	}
 
 	if (File.Exists(rvlPath))
 	{
@@ -232,7 +243,7 @@ function TestRunner_DoRerunFailedAndNotRun(/**string*/ rvlPath)
 			scheduledTestSetCount++;
 		});
 		
-		return scheduledTestSetCount;
+		return new SeSDoActionResult(true, scheduledTestSetCount);
 	}
 	
 	Log(`Error: RVL file not found: ${rvlPath}`);
@@ -243,7 +254,8 @@ var _paramInfoTestRunner_DoRerunFailedAndNotRun = {
 	rvlPath: {
 		description: "Path to RVL script that triggers Spira.RunTestSet actions.",
 		binding: "path",
-		ext: "rvl.xlsx"
+		ext: "rvl.xlsx",
+		optional: true
 	}
 }
 

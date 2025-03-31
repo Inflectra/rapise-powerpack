@@ -1319,7 +1319,7 @@
 			},
 			{
 				"name": "DoRerunFailedAndNotRun",
-				"description": "Reruns test sets that were not executed or failed. Returns the number of scheduled test sets.\r\n",
+				"description": "Discovers test sets triggered with `Spira.RunTestSet` in a given RVL script, and reruns those that were not executed or failed on the day of running this action. If `rvlPath` is not set then executing RVL script is scanned. Returns the number of scheduled test sets.\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/ rvlPath",
@@ -1327,7 +1327,8 @@
 					"rvlPath": {
 						"description": "Path to RVL script that triggers Spira.RunTestSet actions.",
 						"binding": "path",
-						"ext": "rvl.xlsx"
+						"ext": "rvl.xlsx",
+						"optional": true
 					}
 				},
 				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(221,10)"
@@ -1348,7 +1349,7 @@
 						"defaultValue": "TestRunInfo"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(253,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(265,10)"
 			},
 			{
 				"name": "DoAiReportPy",
@@ -1371,7 +1372,7 @@
 						"defaultValue": ""
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(290,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(302,10)"
 			},
 			{
 				"name": "DoAiReportHtml",
@@ -1394,7 +1395,7 @@
 						"defaultValue": ""
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(331,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(343,10)"
 			},
 			{
 				"name": "DoMarkdownToPdf",
@@ -1419,7 +1420,7 @@
 						"defaultValue": false
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(416,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(428,10)"
 			},
 			{
 				"name": "DoTrpToPdf",
@@ -1439,7 +1440,7 @@
 						"ext": "pdf"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(451,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(463,10)"
 			},
 			{
 				"name": "DoReportToPdf",
@@ -1477,7 +1478,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(487,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(499,10)"
 			},
 			{
 				"name": "DoAnalyzeRunHistory",
@@ -1516,7 +1517,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(600,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(612,10)"
 			},
 			{
 				"name": "DoAnalyzeFlakyTestCases",
@@ -1555,7 +1556,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(673,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(685,10)"
 			},
 			{
 				"name": "DoSaveFileToSpira",
@@ -1575,7 +1576,7 @@
 						"binding": "path"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(746,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(758,10)"
 			},
 			{
 				"name": "SetParameter",
@@ -1591,7 +1592,7 @@
 						"description": "Parameter value."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(804,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(816,10)"
 			},
 			{
 				"name": "DoDailySummaryReport",
@@ -1611,14 +1612,14 @@
 						"defaultValue": "DailySummaryReport"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(822,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(834,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "TestRunner. Allows to easily rerun failed tests. \r\nHelps to analyze failures, flaky test cases  and generate reports and graphs.",
 		"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js",
-		"version": "0.0.5",
+		"version": "0.0.6",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/TestRunner"
 	},
 	"WebPageHelper": {
