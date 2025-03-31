@@ -18,7 +18,7 @@ const SpiraUtil =
 			const testSets = req.GetResponseBodyObject();
 			return testSets;
 		} else {
-			SpiraApiUtil_LogError('Test set query failed in project: ' + projectId);
+			SpiraApiUtil_LogError('Get Test Sets Executed Today query failed in project: ' + projectId);
 			return false;
 		}
 	},
@@ -315,9 +315,18 @@ const SpiraUtil =
 			
 			if( res.status && req.GetResponseBodyObject() && req.GetResponseBodyObject().length==1 )
 			{
-				const ts = req.GetResponseBodyObject()[0];
-				this.testSetCache[testSetId] = ts;
-				return ts;
+				const _ts = req.GetResponseBodyObject()[0];
+				if (_ts.Name = testSetId)
+				{
+					const ts = _ts;
+					this.testSetCache[testSetId] = ts;
+					return ts;
+				}
+				else
+				{
+					SpiraApiUtil_LogError(`Test set not found: ${testSetId}`);
+					return false;
+				}
 			}
 			else
 			{

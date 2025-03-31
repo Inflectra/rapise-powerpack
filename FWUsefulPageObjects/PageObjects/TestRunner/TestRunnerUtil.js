@@ -318,7 +318,7 @@ ${data}
 								
 								if (failedAndNotRunOnly && testSetFailed)
 								{
-									Tester.Message("Test Set failed: " + projectInfo[projectId].Name + "/" + testSet.Name);
+									Tester.Message("Found failed Test Set: " + projectInfo[projectId].Name + "/" + testSet.Name);
 								}
 								
 								if ((failedAndNotRunOnly && testSetFailed) || !failedAndNotRunOnly)
