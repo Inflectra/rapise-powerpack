@@ -1,7 +1,7 @@
  /**
  * @PageObject TestRunner. Allows to easily rerun failed tests. 
  * Helps to analyze failures, flaky test cases  and generate reports and graphs.
- * @Version 0.0.4
+ * @Version 0.0.5
  */
 SeSPageObject("TestRunner");
 
@@ -11,6 +11,25 @@ eval(File.IncludeOnce('%WORKDIR%/PageObjects/TestRunner/SpiraUtil.js'));
 eval(File.IncludeOnce('%WORKDIR%/PageObjects/TestRunner/PdfUtil.js'));
 
 const DefaultBaseName = "TestRunInfo";
+
+/**
+ * Analyzes TRP report and provides root cause analysis.
+ */
+function TestRunner_DoAnalyzeReport(/**string*/ title, /**string*/ path)
+{
+	return AiTester.DoAnalyzeReport(title, path);
+}
+
+var _paramInfoTestRunner_DoAnalyzeReport = {
+	title: {
+		description: "Report message title."
+	},
+	path: {
+		descripton: "Path to TRP report.",
+		binding: "path",
+		ext: "trp"
+	}
+}
 
 /**
  * Discovers failed test sets, corresponding test runs and executes root cause analysis for each failed test case.
@@ -724,7 +743,7 @@ var _paramInfoTestRunner_DoAnalyzeFlakyTestCases = {
 /**
  * Creates a document in Spira. Use it to attach generated reports.
  */
-function TestRunner_DoSaveFileToSpira(/**number*/ projectId, /**number*/ documentFolderId, /**string*/ path)
+function TestRunner_DoSaveFileToSpira(/**string*/ projectNameOrId, /**number*/ documentFolderId, /**string*/ path)
 {
 	TestRunnerUtil.CheckCompatibility();
 
@@ -736,6 +755,7 @@ function TestRunner_DoSaveFileToSpira(/**number*/ projectId, /**number*/ documen
 
 	path = Global.GetFullPath(path);
 
+	const projectId = Spira.GetProjectId(projectNameOrId);
 	const project = Spira.GetProjectById(projectId);
 	if (!project)
 	{
@@ -769,14 +789,14 @@ function TestRunner_DoSaveFileToSpira(/**number*/ projectId, /**number*/ documen
 }
 
 var _paramInfoTestRunner_DoSaveFileToSpira = {
-	projectId: {
-		description: "Id of the project in Spira."
+	projectNameOrId: {
+		description: "Name or Id of a project in Spira."
 	},
 	documentFolderId: {
-		description: "Id of the document folder in Spira."
+		description: "Id of a document folder in Spira."
 	},
 	path: {
-		description: "Path to the file to save.",
+		description: "Path to a file to save.",
 		binding: "path"
 	}
 };

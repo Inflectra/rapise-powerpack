@@ -280,11 +280,20 @@ ${data}
 						{
 							testSetId = parseInt(testSetId);
 						}
-						const hostToken = resObj.ctx.script.Rows[i + 1].ParamValue;
-						let projectId = resObj.ctx.script.Rows[i + 2].ParamValue;
-						if (resObj.ctx.script.Rows[i + 2].ParamType == "number")
+						let hostToken = "";
+						if ((i + 1) < resObj.ctx.script.Rows.length && resObj.ctx.script.Rows[i + 1].Type == "Param")
 						{
-							projectId = parseInt(projectId);
+							hostToken = resObj.ctx.script.Rows[i + 1].ParamValue;
+						}
+						hostToken = hostToken || Spira.GetHostToken();
+						let projectId = "";
+						if ((i + 2) < resObj.ctx.script.Rows.length && resObj.ctx.script.Rows[i + 2].Type == "Param")
+						{
+							projectId = resObj.ctx.script.Rows[i + 2].ParamValue;
+							if (resObj.ctx.script.Rows[i + 2].ParamType == "number")
+							{
+								projectId = parseInt(projectId);
+							}
 						}
 						projectId = Spira.GetProjectId(projectId);
 						
