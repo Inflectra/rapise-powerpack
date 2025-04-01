@@ -1,7 +1,7 @@
  /**
  * @PageObject TestRunner. Allows to easily rerun failed tests. 
  * Helps to analyze failures, flaky test cases  and generate reports and graphs.
- * @Version 0.0.9
+ * @Version 0.0.10
  */
 SeSPageObject("TestRunner");
 
@@ -207,6 +207,9 @@ function TestRunnerAnalyzeTestSetFailures(testSets, summaryReportName)
 
 	if (summaryReportContent)
 	{
+		const date =  UtilGetPaddedZeroesDate(new Date());
+		summaryReportName += `_${date}`;
+	
 		const mdFileName  =  Global.GetFullPath(TestRunnerSettings.GetDataPath(`${summaryReportName}.md`));
 		File.Write(mdFileName, `# ${summaryReportName}\n\n`);
 		File.Append(mdFileName, summaryReportContent);
@@ -214,6 +217,10 @@ function TestRunnerAnalyzeTestSetFailures(testSets, summaryReportName)
 		const pdfFileName =  Global.GetFullPath(TestRunnerSettings.GetDataPath(`${summaryReportName}.pdf`));
 		PdfUtil.ConvertMDtoPDF(mdFileName, pdfFileName);
 		return pdfFileName;
+	}
+	else
+	{
+		Tester.Message("No failures were found, so a report file was not generated.");
 	}
 
 	return new SeSDoActionResult(true, null);

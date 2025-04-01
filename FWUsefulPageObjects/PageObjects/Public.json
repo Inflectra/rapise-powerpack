@@ -1331,7 +1331,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(225,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(232,10)"
 			},
 			{
 				"name": "DoAiReport",
@@ -1349,7 +1349,7 @@
 						"defaultValue": "TestRunInfo"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(269,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(276,10)"
 			},
 			{
 				"name": "DoAiReportPy",
@@ -1372,7 +1372,7 @@
 						"defaultValue": ""
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(306,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(313,10)"
 			},
 			{
 				"name": "DoAiReportHtml",
@@ -1395,7 +1395,7 @@
 						"defaultValue": ""
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(347,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(354,10)"
 			},
 			{
 				"name": "DoMarkdownToPdf",
@@ -1420,7 +1420,7 @@
 						"defaultValue": false
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(432,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(439,10)"
 			},
 			{
 				"name": "DoTrpToPdf",
@@ -1440,7 +1440,7 @@
 						"ext": "pdf"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(467,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(474,10)"
 			},
 			{
 				"name": "DoReportToPdf",
@@ -1478,7 +1478,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(503,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(510,10)"
 			},
 			{
 				"name": "DoAnalyzeRunHistory",
@@ -1517,7 +1517,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(616,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(623,10)"
 			},
 			{
 				"name": "DoAnalyzeFlakyTestCases",
@@ -1556,7 +1556,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(689,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(696,10)"
 			},
 			{
 				"name": "DoSaveFileToSpira",
@@ -1576,7 +1576,7 @@
 						"binding": "path"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(762,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(769,10)"
 			},
 			{
 				"name": "SetParameter",
@@ -1592,7 +1592,7 @@
 						"description": "Parameter value."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(820,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(827,10)"
 			},
 			{
 				"name": "DoDailySummaryReport",
@@ -1612,14 +1612,14 @@
 						"defaultValue": "DailySummaryReport"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(838,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(845,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "TestRunner. Allows to easily rerun failed tests. \r\nHelps to analyze failures, flaky test cases  and generate reports and graphs.",
 		"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js",
-		"version": "0.0.9",
+		"version": "0.0.10",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/TestRunner"
 	},
 	"WebPageHelper": {
