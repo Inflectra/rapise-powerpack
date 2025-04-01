@@ -1,7 +1,7 @@
  /**
  * @PageObject TestRunner. Allows to easily rerun failed tests. 
  * Helps to analyze failures, flaky test cases  and generate reports and graphs.
- * @Version 0.0.8
+ * @Version 0.0.9
  */
 SeSPageObject("TestRunner");
 
@@ -825,7 +825,7 @@ function TestRunner_SetParameter(/**string*/ name, /**string|number*/ value)
 
 var _paramInfoTestRunner_SetParameter = {
 	name: {
-		description: "Parameter name. Supported names are:\n  - ExcludeFromAnalysis - comma-separated list of Test Case names to exclude\n  - MinNumberOfTestRuns - if a test case has less than this specified number of runs then it will be excluded from DoAnalyzeFlakyTestCases. Default value is 10.\n  - MaxNumberOfTestRuns - maximum number of test runs that can be fetched from Spira. The default value is 100,000. The more data you fetch, the greater the load on the server and the longer it takes.\n  - BaseName - set this property to avoid passing it explicitly to various methods of TestRunner. Some methods that generate data will prepend the base name to the file names they produce. Also, TestRunner.DoAiReport* methods will grab data from the files with this prefix."
+		description: "Parameter name. Supported names are:\n  - ExcludeFromAnalysis - comma-separated list of Test Case names to exclude\n  - MinNumberOfTestRuns - if a test case has less than this specified number of runs then it will be excluded from DoAnalyzeFlakyTestCases. Default value is 10.\n  - BaseName - set this property to avoid passing it explicitly to various methods of TestRunner. Some methods that generate data will prepend the base name to the file names they produce. Also, TestRunner.DoAiReport* methods will grab data from the files with this prefix."
 	},
 	value: {
 		description: "Parameter value."
