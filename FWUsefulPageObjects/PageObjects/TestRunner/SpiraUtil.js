@@ -202,11 +202,11 @@ const SpiraUtil =
 		}
 	},
 	
-	UploadDocument(projectId, documentFolderId, documentTypeId, path)
+	UploadDocument(projectId, documentFolderId, documentTypeId, path, documentName)
 	{
 		const query = `projects/${projectId}/documents/file`;
 
-		const fileName = path.split('\\').pop().split('/').pop();
+		const fileName = documentName || path.split('\\').pop().split('/').pop();
 		const fs = require('fs');
 		const fileData = fs.readFileSync(path);
 		const base64String = fileData.toString('base64');

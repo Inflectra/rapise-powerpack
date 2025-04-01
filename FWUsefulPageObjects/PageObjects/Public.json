@@ -1331,7 +1331,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(232,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(229,10)"
 			},
 			{
 				"name": "DoAiReport",
@@ -1349,7 +1349,7 @@
 						"defaultValue": "TestRunInfo"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(276,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(273,10)"
 			},
 			{
 				"name": "DoAiReportPy",
@@ -1372,7 +1372,7 @@
 						"defaultValue": ""
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(313,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(310,10)"
 			},
 			{
 				"name": "DoAiReportHtml",
@@ -1395,7 +1395,7 @@
 						"defaultValue": ""
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(354,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(351,10)"
 			},
 			{
 				"name": "DoMarkdownToPdf",
@@ -1420,7 +1420,7 @@
 						"defaultValue": false
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(439,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(436,10)"
 			},
 			{
 				"name": "DoTrpToPdf",
@@ -1440,7 +1440,7 @@
 						"ext": "pdf"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(474,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(471,10)"
 			},
 			{
 				"name": "DoReportToPdf",
@@ -1478,7 +1478,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(510,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(507,10)"
 			},
 			{
 				"name": "DoAnalyzeRunHistory",
@@ -1517,7 +1517,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(623,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(620,10)"
 			},
 			{
 				"name": "DoAnalyzeFlakyTestCases",
@@ -1556,14 +1556,14 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(696,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(693,10)"
 			},
 			{
 				"name": "DoSaveFileToSpira",
 				"description": "Creates a document in Spira. Use it to attach generated reports.\r\n",
 				"type": "",
 				"returns": "",
-				"signature": "/**string*/ projectNameOrId, /**number*/ documentFolderId, /**string*/ path",
+				"signature": "/**string*/ projectNameOrId, /**number*/ documentFolderId, /**string*/ path, /**string*/ documentName, /**boolean*/ timestamp",
 				"paramInfo": {
 					"projectNameOrId": {
 						"description": "Name or Id of a project in Spira."
@@ -1574,9 +1574,19 @@
 					"path": {
 						"description": "Path to a file to save.",
 						"binding": "path"
+					},
+					"documentName": {
+						"description": "Name for the document in Spira. If a name is not specified, it is derived from the input file name.",
+						"optional": true,
+						"defaultValue": ""
+					},
+					"timestamp": {
+						"description": "Add timestamp to the document name.",
+						"optional": true,
+						"defaultValue": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(769,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(766,10)"
 			},
 			{
 				"name": "SetParameter",
@@ -1592,7 +1602,7 @@
 						"description": "Parameter value."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(827,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(849,10)"
 			},
 			{
 				"name": "DoDailySummaryReport",
@@ -1612,14 +1622,14 @@
 						"defaultValue": "DailySummaryReport"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(845,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(867,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "TestRunner. Allows to easily rerun failed tests. \r\nHelps to analyze failures, flaky test cases  and generate reports and graphs.",
 		"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js",
-		"version": "0.0.10",
+		"version": "0.0.11",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/TestRunner"
 	},
 	"WebPageHelper": {

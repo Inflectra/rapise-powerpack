@@ -1,7 +1,7 @@
  /**
  * @PageObject TestRunner. Allows to easily rerun failed tests. 
  * Helps to analyze failures, flaky test cases  and generate reports and graphs.
- * @Version 0.0.10
+ * @Version 0.0.11
  */
 SeSPageObject("TestRunner");
 
@@ -207,9 +207,6 @@ function TestRunnerAnalyzeTestSetFailures(testSets, summaryReportName)
 
 	if (summaryReportContent)
 	{
-		const date =  UtilGetPaddedZeroesDate(new Date());
-		summaryReportName += `_${date}`;
-	
 		const mdFileName  =  Global.GetFullPath(TestRunnerSettings.GetDataPath(`${summaryReportName}.md`));
 		File.Write(mdFileName, `# ${summaryReportName}\n\n`);
 		File.Append(mdFileName, summaryReportContent);
@@ -766,7 +763,7 @@ var _paramInfoTestRunner_DoAnalyzeFlakyTestCases = {
 /**
  * Creates a document in Spira. Use it to attach generated reports.
  */
-function TestRunner_DoSaveFileToSpira(/**string*/ projectNameOrId, /**number*/ documentFolderId, /**string*/ path)
+function TestRunner_DoSaveFileToSpira(/**string*/ projectNameOrId, /**number*/ documentFolderId, /**string*/ path, /**string*/ documentName, /**boolean*/ timestamp)
 {
 	TestRunnerUtil.CheckCompatibility();
 
@@ -775,8 +772,23 @@ function TestRunner_DoSaveFileToSpira(/**string*/ projectNameOrId, /**number*/ d
 		Log("Warning: empty path in DoSaveFileToSpira");
 		return true;
 	}
+	
+	if (typeof(timestamp) == "undefined")
+	{
+		timestamp = true;
+	}
 
 	path = Global.GetFullPath(path);
+	documentName = documentName || path.split('\\').pop().split('/').pop();
+	
+	if (timestamp)
+	{
+		const parts = documentName.split('.');
+		const extension = parts.length > 1 ? '.' + parts.pop() : '';
+		const baseName = parts.join('.');
+		const timestampString =  UtilGetPaddedZeroesDate(new Date());
+		documentName = baseName + '_' + timestampString + extension;
+	}
 
 	const projectId = Spira.GetProjectId(projectNameOrId);
 	const project = Spira.GetProjectById(projectId);
@@ -807,7 +819,7 @@ function TestRunner_DoSaveFileToSpira(/**string*/ projectNameOrId, /**number*/ d
 		return false;
 	}
 	
-	const documentId = SpiraUtil.UploadDocument(projectId, documentFolderId, defaultDocumentTypeId, path);
+	const documentId = SpiraUtil.UploadDocument(projectId, documentFolderId, defaultDocumentTypeId, path, documentName);
 	return documentId;
 }
 
@@ -821,6 +833,16 @@ var _paramInfoTestRunner_DoSaveFileToSpira = {
 	path: {
 		description: "Path to a file to save.",
 		binding: "path"
+	},
+	documentName: {
+		description: "Name for the document in Spira. If a name is not specified, it is derived from the input file name.",
+		optional: true,
+		defaultValue: ""
+	},
+	timestamp: {
+		description: "Add timestamp to the document name.",
+		optional: true,
+		defaultValue: true
 	}
 };
 
@@ -848,11 +870,6 @@ function TestRunner_DoDailySummaryReport(/**string*/ rvlPath, /**string*/ summar
 
 	summaryReportName = summaryReportName || "DailySummaryReport";
 	
-	const date =  UtilGetPaddedZeroesDate(new Date());
-	
-	summaryReportName += `_${date}`;
-
-
 	const model = {
 		testSets: []
 	};
