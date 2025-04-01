@@ -610,7 +610,7 @@ ${data}
 			if (line.endsWith(","))
 				line = line.slice(0, -1);
 			File.Append(fn, `${line}\n`);
-			File.Append(fnjs, `\`${line}\`,\n`);
+			File.Append(fnjs, JSON.stringify(line)+`,\n`);
 			lineCount++;
 		});
 		File.Append(fnjs, "];");
@@ -631,7 +631,7 @@ ${data}
 			{
 				lastTestRunName = testRun.Name
 				File.Append(fn, `${lastTestRunName}\n`);
-				File.Append(fnjs, `\`${lastTestRunName}\`,\n`);
+				File.Append(fnjs, JSON.stringify(lastTestRunName)+`,\n`);
 			}
 			const startDate = testRun.StartDate.slice(0, -5);
 			const status = testRun.Status[0];
@@ -641,7 +641,7 @@ ${data}
 			if (line.endsWith(","))
 				line = line.slice(0, -1);
 			File.Append(fn, `${line}\n`);
-			File.Append(fnjs, `\`${line}\`,\n`);
+			File.Append(fnjs, JSON.stringify(line)+`,\n`);
 		});
 		File.Append(fnjs, "];");
 	}
