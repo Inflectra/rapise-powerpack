@@ -18,10 +18,10 @@ const TestRunnerUtil =
 
 	Init()
 	{
-		if (!File.FolderExists(g_workDir + "\\node_modules"))
+		if (!File.FolderExists(g_workDir + "\\PageObjects\\TestRunner\\node_modules"))
 		{
 			const npmCmd = g_helper.ResolvePath("InstrumentJS/npm.cmd");
-			const result = g_util.Run(`"${npmCmd}" install --prefix "${g_workDir}"`, `${g_workDir}\\PageObjects\\TestRunner`);
+			const result = g_util.Run(`"${npmCmd}" ci"`, `${g_workDir}\\PageObjects\\TestRunner`);
 			Log(result);
 		}
 		

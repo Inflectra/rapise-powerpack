@@ -10,7 +10,7 @@ const PdfUtil = {
 	
 		const deasync = require("deasync");
 		const fs = require('fs');
-		const markdownpdf = require("markdown-pdf");
+		const markdownpdf = require(Global.GetFullPath("PageObjects\\TestRunner\\node_modules\\markdown-pdf"));
 
 		const markdownPdfOptions = {
 			// Optional configuration (see markdown-pdf documentation)
@@ -51,8 +51,8 @@ const PdfUtil = {
 	
 		const deasync = require("deasync");
 		const fs = require("fs");
-		const sharp = require("sharp");
-		const PdfPrinter = require("pdfmake");
+		const sharp = require(Global.GetFullPath("PageObjects\\TestRunner\\node_modules\\sharp"));
+		const PdfPrinter = require(Global.GetFullPath("PageObjects\\TestRunner\\node_modules\\pdfmake"));
 
 		function findAttribute(name, attributes) {
 			const attr = attributes.find(a => a.name === name);
@@ -319,7 +319,7 @@ const PdfUtil = {
 			
 			console.log(`${numberOfEntries} report entries fetched in ${elapsed} seconds`);
 			
-			const vfs = await require('pdfmake/build/vfs_fonts.js');
+			const vfs = await require(Global.GetFullPath("PageObjects\\TestRunner\\node_modules\\pdfmake\\build\\vfs_fonts.js"));
 
 			const fonts = {
 				Roboto: {
