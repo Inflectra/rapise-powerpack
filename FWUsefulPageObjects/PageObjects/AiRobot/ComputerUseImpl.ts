@@ -265,6 +265,19 @@ export class ComputerUseImpl {
   };
 
   private static getBestTarget(width: number, height: number): ScalingTarget {
+    // Define minimum target size (XGA: 1024x768)
+    const minTarget = this.MAX_SCALING_TARGETS.XGA;
+    
+    // Check if the image is smaller than the minimum target size
+    if (width < minTarget.width || height < minTarget.height) {
+      // For smaller images, we'll keep the original size and add padding later
+      return { 
+        target: minTarget, 
+        scale_factor: 1 // No scaling, we'll pad instead
+      };
+    }
+    
+    // For images larger than or equal to minimum target size, use the original logic
     for (const target of Object.values(this.MAX_SCALING_TARGETS)) {
       if (width <= target.width && height <= target.height) {
         return { target, scale_factor: 1 }; // No scaling needed
@@ -299,14 +312,44 @@ export class ComputerUseImpl {
     let img_scaled = img;
     const metadata_scaled: sharp.Metadata = { ...metadata };
 
-    if (scale_factor < 1) {
-      metadata_scaled.width = Math.round(metadata.width * scale_factor);
-      metadata_scaled.height = Math.round(metadata.height * scale_factor);
+    // If the image is smaller than the minimum target size (1024x768), add black padding
+    if (scale_factor == 1 && metadata.width <= target.width && metadata.height <= target.height) {
+      // Keep the original image in the top-left corner and add black padding
+      metadata_scaled.width = target.width;
+      metadata_scaled.height = target.height;
 
-      img_scaled = img.resize({
-        width: metadata_scaled.width,
-        height: metadata_scaled.height,
+      img_scaled = img.extend({
+        top: 0,
+        bottom: target.height - metadata.height,
+        left: 0,
+        right: target.width - metadata.width,
+        background: { r: 0, g: 0, b: 0, alpha: 1 } // Black background
       });
+    }
+    // If the image is larger than the target size, scale it down
+    else if (scale_factor < 1) {
+      // Calculate the scaled dimensions
+      const scaledWidth = Math.round(metadata.width * scale_factor);
+      const scaledHeight = Math.round(metadata.height * scale_factor);
+      
+      // First resize the image
+      img_scaled = img.resize({
+        width: scaledWidth,
+        height: scaledHeight,
+      });
+      
+      // Then extend it to match the target dimensions and fill with black background
+      img_scaled = img_scaled.extend({
+        top: 0,
+        bottom: target.height - scaledHeight,
+        left: 0,
+        right: target.width - scaledWidth,
+        background: { r: 0, g: 0, b: 0, alpha: 1 } // Black background
+      });
+      
+      // Update metadata to reflect the final dimensions (target dimensions)
+      metadata_scaled.width = target.width;
+      metadata_scaled.height = target.height;
     }
 
     return { img, img_scaled, scale_factor, metadata, metadata_scaled };
@@ -316,6 +359,22 @@ export class ComputerUseImpl {
     const physicalX = Math.round(coordinate[0] / scaleFactor);
     const physicalY = Math.round(coordinate[1] / scaleFactor);
     return [physicalX, physicalY];
+  }
+
+  /**
+   * Escapes special characters in SendKeys syntax
+   * Special characters: + (shift), ^ (ctrl), % (alt), { and } (braces)
+   * @param text The text to escape
+   * @returns The escaped text
+   */
+  private static escapeSendKeysSpecialChars(text: string): string {
+    // Replace special characters with their escaped versions
+    return text
+      .replace(/\{/g, "{{}") // Escape { with {{} (literal left brace)
+      .replace(/\}/g, "{}}") // Escape } with {}} (literal right brace)
+      .replace(/\+/g, "{+}") // Escape + with {+} (literal plus)
+      .replace(/\^/g, "{^}") // Escape ^ with {^} (literal caret)
+      .replace(/%/g, "{%}"); // Escape % with {%} (literal percent)
   }
 
   private static convertToSendKeys(xdtoolKey: string): string {
@@ -439,8 +498,9 @@ export class ComputerUseImpl {
           if (!action.text) {
             throw new Error("Text is required for type action.");
           }
+          const escapedText = this.escapeSendKeysSpecialChars(action.text);
           window.Log(`Typing text: "${action.text}"`);
-          window.DoSendKeys(action.text);
+          window.DoSendKeys(escapedText);
           return new ToolResult({ output: `Typed text: "${action.text}".` });
   
         // Utility actions
