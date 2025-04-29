@@ -134,7 +134,7 @@ interface AnthropicResponse {
   usage: AnthropicResponseUsage;
 }
 
-type Action =
+type Action241022 =
   | "rapise_assert"
   | "rapise_set_return_value"
   | "rapise_print_message"
@@ -149,15 +149,46 @@ type Action =
   | "screenshot"
   | "cursor_position";
 
-  type ToolUseAction = {
-    action: Action; // Use the Action type here
-    text?: string; // Optional text for typing, logging, or assertions
-    coordinate?: [number, number]; // Optional coordinates for mouse-related actions
-    pass?: boolean; // Optional boolean for assertion success/failure
-    val?: string | number | boolean; // Optional value for setting return values
-    additionalData?: string; // Optional additional context for assertions
-  };
-  
+type Action251022 =  
+  | "left_mouse_down"
+  | "left_mouse_up"
+  | "scroll"
+  | "hold_key"
+  | "wait"
+  | "triple_click";
+
+type Action = Action241022 | Action251022;
+
+type ToolUseAction = {
+  action: Action; // Use the Action type here
+  text?: string; // Optional text for typing, logging, or assertions
+  coordinate?: [number, number]; // Optional coordinates for mouse-related actions
+  pass?: boolean; // Optional boolean for assertion success/failure
+  val?: string | number | boolean; // Optional value for setting return values
+  duration?: number; // Optional duration for wait actions
+  additionalData?: string; // Optional additional context for assertions
+};
+
+type VersionConfig = {
+  anthropic_version: string;
+  tools_computer: string;
+  anthropic_beta: string;
+  version: string;
+};
+
+export const versionConfig35: VersionConfig = {
+  anthropic_version: "bedrock-2023-05-31",
+  tools_computer: "computer_20241022",
+  anthropic_beta: "computer-use-2024-10-22",
+  version: "3.5"
+}
+
+export const versionConfig37: VersionConfig = {
+  anthropic_version: "bedrock-2023-05-31",
+  tools_computer: "computer_20250124",
+  anthropic_beta: "computer-use-2025-01-24",
+  version: "3.7"
+}
 
 class ToolResult {
   output: string | null = null;
@@ -212,8 +243,13 @@ interface TargetWindow {
   DoClick(clickType: "L" | "R" | "M" | "LD"): void; // Perform left, right, middle, or double click
   DoMouseDragTo(x: number, y: number): void; // Drag the mouse to a specific coordinate
 
+  DoMousePress(button: "L" | "R" | "M"): void; // Press and hold a mouse button
+  DoMouseRelease(button: "L" | "R" | "M"): void; // Release a mouse button
+
+  DoScroll(direction: "up" | "down" | "left" | "right", amount: number): void; // Scroll in a specific direction by a certain amount
+
   // Keyboard Actions
-  DoSendKeys(keys: string): void; // Simulate typing or key presses
+  DoSendKeys(keys: string, duration?: number): void; // Simulate typing or key presses
 
   // Screen-Related Actions
   GetScreenshot(): string; // Capture and return a Base64-encoded screenshot
@@ -436,8 +472,7 @@ export class ComputerUseImpl {
     // Join individual key combinations with a space
     return convertedCombinations.join(" ");
   }
-  
-  
+
   private static async processToolUseAction(
     action: ToolUseAction,
     window: TargetWindow,
@@ -456,9 +491,17 @@ export class ComputerUseImpl {
           return new ToolResult({ output: `Mouse moved to (${moveX}, ${moveY})` });
   
         case "left_click":
-          window.Log("Performing left click.");
-          window.DoClick("L");
-          return new ToolResult({ output: "Left click performed." });
+          if(action.coordinate) {
+            const [clickX, clickY] = this.applyScaling(action.coordinate, scaleFactor);
+            window.Log(`Performing left click at (${clickX}, ${clickY})`);
+            window.DoMouseMove(clickX, clickY);
+            window.DoClick("L");
+            return new ToolResult({ output: `Left click performed at (${clickX}, ${clickY})` });
+          } else {
+            window.Log("Performing left click.");
+            window.DoClick("L");
+            return new ToolResult({ output: "Left click performed." });  
+          }
   
         case "left_click_drag":
           if (!action.coordinate) {
@@ -483,7 +526,13 @@ export class ComputerUseImpl {
           window.Log("Performing double click.");
           window.DoClick("LD");
           return new ToolResult({ output: "Double click performed." });
-  
+
+        case "triple_click":
+          window.Log("Performing triple click.");
+          window.DoClick("LD");
+          window.DoClick("L");
+          return new ToolResult({ output: "Triple click performed." });
+    
         // Keyboard actions
         case "key":
           if (!action.text) {
@@ -516,6 +565,33 @@ export class ComputerUseImpl {
             output: "Screenshot captured.",
             base64_image: screenshotBase64,
           });
+
+        case "wait":
+          const duration = action.duration;
+          Global.DoSleep(1000*duration);
+          const screenshotAfterWaitBase64 = window.GetScreenshot();
+          return new ToolResult({
+            output: "Wait done.",
+            base64_image: screenshotAfterWaitBase64,
+          });
+
+        case "hold_key":
+          window.DoSendKeys(this.convertToSendKeys(action.text), action.duration);
+          return new ToolResult({
+            output: "Key pressed."
+          });
+
+        case "scroll":
+
+        case "left_mouse_down":
+          window.Log(`Pressing left mouse button`);
+          window.DoMousePress("L");
+          return new ToolResult({ output: `Left mouse button pressed` });
+
+        case "left_mouse_up":
+          window.Log(`Releasing left mouse button`);
+          window.DoMouseRelease("L");
+          return new ToolResult({ output: `Left mouse button released` });
   
         // Rapise tool actions
         case "rapise_assert":
@@ -707,6 +783,7 @@ export class ComputerUseImpl {
     n_last_images: number = 3,
     timeout: number = 600000, // Default timeout: 10 minutes
     token_limit: number = 1000000, // Default token limit: 1 million
+    versionConfig: VersionConfig = versionConfig35,
     last?: {
       payload?: AnthropicPayload;
       response?: AnthropicResponse;
@@ -747,7 +824,7 @@ export class ComputerUseImpl {
       const scaledBase64Image = scaledImageBuffer.toString("base64");
   
       payload = {
-        anthropic_version: "bedrock-2023-05-31",
+        anthropic_version: versionConfig.anthropic_version,
         max_tokens,
         system: system_prompt,
         messages: [
@@ -764,7 +841,7 @@ export class ComputerUseImpl {
         ],
         tools: [
           {
-            type: "computer_20241022",
+            type: versionConfig.tools_computer,
             name: "computer",
             display_height_px: imgMeta.metadata_scaled.height!,
             display_width_px: imgMeta.metadata_scaled.width!,
@@ -810,7 +887,7 @@ export class ComputerUseImpl {
             },
           },
         ],
-        anthropic_beta: ["computer-use-2024-10-22"],
+        anthropic_beta: [versionConfig.anthropic_beta],
       };
     }
   
@@ -893,5 +970,6 @@ export class ComputerUseImpl {
   
     return chatStatus; // Return the updated chatStatus
   }
-  
+
 }
+

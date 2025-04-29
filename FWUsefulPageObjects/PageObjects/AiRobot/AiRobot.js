@@ -1,8 +1,10 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.55
+ * @Version 0.0.56
  */
+
+const { version } = require("os");
 
 SeSPageObject("AiRobot");
 
@@ -135,8 +137,9 @@ global.g_aiRobotStats = {input_tokens: 0, output_tokens: 0, prompt_queries: 0, t
 async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
 {
 	_AiRobotInit();
-	var p = File.ResolvePath('%WORKDIR%/PageObjects/AiRobot/ComputerUseImpl.js')
-	const ComputerUseImplClass = require(p).ComputerUseImpl;
+	const p = File.ResolvePath('%WORKDIR%/PageObjects/AiRobot/ComputerUseImpl.js')
+	const CU = require(p);
+	const ComputerUseImplClass = CU.ComputerUseImpl;
 
 	let system_prompt = undefined;
 	if(AiRobot.config)
@@ -148,7 +151,14 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 		system_prompt = AiRobot.config.system_prompt;
 	}
 
-	const status = await ComputerUseImplClass.toolUseLoop(prompt, targetWindow, system_prompt, max_tokens, n_last_images, timeout, token_limit);
+	const modelInfo = AiServerClient.GetModelInfo("bedrock");
+	let versionConfig = CU.versionConfig35;
+	if( modelInfo.model.includes('3-7-sonnet') )
+	{
+		versionConfig = CU.versionConfig37;
+	}
+
+	const status = await ComputerUseImplClass.toolUseLoop(prompt, targetWindow, system_prompt, max_tokens, n_last_images, timeout, token_limit, versionConfig);
 
 	const statFileName = "AI/robot_stat.json";
 	let input_tokens = Global.GetProperty("input_tokens", 0, statFileName);

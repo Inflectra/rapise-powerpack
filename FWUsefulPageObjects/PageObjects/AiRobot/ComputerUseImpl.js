@@ -3,8 +3,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ComputerUseImpl = void 0;
+exports.ComputerUseImpl = exports.versionConfig37 = exports.versionConfig35 = void 0;
 const sharp_1 = __importDefault(require("sharp"));
+exports.versionConfig35 = {
+    anthropic_version: "bedrock-2023-05-31",
+    tools_computer: "computer_20241022",
+    anthropic_beta: "computer-use-2024-10-22",
+    version: "3.5"
+};
+exports.versionConfig37 = {
+    anthropic_version: "bedrock-2023-05-31",
+    tools_computer: "computer_20250124",
+    anthropic_beta: "computer-use-2025-01-24",
+    version: "3.7"
+};
 class ToolResult {
     constructor(init) {
         this.output = null;
@@ -209,9 +221,18 @@ class ComputerUseImpl {
                     window.DoMouseMove(moveX, moveY);
                     return new ToolResult({ output: `Mouse moved to (${moveX}, ${moveY})` });
                 case "left_click":
-                    window.Log("Performing left click.");
-                    window.DoClick("L");
-                    return new ToolResult({ output: "Left click performed." });
+                    if (action.coordinate) {
+                        const [clickX, clickY] = this.applyScaling(action.coordinate, scaleFactor);
+                        window.Log(`Performing left click at (${clickX}, ${clickY})`);
+                        window.DoMouseMove(clickX, clickY);
+                        window.DoClick("L");
+                        return new ToolResult({ output: `Left click performed at (${clickX}, ${clickY})` });
+                    }
+                    else {
+                        window.Log("Performing left click.");
+                        window.DoClick("L");
+                        return new ToolResult({ output: "Left click performed." });
+                    }
                 case "left_click_drag":
                     if (!action.coordinate) {
                         throw new Error("Coordinate is required for left_click_drag action.");
@@ -232,6 +253,11 @@ class ComputerUseImpl {
                     window.Log("Performing double click.");
                     window.DoClick("LD");
                     return new ToolResult({ output: "Double click performed." });
+                case "triple_click":
+                    window.Log("Performing triple click.");
+                    window.DoClick("LD");
+                    window.DoClick("L");
+                    return new ToolResult({ output: "Triple click performed." });
                 // Keyboard actions
                 case "key":
                     if (!action.text) {
@@ -261,6 +287,28 @@ class ComputerUseImpl {
                         output: "Screenshot captured.",
                         base64_image: screenshotBase64,
                     });
+                case "wait":
+                    const duration = action.duration;
+                    Global.DoSleep(1000 * duration);
+                    const screenshotAfterWaitBase64 = window.GetScreenshot();
+                    return new ToolResult({
+                        output: "Wait done.",
+                        base64_image: screenshotAfterWaitBase64,
+                    });
+                case "hold_key":
+                    window.DoSendKeys(this.convertToSendKeys(action.text), action.duration);
+                    return new ToolResult({
+                        output: "Key pressed."
+                    });
+                case "scroll":
+                case "left_mouse_down":
+                    window.Log(`Pressing left mouse button`);
+                    window.DoMousePress("L");
+                    return new ToolResult({ output: `Left mouse button pressed` });
+                case "left_mouse_up":
+                    window.Log(`Releasing left mouse button`);
+                    window.DoMouseRelease("L");
+                    return new ToolResult({ output: `Left mouse button released` });
                 // Rapise tool actions
                 case "rapise_assert":
                     if (typeof action.text !== "string" || typeof action.pass !== "boolean") {
@@ -406,7 +454,7 @@ class ComputerUseImpl {
     }
     static async toolUseLoop(prompt, window, system_prompt, max_tokens = 10000, n_last_images = 3, timeout = 600000, // Default timeout: 10 minutes
     token_limit = 1000000, // Default token limit: 1 million
-    last) {
+    versionConfig = exports.versionConfig35, last) {
         var _a;
         const shouldIgnoreLast = ((_a = last === null || last === void 0 ? void 0 : last.chatStatus) === null || _a === void 0 ? void 0 : _a.stop_reason) !== "tool_use";
         const chatStatus = !shouldIgnoreLast && (last === null || last === void 0 ? void 0 : last.chatStatus)
@@ -436,7 +484,7 @@ class ComputerUseImpl {
             const scaledImageBuffer = await imgMeta.img_scaled.toBuffer();
             const scaledBase64Image = scaledImageBuffer.toString("base64");
             payload = {
-                anthropic_version: "bedrock-2023-05-31",
+                anthropic_version: versionConfig.anthropic_version,
                 max_tokens,
                 system: system_prompt,
                 messages: [
@@ -453,7 +501,7 @@ class ComputerUseImpl {
                 ],
                 tools: [
                     {
-                        type: "computer_20241022",
+                        type: versionConfig.tools_computer,
                         name: "computer",
                         display_height_px: imgMeta.metadata_scaled.height,
                         display_width_px: imgMeta.metadata_scaled.width,
@@ -499,7 +547,7 @@ class ComputerUseImpl {
                         },
                     },
                 ],
-                anthropic_beta: ["computer-use-2024-10-22"],
+                anthropic_beta: [versionConfig.anthropic_beta],
             };
         }
         const startTime = Date.now();

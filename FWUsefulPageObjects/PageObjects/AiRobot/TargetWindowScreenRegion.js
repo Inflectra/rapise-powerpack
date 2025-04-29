@@ -122,12 +122,15 @@ class TargetWindowScreenRegion {
 	 * Sends a sequence of keystrokes to the current window.
 	 * @param keys A string representing the keys to be sent.
 	 */
-	DoSendKeys(keys) {
+	DoSendKeys(keys, duration) {
 		var iw1 = null, iw2 = null;
 		if(l3) {
 			this.GetScreenshotImpl();
 			iw1 = this.lastImage;
 		}
+		
+		// TODO: Implement press duration.
+		
 		Global._DoSendKeys(keys);
 		if(l3) {
 			this.GetScreenshotImpl();
@@ -138,7 +141,47 @@ class TargetWindowScreenRegion {
 			Tester.Message("Sending keys: "+keys, data);
 		}
 	}
-
+	
+	DoMousePress(button/*: "L", "R", "M"*/)
+	{
+		if(button=="L") {
+			g_util.LButtonDown();
+		} else if(button=="R") {
+			g_util.RButtonDown();
+		} else {
+			g_util.MButtonDown();
+		}
+	}
+	
+	DoMouseRelease(button/*: "L", "R", "M"*/)
+	{
+		if(button=="L") {
+			g_util.LButtonUp();
+		} else if(button=="R") {
+			g_util.RButtonUp();
+		} else {
+			g_util.MButtonUp();
+		}
+	}
+	
+	DoScroll(direction/*: "up" | "down" | "left" | "right"*/, /**number*/amount)
+	{
+		amount = amount || 0;
+		switch(direction)
+		{
+			case "down":
+				amount = amount*-1;
+			case "up":
+				Global.DoVerticalScroll(amount);
+				break;
+			case "left":
+				amount = amount*-1;
+			case "right":
+				Global.DoHorizontalScroll(amount);
+				break;
+		}
+	}
+	
 	/**
 	 * Retrieves the current position of the mouse pointer.
 	 * @returns An object containing the x and y coordinates of the mouse pointer.
