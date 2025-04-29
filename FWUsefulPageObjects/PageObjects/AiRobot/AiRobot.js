@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.56
+ * @Version 0.0.57
  */
 
 SeSPageObject("AiRobot");
@@ -72,9 +72,9 @@ function _extractFirstEntryAfterCallLog(callStack)
 
 function _AiRobotInit()
 {
-	if(!Global.GetRapiseVersion("8.3"))
+	if(!Global.GetRapiseVersion("8.4"))
 	{
-		Tester.Assert("AiRobot requires Rapise version 8.3 or higher", false, "Actual version: "+Global.GetRapiseVersion());
+		Tester.Assert("AiRobot requires Rapise version 8.4 or higher", false, "Actual version: "+Global.GetRapiseVersion());
 	}
 	// Restore packages if needed
 	if (!File.FolderExists(g_workDir + '\\node_modules') || !File.FolderExists(g_workDir + '\\node_modules\\sharp'))
