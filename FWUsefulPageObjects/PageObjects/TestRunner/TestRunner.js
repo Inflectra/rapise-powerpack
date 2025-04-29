@@ -1,7 +1,7 @@
  /**
  * @PageObject TestRunner. Allows to easily rerun failed tests. 
  * Helps to analyze failures, flaky test cases  and generate reports and graphs.
- * @Version 0.0.14
+ * @Version 0.0.15
  */
 SeSPageObject("TestRunner");
 
@@ -579,6 +579,17 @@ function TestRunner_DoReportToPdf(/**string*/ trpFileName, /**string*/ pdfFileNa
 	}
 	
 	Global.DoLaunch(cmdLine, null, null, null, true);
+	
+	const fileName = pdfFileName.split('\\').pop().split('/').pop();
+	if (File.Exists(pdfFileName))
+	{
+		
+		Tester.Message(`PDF report generated: ${fileName}`, new SeSReportFile(pdfFileName, fileName));
+	}
+	else
+	{
+		Tester.SoftAssert(`PDF report generated: ${fileName}`, false);
+	}
 
 	const endTime = Date.now();
 	const duration = endTime - startTime;

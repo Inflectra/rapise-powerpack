@@ -263,7 +263,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(620,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(631,10)"
 			},
 			{
 				"name": "DoAnalyzeFlakyTestCases",
@@ -302,7 +302,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(693,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(704,10)"
 			},
 			{
 				"name": "DoSaveFileToSpira",
@@ -332,7 +332,7 @@
 						"defaultValue": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(766,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(777,10)"
 			},
 			{
 				"name": "SetParameter",
@@ -348,7 +348,7 @@
 						"description": "Parameter value."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(849,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(860,10)"
 			},
 			{
 				"name": "DoDailySummaryReport",
@@ -368,13 +368,13 @@
 						"defaultValue": "DailySummaryReport"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(867,10)"
+				"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js(878,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "TestRunner. Allows to easily rerun failed tests. \r\nHelps to analyze failures, flaky test cases  and generate reports and graphs.",
 		"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js",
-		"version": "0.0.14"
+		"version": "0.0.15"
 	}
 }
