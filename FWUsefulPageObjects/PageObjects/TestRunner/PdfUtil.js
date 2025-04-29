@@ -33,11 +33,11 @@ const PdfUtil = {
 		if (File.Exists(pdfFileName))
 		{
 			
-			Tester.Message(`PDF report generated: ${fileName}`, new SeSReportLink(pdfFileName));
+			Tester.Message(`PDF report generated: ${fileName}`, new SeSReportFile(pdfFileName, fileName));
 		}
 		else
 		{
-			Tester.Assert(`PDF report generated: ${fileName}`, false);
+			Tester.SoftAssert(`PDF report generated: ${fileName}`, false);
 		}
 	},
 	
@@ -353,12 +353,11 @@ const PdfUtil = {
 		const fileName = pdfFileName.split('\\').pop().split('/').pop();
 		if (File.Exists(pdfFileName))
 		{
-			
-			Tester.Message(`PDF report generated: ${fileName}`, new SeSReportLink(pdfFileName));
+			Tester.Message(`PDF report generated: ${fileName}`, [new SeSReportFile(pdfFileName, fileName)]);
 		}
 		else
 		{
-			Tester.Assert(`PDF report generated: ${fileName}`, false);
+			Tester.SoftAssert(`PDF report generated: ${fileName}`, false);
 		}
 	}
 }
