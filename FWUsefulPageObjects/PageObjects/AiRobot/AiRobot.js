@@ -4,8 +4,6 @@
  * @Version 0.0.56
  */
 
-const { version } = require("os");
-
 SeSPageObject("AiRobot");
 
 function _RobotSyncRun(f)
