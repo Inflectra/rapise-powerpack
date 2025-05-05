@@ -5,12 +5,14 @@ class TargetWindowScreenRegion {
 	w = 0;
 	h = 0;
 	returnValue = undefined;
+	target = "windows";
 
-	constructor(ox, oy, w, h) {
+	constructor(ox, oy, w, h, target) {
 		this.ox = ox;
 		this.oy = oy;
 		this.w = w;
 		this.h = h;
+		this.target = target||this.target;
 	}
 
 	static FromHWND(/**HWNDWrapper*/hwndWrapper) {
@@ -24,7 +26,7 @@ class TargetWindowScreenRegion {
 
 	static FromWebDriver() {
 		var r = SeSGetBrowserWindowRect();
-		return new TargetWindowScreenRegion(r.x, r.y, r.w, r.h);
+		return new TargetWindowScreenRegion(r.x, r.y, r.w, r.h, "browser");
 	}
 
 	static FromScreenRegion(x, y, w, h) {
@@ -164,21 +166,13 @@ class TargetWindowScreenRegion {
 		}
 	}
 	
-	DoScroll(direction/*: "up" | "down" | "left" | "right"*/, /**number*/amount)
+	DoScroll(scrollX, scrollY)
 	{
-		amount = amount || 0;
-		switch(direction)
-		{
-			case "down":
-				amount = amount*-1;
-			case "up":
-				Global.DoVerticalScroll(amount);
-				break;
-			case "left":
-				amount = amount*-1;
-			case "right":
-				Global.DoHorizontalScroll(amount);
-				break;
+		if(scrollX) {
+			Global.DoHorizontalScroll(scrollX);
+		}
+		if(scrollY) {
+			Global.DoVerticalScroll(scrollY);
 		}
 	}
 	

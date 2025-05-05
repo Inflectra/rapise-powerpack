@@ -1,10 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ComputerUseImpl = exports.versionConfig37 = exports.versionConfig35 = void 0;
-const sharp_1 = __importDefault(require("sharp"));
+exports.ComputerUseAnthropic = exports.versionConfig37 = exports.versionConfig35 = void 0;
+const ComputerUseTypes_1 = require("./ComputerUseTypes"); // Assuming you have a separate file for types
 exports.versionConfig35 = {
     anthropic_version: "bedrock-2023-05-31",
     tools_computer: "computer_20241022",
@@ -17,197 +14,7 @@ exports.versionConfig37 = {
     anthropic_beta: "computer-use-2025-01-24",
     version: "3.7"
 };
-class ToolResult {
-    constructor(init) {
-        this.output = null;
-        this.error = null;
-        this.base64_image = null;
-        this.system = null;
-        Object.assign(this, init);
-    }
-    /**
-     * Determines if any field in the result contains data.
-     */
-    isNonEmpty() {
-        return Boolean(this.output || this.error || this.base64_image || this.system);
-    }
-    /**
-     * Combines two `ToolResult` instances, joining text fields with `\n` when both are present.
-     * @param other The other `ToolResult` instance to combine.
-     */
-    add(other) {
-        const combineFields = (field1, field2) => {
-            if (field1 && field2) {
-                return `${field1}\n${field2}`; // Combine fields with \n
-            }
-            return field1 || field2 || null;
-        };
-        return new ToolResult({
-            output: combineFields(this.output, other.output),
-            error: combineFields(this.error, other.error),
-            base64_image: this.base64_image || other.base64_image,
-            system: combineFields(this.system, other.system),
-        });
-    }
-    /**
-     * Creates a new `ToolResult` with specified field replacements.
-     * @param changes Fields to replace in the new `ToolResult`.
-     * @returns A new `ToolResult` with updated fields.
-     */
-    replace(changes) {
-        return new ToolResult(Object.assign(Object.assign({}, this), changes));
-    }
-}
-class ComputerUseImpl {
-    static getBestTarget(width, height) {
-        // Define minimum target size (XGA: 1024x768)
-        const minTarget = this.MAX_SCALING_TARGETS.XGA;
-        // Check if the image is smaller than the minimum target size
-        if (width < minTarget.width || height < minTarget.height) {
-            // For smaller images, we'll keep the original size and add padding later
-            return {
-                target: minTarget,
-                scale_factor: 1 // No scaling, we'll pad instead
-            };
-        }
-        // For images larger than or equal to minimum target size, use the original logic
-        for (const target of Object.values(this.MAX_SCALING_TARGETS)) {
-            if (width <= target.width && height <= target.height) {
-                return { target, scale_factor: 1 }; // No scaling needed
-            }
-        }
-        return Object.values(this.MAX_SCALING_TARGETS).reduce((bestFit, target) => {
-            const widthRatio = target.width / width;
-            const heightRatio = target.height / height;
-            const scaleFactor = Math.min(widthRatio, heightRatio);
-            if (!bestFit || scaleFactor > bestFit.scale_factor) {
-                return { target, scale_factor: scaleFactor };
-            }
-            return bestFit;
-        }, null);
-    }
-    static async processImage(buffer) {
-        const img = (0, sharp_1.default)(buffer);
-        const metadata = await img.metadata();
-        if (!metadata.width || !metadata.height) {
-            throw new Error("Image metadata is missing width or height.");
-        }
-        const { target, scale_factor } = this.getBestTarget(metadata.width, metadata.height);
-        let img_scaled = img;
-        const metadata_scaled = Object.assign({}, metadata);
-        // If the image is smaller than the minimum target size (1024x768), add black padding
-        if (scale_factor == 1 && metadata.width <= target.width && metadata.height <= target.height) {
-            // Keep the original image in the top-left corner and add black padding
-            metadata_scaled.width = target.width;
-            metadata_scaled.height = target.height;
-            img_scaled = img.extend({
-                top: 0,
-                bottom: target.height - metadata.height,
-                left: 0,
-                right: target.width - metadata.width,
-                background: { r: 0, g: 0, b: 0, alpha: 1 } // Black background
-            });
-        }
-        // If the image is larger than the target size, scale it down
-        else if (scale_factor < 1) {
-            // Calculate the scaled dimensions
-            const scaledWidth = Math.round(metadata.width * scale_factor);
-            const scaledHeight = Math.round(metadata.height * scale_factor);
-            // First resize the image
-            img_scaled = img.resize({
-                width: scaledWidth,
-                height: scaledHeight,
-            });
-            // Then extend it to match the target dimensions and fill with black background
-            img_scaled = img_scaled.extend({
-                top: 0,
-                bottom: target.height - scaledHeight,
-                left: 0,
-                right: target.width - scaledWidth,
-                background: { r: 0, g: 0, b: 0, alpha: 1 } // Black background
-            });
-            // Update metadata to reflect the final dimensions (target dimensions)
-            metadata_scaled.width = target.width;
-            metadata_scaled.height = target.height;
-        }
-        return { img, img_scaled, scale_factor, metadata, metadata_scaled };
-    }
-    static applyScaling(coordinate, scaleFactor) {
-        const physicalX = Math.round(coordinate[0] / scaleFactor);
-        const physicalY = Math.round(coordinate[1] / scaleFactor);
-        return [physicalX, physicalY];
-    }
-    /**
-     * Escapes special characters in SendKeys syntax
-     * Special characters: + (shift), ^ (ctrl), % (alt), { and } (braces)
-     * @param text The text to escape
-     * @returns The escaped text
-     */
-    static escapeSendKeysSpecialChars(text) {
-        // Replace special characters with their escaped versions
-        return text
-            .replace(/\{/g, "{{}") // Escape { with {{} (literal left brace)
-            .replace(/\}/g, "{}}") // Escape } with {}} (literal right brace)
-            .replace(/\+/g, "{+}") // Escape + with {+} (literal plus)
-            .replace(/\^/g, "{^}") // Escape ^ with {^} (literal caret)
-            .replace(/%/g, "{%}"); // Escape % with {%} (literal percent)
-    }
-    static convertToSendKeys(xdtoolKey) {
-        const keyMap = {
-            "return": "{ENTER}",
-            "backspace": "{BACKSPACE}",
-            "tab": "{TAB}",
-            "escape": "{ESC}",
-            "space": " ",
-            "up": "{UP}",
-            "down": "{DOWN}",
-            "left": "{LEFT}",
-            "right": "{RIGHT}",
-            "home": "{HOME}",
-            "end": "{END}",
-            "page_up": "{PGUP}",
-            "page_down": "{PGDN}",
-            "insert": "{INS}",
-            "delete": "{DEL}",
-            "f1": "{F1}", "f2": "{F2}", "f3": "{F3}", "f4": "{F4}",
-            "f5": "{F5}", "f6": "{F6}", "f7": "{F7}", "f8": "{F8}",
-            "f9": "{F9}", "f10": "{F10}", "f11": "{F11}", "f12": "{F12}",
-        };
-        // Split the input into key combinations separated by spaces
-        const combinations = xdtoolKey.split(" ");
-        const convertedCombinations = [];
-        for (const combo of combinations) {
-            // Split individual combination into modifiers and main keys (separated by '+')
-            const parts = combo.toLowerCase().split("+");
-            const modifiers = [];
-            const keys = [];
-            for (const part of parts) {
-                if (["ctrl", "alt", "shift"].includes(part)) {
-                    modifiers.push(part); // Collect modifiers
-                }
-                else {
-                    keys.push(part); // Collect the main key(s)
-                }
-            }
-            // Map keys and wrap with braces if not already wrapped
-            const mappedKeys = keys
-                .map((key) => keyMap[key] || `{${key}}`) // Map or use {key} in lowercase
-                .join(""); // Join if multiple keys are provided
-            // Apply modifiers
-            let sendKey = mappedKeys;
-            for (const mod of modifiers) {
-                if (mod === "ctrl")
-                    sendKey = `^${sendKey}`;
-                if (mod === "alt")
-                    sendKey = `%${sendKey}`;
-                if (mod === "shift")
-                    sendKey = `+${sendKey}`;
-            }
-            convertedCombinations.push(sendKey);
-        }
-        // Join individual key combinations with a space
-        return convertedCombinations.join(" ");
-    }
+class ComputerUseAnthropic {
     static async processToolUseAction(action, window, scaleFactor) {
         try {
             switch (action.action) {
@@ -216,74 +23,74 @@ class ComputerUseImpl {
                     if (!action.coordinate) {
                         throw new Error("Coordinate is required for mouse_move action.");
                     }
-                    const [moveX, moveY] = this.applyScaling(action.coordinate, scaleFactor);
+                    const [moveX, moveY] = ComputerUseTypes_1.ComputerUseUtils.applyScaling(action.coordinate, scaleFactor);
                     window.Log(`Moving mouse to (${moveX}, ${moveY})`);
                     window.DoMouseMove(moveX, moveY);
-                    return new ToolResult({ output: `Mouse moved to (${moveX}, ${moveY})` });
+                    return new ComputerUseTypes_1.ToolResult({ output: `Mouse moved to (${moveX}, ${moveY})` });
                 case "left_click":
                     if (action.coordinate) {
-                        const [clickX, clickY] = this.applyScaling(action.coordinate, scaleFactor);
+                        const [clickX, clickY] = ComputerUseTypes_1.ComputerUseUtils.applyScaling(action.coordinate, scaleFactor);
                         window.Log(`Performing left click at (${clickX}, ${clickY})`);
                         window.DoMouseMove(clickX, clickY);
                         window.DoClick("L");
-                        return new ToolResult({ output: `Left click performed at (${clickX}, ${clickY})` });
+                        return new ComputerUseTypes_1.ToolResult({ output: `Left click performed at (${clickX}, ${clickY})` });
                     }
                     else {
                         window.Log("Performing left click.");
                         window.DoClick("L");
-                        return new ToolResult({ output: "Left click performed." });
+                        return new ComputerUseTypes_1.ToolResult({ output: "Left click performed." });
                     }
                 case "left_click_drag":
                     if (!action.coordinate) {
                         throw new Error("Coordinate is required for left_click_drag action.");
                     }
-                    const [dragX, dragY] = this.applyScaling(action.coordinate, scaleFactor);
+                    const [dragX, dragY] = ComputerUseTypes_1.ComputerUseUtils.applyScaling(action.coordinate, scaleFactor);
                     window.Log(`Dragging mouse to (${dragX}, ${dragY})`);
                     window.DoMouseDragTo(dragX, dragY);
-                    return new ToolResult({ output: `Mouse dragged to (${dragX}, ${dragY})` });
+                    return new ComputerUseTypes_1.ToolResult({ output: `Mouse dragged to (${dragX}, ${dragY})` });
                 case "right_click":
                     window.Log("Performing right click.");
                     window.DoClick("R");
-                    return new ToolResult({ output: "Right click performed." });
+                    return new ComputerUseTypes_1.ToolResult({ output: "Right click performed." });
                 case "middle_click":
                     window.Log("Performing middle click.");
                     window.DoClick("M");
-                    return new ToolResult({ output: "Middle click performed." });
+                    return new ComputerUseTypes_1.ToolResult({ output: "Middle click performed." });
                 case "double_click":
                     window.Log("Performing double click.");
                     window.DoClick("LD");
-                    return new ToolResult({ output: "Double click performed." });
+                    return new ComputerUseTypes_1.ToolResult({ output: "Double click performed." });
                 case "triple_click":
                     window.Log("Performing triple click.");
                     window.DoClick("LD");
                     window.DoClick("L");
-                    return new ToolResult({ output: "Triple click performed." });
+                    return new ComputerUseTypes_1.ToolResult({ output: "Triple click performed." });
                 // Keyboard actions
                 case "key":
                     if (!action.text) {
                         throw new Error("Key text is required for key action.");
                     }
-                    const sendKey = this.convertToSendKeys(action.text);
+                    const sendKey = ComputerUseTypes_1.ComputerUseUtils.convertToSendKeys(action.text);
                     window.Log(`Sending key: "${action.text}"`);
                     window.DoSendKeys(sendKey);
-                    return new ToolResult({ output: `Key "${action.text}" sent.` });
+                    return new ComputerUseTypes_1.ToolResult({ output: `Key "${action.text}" sent.` });
                 case "type":
                     if (!action.text) {
                         throw new Error("Text is required for type action.");
                     }
-                    const escapedText = this.escapeSendKeysSpecialChars(action.text);
+                    const escapedText = ComputerUseTypes_1.ComputerUseUtils.escapeSendKeysSpecialChars(action.text);
                     window.Log(`Typing text: "${action.text}"`);
                     window.DoSendKeys(escapedText);
-                    return new ToolResult({ output: `Typed text: "${action.text}".` });
+                    return new ComputerUseTypes_1.ToolResult({ output: `Typed text: "${action.text}".` });
                 // Utility actions
                 case "cursor_position":
                     window.Log("Getting cursor position.");
                     const cursorPosition = window.GetCursorPosition();
-                    return new ToolResult({ output: `Cursor is at position (${cursorPosition.x}, ${cursorPosition.y}).` });
+                    return new ComputerUseTypes_1.ToolResult({ output: `Cursor is at position (${cursorPosition.x}, ${cursorPosition.y}).` });
                 case "screenshot":
                     window.Log("Capturing screenshot.");
                     const screenshotBase64 = window.GetScreenshot();
-                    return new ToolResult({
+                    return new ComputerUseTypes_1.ToolResult({
                         output: "Screenshot captured.",
                         base64_image: screenshotBase64,
                     });
@@ -291,24 +98,55 @@ class ComputerUseImpl {
                     const duration = action.duration;
                     Global.DoSleep(1000 * duration);
                     const screenshotAfterWaitBase64 = window.GetScreenshot();
-                    return new ToolResult({
+                    return new ComputerUseTypes_1.ToolResult({
                         output: "Wait done.",
                         base64_image: screenshotAfterWaitBase64,
                     });
                 case "hold_key":
-                    window.DoSendKeys(this.convertToSendKeys(action.text), action.duration);
-                    return new ToolResult({
+                    window.DoSendKeys(ComputerUseTypes_1.ComputerUseUtils.convertToSendKeys(action.text), action.duration);
+                    return new ComputerUseTypes_1.ToolResult({
                         output: "Key pressed."
                     });
                 case "scroll":
+                    let scrollX = 0;
+                    let scrollY = 0;
+                    switch (action.scroll_direction) {
+                        case "down":
+                            scrollY = -action.scroll_amount;
+                            break;
+                        case "up":
+                            scrollY = action.scroll_amount;
+                            break;
+                        case "left":
+                            scrollX = -action.scroll_amount;
+                            break;
+                        case "right":
+                            scrollX = action.scroll_amount;
+                            break;
+                    }
+                    if (action.coordinate) {
+                        const [clickX, clickY] = ComputerUseTypes_1.ComputerUseUtils.applyScaling(action.coordinate, scaleFactor);
+                        window.DoMouseMove(clickX, clickY);
+                        window.DoClick("L");
+                    }
+                    if (action.text) {
+                        // TODO: press button before scrolling
+                        window.DoScroll(scrollX, scrollY);
+                        return new ComputerUseTypes_1.ToolResult({ output: `Scrolled by (${scrollX}, ${scrollY})` });
+                    }
+                    else {
+                        window.DoScroll(scrollX, scrollY);
+                        return new ComputerUseTypes_1.ToolResult({ output: `Scrolled by (${scrollX}, ${scrollY})` });
+                    }
+                    break;
                 case "left_mouse_down":
                     window.Log(`Pressing left mouse button`);
                     window.DoMousePress("L");
-                    return new ToolResult({ output: `Left mouse button pressed` });
+                    return new ComputerUseTypes_1.ToolResult({ output: `Left mouse button pressed` });
                 case "left_mouse_up":
                     window.Log(`Releasing left mouse button`);
                     window.DoMouseRelease("L");
-                    return new ToolResult({ output: `Left mouse button released` });
+                    return new ComputerUseTypes_1.ToolResult({ output: `Left mouse button released` });
                 // Rapise tool actions
                 case "rapise_assert":
                     if (typeof action.text !== "string" || typeof action.pass !== "boolean") {
@@ -316,20 +154,20 @@ class ComputerUseImpl {
                     }
                     window.Log(`Performing assertion: "${action.text}", Pass: ${action.pass}`);
                     window.Assert(action.text, action.pass, action.additionalData);
-                    return new ToolResult({ output: `Assertion executed: ${action.text}, Pass: ${action.pass}.` });
+                    return new ComputerUseTypes_1.ToolResult({ output: `Assertion executed: ${action.text}, Pass: ${action.pass}.` });
                 case "rapise_set_return_value":
                     if (action.val === undefined) {
                         throw new Error("Value must be provided for rapise_set_return_value action.");
                     }
                     window.Log(`Setting return value to: ${action.val}`);
                     window.SetReturnValue(action.val);
-                    return new ToolResult({ output: `Return value set to: ${action.val}` });
+                    return new ComputerUseTypes_1.ToolResult({ output: `Return value set to: ${action.val}` });
                 case "rapise_print_message":
                     if (!action.text) {
                         throw new Error("Text must be provided for rapise_print_message action.");
                     }
                     window.PrintReportMessage(action.text);
-                    return new ToolResult({ output: `Message logged: "${action.text}".` });
+                    return new ComputerUseTypes_1.ToolResult({ output: `Message logged: "${action.text}".` });
                 // Unknown or unsupported action
                 default:
                     throw new Error(`Unsupported action: ${action.action}`);
@@ -337,7 +175,7 @@ class ComputerUseImpl {
         }
         catch (error) {
             window.Log(`Error occurred during action "${action.action}": ${error.message}`);
-            return new ToolResult({ error: error.message });
+            return new ComputerUseTypes_1.ToolResult({ error: error.message });
         }
     }
     static makeToolResultPayload(result, toolUseId) {
@@ -386,7 +224,7 @@ class ComputerUseImpl {
         chatStatus.input_tokens += response.usage.input_tokens;
         chatStatus.output_tokens += response.usage.output_tokens;
         chatStatus.stop_reason = response.stop_reason;
-        let cumulativeResult = new ToolResult({});
+        let cumulativeResult = new ComputerUseTypes_1.ToolResult({});
         const toolResultsPayload = [];
         const scaleFactor = imgMeta.scale_factor;
         for (const contentItem of response.content) {
@@ -436,7 +274,7 @@ class ComputerUseImpl {
                 catch (error) {
                     window.ActionEnd(actionKey, `Error: ${error.message}`);
                     // Prepare the error result payload
-                    const errorResult = new ToolResult({ error: error.message });
+                    const errorResult = new ComputerUseTypes_1.ToolResult({ error: error.message });
                     toolResultsPayload.push(this.makeToolResultPayload(errorResult, contentItem.id));
                     // Optionally, you might want to rethrow the error or handle it accordingly
                 }
@@ -480,7 +318,7 @@ class ComputerUseImpl {
         else {
             const base64Image = window.GetScreenshot();
             const imageBuffer = Buffer.from(base64Image, "base64");
-            imgMeta = await this.processImage(imageBuffer);
+            imgMeta = await ComputerUseTypes_1.ComputerUseUtils.processImage(imageBuffer);
             const scaledImageBuffer = await imgMeta.img_scaled.toBuffer();
             const scaledBase64Image = scaledImageBuffer.toString("base64");
             payload = {
@@ -617,10 +455,5 @@ class ComputerUseImpl {
         return chatStatus; // Return the updated chatStatus
     }
 }
-exports.ComputerUseImpl = ComputerUseImpl;
-ComputerUseImpl.MAX_SCALING_TARGETS = {
-    XGA: { width: 1024, height: 768 },
-    WXGA: { width: 1280, height: 800 },
-    FWXGA: { width: 1366, height: 768 }, // ~16:9
-};
-//# sourceMappingURL=ComputerUseImpl.js.map
+exports.ComputerUseAnthropic = ComputerUseAnthropic;
+//# sourceMappingURL=ComputerUseAnthropic.js.map
