@@ -689,7 +689,12 @@ const SpiraUtil =
 	OutputSummaryReportHtml(model, reportName)
 	{
 		const config = SpiraApiUtil_GetSpiraConfig();
-		const serverUrl = config.SpiraServer;
+		let serverUrl = config.SpiraServer;
+		
+		if (serverUrl && !serverUrl.endsWith('/')) 
+		{
+			serverUrl += "/";
+		}
 		
 		function ln(msg)
 		{
