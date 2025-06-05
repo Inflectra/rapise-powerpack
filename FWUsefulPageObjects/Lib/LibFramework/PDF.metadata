@@ -34,7 +34,7 @@
 						"description": "Either plain string, or something starting from regex: to look in the file"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(75,10)"
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(72,10)"
 			},
 			{
 				"name": "AssertContains",
@@ -55,13 +55,13 @@
 						"description": "Line to write to the report"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(112,10)"
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(109,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "PDF handling: read text, check that PDF contains some text, assert PDF contains something.",
 		"src": "%WORKDIR%PageObjects\\PDF\\PDF.js",
-		"version": "1.0.2"
+		"version": "1.0.3"
 	}
 }

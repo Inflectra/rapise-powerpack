@@ -1,3 +1,4 @@
+import deasync from 'deasync';
 import {
   ChatStatus, 
   TargetWindow, 
@@ -153,11 +154,11 @@ export const versionConfig37: VersionConfig = {
 export class ComputerUseAnthropic {
 
 
-  private static async processToolUseAction(
+  private static processToolUseAction(
     action: ToolUseAction,
     window: TargetWindow,
     scaleFactor: number
-  ): Promise<ToolResult> {
+  ): ToolResult {
     try {
       switch (action.action) {
         // Mouse actions
@@ -396,13 +397,13 @@ export class ComputerUseAnthropic {
     );
   }
 
-  private static async processResponse(
+  private static processResponse(
     payload: AnthropicPayload,
     imgMeta: ProcessImageResult,
     response: AnthropicResponse,
     chatStatus: ChatStatus,
     window: TargetWindow
-  ): Promise<boolean> {
+  ): boolean {
     window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`, 4);
   
     chatStatus.input_tokens += response.usage.input_tokens;
@@ -458,7 +459,7 @@ export class ComputerUseAnthropic {
               throw new Error(`Unsupported tool name: ${toolName}`);
           }
   
-          const result = await this.processToolUseAction(action, window, scaleFactor);
+          const result = this.processToolUseAction(action, window, scaleFactor);
           cumulativeResult = cumulativeResult.add(result);
   
           // Prepare the tool result payload
@@ -489,7 +490,7 @@ export class ComputerUseAnthropic {
     return response.stop_reason === "tool_use";
   }
 
-  public static async toolUseLoop(
+  public static toolUseLoop(
     prompt: string,
     window: TargetWindow,
     system_prompt?: string,
@@ -504,7 +505,7 @@ export class ComputerUseAnthropic {
       imgMeta?: ProcessImageResult;
       chatStatus?: ChatStatus;
     }
-  ): Promise<ChatStatus> {
+  ): ChatStatus {
     const shouldIgnoreLast = last?.chatStatus?.stop_reason !== "tool_use";
   
     const chatStatus: ChatStatus = !shouldIgnoreLast && last?.chatStatus
@@ -532,9 +533,17 @@ export class ComputerUseAnthropic {
     } else {
       const base64Image = window.GetScreenshot();
       const imageBuffer = Buffer.from(base64Image, "base64");
-      imgMeta = await ComputerUseUtils.processImage(imageBuffer);
+      imgMeta = ComputerUseUtils.processImage(imageBuffer);
   
-      const scaledImageBuffer = await imgMeta.img_scaled.toBuffer();
+      // Wrap the async toBuffer call in deasync to make it synchronous
+      let scaledImageBuffer: Buffer | undefined = undefined;
+      imgMeta.img_scaled.toBuffer().then(buf => { scaledImageBuffer = buf; }).catch(err => {
+          window.Log("Error scaling image: " + err.message);
+          scaledImageBuffer = Buffer.from(""); // Return empty buffer on error
+      });
+      while (scaledImageBuffer === undefined) {
+          deasync.runLoopOnce();
+      }
       const scaledBase64Image = scaledImageBuffer.toString("base64");
   
       payload = {
@@ -664,7 +673,7 @@ export class ComputerUseAnthropic {
       });
   
       // Process the response and determine if the loop should continue
-      const shouldContinue = await this.processResponse(payload, imgMeta, response, chatStatus, window);
+      const shouldContinue = this.processResponse(payload, imgMeta, response, chatStatus, window);
   
       if (!shouldContinue) break;
   

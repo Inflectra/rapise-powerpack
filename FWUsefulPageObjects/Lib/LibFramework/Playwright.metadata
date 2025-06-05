@@ -10,7 +10,7 @@
 				"returns": "",
 				"signature": "/**string*/cmdParams",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(112,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(113,10)"
 			},
 			{
 				"name": "DoInvoke",
@@ -19,7 +19,7 @@
 				"returns": "",
 				"signature": "/**function*/callBack",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(151,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(152,10)"
 			},
 			{
 				"name": "DoImportJsonReport",
@@ -28,7 +28,7 @@
 				"returns": "",
 				"signature": "/**string*/path",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(161,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(162,10)"
 			}
 		],
 		"isPageObject": true,

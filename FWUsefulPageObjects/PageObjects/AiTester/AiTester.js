@@ -311,12 +311,20 @@ var _paramInfoAiTester_DoFullScreenQuery = {
 	workflow: aiTesterParamInfo.workflow
 }
 
-function AiTesterMakeAssertionQuery(response, assertion)
+function AiTesterMakeAssertionQuery(response, assertion, soft)
 {
  	var aQuery = aiTesterAssertionSystemPrompt;
 	aQuery = aQuery.replace("${assertion}", assertion);
 	aQuery = aQuery.replace("${response}", response);
 	var result = AiTester_DoTextQuery(aQuery);
+	
+	var data = [result.additional_value+" (1 - Pass)", "RESPONSE: "+response];
+
+	if( soft ) {
+		Tester.SoftAssert(assertion, result.additional_value == "1", data);
+	} else {
+		Tester.Assert(assertion, result.additional_value == "1", data);
+	}
 	return result;
 }
 
@@ -325,13 +333,7 @@ function AiTesterMakeAssertionQuery(response, assertion)
  */
  function AiTester_Assert(/**string*/ text, /**string*/ assertion)
  {
-	var result = AiTesterMakeAssertionQuery(text, assertion);
-	var data = [];
-	if( result!="1" )
-	{
-		data.push(result);
-	}
-	Tester.Assert(assertion, result == "1", data);
+	AiTesterMakeAssertionQuery(text, assertion, false);
  }
 
  var _paramInfoAiTester_Assert = {
@@ -343,14 +345,7 @@ function AiTesterMakeAssertionQuery(response, assertion)
  */
  function AiTester_AssertLastResponse(/**string*/ assertion)
  {
-	var data = [aiTesterLastResponse];
-	var result = AiTesterMakeAssertionQuery(aiTesterLastResponse, assertion);
-	if( result!="1" )
-	{
-		data.push(result);
-	}
-	
-	Tester.Assert(assertion, result == "1", data);
+	var result = AiTesterMakeAssertionQuery(aiTesterLastResponse, assertion, false);
  }
  
  var _paramInfoAiTester_AssertLastResponse = {
@@ -362,13 +357,7 @@ function AiTesterMakeAssertionQuery(response, assertion)
  */
  function AiTester_SoftAssert(/**string*/ text, /**string*/ assertion)
  {
-	var result = AiTesterMakeAssertionQuery(text, assertion);
-	var data = [];
-	if( result!="1" )
-	{
-		data.push(result);
-	}
-	Tester.SoftAssert(assertion, result == "1", data);
+	AiTesterMakeAssertionQuery(text, assertion, true);
  }
  
  var _paramInfoAiTester_SoftAssert = {
@@ -382,12 +371,7 @@ function AiTesterMakeAssertionQuery(response, assertion)
  function AiTester_SoftAssertLastResponse(/**string*/ assertion)
  {
 	var data = [aiTesterLastResponse];
-	var result = AiTesterMakeAssertionQuery(aiTesterLastResponse, assertion);
-	if( result!="1" )
-	{
-		data.push(result);
-	}
-	Tester.SoftAssert(assertion, result == "1", data);
+	AiTesterMakeAssertionQuery(aiTesterLastResponse, assertion, true);
  }
  
  var _paramInfoAiTester_SoftAssertLastResponse = {

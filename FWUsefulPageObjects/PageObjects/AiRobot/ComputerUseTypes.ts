@@ -1,4 +1,5 @@
 import sharp from 'sharp';
+import deasync from 'deasync';
 
 export interface TargetWindow {
     target: string;
@@ -167,9 +168,13 @@ export class ComputerUseUtils {
         ) as ScalingTarget;
     }
 
-    static async processImage(buffer: Buffer): Promise<ProcessImageResult> {
+    static processImage(buffer: Buffer): ProcessImageResult {
         const img = sharp(buffer);
-        const metadata = await img.metadata();
+        let metadata: sharp.Metadata | undefined = undefined;
+        img.metadata().then((m) => { metadata = m; });
+        while (metadata === undefined) {
+            deasync.runLoopOnce();
+        }
 
         if (!metadata.width || !metadata.height) {
             throw new Error("Image metadata is missing width or height.");

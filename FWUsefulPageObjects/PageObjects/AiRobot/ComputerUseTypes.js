@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Codes = exports.Keys = exports.ComputerUseUtils = exports.ToolResult = void 0;
 const sharp_1 = __importDefault(require("sharp"));
+const deasync_1 = __importDefault(require("deasync"));
 class ToolResult {
     constructor(init) {
         this.output = null;
@@ -33,7 +34,7 @@ class ToolResult {
         return new ToolResult({
             output: combineFields(this.output, other.output),
             error: combineFields(this.error, other.error),
-            base64_image: this.base64_image || other.base64_image,
+            base64_image: this.base64_image || other.base64_image, // Keep only the first non-null image
             system: combineFields(this.system, other.system),
         });
     }
@@ -75,9 +76,13 @@ class ComputerUseUtils {
             return bestFit;
         }, null);
     }
-    static async processImage(buffer) {
+    static processImage(buffer) {
         const img = (0, sharp_1.default)(buffer);
-        const metadata = await img.metadata();
+        let metadata = undefined;
+        img.metadata().then((m) => { metadata = m; });
+        while (metadata === undefined) {
+            deasync_1.default.runLoopOnce();
+        }
         if (!metadata.width || !metadata.height) {
             throw new Error("Image metadata is missing width or height.");
         }
@@ -200,8 +205,8 @@ class ComputerUseUtils {
 }
 exports.ComputerUseUtils = ComputerUseUtils;
 ComputerUseUtils.MAX_SCALING_TARGETS = {
-    XGA: { width: 1024, height: 768 },
-    WXGA: { width: 1280, height: 800 },
+    XGA: { width: 1024, height: 768 }, // 4:3
+    WXGA: { width: 1280, height: 800 }, // 16:10
     FWXGA: { width: 1366, height: 768 }, // ~16:9
 };
 ;

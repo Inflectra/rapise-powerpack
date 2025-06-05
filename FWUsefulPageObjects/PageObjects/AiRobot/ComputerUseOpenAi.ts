@@ -9,6 +9,7 @@ import {
     Keys,
     Codes
 } from './ComputerUseTypes'; // Assuming you have a separate file for types
+import deasync from 'deasync';
 
 
 declare var Global: TGlobal;
@@ -109,7 +110,7 @@ export class ComputerUseOpenAi {
      * @param response - The response object containing output and other details.
      * @returns The final response after processing all computer calls.
      */
-    static async computerUseLoop(
+    static computerUseLoop(
         window: TargetWindow,
         payload: any,
         response: {
@@ -120,7 +121,7 @@ export class ComputerUseOpenAi {
         chatStatus: ChatStatus,
         timeout: number,
         token_limit: number
-    ): Promise<ChatStatus> {
+    ): ChatStatus {
         while (true) {
             if (response.error) {
                 window.Log("Error in response: " + JSON.stringify(response.error, null, 2));
@@ -139,7 +140,7 @@ export class ComputerUseOpenAi {
                     window.Log(`Function call detected: ${name} with arguments: ${args}`);
 
                     // Simulate handling the function call (replace with actual implementation)
-                    let result = await this.handleFunctionCall(window, name, JSON.parse(args));
+                    let result = this.handleFunctionCall(window, name, JSON.parse(args));
                     if (typeof result == 'undefined') {
                         result = "{}";
                     }
@@ -210,7 +211,7 @@ export class ComputerUseOpenAi {
             }
 
             // Execute the action
-            await this.handleModelAction(window, action, action_reasoning);
+            this.handleModelAction(window, action, action_reasoning);
             chatStatus.tool_invocations += 1;
 
             if( (new Date().getTime() - chatStatus.start.getTime()) > timeout) {
@@ -231,7 +232,7 @@ export class ComputerUseOpenAi {
             Global.DoSleep(g_commandInterval);
 
             // Take a screenshot after the action
-            const screenshotBase64 = await this.getScreenshot(window);
+            const screenshotBase64 = this.getScreenshot(window);
 
             payload = {
                 previous_response_id: response.id,
@@ -255,12 +256,21 @@ export class ComputerUseOpenAi {
 
     static imgMeta: ProcessImageResult;
 
-    static async getScreenshot(window: TargetWindow): Promise<string> {
+    static getScreenshot(window: TargetWindow): string {
         // Take a screenshot after the action
         const base64Image = window.GetScreenshot();
         const imageBuffer = Buffer.from(base64Image, "base64");
-        this.imgMeta = await ComputerUseUtils.processImage(imageBuffer);
-        const scaledImageBuffer = await this.imgMeta.img_scaled.toBuffer();
+        this.imgMeta = ComputerUseUtils.processImage(imageBuffer);
+
+        // Wrap the async toBuffer call in deasync to make it synchronous
+        let scaledImageBuffer: Buffer | undefined = undefined;
+        this.imgMeta.img_scaled.toBuffer().then(buf => { scaledImageBuffer = buf; }).catch(err => {
+            window.Log("Error scaling image: " + err.message);
+            scaledImageBuffer = Buffer.from(""); // Return empty buffer on error
+        });
+        while (scaledImageBuffer === undefined) {
+            deasync.runLoopOnce();
+        }
         const scaledBase64Image = scaledImageBuffer.toString("base64");
         return scaledBase64Image;
     }
@@ -271,7 +281,7 @@ export class ComputerUseOpenAi {
      * @param args - The arguments for the function.
      * @returns The result of the function call.
      */
-    static async handleFunctionCall(window: TargetWindow, name: string, args: any): Promise<any> {
+    static handleFunctionCall(window: TargetWindow, name: string, args: any): any {
         switch (name) {
             // Rapise tool actions
             case "rapise_assert":
@@ -316,11 +326,11 @@ export class ComputerUseOpenAi {
      * @param page - The Playwright page object.
      * @param action - The action object containing type and parameters.
      */
-    static async handleModelAction(
+    static handleModelAction(
         window: TargetWindow,
         action: { type: string;[key: string]: any },
         action_reasoning: string
-    ): Promise<void> {
+    ) {
         const actionType = action.type;
 
         window.ActionStart(actionType, action_reasoning||JSON.stringify(action));
@@ -502,7 +512,7 @@ export class ComputerUseOpenAi {
 
                 case "wait": {
                     window.Log(`Action: wait`);
-                    await Global.DoSleep(2000);
+                    Global.DoSleep(500);
                     break;
                 }
 
@@ -548,7 +558,7 @@ export class ComputerUseOpenAi {
         const fullPrompt = system_prompt ? system_prompt + "\n" + prompt : prompt;
 
         // Take a screenshot after the action
-        const scaledBase64Image = await this.getScreenshot(window);
+        const scaledBase64Image = this.getScreenshot(window);
 
         const payload = {
             input: [
@@ -574,7 +584,7 @@ export class ComputerUseOpenAi {
 
         const response = this.queryLlm(payload, chatStatus);
         // Send the screenshot back as a computer_call_output
-        await this.computerUseLoop(window, payload, response, chatStatus, timeout, token_limit);
+        this.computerUseLoop(window, payload, response, chatStatus, timeout, token_limit);
         return chatStatus;
     }
 

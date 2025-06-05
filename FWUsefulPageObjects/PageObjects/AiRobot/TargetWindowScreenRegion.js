@@ -1,3 +1,4 @@
+
 class TargetWindowScreenRegion {
 
 	ox = 0;
@@ -25,8 +26,9 @@ class TargetWindowScreenRegion {
 	}
 
 	static FromWebDriver() {
-		var r = SeSGetBrowserWindowRect();
-		return new TargetWindowScreenRegion(r.x, r.y, r.w, r.h, "browser");
+		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowWeb.js'));
+		var res = new TargetWindowWeb();
+		return res;
 	}
 
 	static FromScreenRegion(x, y, w, h) {
@@ -47,8 +49,8 @@ class TargetWindowScreenRegion {
 		if(l3) {
 			const data = [];
 			data.push(new SeSReportImage(this.lastImage));
-			const {x,y,w,h} = {...this};
-			data.push(JSON.stringify({x,y,w,h}));
+			const {ox,oy,w,h,mouseX,mouseY} = {...this};
+			data.push(JSON.stringify({ox,oy,w,h,mouseX,mouseY}));
 			global.g_aiRobotScreen = global.g_aiRobotScreen || 0;
 			Tester.Message("Screen:" + global.g_aiRobotScreen, data);
 			global.g_aiRobotScreen++;

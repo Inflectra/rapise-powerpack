@@ -1,41 +1,10 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.58
+ * @Version 0.0.59
  */
 
 SeSPageObject("AiRobot");
-
-function _RobotSyncRun(f)
-{
-	const deasync = require("deasync");
-	let asyncResult = undefined;
-	let asyncDone = false;
-	async function impl() {
-		try
-		{
-			asyncResult = await f();
-		} catch (e) {
-			const data = [e.stack];
-			const pos = _extractFirstEntryAfterCallLog(e.stack);
-			if (pos) {
-				data.push(
-					new SeSReportLink(pos.filePath + "(" + pos.lineNumber + "," + pos.columnNumber + ")")
-				);
-			}
-			Tester.SoftAssert(e.message, false, data);
-
-			asyncResult = false;
-		} finally {
-			asyncDone = true;
-		}
-	}
-	impl();
-	while (!asyncDone) {
-		deasync.runLoopOnce();
-	}
-	return asyncResult;
-}
 
 function _extractFirstEntryAfterCallLog(callStack)
 {
@@ -76,11 +45,27 @@ function _AiRobotInit()
 	{
 		Tester.Assert("AiRobot requires Rapise version 8.4 or higher", false, "Actual version: "+Global.GetRapiseVersion());
 	}
-	// Restore packages if needed
-	if (!File.FolderExists(g_workDir + '\\node_modules') || !File.FolderExists(g_workDir + '\\node_modules\\sharp'))
-	{
-		Global.DoCmd('PageObjects\\AiRobot\\install.cmd', g_workDir, true, true);
+	
+	var sharp = false;
+	var deasync = false;
+	try {
+		sharp = require('sharp');
+		deasync = require('deasync');
+	} catch(e) {
+		Log("Playwright not installed, doing npm install");
 	}
+	
+	if (!sharp||!deasync)
+	{
+		var isRapiseNpm = !File.Exists("%ENGINE%/InstrumentJS/node.exe");
+		if (isRapiseNpm)
+		{
+			Global.DoCmd("npm install deasync sharp --prefix \"" + g_workDir + "\"", g_workDir, true, false);
+		} else {
+			Global.DoCmd('PageObjects\\AiRobot\\install.cmd', g_workDir, true, true);
+		}
+	}
+	
 }
 
 var _AiRobotParamInfo = {
@@ -138,7 +123,7 @@ export interface ChatStatus {
 
 global.g_aiRobotStats = {input_tokens: 0, output_tokens: 0, prompt_queries: 0, tool_invocations: 0};
 
-async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
+function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
 {
 	_AiRobotInit();
 
@@ -155,6 +140,7 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 	}
 
 	let status = {};
+	AiServerClient.SetCurrentContext();
 	let modelInfo = AiServerClient.GetModelInfo();
 	if( modelInfo.api_type=="openai" )
 	{
@@ -172,7 +158,7 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 		const p = File.ResolvePath('%WORKDIR%/PageObjects/AiRobot/ComputerUseOpenAi.js')
 		const CU = require(p);
 
-		status = await CU.ComputerUseOpenAi.toolUseLoop(prompt, targetWindow, system_prompt, max_tokens, n_last_images, timeout, token_limit);
+		status = CU.ComputerUseOpenAi.toolUseLoop(prompt, targetWindow, system_prompt, max_tokens, n_last_images, timeout, token_limit);
 	} else {
 		const p = File.ResolvePath('%WORKDIR%/PageObjects/AiRobot/ComputerUseAnthropic.js')
 		const CU = require(p);
@@ -184,7 +170,7 @@ async function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*
 			versionConfig = CU.versionConfig37;
 		}
 
-		status = await CU.ComputerUseAnthropic.toolUseLoop(prompt, targetWindow, system_prompt, max_tokens, n_last_images, timeout, token_limit, versionConfig);
+		status = CU.ComputerUseAnthropic.toolUseLoop(prompt, targetWindow, system_prompt, max_tokens, n_last_images, timeout, token_limit, versionConfig);
 	}
 
 	const statFileName = "AI/robot_stat.json";
@@ -280,12 +266,10 @@ function AiRobot_SetSelfCheck()
 function AiRobot_DoWebBrowser( /**string*/ prompt, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
 {
 	var success = false;
-	_RobotSyncRun(async () => {
-		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
-		Navigator.Open("");
-		const navWindow = TargetWindowScreenRegion.FromWebDriver();
-		success = await _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
-	});
+	eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
+	Navigator.Open("");
+	const navWindow = TargetWindowScreenRegion.FromWebDriver();
+	success = _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
 
 	return success;
 }
@@ -306,11 +290,9 @@ var _paramInfoAiRobot_DoWebBrowser = {
 function AiRobot_DoFullScreen( /**string*/ prompt, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
 {
 	var success = false;
-	_RobotSyncRun(async () => {
-		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
-		const navWindow = TargetWindowScreenRegion.FromScreen();
-		success = await _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
-	});
+	eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
+	const navWindow = TargetWindowScreenRegion.FromScreen();
+	success = _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
 
 	return success;
 }
@@ -331,11 +313,9 @@ var _paramInfoAiRobot_DoFullScreen = {
 function AiRobot_DoScreenRegion( /**string*/ prompt, /**number*/ x, /**number*/ y, /**number*/ w, /**number*/ h, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
 {
 	var success = false;
-	_RobotSyncRun(async () => {
-		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
-		const navWindow = TargetWindowScreenRegion.FromScreenRegion(x, y, w, h);
-		success = await _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
-	});
+	eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
+	const navWindow = TargetWindowScreenRegion.FromScreenRegion(x, y, w, h);
+	success = _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
 
 	return success;
 }
@@ -356,46 +336,44 @@ var _paramInfoAiRobot_DoScreenRegion = {
 function AiRobot_DoWindow( /**string*/ prompt, /**string*/ window_title, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit)
 {
 	var success = false;
-	_RobotSyncRun(async () => {
-		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
-		var foundWindows = null;
+	eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
+	var foundWindows = null;
 
-		for(var i=0;i<global.g_objectLookupAttempts;i++)
+	for(var i=0;i<global.g_objectLookupAttempts;i++)
+	{
+		foundWindows = g_util.FindWindows(window_title, 'regex:.*');
+		if(foundWindows && foundWindows.length) break;
+		Global.DoSleep(global.g_objectLookupAttemptInterval);
+	}
+	
+	if (foundWindows && foundWindows.length)
+	{
+		var visibleFound = 0;
+		var /**HWNDWrapper*/ wnd = null;
+		for (var i = 0; i < foundWindows.length; i++)
 		{
-			foundWindows = g_util.FindWindows(window_title, 'regex:.*');
-			if(foundWindows && foundWindows.length) break;
-			Global.DoSleep(global.g_objectLookupAttemptInterval);
+			if (foundWindows[i].Visible)
+			{
+				wnd = foundWindows[i];
+				visibleFound++;
+			}
 		}
-		
-		if (foundWindows && foundWindows.length)
+
+		if (wnd)
 		{
-			var visibleFound = 0;
-			var /**HWNDWrapper*/ wnd = null;
-			for (var i = 0; i < foundWindows.length; i++)
+			if (visibleFound > 1)
 			{
-				if (foundWindows[i].Visible)
-				{
-					wnd = foundWindows[i];
-					visibleFound++;
-				}
+				Tester.SoftAssert("AiRobot.DoWindow: Attaching to existing process window: " + window_title, true, ["Using window: " + wnd.Text, "Total windows found: " + foundWindows.length]);
 			}
 
-			if (wnd)
-			{
-				if (visibleFound > 1)
-				{
-					Tester.SoftAssert("AiRobot.DoWindow: Attaching to existing process window: " + window_title, true, ["Using window: " + wnd.Text, "Total windows found: " + foundWindows.length]);
-				}
-
-				const navWindow = TargetWindowScreenRegion.FromHWND(wnd);
-				success = await _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
-			} else {
-				Tester.SoftAssert("AiRobot.DoWindow: None of found windows are visible: " + window_title, false);
-			}
+			const navWindow = TargetWindowScreenRegion.FromHWND(wnd);
+			success = _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
 		} else {
-			Tester.SoftAssert("AiRobot.DoWindow: No window found by title: " + window_title, false);
+			Tester.SoftAssert("AiRobot.DoWindow: None of found windows are visible: " + window_title, false);
 		}
-	});
+	} else {
+		Tester.SoftAssert("AiRobot.DoWindow: No window found by title: " + window_title, false);
+	}
 	return success;
 }
 
@@ -427,11 +405,9 @@ function AiRobot_DoObject( /**string*/ prompt, /**objectid|SeSObject*/ objectId,
 	{
 		Tester.SoftAssert("AiRobot.DoObject: Object Not Found: " + objectId, false);
 	} else {
-		_RobotSyncRun(async () => {
-			eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
-			const navWindow = TargetWindowScreenRegion.FromScreenRegion(obj.GetX(), obj.GetY(), obj.GetWidth(), obj.GetHeight());
-			success = await _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
-		});
+		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowScreenRegion.js'));
+		const navWindow = TargetWindowScreenRegion.FromScreenRegion(obj.GetX(), obj.GetY(), obj.GetWidth(), obj.GetHeight());
+		success = _AiRobotRun(prompt, navWindow, /**number*/ timeout, /**number*/ n_last_images, /**number*/ max_tokens, /**number*/ token_limit);
 	}
 
 	return success;

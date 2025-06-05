@@ -1,0 +1,92 @@
+{
+  "Uri": "",
+  "Capabilities": {
+    "browserName": "Chrome",
+    "version": "",
+    "platform": "",
+    "username": "",
+    "accessKey": ""
+  },
+  "Common Capabilities": {
+    "javascriptEnabled": "",
+    "databaseEnabled": "",
+    "locationContextEnabled": "",
+    "applicationCacheEnabled": "",
+    "browserConnectionEnabled": "",
+    "webStorageEnabled": "",
+    "acceptSslCerts": "",
+    "rotatable": "",
+    "nativeEvents": "",
+    "unexpectedAlertBehaviour": "",
+    "elementScrollBehavior": ""
+  },
+  "Timeout": "",
+  "Firefox Specific": {
+    "args": "",
+    "firefox_binary": "",
+    "pageLoadingStrategy": "",
+    "prefs": ""
+  },
+  "FirefoxProfile Settings": {
+    "webdriver_accept_untrusted_certs": "",
+    "webdriver_assume_untrusted_issuer": "",
+    "webdriver.log.driver": "",
+    "webdriver.log.file": "",
+    "webdriver.load.strategy": "",
+    "webdriver_firefox_port": ""
+  },
+  "IE Specific": {
+    "ignoreProtectedModeSettings": "",
+    "ignoreZoomSetting": "",
+    "initialBrowserUrl": "",
+    "enablePersistentHover": "",
+    "enableElementCacheCleanup": "",
+    "requireWindowFocus": "",
+    "browserAttachTimeout": "",
+    "ie.forceCreateProcessApi": "",
+    "ie.browserCommandLineSwitches": "",
+    "ie.usePerProcessProxy": "",
+    "ie.ensureCleanSession": "",
+    "logFile": "",
+    "logLevel": "",
+    "host": "",
+    "extractPath": "",
+    "silent": "",
+    "ie.setProxyByServer": ""
+  },
+  "Safari Specific": {
+    "cleanSession": ""
+  },
+  "Chrome Specific": {
+    "args": "[\"--disable-popup-blocking\",\"force-device-scale-factor=1\"]",
+    "binary": "",
+    "extensions": "",
+    "localState": "",
+    "prefs": "",
+    "detach": "",
+    "debuggerAddress": "",
+    "excludeSwitches": "",
+    "minidumpPath": ""
+  },
+  "RemoteWebDriver Specific": {
+    "webdriver.remote.quietExceptions": ""
+  },
+  "Proxy": {
+    "proxyType": "",
+    "proxyAutoconfigUrl": "",
+    "ftpProxy": "",
+    "httpProxy": "",
+    "sslProxy": "",
+    "socksProxy": "",
+    "socksUsername": "",
+    "socksPassword": "",
+    "noProxy": ""
+  },
+  "BrowserStack Specific": {
+    "browserstack.user": "",
+    "browserstack.key": "",
+    "device": "",
+    "realMobile": "",
+    "os_version": ""
+  }
+}

@@ -66,6 +66,9 @@
         <Path>TargetWindowScreenRegion.js</Path>
       </TestFile>
       <TestFile>
+        <Path>TargetWindowWeb.js</Path>
+      </TestFile>
+      <TestFile>
         <Path>tsconfig.json</Path>
       </TestFile>
       <TestFile>

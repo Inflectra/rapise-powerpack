@@ -225,7 +225,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(326,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(334,11)"
 			},
 			{
 				"name": "AssertLastResponse",
@@ -238,7 +238,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(344,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(346,11)"
 			},
 			{
 				"name": "SoftAssert",
@@ -254,7 +254,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(363,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(358,11)"
 			},
 			{
 				"name": "SoftAssertLastResponse",
@@ -267,7 +267,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(382,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(371,11)"
 			},
 			{
 				"name": "DoAnalyzeReport",
@@ -285,7 +285,7 @@
 						"ext": "trp"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(400,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(384,10)"
 			}
 		],
 		"isPageObject": true,

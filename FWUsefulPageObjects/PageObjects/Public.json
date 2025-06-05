@@ -39,7 +39,7 @@
 						"defaultValue": "bedrock"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(237,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(223,10)"
 			},
 			{
 				"name": "SetSelfCheck",
@@ -48,7 +48,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(261,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(247,10)"
 			},
 			{
 				"name": "DoWebBrowser",
@@ -86,7 +86,7 @@
 						"defaultValue": "bedrock"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(280,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(266,10)"
 			},
 			{
 				"name": "DoFullScreen",
@@ -124,7 +124,7 @@
 						"defaultValue": "bedrock"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(306,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(290,10)"
 			},
 			{
 				"name": "DoScreenRegion",
@@ -162,7 +162,7 @@
 						"defaultValue": "bedrock"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(331,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(313,10)"
 			},
 			{
 				"name": "DoWindow",
@@ -203,7 +203,7 @@
 						"defaultValue": "bedrock"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(356,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(336,10)"
 			},
 			{
 				"name": "DoObject",
@@ -244,14 +244,14 @@
 						"defaultValue": "bedrock"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(421,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(399,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to\r\nfind reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.",
 		"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js",
-		"version": "0.0.58",
+		"version": "0.0.59",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/AiRobot"
 	},
 	"AiTester": {
@@ -480,7 +480,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(326,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(334,11)"
 			},
 			{
 				"name": "AssertLastResponse",
@@ -493,7 +493,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(344,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(346,11)"
 			},
 			{
 				"name": "SoftAssert",
@@ -509,7 +509,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(363,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(358,11)"
 			},
 			{
 				"name": "SoftAssertLastResponse",
@@ -522,7 +522,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(382,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(371,11)"
 			},
 			{
 				"name": "DoAnalyzeReport",
@@ -540,7 +540,7 @@
 						"ext": "trp"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(400,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(384,10)"
 			}
 		],
 		"isPageObject": true,
@@ -849,7 +849,7 @@
 						"description": "Either plain string, or something starting from regex: to look in the file"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(75,10)"
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(72,10)"
 			},
 			{
 				"name": "AssertContains",
@@ -870,14 +870,14 @@
 						"description": "Line to write to the report"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(112,10)"
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(109,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "PDF handling: read text, check that PDF contains some text, assert PDF contains something.",
 		"src": "%WORKDIR%PageObjects\\PDF\\PDF.js",
-		"version": "1.0.2",
+		"version": "1.0.3",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/PDF"
 	},
 	"Playwright": {
@@ -891,7 +891,7 @@
 				"returns": "",
 				"signature": "/**string*/cmdParams",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(112,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(113,10)"
 			},
 			{
 				"name": "DoInvoke",
@@ -900,7 +900,7 @@
 				"returns": "",
 				"signature": "/**function*/callBack",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(151,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(152,10)"
 			},
 			{
 				"name": "DoImportJsonReport",
@@ -909,7 +909,7 @@
 				"returns": "",
 				"signature": "/**string*/path",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(161,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(162,10)"
 			}
 		],
 		"isPageObject": true,

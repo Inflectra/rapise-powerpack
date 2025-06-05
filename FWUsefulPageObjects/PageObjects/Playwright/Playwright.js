@@ -7,10 +7,11 @@ SeSPageObject("Playwright");
 
 function _PlaywrightInit()
 {
-	// Restore packages if needed
-	if (!File.FolderExists(g_workDir+'\\node_modules'))
-	{
-		const npmCmd = g_helper.ResolvePath("InstrumentJS/npm.cmd");
+	try {
+		const playwright = require('playwright');
+	} catch(e) {
+		Log("Playwright not installed, doing npm install");
+		var npmCmd = g_helper.ResolvePath("InstrumentJS/npm.cmd") || 'npm';
 		Global.DoCmd('"' + npmCmd + '"' + " install playwright @playwright/test --prefix \"" + g_workDir + "\"", g_workDir, true, false);
 	}
 }

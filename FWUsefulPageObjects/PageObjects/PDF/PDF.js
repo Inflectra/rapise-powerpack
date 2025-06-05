@@ -1,7 +1,7 @@
 /**
  * @PageObject PDF handling: read text, check that PDF contains some text, assert PDF contains something.
  * 
- * @Version 1.0.2
+ * @Version 1.0.3
  */
 
 SeSGlobalObject("PDF")
@@ -9,7 +9,7 @@ SeSGlobalObject("PDF")
 function PDF_GetFullText(/**string*/pdfPath)
 {
 	global.pdfLastError = global.pdfLastError||"";
-	var scriptPath = File.ResolvePath(__dirname+"\\PDF2Text\\pdfparse.js");
+	var scriptPath = File.ResolvePath(__dirname+"/PDF2Text/pdfparse.js");
 	pdfPath = File.ResolvePath(pdfPath);
 	
 	if( !File.Exists(pdfPath) )
@@ -20,28 +20,25 @@ function PDF_GetFullText(/**string*/pdfPath)
 	
 	// Restore packages if needed
 	var scriptFolder = g_helper.GetDirectoryName(scriptPath);
-	if (!File.FolderExists(scriptFolder+'\\node_modules'))
+	if (!File.FolderExists(scriptFolder+'/node_modules'))
 	{
-		var npmCmd = g_helper.ResolvePath("InstrumentJS/npm.cmd");
-		g_util.Run('"' + npmCmd + '"' + " install", scriptFolder);
+		var npmCmd = g_helper.ResolvePath("InstrumentJS/npm.cmd") || 'npm';
+		g_util.Run('"' + npmCmd + '"' + " install", scriptFolder, -1, true);
 	}
 
 	var fso = new ActiveXObject("Scripting.FileSystemObject");
 	var tempfolder = fso.GetSpecialFolder(2);
 	var tempname = fso.GetTempName();
-	var tempfile = tempfolder+"\\"+tempname;
+	var tempfile = tempfolder+"/"+tempname;
 	
 	// Return instrumented verison of file, ready for eval
-	var cmd = g_helper.ResolvePath("InstrumentJS/node.exe");
+	var cmd = g_helper.ResolvePath("InstrumentJS/node.exe") || "node";
 	var cmdLine = '"'+cmd+'" "'+scriptPath+'" '+JSON.stringify(pdfPath)+' '+JSON.stringify(tempfile);
 
 	if(l3) Log3("Pdf2Text: calling "+cmdLine);
 
-	var wsh = new ActiveXObject("WScript.Shell");
-	var testWrkDir = wsh.CurrentDirectory;
-	wsh.CurrentDirectory = g_helper.GetDirectoryName(scriptPath);
-	var exitCode = wsh.Run(cmdLine, 0, true);
-	wsh.CurrentDirectory = testWrkDir;
+	var ijsDir = g_helper.GetDirectoryName(scriptPath);
+	var exitCode = g_util.Run(cmdLine, ijsDir, -1, true);
 
 	global.pdfLastError += "pdfparse.js exit code: "+exitCode+"<br/>";
 

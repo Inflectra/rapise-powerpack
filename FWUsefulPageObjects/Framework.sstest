@@ -271,7 +271,7 @@
     </TestFiles>
   </TestFiles>
   <TestParams>
-    <TestParam name="Browser" variable="g_browserLibrary" defaultValue="Selenium - Chrome" description="Please, specify browser type to use" output="false" ask="true">
+    <TestParam name="Browser" variable="g_browserLibrary" defaultValue="Selenium - ChromeScaled" description="Please, specify browser type to use" output="false" ask="true">
       <PossibleValues />
     </TestParam>
   </TestParams>

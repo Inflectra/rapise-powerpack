@@ -1,7 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ComputerUseOpenAi = void 0;
 const ComputerUseTypes_1 = require("./ComputerUseTypes"); // Assuming you have a separate file for types
+const deasync_1 = __importDefault(require("deasync"));
 class ComputerUseOpenAi {
     static queryLlm(payload, chatStatus) {
         var _a, _b;
@@ -81,7 +85,7 @@ class ComputerUseOpenAi {
      * @param response - The response object containing output and other details.
      * @returns The final response after processing all computer calls.
      */
-    static async computerUseLoop(window, payload, response, chatStatus, timeout, token_limit) {
+    static computerUseLoop(window, payload, response, chatStatus, timeout, token_limit) {
         while (true) {
             if (response.error) {
                 window.Log("Error in response: " + JSON.stringify(response.error, null, 2));
@@ -97,7 +101,7 @@ class ComputerUseOpenAi {
                     const { name, arguments: args, call_id } = functionCall;
                     window.Log(`Function call detected: ${name} with arguments: ${args}`);
                     // Simulate handling the function call (replace with actual implementation)
-                    let result = await this.handleFunctionCall(window, name, JSON.parse(args));
+                    let result = this.handleFunctionCall(window, name, JSON.parse(args));
                     if (typeof result == 'undefined') {
                         result = "{}";
                     }
@@ -156,7 +160,7 @@ class ComputerUseOpenAi {
                 }));
             }
             // Execute the action
-            await this.handleModelAction(window, action, action_reasoning);
+            this.handleModelAction(window, action, action_reasoning);
             chatStatus.tool_invocations += 1;
             if ((new Date().getTime() - chatStatus.start.getTime()) > timeout) {
                 window.Log(`Timeout reached (${timeout}ms). Exiting the loop.`);
@@ -172,7 +176,7 @@ class ComputerUseOpenAi {
             }
             Global.DoSleep(g_commandInterval);
             // Take a screenshot after the action
-            const screenshotBase64 = await this.getScreenshot(window);
+            const screenshotBase64 = this.getScreenshot(window);
             payload = {
                 previous_response_id: response.id,
                 input: [
@@ -191,12 +195,20 @@ class ComputerUseOpenAi {
         }
         return chatStatus;
     }
-    static async getScreenshot(window) {
+    static getScreenshot(window) {
         // Take a screenshot after the action
         const base64Image = window.GetScreenshot();
         const imageBuffer = Buffer.from(base64Image, "base64");
-        this.imgMeta = await ComputerUseTypes_1.ComputerUseUtils.processImage(imageBuffer);
-        const scaledImageBuffer = await this.imgMeta.img_scaled.toBuffer();
+        this.imgMeta = ComputerUseTypes_1.ComputerUseUtils.processImage(imageBuffer);
+        // Wrap the async toBuffer call in deasync to make it synchronous
+        let scaledImageBuffer = undefined;
+        this.imgMeta.img_scaled.toBuffer().then(buf => { scaledImageBuffer = buf; }).catch(err => {
+            window.Log("Error scaling image: " + err.message);
+            scaledImageBuffer = Buffer.from(""); // Return empty buffer on error
+        });
+        while (scaledImageBuffer === undefined) {
+            deasync_1.default.runLoopOnce();
+        }
         const scaledBase64Image = scaledImageBuffer.toString("base64");
         return scaledBase64Image;
     }
@@ -206,7 +218,7 @@ class ComputerUseOpenAi {
      * @param args - The arguments for the function.
      * @returns The result of the function call.
      */
-    static async handleFunctionCall(window, name, args) {
+    static handleFunctionCall(window, name, args) {
         switch (name) {
             // Rapise tool actions
             case "rapise_assert":
@@ -248,7 +260,7 @@ class ComputerUseOpenAi {
      * @param page - The Playwright page object.
      * @param action - The action object containing type and parameters.
      */
-    static async handleModelAction(window, action, action_reasoning) {
+    static handleModelAction(window, action, action_reasoning) {
         const actionType = action.type;
         window.ActionStart(actionType, action_reasoning || JSON.stringify(action));
         window.Log(`Handling action: ${actionType}`);
@@ -305,67 +317,67 @@ class ComputerUseOpenAi {
                     const { keys } = action;
                     const combinedKeyMap = new Map([
                         // --- Special Keys (Common to Keys & Codes where names overlap) ---
-                        [ComputerUseTypes_1.Keys.Enter, "{RETURN}"],
-                        [ComputerUseTypes_1.Keys.Tab, "{TAB}"],
-                        [ComputerUseTypes_1.Keys.Escape, "{ESCAPE}"],
-                        [ComputerUseTypes_1.Keys.Backspace, "{BACKSPACE}"],
-                        [ComputerUseTypes_1.Keys.Delete, "{DELETE}"],
-                        [ComputerUseTypes_1.Keys.Insert, "{INSERT}"],
-                        [ComputerUseTypes_1.Keys.Pause, "{PAUSE}"],
-                        [ComputerUseTypes_1.Keys.CapsLock, "{CAPS_LOCK}"],
-                        [ComputerUseTypes_1.Keys.ArrowUp, "{ARROW_UP}"],
-                        [ComputerUseTypes_1.Keys.ArrowDown, "{ARROW_DOWN}"],
-                        [ComputerUseTypes_1.Keys.ArrowLeft, "{ARROW_LEFT}"],
-                        [ComputerUseTypes_1.Keys.ArrowRight, "{ARROW_RIGHT}"],
-                        [ComputerUseTypes_1.Keys.PageUp, "{PAGE_UP}"],
-                        [ComputerUseTypes_1.Keys.PageDown, "{PAGE_DOWN}"],
-                        [ComputerUseTypes_1.Keys.Home, "{HOME}"],
-                        [ComputerUseTypes_1.Keys.End, "{END}"],
-                        [ComputerUseTypes_1.Keys.PrintScreen, "{PRINT_SCREEN}"],
-                        [ComputerUseTypes_1.Keys.ScrollLock, "{SCROLL_LOCK}"],
-                        [ComputerUseTypes_1.Keys.NumLock, "{NUM_LOCK}"],
+                        [ComputerUseTypes_1.Keys.Enter, "{RETURN}"], // Handles "Enter"
+                        [ComputerUseTypes_1.Keys.Tab, "{TAB}"], // Handles "Tab"
+                        [ComputerUseTypes_1.Keys.Escape, "{ESCAPE}"], // Handles "Escape"
+                        [ComputerUseTypes_1.Keys.Backspace, "{BACKSPACE}"], // Handles "Backspace"
+                        [ComputerUseTypes_1.Keys.Delete, "{DELETE}"], // Handles "Delete"
+                        [ComputerUseTypes_1.Keys.Insert, "{INSERT}"], // Handles "Insert"
+                        [ComputerUseTypes_1.Keys.Pause, "{PAUSE}"], // Handles "Pause"
+                        [ComputerUseTypes_1.Keys.CapsLock, "{CAPS_LOCK}"], // Handles "CapsLock"
+                        [ComputerUseTypes_1.Keys.ArrowUp, "{ARROW_UP}"], // Handles "ArrowUp"
+                        [ComputerUseTypes_1.Keys.ArrowDown, "{ARROW_DOWN}"], // Handles "ArrowDown"
+                        [ComputerUseTypes_1.Keys.ArrowLeft, "{ARROW_LEFT}"], // Handles "ArrowLeft"
+                        [ComputerUseTypes_1.Keys.ArrowRight, "{ARROW_RIGHT}"], // Handles "ArrowRight"
+                        [ComputerUseTypes_1.Keys.PageUp, "{PAGE_UP}"], // Handles "PageUp"
+                        [ComputerUseTypes_1.Keys.PageDown, "{PAGE_DOWN}"], // Handles "PageDown"
+                        [ComputerUseTypes_1.Keys.Home, "{HOME}"], // Handles "Home"
+                        [ComputerUseTypes_1.Keys.End, "{END}"], // Handles "End"
+                        [ComputerUseTypes_1.Keys.PrintScreen, "{PRINT_SCREEN}"], // Handles "PrintScreen"
+                        [ComputerUseTypes_1.Keys.ScrollLock, "{SCROLL_LOCK}"], // Handles "ScrollLock"
+                        [ComputerUseTypes_1.Keys.NumLock, "{NUM_LOCK}"], // Handles "NumLock"
                         // Function Keys (Common names in Keys & Codes)
                         [ComputerUseTypes_1.Keys.F1, "{F1}"], [ComputerUseTypes_1.Keys.F2, "{F2}"], [ComputerUseTypes_1.Keys.F3, "{F3}"],
                         [ComputerUseTypes_1.Keys.F4, "{F4}"], [ComputerUseTypes_1.Keys.F5, "{F5}"], [ComputerUseTypes_1.Keys.F6, "{F6}"],
                         [ComputerUseTypes_1.Keys.F7, "{F7}"], [ComputerUseTypes_1.Keys.F8, "{F8}"], [ComputerUseTypes_1.Keys.F9, "{F9}"],
                         [ComputerUseTypes_1.Keys.F10, "{F10}"], [ComputerUseTypes_1.Keys.F11, "{F11}"], [ComputerUseTypes_1.Keys.F12, "{F12}"],
                         // Space (Handle Keys.Space = " " or Codes.Space = "Space")
-                        [ComputerUseTypes_1.Keys.Space, " "],
-                        [ComputerUseTypes_1.Codes.Space, " "],
+                        [ComputerUseTypes_1.Keys.Space, " "], // Handles " " (from Keys.Space)
+                        [ComputerUseTypes_1.Codes.Space, " "], // Handles "Space" (from Codes.Space) -> send literal space
                         // Modifier Keys (Map name to sendKeys code - chord handling is separate)
-                        [ComputerUseTypes_1.Keys.Shift, "{SHIFT}"],
-                        [ComputerUseTypes_1.Codes.ShiftLeft, "{SHIFT}"],
-                        [ComputerUseTypes_1.Codes.ShiftRight, "{SHIFT}"],
-                        [ComputerUseTypes_1.Keys.Control, "{CONTROL}"],
-                        [ComputerUseTypes_1.Codes.ControlLeft, "{CONTROL}"],
-                        [ComputerUseTypes_1.Codes.ControlRight, "{CONTROL}"],
-                        [ComputerUseTypes_1.Keys.Alt, "{ALT}"],
-                        [ComputerUseTypes_1.Codes.AltLeft, "{ALT}"],
-                        [ComputerUseTypes_1.Codes.AltRight, "{ALT}"],
-                        [ComputerUseTypes_1.Keys.Meta, "{META}"],
-                        [ComputerUseTypes_1.Codes.MetaLeft, "{META}"],
-                        [ComputerUseTypes_1.Codes.MetaRight, "{META}"],
+                        [ComputerUseTypes_1.Keys.Shift, "{SHIFT}"], // Handles "Shift"
+                        [ComputerUseTypes_1.Codes.ShiftLeft, "{SHIFT}"], // Handle "ShiftLeft"
+                        [ComputerUseTypes_1.Codes.ShiftRight, "{SHIFT}"], // Handle "ShiftRight"
+                        [ComputerUseTypes_1.Keys.Control, "{CONTROL}"], // Handles "Control"
+                        [ComputerUseTypes_1.Codes.ControlLeft, "{CONTROL}"], // Handle "ControlLeft"
+                        [ComputerUseTypes_1.Codes.ControlRight, "{CONTROL}"], // Handle "ControlRight"
+                        [ComputerUseTypes_1.Keys.Alt, "{ALT}"], // Handles "Alt"
+                        [ComputerUseTypes_1.Codes.AltLeft, "{ALT}"], // Handle "AltLeft"
+                        [ComputerUseTypes_1.Codes.AltRight, "{ALT}"], // Handle "AltRight"
+                        [ComputerUseTypes_1.Keys.Meta, "{META}"], // Handles "Meta" (Windows/Command key)
+                        [ComputerUseTypes_1.Codes.MetaLeft, "{META}"], // Handle "MetaLeft"
+                        [ComputerUseTypes_1.Codes.MetaRight, "{META}"], // Handle "MetaRight"
                         // Media Keys (Names common in Keys & Codes)
-                        [ComputerUseTypes_1.Keys.AudioVolumeMute, "{VOLUME_MUTE}"],
-                        [ComputerUseTypes_1.Keys.AudioVolumeDown, "{VOLUME_DOWN}"],
-                        [ComputerUseTypes_1.Keys.AudioVolumeUp, "{VOLUME_UP}"],
+                        [ComputerUseTypes_1.Keys.AudioVolumeMute, "{VOLUME_MUTE}"], // Handles "AudioVolumeMute"
+                        [ComputerUseTypes_1.Keys.AudioVolumeDown, "{VOLUME_DOWN}"], // Handles "AudioVolumeDown"
+                        [ComputerUseTypes_1.Keys.AudioVolumeUp, "{VOLUME_UP}"], // Handles "AudioVolumeUp"
                         // Numpad Digits (Codes.Numpad5 -> "{NUMPAD5}" or "5") - Choose based on sendKeys
-                        [ComputerUseTypes_1.Codes.Numpad0, "{NUMPAD0}"],
-                        [ComputerUseTypes_1.Codes.Numpad1, "{NUMPAD1}"],
-                        [ComputerUseTypes_1.Codes.Numpad2, "{NUMPAD2}"],
-                        [ComputerUseTypes_1.Codes.Numpad3, "{NUMPAD3}"],
-                        [ComputerUseTypes_1.Codes.Numpad4, "{NUMPAD4}"],
-                        [ComputerUseTypes_1.Codes.Numpad5, "{NUMPAD5}"],
-                        [ComputerUseTypes_1.Codes.Numpad6, "{NUMPAD6}"],
-                        [ComputerUseTypes_1.Codes.Numpad7, "{NUMPAD7}"],
-                        [ComputerUseTypes_1.Codes.Numpad8, "{NUMPAD8}"],
-                        [ComputerUseTypes_1.Codes.Numpad9, "{NUMPAD9}"],
+                        [ComputerUseTypes_1.Codes.Numpad0, "{NUMPAD0}"], // Or "0"
+                        [ComputerUseTypes_1.Codes.Numpad1, "{NUMPAD1}"], // Or "1"
+                        [ComputerUseTypes_1.Codes.Numpad2, "{NUMPAD2}"], // Or "2"
+                        [ComputerUseTypes_1.Codes.Numpad3, "{NUMPAD3}"], // Or "3"
+                        [ComputerUseTypes_1.Codes.Numpad4, "{NUMPAD4}"], // Or "4"
+                        [ComputerUseTypes_1.Codes.Numpad5, "{NUMPAD5}"], // Or "5"
+                        [ComputerUseTypes_1.Codes.Numpad6, "{NUMPAD6}"], // Or "6"
+                        [ComputerUseTypes_1.Codes.Numpad7, "{NUMPAD7}"], // Or "7"
+                        [ComputerUseTypes_1.Codes.Numpad8, "{NUMPAD8}"], // Or "8"
+                        [ComputerUseTypes_1.Codes.Numpad9, "{NUMPAD9}"], // Or "9"
                         // Numpad Operators (Codes.NumpadAdd -> "{NUMPAD_ADD}" or "+")
-                        [ComputerUseTypes_1.Codes.NumpadAdd, "{NUMPAD_ADD}"],
-                        [ComputerUseTypes_1.Codes.NumpadSubtract, "{NUMPAD_SUBTRACT}"],
-                        [ComputerUseTypes_1.Codes.NumpadMultiply, "{NUMPAD_MULTIPLY}"],
-                        [ComputerUseTypes_1.Codes.NumpadDivide, "{NUMPAD_DIVIDE}"],
-                        [ComputerUseTypes_1.Codes.NumpadDecimal, "{NUMPAD_DECIMAL}"],
+                        [ComputerUseTypes_1.Codes.NumpadAdd, "{NUMPAD_ADD}"], // Or "+"
+                        [ComputerUseTypes_1.Codes.NumpadSubtract, "{NUMPAD_SUBTRACT}"], // Or "-"
+                        [ComputerUseTypes_1.Codes.NumpadMultiply, "{NUMPAD_MULTIPLY}"], // Or "*"
+                        [ComputerUseTypes_1.Codes.NumpadDivide, "{NUMPAD_DIVIDE}"], // Or "/"
+                        [ComputerUseTypes_1.Codes.NumpadDecimal, "{NUMPAD_DECIMAL}"], // Or "."
                         // NumpadEnter often uses the same code as Enter, handled above. Add if needed:
                         // [Codes.NumpadEnter, "{RETURN}"],
                         // Symbol Keys (Codes.Semicolon -> ";")
@@ -417,7 +429,7 @@ class ComputerUseOpenAi {
                 }
                 case "wait": {
                     window.Log(`Action: wait`);
-                    await Global.DoSleep(2000);
+                    Global.DoSleep(500);
                     break;
                 }
                 case "screenshot": {
@@ -448,7 +460,7 @@ class ComputerUseOpenAi {
         };
         const fullPrompt = system_prompt ? system_prompt + "\n" + prompt : prompt;
         // Take a screenshot after the action
-        const scaledBase64Image = await this.getScreenshot(window);
+        const scaledBase64Image = this.getScreenshot(window);
         const payload = {
             input: [
                 {
@@ -472,7 +484,7 @@ class ComputerUseOpenAi {
         };
         const response = this.queryLlm(payload, chatStatus);
         // Send the screenshot back as a computer_call_output
-        await this.computerUseLoop(window, payload, response, chatStatus, timeout, token_limit);
+        this.computerUseLoop(window, payload, response, chatStatus, timeout, token_limit);
         return chatStatus;
     }
 }

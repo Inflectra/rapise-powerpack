@@ -1,6 +1,10 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ComputerUseAnthropic = exports.versionConfig37 = exports.versionConfig35 = void 0;
+const deasync_1 = __importDefault(require("deasync"));
 const ComputerUseTypes_1 = require("./ComputerUseTypes"); // Assuming you have a separate file for types
 exports.versionConfig35 = {
     anthropic_version: "bedrock-2023-05-31",
@@ -15,7 +19,7 @@ exports.versionConfig37 = {
     version: "3.7"
 };
 class ComputerUseAnthropic {
-    static async processToolUseAction(action, window, scaleFactor) {
+    static processToolUseAction(action, window, scaleFactor) {
         try {
             switch (action.action) {
                 // Mouse actions
@@ -219,7 +223,7 @@ class ComputerUseAnthropic {
         return (response == null ||
             (typeof response === "object" && response.$fault));
     }
-    static async processResponse(payload, imgMeta, response, chatStatus, window) {
+    static processResponse(payload, imgMeta, response, chatStatus, window) {
         window.Log(`Processing response: ${JSON.stringify(response, null, 2)}`, 4);
         chatStatus.input_tokens += response.usage.input_tokens;
         chatStatus.output_tokens += response.usage.output_tokens;
@@ -266,7 +270,7 @@ class ComputerUseAnthropic {
                         default:
                             throw new Error(`Unsupported tool name: ${toolName}`);
                     }
-                    const result = await this.processToolUseAction(action, window, scaleFactor);
+                    const result = this.processToolUseAction(action, window, scaleFactor);
                     cumulativeResult = cumulativeResult.add(result);
                     // Prepare the tool result payload
                     toolResultsPayload.push(this.makeToolResultPayload(result, contentItem.id));
@@ -290,7 +294,7 @@ class ComputerUseAnthropic {
         }
         return response.stop_reason === "tool_use";
     }
-    static async toolUseLoop(prompt, window, system_prompt, max_tokens = 10000, n_last_images = 3, timeout = 600000, // Default timeout: 10 minutes
+    static toolUseLoop(prompt, window, system_prompt, max_tokens = 10000, n_last_images = 3, timeout = 600000, // Default timeout: 10 minutes
     token_limit = 1000000, // Default token limit: 1 million
     versionConfig = exports.versionConfig35, last) {
         var _a;
@@ -318,8 +322,16 @@ class ComputerUseAnthropic {
         else {
             const base64Image = window.GetScreenshot();
             const imageBuffer = Buffer.from(base64Image, "base64");
-            imgMeta = await ComputerUseTypes_1.ComputerUseUtils.processImage(imageBuffer);
-            const scaledImageBuffer = await imgMeta.img_scaled.toBuffer();
+            imgMeta = ComputerUseTypes_1.ComputerUseUtils.processImage(imageBuffer);
+            // Wrap the async toBuffer call in deasync to make it synchronous
+            let scaledImageBuffer = undefined;
+            imgMeta.img_scaled.toBuffer().then(buf => { scaledImageBuffer = buf; }).catch(err => {
+                window.Log("Error scaling image: " + err.message);
+                scaledImageBuffer = Buffer.from(""); // Return empty buffer on error
+            });
+            while (scaledImageBuffer === undefined) {
+                deasync_1.default.runLoopOnce();
+            }
             const scaledBase64Image = scaledImageBuffer.toString("base64");
             payload = {
                 anthropic_version: versionConfig.anthropic_version,
@@ -439,7 +451,7 @@ class ComputerUseAnthropic {
                 content: response.content,
             });
             // Process the response and determine if the loop should continue
-            const shouldContinue = await this.processResponse(payload, imgMeta, response, chatStatus, window);
+            const shouldContinue = this.processResponse(payload, imgMeta, response, chatStatus, window);
             if (!shouldContinue)
                 break;
             response = undefined; // Clear response to fetch a new one in the next iteration
