@@ -194,7 +194,7 @@ Analyze these test runs. Format of the data is
 TestSetName/TestCaseName,Timestamp,Duration,Status[,ErrorDescription]
 ...
 
-Status can be P - Passed, F - Failed, B - Blocked, C- Caution.
+Status can be P - Passed, F - Failed, B - Blocked, C - Caution.
 Duration is minutes:seconds.
 
 ${query}

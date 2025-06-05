@@ -507,7 +507,7 @@ function AiTesterConvertTrpToOpenAIPayload(model)
 	const messages = [
 		{
 		  role: "system",
-		  content: "This is an execution report for an automated UI test. Analyize the report and the attached screenshots (they may display errors or look wierd). What can be the root cause of the failure?"
+		  content: "This is an execution report for an automated UI test. Analyze the report and the attached screenshots (they may display errors or look weird). What can be the root cause of the failure?"
 		},
 	];
 	

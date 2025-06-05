@@ -4,6 +4,12 @@
 			"name": "Command Interval",
 			"type": "number",
 			"defaultValue": 100
+		},
+		{
+			"name": "Browser",
+			"defaultValue": "Selenium - ChromeScaled",
+			"type": "browser",
+			"description": "Please, specify browser type to use"
 		}
 	],
 	"configs": [
