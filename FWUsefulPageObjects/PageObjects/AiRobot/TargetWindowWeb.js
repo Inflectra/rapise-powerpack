@@ -24,10 +24,21 @@ class TargetWindowWeb extends TargetWindowScreenRegion {
 	}
 
 	GetScreenshotImpl(cursor=1) {
-		WebDriver.AlertIsPresent();
-		var iw = WebDriver.d.GetScreenshotIW();
-		this.lastImage = iw;
-		return iw.ToBase64Bitmap();
+		if(WebDriver.AlertIsPresent())
+		{
+			var alert = WebDriver.SwitchToAlert();
+			if (alert)
+			{
+				var actualText = ("" + alert.Text).replace("\r\n", " ").replace("\n", " ");
+				alert.Accept();
+				var msg = "Web page shows popup with a message: "+actualText+"\n\nI'm the popup was accepted by robot and now gone (you cannot see or interact with it, so I accept it for you).";
+				throw {message:msg,info:msg};
+			}
+		} else {
+			var iw = WebDriver.d.GetScreenshotIW();
+			this.lastImage = iw;
+			return iw.ToBase64Bitmap();
+		}
 	}
 
 	GetRootEl()

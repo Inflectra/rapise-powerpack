@@ -171,7 +171,10 @@ export class ComputerUseUtils {
     static processImage(buffer: Buffer): ProcessImageResult {
         const img = sharp(buffer);
         let metadata: sharp.Metadata | undefined = undefined;
-        img.metadata().then((m) => { metadata = m; });
+        img.metadata().then((m) => { metadata = m; }).catch(err => {
+          console.error("Error scaling image: " + err.message);
+          metadata = {}; // Return empty buffer on error
+      });;
         while (metadata === undefined) {
             deasync.runLoopOnce();
         }

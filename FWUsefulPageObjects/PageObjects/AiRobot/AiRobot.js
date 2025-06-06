@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.59
+ * @Version 0.0.60
  */
 
 SeSPageObject("AiRobot");
@@ -41,28 +41,18 @@ function _extractFirstEntryAfterCallLog(callStack)
 
 function _AiRobotInit()
 {
-	if(!Global.GetRapiseVersion("8.4"))
+	if (!Global.GetRapiseVersion("8.4"))
 	{
 		Tester.Assert("AiRobot requires Rapise version 8.4 or higher", false, "Actual version: "+Global.GetRapiseVersion());
 	}
 	
-	var sharp = false;
-	var deasync = false;
-	try {
-		sharp = require('sharp');
-		deasync = require('deasync');
-	} catch(e) {
-		Log("Playwright not installed, doing npm install");
-	}
-	
-	if (!sharp||!deasync)
+	if (!Global.GetRapiseVersion("8.5"))
 	{
-		var isRapiseNpm = !File.Exists("%ENGINE%/InstrumentJS/node.exe");
-		if (isRapiseNpm)
+		if(!File.ResolvePath("%WORKDIR%/node_modules/deasync") ||!File.ResolvePath("%WORKDIR%/node_modules/sharp") )
 		{
-			Global.DoCmd("npm install deasync sharp --prefix \"" + g_workDir + "\"", g_workDir, true, false);
-		} else {
-			Global.DoCmd('PageObjects\\AiRobot\\install.cmd', g_workDir, true, true);
+			Log("Sharp not installed, doing npm install");
+			var cmd = g_helper.ResolvePath("InstrumentJS/npm.cmd") || "node";
+			Global.DoCmd(`"${cmd}" install deasync sharp --prefix "${g_workDir}"`, g_workDir, true, false);
 		}
 	}
 	

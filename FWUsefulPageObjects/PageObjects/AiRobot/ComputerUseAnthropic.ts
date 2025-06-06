@@ -1,4 +1,3 @@
-import deasync from 'deasync';
 import {
   ChatStatus, 
   TargetWindow, 
@@ -7,6 +6,7 @@ import {
   ProcessImageResult, 
   ComputerUseUtils,
   ToolResult} from './ComputerUseTypes'; // Assuming you have a separate file for types
+import deasync from 'deasync';
 
 declare var Global: TGlobal;
 declare var AiServerClient: TAiServerClient;
@@ -542,7 +542,7 @@ export class ComputerUseAnthropic {
           scaledImageBuffer = Buffer.from(""); // Return empty buffer on error
       });
       while (scaledImageBuffer === undefined) {
-          deasync.runLoopOnce();
+        deasync.runLoopOnce();
       }
       const scaledBase64Image = scaledImageBuffer.toString("base64");
   

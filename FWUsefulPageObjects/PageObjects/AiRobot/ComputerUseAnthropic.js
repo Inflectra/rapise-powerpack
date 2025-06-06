@@ -4,8 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ComputerUseAnthropic = exports.versionConfig37 = exports.versionConfig35 = void 0;
-const deasync_1 = __importDefault(require("deasync"));
 const ComputerUseTypes_1 = require("./ComputerUseTypes"); // Assuming you have a separate file for types
+const deasync_1 = __importDefault(require("deasync"));
 exports.versionConfig35 = {
     anthropic_version: "bedrock-2023-05-31",
     tools_computer: "computer_20241022",

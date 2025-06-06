@@ -26,9 +26,15 @@ class TargetWindowScreenRegion {
 	}
 
 	static FromWebDriver() {
-		eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowWeb.js'));
-		var res = new TargetWindowWeb();
-		return res;
+		var isRapiseNpm = !File.Exists("%ENGINE%/InstrumentJS/node.exe");
+		if( isRapiseNpm ) {
+			eval(File.IncludeOnce('%WORKDIR%/PageObjects/AiRobot/TargetWindowWeb.js'));
+			var res = new TargetWindowWeb();
+			return res;
+		} else {
+			var r = SeSGetBrowserWindowRect();
+			return new TargetWindowScreenRegion(r.x, r.y, r.w, r.h, "browser");
+		}
 	}
 
 	static FromScreenRegion(x, y, w, h) {

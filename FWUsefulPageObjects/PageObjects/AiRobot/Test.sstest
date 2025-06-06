@@ -48,9 +48,6 @@
         <Path>ComputerUseTypes.js</Path>
       </TestFile>
       <TestFile>
-        <Path>install.cmd</Path>
-      </TestFile>
-      <TestFile>
         <Path>Main.js</Path>
       </TestFile>
       <TestFile>
@@ -60,16 +57,10 @@
         <Path>package.json</Path>
       </TestFile>
       <TestFile>
-        <Path>package-lock.json</Path>
-      </TestFile>
-      <TestFile>
         <Path>TargetWindowScreenRegion.js</Path>
       </TestFile>
       <TestFile>
         <Path>TargetWindowWeb.js</Path>
-      </TestFile>
-      <TestFile>
-        <Path>tsconfig.json</Path>
       </TestFile>
       <TestFile>
         <Path>User.js</Path>

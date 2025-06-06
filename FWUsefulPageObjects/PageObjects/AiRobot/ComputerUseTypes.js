@@ -79,7 +79,11 @@ class ComputerUseUtils {
     static processImage(buffer) {
         const img = (0, sharp_1.default)(buffer);
         let metadata = undefined;
-        img.metadata().then((m) => { metadata = m; });
+        img.metadata().then((m) => { metadata = m; }).catch(err => {
+            console.error("Error scaling image: " + err.message);
+            metadata = {}; // Return empty buffer on error
+        });
+        ;
         while (metadata === undefined) {
             deasync_1.default.runLoopOnce();
         }
