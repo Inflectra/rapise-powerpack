@@ -1,3 +1,31 @@
+
+function AutoRetryRequest(req)
+{
+	var response = req._DoExecute()
+	if(!response.status)
+	{
+		Tester.Message("Re-try 1");
+		Global.DoSleep(1000);
+		response = req._DoExecute();
+	}
+	
+	if(!response.status)
+	{
+		Tester.Message("Re-try 2");
+		Global.DoSleep(10000);
+		response = req._DoExecute();
+	}
+	
+	if(!response.status)
+	{
+		Tester.Message("Re-try 3");
+		Global.DoSleep(60000);
+		response = req._DoExecute();
+	}
+
+	return response;
+}
+
 /**
  *  Loads all test case folders from Spira
  */
@@ -7,7 +35,7 @@ function SpiraImporterLoadTestCaseFolders(/**string*/ projectId)
 	req.SetParameter('project_id', projectId);
 	
 	var tcFolders = null;
-	var res = req._DoExecute();
+	var res = AutoRetryRequest(req);
 	
 	if (res && res.status)
 	{
@@ -48,6 +76,22 @@ function SpiraImporterBuildTestCaseFolderHierarchy(tcFolders, rootFolderId)
 		}
 	}
 	
+	// build root folder's path
+	if (root)
+	{
+		var parentPath = "";
+		var p = root;
+		var sep = "";
+		while (p.ParentTestCaseFolderId!=null)
+		{
+			var parentFolder = nodeMap[p.ParentTestCaseFolderId];
+			parentPath = parentFolder.Name+sep+parentPath;
+			sep = "/";
+			p = parentFolder;
+		}
+		root._ParentFolderPath_ = parentPath;
+	}
+	
 	return root; // Return the root of the tree
 }
 
@@ -61,7 +105,7 @@ function SpiraImporterLoadTestCases(projectId, tcFolder)
 	req.SetParameter('test_case_folder_id', tcFolder.TestCaseFolderId);
 	
 	var testCases = null;
-	var res = req._DoExecute();
+	var res = AutoRetryRequest(req);
 	
 	if (res && res.status)
 	{
@@ -86,7 +130,7 @@ function SpiraImporterLoadTestCases(projectId, tcFolder)
 	req.SetParameter('test_case_id', testCase.TestCaseId);
 
 	var testSteps = null;
-	var res = req._DoExecute();
+	var res = AutoRetryRequest(req);
 	
 	if (res && res.status)
 	{
@@ -195,6 +239,10 @@ function SpiraImporterImportTestCases(data)
 {
 
 	function areTimesEqual(concurrencyDateStr, lastUpdateDateStr) {
+	  if(!concurrencyDateStr ||!lastUpdateDateStr) 
+	  {
+	  	return false;
+	  }
 	  // Attempt to normalize concurrencyDateStr to an ISO-like format
 	  // The given format: "2024-12-09 10:23:31.977"
 	  // Replace the space with 'T' and append 'Z' to assume UTC:
@@ -221,6 +269,16 @@ function SpiraImporterImportTestCases(data)
 	if( ""+data.TestCaseFolderId==""+spiraJson.testCasesFolderId ) {
 		// When we are importing from the framework own folder, ignore that root folder name in the path.
 		data.Name = "";
+	}
+
+	var rootPath = "";
+	if (data._ParentFolderPath_)
+	{
+		// There is a folder structure already created - use it
+		if (File.FolderExists(data._ParentFolderPath_))
+		{
+			rootPath = data._ParentFolderPath_;
+		}
 	}
 
 	SpiraImporterTraverseTestCaseFolders(data, function (path, testCase) {
@@ -274,7 +332,9 @@ function SpiraImporterImportTestCases(data)
 		}
 		
 		totalImported++;
-	});
+	},
+	rootPath // where to create a test case
+	);
 
 	Tester.Assert(`Imported: ${totalImported} Created: ${totalCreated}`, true);
 	
