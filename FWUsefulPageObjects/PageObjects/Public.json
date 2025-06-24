@@ -933,13 +933,22 @@
 				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(16,10)"
 			},
 			{
+				"name": "CleanTempFiles",
+				"description": "Clean the following temp files and folders:\r\n.tap\r\n.trp\r\nout.log\r\nerr.log\r\nplay.cmd\r\nReport/*\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/path",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(65,10)"
+			},
+			{
 				"name": "CleanAICommandCache",
 				"description": "Cleans AI cache, removes unused commands from ai.commands.json files.\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(58,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(112,10)"
 			},
 			{
 				"name": "CleanAICommandCacheDeprecated",
@@ -948,7 +957,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(151,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(205,10)"
 			},
 			{
 				"name": "GetRapiseApp",
@@ -957,7 +966,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(248,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(302,10)"
 			},
 			{
 				"name": "DoImportManual",
@@ -966,14 +975,14 @@
 				"returns": "",
 				"signature": "/**number*/ projectId, /**number*/ testCaseFolderId",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(284,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(338,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "RapiseUtils provides various actions to perform framework-oriented tasks.",
 		"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js",
-		"version": "1.0.9",
+		"version": "1.0.12",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/RapiseUtils"
 	},
 	"Sfdc": {

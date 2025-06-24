@@ -2,7 +2,7 @@
 /**
  * @PageObject RapiseUtils provides various actions to perform framework-oriented tasks.
  * 
- * @Version 1.0.11
+ * @Version 1.0.12
  */
 SeSPageObject("RapiseUtils");
 
@@ -48,6 +48,60 @@ function RapiseUtils_ConvertAICommandRepository()
 		catch (e)
 		{
 			Log("ConvertAICommandRepository: error reading AI command: " + commandId);
+		}
+	}
+}
+
+
+/**
+ * Clean the following temp files and folders:
+ * *.tap
+ * *.trp
+ * out.log
+ * err.log
+ * play.cmd
+ * /Report/*
+ */
+function RapiseUtils_CleanTempFiles(/**string*/path)
+{
+	path = path || g_workDir;
+
+	SeSEachFile(path, '*.trp', function(f) {
+		File.Delete(f);
+		Tester.Message('Trp: '+f)
+	});
+
+	SeSEachFile(path, '*.tap', function(f) {
+		File.Delete(f);
+		Tester.Message('Tap: '+f)
+	});
+
+	SeSEachFile(path, 'out.log', function(f) {
+		File.Delete(f);
+		Tester.Message('Out: '+f)
+	});
+
+	SeSEachFile(path, 'err.log', function(f) {
+		File.Delete(f);
+		Tester.Message('Err: '+f)
+	});
+
+	SeSEachFile(path, 'play.cmd', function(f) {
+		File.Delete(f);
+		Tester.Message('Err: '+f)
+	});
+
+	// Find all 'Reports' folders
+	var dirsStr = File.Find(path, "Reports", false, false, false, true);
+	if(dirsStr) {
+		var dirs = dirsStr.split('\n');
+		for(var i=0;i<dirs.length;i++) {
+			var f = dirs[i]
+			if( f.charAt(1)!=':' ) {
+				f = Global.GetFullPath(f);
+			}
+			File.DeleteFolder(f);
+			Tester.Message('Reports: '+f)
 		}
 	}
 }

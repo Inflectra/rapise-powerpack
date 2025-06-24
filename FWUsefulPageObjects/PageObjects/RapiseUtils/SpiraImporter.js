@@ -151,7 +151,9 @@ function SpiraImporterTraverseTestCaseFolders(folder, cb, currentPath = "") {
 	if (folder.TestCases && folder.TestCases.length > 0) {
 		for (let i = 0; i < folder.TestCases.length; i++) {
 			const tc = folder.TestCases[i];
-			cb(newPath, tc);
+			if( cb(newPath, tc) === false ) {
+				return false;
+			}
 		}
 	}
 
@@ -159,7 +161,9 @@ function SpiraImporterTraverseTestCaseFolders(folder, cb, currentPath = "") {
 	if (folder.Children && folder.Children.length > 0) {
 		for (let j = 0; j < folder.Children.length; j++) {
 			const childFolder = folder.Children[j];
-			SpiraImporterTraverseTestCaseFolders(childFolder, cb, newPath);
+			if( SpiraImporterTraverseTestCaseFolders(childFolder, cb, newPath) === false ) {
+				return false;
+			}
 		}
 	}
 }
@@ -332,6 +336,7 @@ function SpiraImporterImportTestCases(data)
 		}
 		
 		totalImported++;
+		//if( totalImported==4 ) return false;
 	},
 	rootPath // where to create a test case
 	);
