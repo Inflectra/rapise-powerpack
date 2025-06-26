@@ -239,6 +239,18 @@ function SpiraImporterFindSpiraIdByTCId(testCaseId)
 	return null; // not found
 }
 
+function FixTCName(/**string*/name) {
+	let res = "";
+	for(var i=0;i<name.length;i++) {
+		let chr = name.charAt(i);
+		if( "\\/:*?\"<>|".indexOf(name.charAt(i))>=0 ) {
+			chr = '_';
+		}
+		res+=chr;
+	}
+	return Text.Trim(res);
+}
+
 function SpiraImporterImportTestCases(data)
 {
 
@@ -278,6 +290,10 @@ function SpiraImporterImportTestCases(data)
 	var rootPath = "";
 	if (data._ParentFolderPath_)
 	{
+		if (!File.FolderExists(data._ParentFolderPath_))
+		{
+			File.CreateFolder(data._ParentFolderPath_)
+		}
 		// There is a folder structure already created - use it
 		if (File.FolderExists(data._ParentFolderPath_))
 		{
@@ -302,7 +318,12 @@ function SpiraImporterImportTestCases(data)
 				Tester.Message(`Skip test case: ${path}/${testCase.Name}, it is already automated and not found in this framework`);
 				return;
 			} else {
-				tc = rapiseApp.CreateTestCase(testCase.Name, path, true);
+				const fixedName = FixTCName(testCase.Name);
+				tc = rapiseApp.CreateTestCase(fixedName, path, true);
+				if (tc.Name!=fixedName) {
+					tc.AliasName = testCase.Name;
+					tc.Save();
+				}
 				Tester.Message("Created: " + testCase.Name, path);
 				totalCreated++;
 				SpiraImporterRegisterTC(tc.Id, testCase.TestCaseId);
