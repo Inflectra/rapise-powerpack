@@ -315,19 +315,22 @@ function SpiraImporterImportTestCases(data)
 		if (!tc)
 		{
 			if( testCase.AutomationAttachmentId ) {
-				Tester.Message(`Skip test case: ${path}/${testCase.Name}, it is already automated and not found in this framework`);
-				return;
-			} else {
-				const fixedName = FixTCName(testCase.Name);
-				tc = rapiseApp.CreateTestCase(fixedName, path, true);
-				if (tc.Name!=fixedName) {
-					tc.AliasName = testCase.Name;
-					tc.Save();
+				if(g_serverRepositoryType!='git') {
+					Tester.Message(`Skip test case: ${path}/${testCase.Name}, it is already automated and not found in this framework`);
+					return;
 				}
-				Tester.Message("Created: " + testCase.Name, path);
-				totalCreated++;
-				SpiraImporterRegisterTC(tc.Id, testCase.TestCaseId);
+				// If it is git then automation files are part of the repository and we assume that it is stored in the same path in the same repository.
+				Tester.Message(`Re-importing: ${path}/${testCase.Name}, it is already automated, assumeing it is in the same Git repository`);
 			}
+			const fixedName = FixTCName(testCase.Name);
+			tc = rapiseApp.CreateTestCase(fixedName, path, true);
+			if (tc.Name!=fixedName) {
+				tc.AliasName = testCase.Name;
+				tc.Save();
+			}
+			Tester.Message("Created: " + testCase.Name, path);
+			totalCreated++;
+			SpiraImporterRegisterTC(tc.Id, testCase.TestCaseId);
 		} else {
 			Log("Found existing TC");
 		}

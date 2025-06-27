@@ -2,7 +2,7 @@
 /**
  * @PageObject RapiseUtils provides various actions to perform framework-oriented tasks.
  * 
- * @Version 1.0.14
+ * @Version 1.0.15
  */
 SeSPageObject("RapiseUtils");
 
