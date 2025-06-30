@@ -320,7 +320,7 @@ function SpiraImporterImportTestCases(data)
 					return;
 				}
 				// If it is git then automation files are part of the repository and we assume that it is stored in the same path in the same repository.
-				Tester.Message(`Re-importing: ${path}/${testCase.Name}, it is already automated, assumeing it is in the same Git repository`);
+				Tester.Message(`Re-importing: ${path}/${testCase.Name}, it is already automated, assuming it is in the same Git repository`);
 			}
 			const fixedName = FixTCName(testCase.Name);
 			tc = rapiseApp.CreateTestCase(fixedName, path, true);
