@@ -446,7 +446,7 @@ class ComputerUseOpenAi {
             window.ActionEnd(actionType, e.message);
         }
     }
-    static async toolUseLoop(prompt, window, system_prompt, max_tokens = 10000, n_last_images = 3, timeout = 600000, // Default timeout: 10 minutes
+    static toolUseLoop(prompt, window, system_prompt, max_tokens = 10000, n_last_images = 3, timeout = 600000, // Default timeout: 10 minutes
     token_limit = 1000000) {
         const chatStatus = {
             start: new Date(),

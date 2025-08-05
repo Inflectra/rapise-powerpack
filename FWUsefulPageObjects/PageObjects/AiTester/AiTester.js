@@ -2,7 +2,7 @@
  * @PageObject AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,
  * perform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle
  * other tasks that require AI processing.
- * @Version 0.0.9
+ * @Version 0.0.10
  */
 SeSPageObject("AiTester");
 
@@ -42,52 +42,6 @@ var aiTesterParamInfo = {
 };
 
 var aiTesterAssertionSystemPrompt = "Test the provided ASSERTION against the RESPONSE. If assertion is valid return 1, if not return explanation.\nASSERTION: ${assertion}\nRESPONSE: ${response}";
-
-function AiTesterGetWorkflow(/**string*/ workflow)
-{
-	if (!workflow)
-	{
-		return null;
-	}
-	
-	function _getWorkflowFrom(path)
-	{
-		if (File.FolderExists(path))
-		{
-			var files = File.Find(path, "*.json");
-			files = files ? files.split('\n') : [];
-			for (var i = 0; i < files.length; i++)
-			{
-				var f = files[i];
-				try
-				{
-					var _wf = JSON.parse(File.Read(f));
-					if (_wf.id == workflow || _wf.name.toLowerCase() == workflow.toLowerCase())
-					{
-						return _wf;
-					}
-				}
-				catch(ex)
-				{
-					if (l2) Log2("Failed to parse: " + f);
-				}
-			}
-		}
-		return null;
-	}
-
-	var wf = null;
-	var localPath = Global.GetFullPath("AI\\workflows");
-	wf = _getWorkflowFrom(localPath);
-
-	if (!wf)
-	{
-		var globalPath = g_helper.ResolveEnvironmentVariables("%ALLUSERSPROFILE%\\Inflectra\\Rapise\\AI\\workflows");
-		wf = _getWorkflowFrom(globalPath);
-	}
-	
-	return wf;
-}
 
 /**
  * Sets default workflow.
@@ -580,16 +534,9 @@ function AiTesterDoImageQueryImpl(/**string*/ query, /**ImageWrapper[]*/ images,
 		}
 	}
 
-	// search for the workflowId
-	var wf = AiTesterGetWorkflow(workflow);
-	if (!wf)
-	{
-		return new SeSDoActionResult(false, null, "Workflow " + workflow + " is not found");
-	}
-	
 	var payload = {
 		question: query,
-		workflowId: wf.id,
+		workflowId: workflow,
 		logSessions: aiTesterLogSessions
 	}
 	

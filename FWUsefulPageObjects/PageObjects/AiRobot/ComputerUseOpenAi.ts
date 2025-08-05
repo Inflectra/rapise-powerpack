@@ -533,9 +533,7 @@ export class ComputerUseOpenAi {
 
     }
 
-
-
-    public static async toolUseLoop(
+    public static toolUseLoop(
         prompt: string,
         window: TargetWindow,
         system_prompt?: string,
@@ -543,7 +541,7 @@ export class ComputerUseOpenAi {
         n_last_images: number = 3,
         timeout: number = 600000, // Default timeout: 10 minutes
         token_limit: number = 1000000, // Default token limit: 1 million
-    ): Promise<ChatStatus> {
+    ): ChatStatus {
         const chatStatus: ChatStatus = {
             start: new Date(),
             prompt,

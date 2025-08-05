@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.60
+ * @Version 0.0.61
  */
 
 SeSPageObject("AiRobot");
@@ -139,7 +139,7 @@ function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*/ n_la
 
 	if( isOpenAi ) {
 	
-		if(!Global.GetRapiseVersion("8.4"))
+		if(!Global.GetRapiseVersion("8.5"))
 		{
 			Tester.Assert("Using AiRobot with OpenAI requires Rapise version 8.5 or higher", false, "Actual version: "+Global.GetRapiseVersion());
 			return false;
@@ -155,7 +155,7 @@ function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*/ n_la
 
 		let modelInfo = AiServerClient.GetModelInfo("bedrock");
 		let versionConfig = CU.versionConfig35;
-		if( modelInfo.model.includes('3-7-sonnet') )
+		if( !modelInfo.model.includes('3-5-sonnet') )
 		{
 			versionConfig = CU.versionConfig37;
 		}

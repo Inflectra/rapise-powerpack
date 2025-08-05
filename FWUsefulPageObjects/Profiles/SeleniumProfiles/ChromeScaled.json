@@ -58,7 +58,7 @@
     "cleanSession": ""
   },
   "Chrome Specific": {
-    "args": "[\"--disable-popup-blocking\",\"force-device-scale-factor=1\"]",
+    "args": "[\"--disable-popup-blocking\",\"force-device-scale-factor=1\",\"window-size=1024,768\"]",
     "binary": "",
     "extensions": "",
     "localState": "",
