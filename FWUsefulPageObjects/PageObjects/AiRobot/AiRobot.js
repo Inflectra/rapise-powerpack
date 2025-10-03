@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.61
+ * @Version 0.0.62
  */
 
 SeSPageObject("AiRobot");
@@ -51,7 +51,7 @@ function _AiRobotInit()
 		if(!File.ResolvePath("%WORKDIR%/node_modules/deasync") ||!File.ResolvePath("%WORKDIR%/node_modules/sharp") )
 		{
 			Log("Sharp not installed, doing npm install");
-			var cmd = g_helper.ResolvePath("InstrumentJS/npm.cmd") || "node";
+			var cmd = g_helper.ResolvePath("InstrumentJS/npm.cmd") || "npm";
 			Global.DoCmd(`"${cmd}" install deasync sharp --prefix "${g_workDir}"`, g_workDir, true, false);
 		}
 	}

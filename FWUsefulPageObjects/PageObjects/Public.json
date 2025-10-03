@@ -251,7 +251,7 @@
 		"extend_rule": "",
 		"description": "AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to\r\nfind reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.",
 		"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js",
-		"version": "0.0.61",
+		"version": "0.0.62",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/AiRobot"
 	},
 	"AiTester": {
@@ -269,7 +269,7 @@
 						"description": "Name or Id of the workflow to set as default."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(95,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(49,10)"
 			},
 			{
 				"name": "LogSessions",
@@ -282,7 +282,7 @@
 						"description": "If `true` - a session will be created for each AI request. Review the sessions in the AI Dashboard."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(109,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(63,11)"
 			},
 			{
 				"name": "StackWebImage",
@@ -291,7 +291,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(123,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(77,10)"
 			},
 			{
 				"name": "StackImage",
@@ -304,7 +304,7 @@
 						"description": "Image object."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(135,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(89,10)"
 			},
 			{
 				"name": "StackImageFile",
@@ -319,7 +319,7 @@
 						"ext": "gif;png;tiff;bmp;jpg;jpeg"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(149,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(103,10)"
 			},
 			{
 				"name": "DoTextQuery",
@@ -336,7 +336,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(171,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(125,10)"
 			},
 			{
 				"name": "DoWebImageVerify",
@@ -356,7 +356,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(184,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(138,10)"
 			},
 			{
 				"name": "DoWebImageQuery",
@@ -373,7 +373,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(205,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(159,10)"
 			},
 			{
 				"name": "DoMultiImageQuery",
@@ -390,7 +390,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(219,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(173,10)"
 			},
 			{
 				"name": "DoImageQuery",
@@ -410,7 +410,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(234,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(188,10)"
 			},
 			{
 				"name": "DoObjectQuery",
@@ -430,7 +430,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(248,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(202,10)"
 			},
 			{
 				"name": "DoWindowQuery",
@@ -450,7 +450,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(275,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(229,10)"
 			},
 			{
 				"name": "DoFullScreenQuery",
@@ -467,7 +467,7 @@
 						"optional": true
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(303,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(257,10)"
 			},
 			{
 				"name": "Assert",
@@ -480,7 +480,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(334,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(288,11)"
 			},
 			{
 				"name": "AssertLastResponse",
@@ -493,7 +493,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(346,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(300,11)"
 			},
 			{
 				"name": "SoftAssert",
@@ -509,7 +509,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(358,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(312,11)"
 			},
 			{
 				"name": "SoftAssertLastResponse",
@@ -522,7 +522,7 @@
 						"description": "Assertion to test against the response."
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(371,11)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(325,11)"
 			},
 			{
 				"name": "DoAnalyzeReport",
@@ -540,14 +540,14 @@
 						"ext": "trp"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(384,10)"
+				"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js(338,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,\r\nperform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle\r\nother tasks that require AI processing.",
 		"src": "%WORKDIR%PageObjects\\AiTester\\AiTester.js",
-		"version": "0.0.9",
+		"version": "0.0.10",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/AiTester"
 	},
 	"ExtentReports": {
@@ -1638,7 +1638,7 @@
 		"extend_rule": "",
 		"description": "TestRunner. Allows to easily rerun failed tests. \r\nHelps to analyze failures, flaky test cases  and generate reports and graphs.",
 		"src": "%WORKDIR%PageObjects\\TestRunner\\TestRunner.js",
-		"version": "0.0.16",
+		"version": "0.0.17",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/TestRunner"
 	},
 	"WebPageHelper": {
