@@ -20,7 +20,7 @@ const TestRunnerUtil =
 	{
 		if (!File.FolderExists(g_workDir + "\\PageObjects\\TestRunner\\node_modules"))
 		{
-			const npmCmd = g_helper.ResolvePath("InstrumentJS/npm.cmd");
+			const npmCmd = g_helper.ResolvePath("InstrumentJS/npm.cmd") || "npm";
 			const result = g_util.Run(`"${npmCmd}" ci`, `${g_workDir}\\PageObjects\\TestRunner`);
 			Log(result);
 		}
