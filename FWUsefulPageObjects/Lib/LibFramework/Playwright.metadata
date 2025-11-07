@@ -29,12 +29,21 @@
 				"signature": "/**string*/path",
 				"paramInfo": {},
 				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(162,10)"
+			},
+			{
+				"name": "GetElementByAi",
+				"description": "Use query to find an element by plain text description. The more detailed description\r\nthe better.\r\n@param {string} `query` text AI query.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/query",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(222,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.",
 		"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js",
-		"version": "0.0.3"
+		"version": "0.0.4"
 	}
 }
