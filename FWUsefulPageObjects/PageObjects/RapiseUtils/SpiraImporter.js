@@ -248,7 +248,29 @@ function FixTCName(/**string*/name) {
 		}
 		res+=chr;
 	}
-	return Text.Trim(res);
+	return FixWhiteSpace(Text.Trim(res));
+}
+
+function FixWhiteSpace(/**string*/name) {
+	if (typeof name !== "string") return name;
+
+	// 1. Trim leading and trailing whitespace
+	var result = name.trim();
+
+	// 2. Replace invisible/non-breaking spaces and other zero-width chars
+	result = result
+		.replace(/\u00A0/g, " ")                  // Unicode non-breaking space
+		.replace(/[\u0080-\u009F]/g, "")          // C1 Control Characters
+		.replace(/[\u200B-\u200D\uFEFF]/g, "")    // Zero-width spaces, etc.
+		.replace(/\s+/g, " ");                    // Normalize multiple spaces
+
+	// 3. Remove emojis and pictographs
+	result = result.replace(
+		/[\p{Emoji_Presentation}\p{Extended_Pictographic}\p{Emoji}\uFE0F]/gu,
+		""
+	);
+
+	return result;
 }
 
 function SpiraImporterImportTestCases(data)
@@ -322,10 +344,11 @@ function SpiraImporterImportTestCases(data)
 				// If it is git then automation files are part of the repository and we assume that it is stored in the same path in the same repository.
 				Tester.Message(`Re-importing: ${path}/${testCase.Name}, it is already automated, assuming it is in the same Git repository`);
 			}
+			const aliasName = FixWhiteSpace(Text.Trim(testCase.Name));
 			const fixedName = FixTCName(testCase.Name);
 			tc = rapiseApp.CreateTestCase(fixedName, path, true);
-			if (tc.Name!=fixedName) {
-				tc.AliasName = testCase.Name;
+			if (aliasName!=fixedName) {
+				tc.AliasName = aliasName;
 				tc.Save();
 			}
 			Tester.Message("Created: " + testCase.Name, path);
