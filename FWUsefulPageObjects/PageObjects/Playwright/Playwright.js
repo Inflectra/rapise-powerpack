@@ -1,7 +1,7 @@
 
 /**
  * @PageObject Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.
- * @Version 0.0.4
+ * @Version 0.0.5
  */
 SeSPageObject("Playwright");
 
@@ -235,8 +235,14 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 	
 	/**
 	 * Build an array of XPaths from the page root to the given element.
-	 * - If the element is in the main frame: returns [ <element xpath> ]
-	 * - If inside frames: [ <rootmost frame xpath>, ..., <innermost frame xpath>, <element xpath> ]
+	 * - If the element is in the main frame: returns [ <element xpath or shadow-aware Rapise locator> ]
+	 * - If inside frames: [ <rootmost frame xpath>, ..., <innermost frame xpath>, <element xpath or shadow-aware Rapise locator> ]
+	 * Supports Rapise Shadow DOM extension using `@#@` where:
+	 *   <light-dom host xpath>@#@css=<selector within shadow root>[@#@css=<nested selector>...]
+	 *
+	 * Notes:
+	 * - Supports nested Shadow DOMs (multiple @#@ segments).
+	 * - In HTML XPath parts, omits `[1]` when the element is unique among siblings with the same tag.
 	 *
 	 * @param {import('@playwright/test').Page} page
 	 * @param {import('@playwright/test').Locator|import('@playwright/test').ElementHandle} element
@@ -247,48 +253,112 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 			? await element.elementHandle()
 			: element;
 		if (!elHandle) throw new Error('Element not found / detached');
-	
+
 		const chain = [];
-	
-		// Helper: absolute XPath of an element within its current document
+
+		// Helper: absolute XPath of an element within its current document (Light DOM),
+		// omitting [1] when the element is unique among same-name siblings.
 		async function absXPath(elemHandle) {
 			return await elemHandle.evaluate((node) => {
 				// Ensure we’re on an element
-				if (node.nodeType !== Node.ELEMENT_NODE) node = node.parentElement;
+				if (node && node.nodeType !== Node.ELEMENT_NODE) node = node.parentElement;
 				if (!node) return null;
-	
-				function indexAmongSameNameSiblings(n) {
-					let i = 1;
+
+				function sameNameSiblingsInfo(n) {
+					let idx = 1;
+					let hasSameBefore = false;
+					let hasSameAfter = false;
+
 					let s = n.previousSibling;
 					while (s) {
-						if (s.nodeType === 1 && s.nodeName === n.nodeName) i++;
+						if (s.nodeType === 1 && s.nodeName === n.nodeName) {
+							hasSameBefore = true;
+							idx++;
+						}
 						s = s.previousSibling;
 					}
-					return i;
+					s = n.nextSibling;
+					while (s) {
+						if (s.nodeType === 1 && s.nodeName === n.nodeName) {
+							hasSameAfter = true;
+							break;
+						}
+						s = s.nextSibling;
+					}
+					return { idx, unique: (!hasSameBefore && !hasSameAfter) };
 				}
-	
+
 				const parts = [];
 				let cur = node;
-				const docEl = node.ownerDocument.documentElement;
-	
+				const docEl = node.ownerDocument && node.ownerDocument.documentElement;
+
 				while (cur && cur.nodeType === 1 && cur !== docEl) {
 					const name = cur.nodeName.toLowerCase();
-					const idx = indexAmongSameNameSiblings(cur);
-					parts.unshift(`${name}[${idx}]`);
+					const { idx, unique } = sameNameSiblingsInfo(cur);
+					parts.unshift(unique ? `${name}` : `${name}[${idx}]`);
 					cur = cur.parentElement;
 				}
-	
+
 				if (docEl) {
-					// include root element (usually html[1] or svg[1])
+					// include root element (usually html or svg); omit [1]
 					const rootName = docEl.nodeName.toLowerCase();
-					const rootIdx = 1; // root is unique
-					parts.unshift(`${rootName}[${rootIdx}]`);
+					parts.unshift(`${rootName}`);
 				}
-	
+
 				return '/' + parts.join('/');
 			});
 		}
-	
+
+		// Helper: build a CSS path from the current shadow root to the given node,
+		// omitting :nth-of-type(1) when unique among same-tag siblings.
+		async function cssPathWithinShadow(elemHandle) {
+			return await elemHandle.evaluate((node) => {
+				const root = node && node.getRootNode && node.getRootNode();
+				if (!(root && root instanceof ShadowRoot)) return null;
+
+				function selectorFor(el) {
+					const tag = el.localName || el.tagName.toLowerCase();
+					let idx = 1;
+					let sameBefore = false;
+					let sameAfter = false;
+
+					let sib = el.previousElementSibling;
+					while (sib) {
+						if (sib.localName === tag) {
+							sameBefore = true;
+							idx++;
+						}
+						sib = sib.previousElementSibling;
+					}
+					sib = el.nextElementSibling;
+					while (sib) {
+						if (sib.localName === tag) {
+							sameAfter = true;
+							break;
+						}
+						sib = sib.nextElementSibling;
+					}
+
+					// If unique, omit :nth-of-type(1)
+					if (!sameBefore && !sameAfter) return `${tag}`;
+					return `${tag}:nth-of-type(${idx})`;
+				}
+
+				const parts = [];
+				let cur = node;
+
+				// climb within this shadow root up to its direct children boundary
+				while (cur && cur instanceof Element) {
+					parts.unshift(selectorFor(cur));
+					const parent = cur.parentElement;
+					if (!parent || parent.getRootNode() !== root) break;
+					cur = parent;
+				}
+
+				return 'css=' + parts.join(' > ');
+			});
+		}
+
 		// Walk up through frames: from the element's owner frame to the top
 		let frame = await elHandle.ownerFrame();
 		while (frame) {
@@ -299,14 +369,49 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 			chain.push(iframeXPath);
 			frame = parent;
 		}
-	
+
 		// We collected from inner->outer; reverse to get rootmost first
 		chain.reverse();
-	
-		// Finally, add the element's absolute XPath within its own document
-		const elementXPath = await absXPath(elHandle);
-		chain.push(elementXPath);
-	
+
+		// Build the element locator for the innermost document, supporting nested Shadow DOM:
+		// If inside shadow DOM(s): <outermost-host-xpath>@#@css=<outermost path>@#@css=<next inner path>...@#@css=<innermost path to element>
+		// Else: absolute XPath to the element.
+		const shadowCssSegments = [];
+
+		let curHandle = elHandle;
+
+		// Collect nested shadow segments (inner -> outer):
+		// For the current node, if it is inside a shadow root, record its CSS path within that root,
+		// then jump to the shadow host (Light DOM element) and repeat while that host itself is inside another shadow root.
+		while (true) {
+			const seg = await cssPathWithinShadow(curHandle);
+			if (!seg) break;
+			shadowCssSegments.push(seg);
+
+			// Move to the shadow host in Light DOM
+			const hostHandle = await curHandle.evaluateHandle((node) => {
+				const r = node && node.getRootNode && node.getRootNode();
+				return (r && r instanceof ShadowRoot) ? r.host : null;
+			});
+			const hostEl = hostHandle.asElement();
+			if (!hostEl) break;
+			curHandle = hostEl;
+			// Continue; if host is inside another shadow root, next loop will capture its path within that outer root
+		}
+
+		let elementLocator;
+		if (shadowCssSegments.length > 0) {
+			// curHandle is now the outermost shadow host (in Light DOM)
+			const hostXPath = await absXPath(curHandle);
+			// reverse so the order is outermost -> innermost for Rapise
+			elementLocator = hostXPath + '@#@' + shadowCssSegments.reverse().join('@#@');
+		} else {
+			// No shadow: absolute XPath to the element itself (with [1] omitted where unique)
+			elementLocator = await absXPath(elHandle);
+		}
+
+		chain.push(elementLocator);
+
 		return chain;
 	}
 

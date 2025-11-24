@@ -925,7 +925,7 @@
 		"extend_rule": "",
 		"description": "Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.",
 		"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js",
-		"version": "0.0.4",
+		"version": "0.0.5",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/Playwright"
 	},
 	"RapiseUtils": {
