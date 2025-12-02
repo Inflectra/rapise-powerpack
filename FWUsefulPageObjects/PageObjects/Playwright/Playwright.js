@@ -1,7 +1,7 @@
 
 /**
  * @PageObject Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.
- * @Version 0.0.5
+ * @Version 0.0.6
  */
 SeSPageObject("Playwright");
 
@@ -661,7 +661,7 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 	_PlaywrightInit();
 	const snap = _PlaywrightSyncRun(()=>_DoInvokeForCurrentBrowser(async ({page})=>{
 		const snap = await page._snapshotForAI();
-		return snap;
+		return snap.full||snap;
 	}));
 	
 	Log(snap);
