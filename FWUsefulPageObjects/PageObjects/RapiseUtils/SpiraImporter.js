@@ -257,19 +257,19 @@ function FixWhiteSpace(/**string*/name) {
 	// 1. Trim leading and trailing whitespace
 	var result = name.trim();
 
-	// 2. Replace invisible/non-breaking spaces and other zero-width chars
+	// 2. Remove emojis and pictographs (safe version)
+	result = result.replace(
+		/([\u{1F300}-\u{1FAFF}]|[\u{1F600}-\u{1F64F}]|[\u{1F680}-\u{1F6FF}]|[\u{2600}-\u{26FF}]\uFE0F?)/gu,
+		""
+	);
+
+	// 3. Replace invisible/non-breaking spaces and other zero-width chars
 	result = result
 		.replace(/\u00A0/g, " ")                  // Unicode non-breaking space
 		.replace(/[\u0080-\u009F]/g, "")          // C1 Control Characters
 		.replace(/[\u200B-\u200D\uFEFF]/g, "")    // Zero-width spaces, etc.
 		.replace(/\s+/g, " ");                    // Normalize multiple spaces
-
-	// 3. Remove emojis and pictographs
-	result = result.replace(
-		/[\p{Emoji_Presentation}\p{Extended_Pictographic}\p{Emoji}\uFE0F]/gu,
-		""
-	);
-
+	
 	return result;
 }
 
@@ -390,9 +390,8 @@ function SpiraImporterImportTestCases(data)
 
 	Tester.Assert(`Imported: ${totalImported} Created: ${totalCreated}`, true);
 	
-	rapiseApp.SaveAll();
-	
 	rapiseApp.DoGlobalCommand("Generate Metadata");
 	rapiseApp.DoGlobalCommand("SoftRefreshSpiraDashboard");
+	rapiseApp.SaveAll();
 }
 //#endregion Importer
