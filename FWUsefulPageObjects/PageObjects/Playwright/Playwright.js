@@ -1,7 +1,7 @@
 
 /**
  * @PageObject Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.
- * @Version 0.0.6
+ * @Version 0.0.7
  */
 SeSPageObject("Playwright");
 
@@ -256,6 +256,124 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 
 		const chain = [];
 
+		/** 
+		 * Returns minimized/optimized xpath.
+		 */
+		async function resilientXPath(elemHandle) {
+			return await elemHandle.evaluate((node) => {
+				// Helper: check if an XPath is unique in the document
+				function isUnique(xpath) {
+					try {
+						const result = document.evaluate(xpath, document, null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+						return result.snapshotLength === 1;
+					} catch (e) {
+						return false;
+					}
+				}
+
+				// Helper: escape quotes in attribute values for XPath
+				function escapeForXPath(val) {
+					if (val.indexOf('"') === -1) return '"' + val + '"';
+					if (val.indexOf("'") === -1) return "'" + val + "'";
+					return 'concat("' + val.replace(/"/g, '", \'"\', "') + '")';
+				}
+
+				// Helper: get meaningful attributes for XPath
+				function getAttrSegment(n) {
+					if (!n || n.nodeType !== 1) return null;
+					const tag = n.nodeName.toLowerCase();
+					
+					// 1. Prefer data-* attributes
+					for (const attr of ['data-testid', 'data-test', 'data-qa']) {
+						if (n.hasAttribute && n.hasAttribute(attr)) {
+							return `${tag}[@${attr}=${escapeForXPath(n.getAttribute(attr))}]`;
+						}
+					}
+					
+					// 2. Use id if it looks stable
+					if (n.id) {
+						// Validation:
+						const isDynamic = 
+							/[-_:]\d+$/.test(n.id) ||                         // Ends in separator+number (input-450)
+							/\d{3,}/.test(n.id) ||                            // Too many digits (view1234)
+							/^(ember|react|vue|angular|j_id|ext|yui|gen)/i.test(n.id) || // Framework garbage
+							/^[0-9]/.test(n.id);                              // Starts with number (technically valid, usually bad)
+
+						if (!isDynamic) {
+							return `${tag}[@id=${escapeForXPath(n.id)}]`;
+						}
+					}
+					
+					// 3. Use name if present
+					if (n.name) {
+						return `${tag}[@name=${escapeForXPath(n.name)}]`;
+					}
+					
+					// 4. Use specific attributes for inputs
+					if ((tag === 'input' || tag === 'button') && n.type) {
+						return `${tag}[@type=${escapeForXPath(n.type)}]`;
+					}
+					
+					// 5. Use text for buttons/links if short
+					if ((tag === 'button' || tag === 'a') && n.textContent && n.textContent.trim().length > 0 && n.textContent.trim().length < 32) {
+						const txt = n.textContent.trim().replace(/\s+/g, ' ');
+						return `${tag}[normalize-space(text())=${escapeForXPath(txt)}]`;
+					}
+					
+					return tag;
+				}
+
+				// Helper: get index among same-tag siblings (1-based)
+				function getIndexAmongSiblings(n) {
+					if (!n.parentNode) return 1;
+					const tag = n.nodeName;
+					let idx = 1;
+					for (let sib = n.previousSibling; sib; sib = sib.previousSibling) {
+						if (sib.nodeType === 1 && sib.nodeName === tag) idx++;
+					}
+					return idx;
+				}
+
+				// Main Loop
+				let cur = node;
+				const segments = [];
+				
+				while (cur && cur.nodeType === 1) {
+					let seg = getAttrSegment(cur);
+					const tail = segments.length ? '/' + segments.join('/') : '';
+					
+					// OPTION 1: Try without index using deep search (//)
+					// If the element has an ID, this usually finds it immediately.
+					let xpath = '//' + seg + tail;
+					if (isUnique(xpath)) return xpath;
+
+					// OPTION 2: Add index to distinguish from siblings
+					// Note: We simply append [x], we do not mess with the attribute brackets.
+					// Result: tag[@id="val"][1]
+					const idx = getIndexAmongSiblings(cur);
+					seg += `[${idx}]`;
+					
+					xpath = '//' + seg + tail;
+					if (isUnique(xpath)) return xpath;
+
+					// OPTION 3: Not unique yet, climb up the tree
+					segments.unshift(seg);
+					cur = cur.parentNode;
+				}
+
+				// Fallback: Absolute path (should rarely be reached if logic works)
+				const finalPath = '/' + segments.join('/');
+
+				// Verify the path actually finds the element in the current document
+				if (isUnique(finalPath)) {
+					return finalPath;
+				}
+
+				// If we are here, the element is likely detached or in Shadow DOM
+				return null;
+			});
+		}
+
 		// Helper: absolute XPath of an element within its current document (Light DOM),
 		// omitting [1] when the element is unique among same-name siblings.
 		async function absXPath(elemHandle) {
@@ -309,6 +427,12 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 			});
 		}
 
+		async function makeXPath(elemHandle)
+		{
+			return await resilientXPath(elemHandle);
+			//return await absXPath(elemHandle);
+		}
+
 		// Helper: build a CSS path from the current shadow root to the given node,
 		// omitting :nth-of-type(1) when unique among same-tag siblings.
 		async function cssPathWithinShadow(elemHandle) {
@@ -351,6 +475,11 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 				while (cur && cur instanceof Element) {
 					parts.unshift(selectorFor(cur));
 					const parent = cur.parentElement;
+
+					if (parent && parent.shadowRoot) {
+						break;
+					}
+
 					if (!parent || parent.getRootNode() !== root) break;
 					cur = parent;
 				}
@@ -365,7 +494,7 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 			const parent = frame.parentFrame();
 			if (!parent) break; // main frame reached
 			const iframeEl = await frame.frameElement(); // <iframe> element inside parent document
-			const iframeXPath = await absXPath(iframeEl);
+			const iframeXPath = await makeXPath(iframeEl);
 			chain.push(iframeXPath);
 			frame = parent;
 		}
@@ -379,35 +508,41 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 		const shadowCssSegments = [];
 
 		let curHandle = elHandle;
-
-		// Collect nested shadow segments (inner -> outer):
-		// For the current node, if it is inside a shadow root, record its CSS path within that root,
-		// then jump to the shadow host (Light DOM element) and repeat while that host itself is inside another shadow root.
-		while (true) {
-			const seg = await cssPathWithinShadow(curHandle);
-			if (!seg) break;
-			shadowCssSegments.push(seg);
-
-			// Move to the shadow host in Light DOM
-			const hostHandle = await curHandle.evaluateHandle((node) => {
-				const r = node && node.getRootNode && node.getRootNode();
-				return (r && r instanceof ShadowRoot) ? r.host : null;
-			});
-			const hostEl = hostHandle.asElement();
-			if (!hostEl) break;
-			curHandle = hostEl;
-			// Continue; if host is inside another shadow root, next loop will capture its path within that outer root
-		}
-
 		let elementLocator;
-		if (shadowCssSegments.length > 0) {
-			// curHandle is now the outermost shadow host (in Light DOM)
-			const hostXPath = await absXPath(curHandle);
-			// reverse so the order is outermost -> innermost for Rapise
-			elementLocator = hostXPath + '@#@' + shadowCssSegments.reverse().join('@#@');
-		} else {
-			// No shadow: absolute XPath to the element itself (with [1] omitted where unique)
-			elementLocator = await absXPath(elHandle);
+
+		// Let's try to build the locator without CSS
+		elementLocator = await makeXPath(elHandle);
+
+		if (!elementLocator)
+		{
+			// Collect nested shadow segments (inner -> outer):
+			// For the current node, if it is inside a shadow root, record its CSS path within that root,
+			// then jump to the shadow host (Light DOM element) and repeat while that host itself is inside another shadow root.
+			while (true) {
+				const seg = await cssPathWithinShadow(curHandle);
+				if (!seg) break;
+				shadowCssSegments.push(seg);
+
+				// Move to the shadow host in Light DOM
+				const hostHandle = await curHandle.evaluateHandle((node) => {
+					const r = node && node.getRootNode && node.getRootNode();
+					return (r && r instanceof ShadowRoot) ? r.host : null;
+				});
+				const hostEl = hostHandle.asElement();
+				if (!hostEl) break;
+				curHandle = hostEl;
+				// Continue; if host is inside another shadow root, next loop will capture its path within that outer root
+			}
+
+			if (shadowCssSegments.length > 0) {
+				// curHandle is now the outermost shadow host (in Light DOM)
+				const hostXPath = await makeXPath(curHandle);
+				// reverse so the order is outermost -> innermost for Rapise
+				elementLocator = hostXPath + '@#@' + shadowCssSegments.reverse().join('@#@');
+			} else {
+				// No shadow: absolute XPath to the element itself (with [1] omitted where unique)
+				elementLocator = await makeXPath(elHandle);
+			}
 		}
 
 		chain.push(elementLocator);
@@ -664,7 +799,7 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 		return snap.full||snap;
 	}));
 	
-	Log(snap);
+	if (l2) Log2(snap);
 
 	// AITester magic goes here
 	let ref = undefined;
@@ -727,13 +862,24 @@ Output JSON:
 		return xpathChain.join('@@@');
 	}));
 	
+	if (l1) Log1("PW XPATH: " + fullXPath);
 	const /**HTMLObject*/el = Navigator.Find(fullXPath);
 	if (el)
 	{
-		el.highlight();
-	
+		try
+		{
+			var border = WebDriver.ExecuteScript("var border = arguments[0].style.border; arguments[0].style.border='2px groove red'; return border;", el.element.e) || "";
+			SeSSleep(1000);
+			WebDriver.ExecuteScript("arguments[0].style.border=arguments[1];", [el.element.e, border]);		
+		}
+		catch(ex)
+		{
+			if (l2) Log2(ex.message);
+		}
+
 		return el;
 	} else {
+		if (l2) Log2("Element not found by PW XPATH");
 		return false;
 	}
 }

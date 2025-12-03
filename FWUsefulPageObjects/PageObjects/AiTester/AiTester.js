@@ -2,7 +2,7 @@
  * @PageObject AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,
  * perform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle
  * other tasks that require AI processing.
- * @Version 0.0.10
+ * @Version 0.0.11
  */
 SeSPageObject("AiTester");
 
@@ -547,8 +547,8 @@ function AiTesterDoImageQueryImpl(/**string*/ query, /**ImageWrapper[]*/ images,
 
 	AiServerClient.SetCurrentContext();
 	var response = AiServerClient.QueryWorkflow(payload);
-	Log("AI Query: " + (query.length < 512 ? query : query.substring(0, 512) + "..."));
-	Log("AI Answer:" + (response.length < 512 ? response : response.substring(0, 512) + "..."));
+	if (l2) Log2("AI Query: " + (query.length < 512 ? query : query.substring(0, 512) + "..."));
+	if (l1) Log1("AI Answer:" + (response.length < 512 ? response : response.substring(0, 512) + "..."));
 	
 	aiTesterLastResponse = response;
 	
