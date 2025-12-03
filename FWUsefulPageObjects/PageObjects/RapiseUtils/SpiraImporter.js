@@ -392,6 +392,7 @@ function SpiraImporterImportTestCases(data)
 	
 	rapiseApp.SaveAll();
 	
+	rapiseApp.DoGlobalCommand("Generate Metadata");
 	rapiseApp.DoGlobalCommand("SoftRefreshSpiraDashboard");
 }
 //#endregion Importer
