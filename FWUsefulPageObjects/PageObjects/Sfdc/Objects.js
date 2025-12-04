@@ -21,7 +21,7 @@ var saved_script_objects={
 		"ignore_object_name": true,
 		"object_library": "Chrome HTML",
 		"window_name": "Home | Salesforce",
-		"xpath": "//div[contains(@class,'slds-icon-waffle')]",
+		"xpath": "//button[@title='App Launcher']",
 		"title": "Home | Salesforce",
 		"url": ""
 	},
@@ -47,7 +47,7 @@ var saved_script_objects={
 		"ignore_object_name": true,
 		"object_library": "Chrome HTML",
 		"window_name": "Recently Viewed | Leads | Salesforce",
-		"xpath": "//div[@data-aura-class='forceListViewPicker']",
+		"xpath": "//lst-list-view-picker",
 		"title": "Recently Viewed | Leads | Salesforce",
 		"url": ""
 	}

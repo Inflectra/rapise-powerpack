@@ -2,7 +2,7 @@
 /**
  * @PageObject Sfdc object to perform common actions like launch, navigate module, etc.
  *
- * @Version 1.0.4
+ * @Version 1.0.5
  */
 SeSPageObject("Sfdc");
 
@@ -28,7 +28,7 @@ function Sfdc_Launch()
  */
 function Sfdc_OpenApp(/**string*/ app)
 {
-	SeS("G_Waffle").DoClick();
+	SeS("G_Waffle").DoClick(5,5);
 	var xpath = "//a[@data-label='" + app + "']";
 	var obj = Navigator.SeSFind(xpath);
 	if (obj)	
@@ -69,6 +69,7 @@ function Sfdc_SelectListView(/**string*/ view)
 {
 	SeS("G_Select_List_View").DoClick();
 	var xpath = "//a[@role='option' and contains(.,'" + view + "')]/span";
+	var xpath = "//lightning-base-combobox-item//span[contains(.,'" + view + "')]";
 	var obj = Navigator.SeSFind(xpath);
 	if (obj)	
 	{
@@ -164,7 +165,7 @@ function Sfdc_SelectComboboxItem(/**string*/ name, /**string*/ item)
 		obj.object_name = name;
 		obj.DoEnsureVisible();
 		
-		var openButton = obj._DoDOMQueryXPath('.//lightning-icon');	
+		var openButton = obj._DoDOMQueryXPath('.//button[@role="combobox"]');
 		if (openButton && openButton.length)
 		{
 			openButton[0].DoLClick();
