@@ -1,7 +1,7 @@
 
 /**
  * @PageObject Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.
- * @Version 0.0.7
+ * @Version 0.0.8
  */
 SeSPageObject("Playwright");
 
@@ -57,7 +57,10 @@ async function getPlaywrightBrowser()
 	const browser = await playwright.chromium.connectOverCDP(cdpUrl, {
     logger: {
       isEnabled: (name, severity) => true,
-      log: (name, severity, message, args) => console.log(`${name} ${message}`)
+      log: (name, severity, message, args) =>
+      { 
+          if (l2) Log2(`${name} ${message}`)
+      }
     }
 	});
 	return {playwright, browser};
@@ -317,7 +320,7 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 					// 5. Use text for buttons/links if short
 					if ((tag === 'button' || tag === 'a') && n.textContent && n.textContent.trim().length > 0 && n.textContent.trim().length < 32) {
 						const txt = n.textContent.trim().replace(/\s+/g, ' ');
-						return `${tag}[normalize-space(text())=${escapeForXPath(txt)}]`;
+						return `${tag}[normalize-space(.)=${escapeForXPath(txt)}]`;
 					}
 					
 					return tag;
@@ -541,7 +544,7 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 				elementLocator = hostXPath + '@#@' + shadowCssSegments.reverse().join('@#@');
 			} else {
 				// No shadow: absolute XPath to the element itself (with [1] omitted where unique)
-				elementLocator = await makeXPath(elHandle);
+				elementLocator = await absXPath(elHandle);
 			}
 		}
 

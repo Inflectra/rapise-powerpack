@@ -10,7 +10,7 @@
 				"returns": "",
 				"signature": "/**string*/cmdParams",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(113,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(116,10)"
 			},
 			{
 				"name": "DoInvoke",
@@ -19,7 +19,7 @@
 				"returns": "",
 				"signature": "/**function*/callBack",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(152,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(155,10)"
 			},
 			{
 				"name": "DoImportJsonReport",
@@ -28,7 +28,7 @@
 				"returns": "",
 				"signature": "/**string*/path",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(162,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(165,10)"
 			},
 			{
 				"name": "GetElementByAi",
@@ -37,13 +37,13 @@
 				"returns": "",
 				"signature": "/**string*/query",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(222,10)"
+				"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js(225,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.",
 		"src": "%WORKDIR%PageObjects\\Playwright\\Playwright.js",
-		"version": "0.0.7"
+		"version": "0.0.8"
 	}
 }

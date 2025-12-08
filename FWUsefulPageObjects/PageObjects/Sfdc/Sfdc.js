@@ -28,17 +28,32 @@ function Sfdc_Launch()
  */
 function Sfdc_OpenApp(/**string*/ app)
 {
-	SeS("G_Waffle").DoClick(5,5);
-	var xpath = "//a[@data-label='" + app + "']";
-	var obj = Navigator.SeSFind(xpath);
-	if (obj)	
+	function _clickApp()
 	{
-		obj.object_name = app;
-		obj.DoLClick();
+		var xpath = "//a[@data-label='" + app + "']";
+		var obj = Navigator.DoWaitFor(xpath, 3000);
+		if (obj)
+		{
+			obj.object_name = app;
+			return obj.DoLClick();
+		}
+		return false;
 	}
-	else
+
+	SeS("G_Waffle").DoClick(5,5);
+	if (!_clickApp())
 	{
-		Tester.Assert("App element is not found: " + app, false);
+		// it may be hidden inside View All
+		var viewAllObj = Navigator.SeSFind("//button[text()='View All']");
+		if (viewAllObj)
+		{
+			viewAllObj.object_name = "View All";
+			viewAllObj.DoClick();
+			if (!_clickApp())
+			{
+				Tester.Assert("App element is not found: " + app, false);
+			}
+		}
 	}
 }
 
