@@ -1,7 +1,7 @@
 
 /**
  * @PageObject Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.
- * @Version 0.0.8
+ * @Version 0.0.9
  */
 SeSPageObject("Playwright");
 
@@ -588,6 +588,10 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 	
 		// Some models prepend "json" on the first line even without fences
 		s = s.replace(/^\s*json\s*\n/i, '');
+
+		// --- FIX 1: Try parsing immediately before destructive normalization ---
+		// If the input is already valid JSON (like your input), we shouldn't touch quotes.
+		try { return JSON.parse(s); } catch {}
 	
 		// 3) Decode common HTML entities and normalize quotes/backticks
 		s = decodeEntities(s);
@@ -660,8 +664,8 @@ function Playwright_GetElementByAi(/**string*/query)/**HTMLObject|false*/
 			str = str.replace(/[\u201C\u201D\u201E\u201F\u2033]/g, '"');
 			// smart single quotes → '
 			str = str.replace(/[\u2018\u2019\u201B\u2032]/g, "'");
-			// occasional stray backticks → "
-			str = str.replace(/`/g, '"');
+			// --- FIX 2: Do NOT replace backticks blindly ---
+			// str = str.replace(/`/g, '"'); 
 			return str;
 		}
 	
@@ -866,14 +870,16 @@ Output JSON:
 	}));
 	
 	if (l1) Log1("PW XPATH: " + fullXPath);
-	const /**HTMLObject*/el = Navigator.Find(fullXPath);
+	let /**HTMLObject*/el = Navigator.Find(fullXPath);
 	if (el)
 	{
+		var nEl = el.makeObjectForElement(el.element, true);
+		el = nEl || el;
 		try
 		{
 			var border = WebDriver.ExecuteScript("var border = arguments[0].style.border; arguments[0].style.border='2px groove red'; return border;", el.element.e) || "";
 			SeSSleep(1000);
-			WebDriver.ExecuteScript("arguments[0].style.border=arguments[1];", [el.element.e, border]);		
+			WebDriver.ExecuteScript("arguments[0].style.border=arguments[1];", [el.element.e, border]);
 		}
 		catch(ex)
 		{
