@@ -45,6 +45,9 @@
         <Path>ComputerUseOpenAi.js</Path>
       </TestFile>
       <TestFile>
+        <Path>ComputerUseQwen.js</Path>
+      </TestFile>
+      <TestFile>
         <Path>ComputerUseTypes.js</Path>
       </TestFile>
       <TestFile>

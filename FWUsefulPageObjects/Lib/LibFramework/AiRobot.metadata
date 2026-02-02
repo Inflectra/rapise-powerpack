@@ -33,13 +33,13 @@
 						"defaultValue": 5
 					},
 					"timeout": {
-						"type": "string",
-						"description": "LLM provider to use for Robot: `bedrock` or `openai`.",
+						"type": "number",
+						"description": "Maximum time to wait, in milliseconds",
 						"optional": true,
-						"defaultValue": "bedrock"
+						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(213,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(241,10)"
 			},
 			{
 				"name": "SetSelfCheck",
@@ -48,7 +48,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(237,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(265,10)"
 			},
 			{
 				"name": "DoWebBrowser",
@@ -80,13 +80,13 @@
 						"defaultValue": 5
 					},
 					"timeout": {
-						"type": "string",
-						"description": "LLM provider to use for Robot: `bedrock` or `openai`.",
+						"type": "number",
+						"description": "Maximum time to wait, in milliseconds",
 						"optional": true,
-						"defaultValue": "bedrock"
+						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(256,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(284,10)"
 			},
 			{
 				"name": "DoFullScreen",
@@ -118,13 +118,13 @@
 						"defaultValue": 5
 					},
 					"timeout": {
-						"type": "string",
-						"description": "LLM provider to use for Robot: `bedrock` or `openai`.",
+						"type": "number",
+						"description": "Maximum time to wait, in milliseconds",
 						"optional": true,
-						"defaultValue": "bedrock"
+						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(280,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(308,10)"
 			},
 			{
 				"name": "DoScreenRegion",
@@ -156,13 +156,13 @@
 						"defaultValue": 5
 					},
 					"timeout": {
-						"type": "string",
-						"description": "LLM provider to use for Robot: `bedrock` or `openai`.",
+						"type": "number",
+						"description": "Maximum time to wait, in milliseconds",
 						"optional": true,
-						"defaultValue": "bedrock"
+						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(303,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(331,10)"
 			},
 			{
 				"name": "DoWindow",
@@ -197,13 +197,13 @@
 						"defaultValue": 5
 					},
 					"timeout": {
-						"type": "string",
-						"description": "LLM provider to use for Robot: `bedrock` or `openai`.",
+						"type": "number",
+						"description": "Maximum time to wait, in milliseconds",
 						"optional": true,
-						"defaultValue": "bedrock"
+						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(326,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(354,10)"
 			},
 			{
 				"name": "DoObject",
@@ -238,19 +238,19 @@
 						"defaultValue": 5
 					},
 					"timeout": {
-						"type": "string",
-						"description": "LLM provider to use for Robot: `bedrock` or `openai`.",
+						"type": "number",
+						"description": "Maximum time to wait, in milliseconds",
 						"optional": true,
-						"defaultValue": "bedrock"
+						"defaultValue": 600000
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(389,10)"
+				"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js(417,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to\r\nfind reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.",
 		"src": "%WORKDIR%PageObjects\\AiRobot\\AiRobot.js",
-		"version": "0.0.62"
+		"version": "0.0.63"
 	}
 }
