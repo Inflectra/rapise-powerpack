@@ -2,7 +2,7 @@
  * @PageObject AiTester. Enables AI capabilities during test case execution. Use AiTester to generate data,
  * perform image-based assertions (such as finding discrepancies and analyzing displayed content), and handle
  * other tasks that require AI processing.
- * @Version 0.0.11
+ * @Version 0.0.12
  */
 SeSPageObject("AiTester");
 
@@ -48,7 +48,7 @@ var aiTesterAssertionSystemPrompt = "Test the provided ASSERTION against the RES
  */
 function AiTester_SetDefaultWorkflow(/**string*/ workflow)
 {
-	aiTesterDefaultWorkflow = workflow;
+	aiTesterDefaultWorkflow = workflow || "AI Chat";
 }
 
 var _paramInfoAiTester_SetDefaultWorkflow = {
@@ -548,9 +548,17 @@ function AiTesterDoImageQueryImpl(/**string*/ query, /**ImageWrapper[]*/ images,
 	AiServerClient.SetCurrentContext();
 	var response = AiServerClient.QueryWorkflow(payload);
 	if (l2) Log2("AI Query: " + (query.length < 512 ? query : query.substring(0, 512) + "..."));
-	if (l1) Log1("AI Answer:" + (response.length < 512 ? response : response.substring(0, 512) + "..."));
+	if (response)
+	{
+		if (l2) Log2("AI Answer:" + (response.length < 512 ? response : response.substring(0, 512) + "..."));
+	}
 	
 	aiTesterLastResponse = response;
+	
+	if (!response)
+	{
+		return new SeSDoActionResult(false, "AI query failed");
+	}
 	
 	if (!images || images.length == 0)
 	{
@@ -569,5 +577,5 @@ function AiTesterAssertion(/**string*/ response, /**string*/ assertion)
 	aQuery = aQuery.replace("${assertion}", assertion);
 	aQuery = aQuery.replace("${response}", response);
 	var result = AiTester_DoTextQuery(aQuery);
-	return new SeSDoActionResult(result == "1", response, undefined, [response, result], {comment:response});
+	return new SeSDoActionResult(result.status && result.additional_value == "1", response, undefined, [response, result], {comment:response});
 }
