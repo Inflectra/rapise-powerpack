@@ -4,6 +4,9 @@ import deasync from 'deasync';
 export interface TargetWindow {
     target: string;
     
+    // Shared data storage for task orchestration
+    SharedData?: Record<string, any>;
+    
     // Mouse Actions
     DoMouseMove(x: number, y: number): void; // Move the mouse to a specific coordinate
     DoClick(clickType: "L" | "R" | "M" | "LD"): void; // Perform left, right, middle, or double click
@@ -22,7 +25,7 @@ export interface TargetWindow {
     GetCursorPosition(): { x: number; y: number }; // Retrieve the current cursor position
 
     // Logging and Reporting
-    Log(message: string, level?: number): void; // Log a general-purpose message
+    Log(message: string|string[], level?: number): void; // Log a general-purpose message
     PrintReportMessage(message: string): void; // Log a report-specific message for rapise_print_message
     AssistantText(message: string): void; // Display assistant messages or instructions
 
@@ -166,6 +169,23 @@ export class ComputerUseUtils {
             },
             null
         ) as ScalingTarget;
+    }
+
+    static wrapImage(buffer: Buffer, size?: {width:number,height:number}): ProcessImageResult {
+        let img = sharp(buffer);
+        if(size) 
+        {
+            img = img.resize({...size, fit:'fill'})
+        }
+        let metadata: sharp.Metadata | undefined = undefined;
+        img.metadata().then((m) => { metadata = m; }).catch(err => {
+          console.error("Error wrapping image: " + err.message);
+          metadata = {}; // Return empty buffer on error
+        });;
+        while (metadata === undefined) {
+            deasync.runLoopOnce();
+        }
+        return { img, img_scaled:img, scale_factor:1.0, metadata, metadata_scaled:metadata };
     }
 
     static processImage(buffer: Buffer): ProcessImageResult {
@@ -325,8 +345,12 @@ export interface TGlobal {
     DoSleep: (milliseconds: number) => void;
 };
 
+export interface TFile {
+    Write: (path: string, text: string) => void;
+};
+
 export interface TAiServerClient {
-    QueryRaw(payload: any, options: any): any;
+    QueryRaw(payload: any, options?: any): any;
 };
 
 export interface TWebDriver {

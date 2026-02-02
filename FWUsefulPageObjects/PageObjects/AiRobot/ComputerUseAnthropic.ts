@@ -160,6 +160,7 @@ export class ComputerUseAnthropic {
     scaleFactor: number
   ): ToolResult {
     try {
+      let extraData = "";
       switch (action.action) {
         // Mouse actions
         case "mouse_move":
@@ -194,25 +195,47 @@ export class ComputerUseAnthropic {
           return new ToolResult({ output: `Mouse dragged to (${dragX}, ${dragY})` });
   
         case "right_click":
-          window.Log("Performing right click.");
+          if(action.coordinate) {
+            const [clickX, clickY] = ComputerUseUtils.applyScaling(action.coordinate, scaleFactor);
+            extraData = `at (${clickX}, ${clickY})`;
+            window.DoMouseMove(clickX, clickY);
+          }
+          window.Log(`Performing right click${extraData}.`);
           window.DoClick("R");
           return new ToolResult({ output: "Right click performed." });
   
         case "middle_click":
-          window.Log("Performing middle click.");
+          if(action.coordinate) {
+            const [clickX, clickY] = ComputerUseUtils.applyScaling(action.coordinate, scaleFactor);
+            extraData = `at (${clickX}, ${clickY})`;
+            window.DoMouseMove(clickX, clickY);
+          }
+          window.Log(`Performing middle click${extraData}.`);
           window.DoClick("M");
           return new ToolResult({ output: "Middle click performed." });
   
         case "double_click":
-          window.Log("Performing double click.");
+          if(action.coordinate) {
+            const [clickX, clickY] = ComputerUseUtils.applyScaling(action.coordinate, scaleFactor);
+            extraData = `at (${clickX}, ${clickY})`;
+            window.DoMouseMove(clickX, clickY);
+          }
+
+          window.Log(`Performing double click${extraData}.`);
           window.DoClick("LD");
-          return new ToolResult({ output: "Double click performed." });
+          return new ToolResult({ output: `Double click performed${extraData}.` });
 
         case "triple_click":
-          window.Log("Performing triple click.");
+          if(action.coordinate) {
+            const [clickX, clickY] = ComputerUseUtils.applyScaling(action.coordinate, scaleFactor);
+            extraData = `at (${clickX}, ${clickY})`;
+            window.DoMouseMove(clickX, clickY);
+          }
+
+          window.Log(`Performing triple click${extraData}.`);
           window.DoClick("LD");
           window.DoClick("L");
-          return new ToolResult({ output: "Triple click performed." });
+          return new ToolResult({ output: `Triple click performed${extraData}.` });
     
         // Keyboard actions
         case "key":
@@ -370,19 +393,57 @@ export class ComputerUseAnthropic {
   }
 
   private static filterRecentImages(messages: any[], n_last_images: number): void {
-    const imageMessages = messages.filter((msg) =>
-      msg.content.some((contentItem: any) => contentItem.type === "image")
-    );
-  
-    const excessImages = imageMessages.length - n_last_images;
-  
+    // Track all image locations: direct images and nested images inside tool_result objects
+    type ImageLocation = {
+      messageIndex: number;
+      contentIndex: number;
+      nestedIndex?: number; // If image is nested inside tool_result.content
+    };
+
+    const imageLocations: ImageLocation[] = [];
+
+    messages.forEach((msg, msgIndex) => {
+      if (!msg.content || !Array.isArray(msg.content)) return;
+      
+      msg.content.forEach((contentItem: any, contentIndex: number) => {
+        // Direct image at message.content[i]
+        if (contentItem.type === "image") {
+          imageLocations.push({ messageIndex: msgIndex, contentIndex });
+        }
+        // Nested image inside tool_result.content[j] or similar objects with content array
+        else if (contentItem.content && Array.isArray(contentItem.content)) {
+          contentItem.content.forEach((nestedItem: any, nestedIndex: number) => {
+            if (nestedItem.type === "image") {
+              imageLocations.push({ messageIndex: msgIndex, contentIndex, nestedIndex });
+            }
+          });
+        }
+      });
+    });
+
+    const totalImages = imageLocations.length;
+    const excessImages = totalImages - n_last_images;
+
     if (excessImages > 0) {
-      for (let i = 0; i < excessImages; i++) {
-        const oldestImageIndex = messages.findIndex((msg) =>
-          msg.content.some((contentItem: any) => contentItem.type === "image")
-        );
-        if (oldestImageIndex !== -1) {
-          messages.splice(oldestImageIndex, 1); // Remove the oldest image message
+      // Remove oldest images first (from the beginning of the array)
+      const locationsToRemove = imageLocations.slice(0, excessImages);
+
+      // Sort in reverse order to safely remove without index shifting issues
+      // First by messageIndex desc, then contentIndex desc, then nestedIndex desc
+      locationsToRemove.sort((a, b) => {
+        if (a.messageIndex !== b.messageIndex) return b.messageIndex - a.messageIndex;
+        if (a.contentIndex !== b.contentIndex) return b.contentIndex - a.contentIndex;
+        return (b.nestedIndex ?? -1) - (a.nestedIndex ?? -1);
+      });
+
+      for (const loc of locationsToRemove) {
+        const message = messages[loc.messageIndex];
+        if (loc.nestedIndex !== undefined) {
+          // Remove nested image from tool_result.content
+          message.content[loc.contentIndex].content.splice(loc.nestedIndex, 1);
+        } else {
+          // Remove direct image from message.content
+          message.content.splice(loc.contentIndex, 1);
         }
       }
     }

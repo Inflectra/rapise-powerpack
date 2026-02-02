@@ -33,6 +33,7 @@ class TargetWindowScreenRegion {
 			return res;
 		} else {
 			var r = SeSGetBrowserWindowRect();
+			g_util.HighlightRECT(r.x, r.y, r.w, r.h)
 			return new TargetWindowScreenRegion(r.x, r.y, r.w, r.h, "browser");
 		}
 	}
@@ -58,7 +59,9 @@ class TargetWindowScreenRegion {
 			const {ox,oy,w,h,mouseX,mouseY} = {...this};
 			data.push(JSON.stringify({ox,oy,w,h,mouseX,mouseY}));
 			global.g_aiRobotScreen = global.g_aiRobotScreen || 0;
-			Tester.Message("Screen:" + global.g_aiRobotScreen, data);
+			if(l4) {
+				Tester.Message("Screen:" + global.g_aiRobotScreen, data);
+			}
 			global.g_aiRobotScreen++;
 		}
 		return res;
@@ -77,12 +80,12 @@ class TargetWindowScreenRegion {
 	 */
 	DoClick(clickType) {
 		var iw1 = null, iw2 = null;
-		if(l3) {
+		if(l4) {
 			this.GetScreenshotImpl();
 			iw1 = this.lastImage;
 		}
 		Global.DoClick(clickType);
-		if(l3) {
+		if(l4) {
 			Global.DoSleep(50); // Git a bit of time for animations to complete.
 			this.GetScreenshotImpl();
 			iw2 = this.lastImage;
@@ -176,11 +179,42 @@ class TargetWindowScreenRegion {
 	
 	DoScroll(scrollX, scrollY)
 	{
-		if(scrollX) {
+		var iw1 = null, iw2 = null;
+		if(l3) {
+			this.GetScreenshotImpl();
+			iw1 = this.lastImage;
+		}
+
+		const SCROLL_NOTCH_SIZE = 100;
+
+		const origX = scrollX;
+		const origY = scrollY;
+
+		scrollX = Math.round(scrollX / SCROLL_NOTCH_SIZE);
+		scrollY = Math.round(scrollY / SCROLL_NOTCH_SIZE);
+
+		// Ensure non-zero input never collapses to zero
+		if (origX !== 0 && scrollX === 0) {
+			scrollX = Math.sign(origX);
+		}
+		if (origY !== 0 && scrollY === 0) {
+			scrollY = Math.sign(origY);
+		}
+
+		if (scrollX) {
 			Global.DoHorizontalScroll(scrollX);
 		}
-		if(scrollY) {
+		if (scrollY) {
 			Global.DoVerticalScroll(scrollY);
+		}
+
+		if(l3) {
+			this.GetScreenshotImpl();
+			iw2 = this.lastImage;
+			const data = [];
+			data.push(new SeSReportImage(iw1));
+			data.push(new SeSReportImage(iw2));
+			Tester.Message(`Scrolling: ${scrollX},${scrollY}`, data);
 		}
 	}
 	
@@ -220,7 +254,15 @@ class TargetWindowScreenRegion {
 			||
 			(level==0&&l0)
 		) {
-			Tester.Message(msg);
+			if(SeSIsArray(msg)) {
+				var title = msg.shift();
+				if(l2) {
+					msg.push(new SeSReportImage(this.lastImage));
+				}
+				Tester.Message(title, msg);
+			} else {
+				Tester.Message(msg);
+			}
 		}
 		if(l2) Log2(msg);
 	}
@@ -238,6 +280,7 @@ class TargetWindowScreenRegion {
 		// Don't reflect in the log, we track it for all other actions.
 		if (actionkey.indexOf("screenshot") == 0 || actionkey.indexOf("rapise") == 0) return;
 
+		if(!l4) return;
 		var data = [actionkey];
 		this.lastImage = null;
 		this.GetScreenshot(true);
@@ -245,7 +288,7 @@ class TargetWindowScreenRegion {
 			data.push(new SeSReportImage(this.lastImage));
 		}
 
-		if (l2) {
+		if (l4) {
 			Tester.Message("Robot: " + output, data, { comment: this.actions[actionkey] || actionkey });
 		}
 	}

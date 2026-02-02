@@ -176,7 +176,7 @@ class TargetWindowWeb extends TargetWindowScreenRegion {
 		WebDriver
 			.Actions()
 			.ClickAndHold()
-			.ScrollFromOrigin(null, this.B(this.mouseX), this.B(this.mouseY), this.B(x),this.B(y))
+			.ScrollFromOrigin(null, this.B(this.mouseX), this.B(this.mouseY), this.B(scrollX||0),this.B(scrollY||0))
 			.Release()
 			.Perform();
 	}

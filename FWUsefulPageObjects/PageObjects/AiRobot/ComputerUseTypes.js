@@ -76,6 +76,22 @@ class ComputerUseUtils {
             return bestFit;
         }, null);
     }
+    static wrapImage(buffer, size) {
+        let img = (0, sharp_1.default)(buffer);
+        if (size) {
+            img = img.resize(Object.assign(Object.assign({}, size), { fit: 'fill' }));
+        }
+        let metadata = undefined;
+        img.metadata().then((m) => { metadata = m; }).catch(err => {
+            console.error("Error wrapping image: " + err.message);
+            metadata = {}; // Return empty buffer on error
+        });
+        ;
+        while (metadata === undefined) {
+            deasync_1.default.runLoopOnce();
+        }
+        return { img, img_scaled: img, scale_factor: 1.0, metadata, metadata_scaled: metadata };
+    }
     static processImage(buffer) {
         const img = (0, sharp_1.default)(buffer);
         let metadata = undefined;
@@ -213,6 +229,7 @@ ComputerUseUtils.MAX_SCALING_TARGETS = {
     WXGA: { width: 1280, height: 800 }, // 16:10
     FWXGA: { width: 1366, height: 768 }, // ~16:9
 };
+;
 ;
 ;
 ;

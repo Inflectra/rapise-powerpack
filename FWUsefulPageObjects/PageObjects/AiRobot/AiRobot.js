@@ -1,7 +1,7 @@
 /**
  * @PageObject AiRobot. Implements fully-automatic interactions with target window or screen region (keyboard and mouse). Should be used when AI is unable to
  * find reasonable entries in other page objects. This way of interacting is last resort. It may be applied to complex, exploratory style actions.
- * @Version 0.0.62
+ * @Version 0.0.63
  */
 
 SeSPageObject("AiRobot");
@@ -87,9 +87,9 @@ var _AiRobotParamInfo = {
 		optional: true,
 		defaultValue: 600000
 	},
-	timeout: {
+	vendor: {
 		type: 'string',
-		description: 'LLM provider to use for Robot: `bedrock` or `openai`.',
+		description: 'LLM provider to use for Robot: `bedrock`, `openai`, or `qwen`.',
 		optional: true,
 		defaultValue: 'bedrock'
 	},
@@ -118,44 +118,71 @@ function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*/ n_la
 	_AiRobotInit();
 
 	let system_prompt = undefined;
-	let isOpenAi = false;
-	if(AiRobot.config)
+
+	// Vendor selection:
+	// - explicit AiRobot.config.vendor wins
+	// - else infer from AiServerClient modelInfo
+	let vendor = "bedrock";
+
+	if (AiRobot.config)
 	{
-		if(typeof timeout==='undefined') timeout = AiRobot.config.timeout;
-		if(typeof n_last_images==='undefined') n_last_images = AiRobot.config.n_last_images;
-		if(typeof max_tokens==='undefined') max_tokens = AiRobot.config.max_tokens;
-		if(typeof token_limit==='undefined') token_limit = AiRobot.config.token_limit;
+		if (typeof timeout === 'undefined') timeout = AiRobot.config.timeout;
+		if (typeof n_last_images === 'undefined') n_last_images = AiRobot.config.n_last_images;
+		if (typeof max_tokens === 'undefined') max_tokens = AiRobot.config.max_tokens;
+		if (typeof token_limit === 'undefined') token_limit = AiRobot.config.token_limit;
 		system_prompt = AiRobot.config.system_prompt;
-		isOpenAi = AiRobot.config.vendor=="openai";
+		if (AiRobot.config.vendor) vendor = AiRobot.config.vendor;
 	}
 
 	let status = {};
 	AiServerClient.SetCurrentContext();
 	let modelInfo = AiServerClient.GetModelInfo();
-	if( modelInfo.api_type=="openai" )
+
+	// Infer vendor if not explicitly set
+	if (!AiRobot.config || !AiRobot.config.vendor)
 	{
-		isOpenAi = true;
+		if (modelInfo && modelInfo.model && (""+modelInfo.model).toLowerCase().includes("qwen3")) vendor = "qwen";
+		else if (modelInfo && modelInfo.api_type == "openai") vendor = "openai";
+		else if (modelInfo && modelInfo.api_type == "qwen") vendor = "qwen";
+		else vendor = "bedrock";
 	}
 
-	if( isOpenAi ) {
-	
-		if(!Global.GetRapiseVersion("8.5"))
+	if (vendor == "openai")
+	{
+		if (!Global.GetRapiseVersion("8.5"))
 		{
-			Tester.Assert("Using AiRobot with OpenAI requires Rapise version 8.5 or higher", false, "Actual version: "+Global.GetRapiseVersion());
+			Tester.Assert("Using AiRobot with OpenAI requires Rapise version 8.5 or higher", false, "Actual version: " + Global.GetRapiseVersion());
 			return false;
 		}
 
 		const p = File.ResolvePath('%WORKDIR%/PageObjects/AiRobot/ComputerUseOpenAi.js')
 		const CU = require(p);
-
 		status = CU.ComputerUseOpenAi.toolUseLoop(prompt, targetWindow, system_prompt, max_tokens, n_last_images, timeout, token_limit);
-	} else {
+	}
+	else if (vendor == "qwen")
+	{
+		// Qwen (DashScope OpenAI-compatible chat.completions with <tool_call> blocks)
+		// Requires Rapise 8.5+ for node deps you already check (sharp/deasync)
+		if (!Global.GetRapiseVersion("8.6"))
+		{
+			Tester.Assert("Using AiRobot with Qwen requires Rapise version 8.6 or higher", false, "Actual version: " + Global.GetRapiseVersion());
+			return false;
+		}
+		
+		//system_prompt = `Before doing any action use rapise_print_message to tell your intent - i.e. is a goal of next interaction or next few interactions (I.e. going to enter credentials, Going to press button etc). First create a task ledger, and update it after each step to see where we are. Update both with completion status [x] and with new details (if new screen helps to clarify next steps). Output ledger after each action using rapise_print_message.\n`
+
+		const p = File.ResolvePath('%WORKDIR%/PageObjects/AiRobot/ComputerUseQwen.js')
+		const CU = require(p);
+		status = CU.ComputerUseQwen.toolUseLoop(prompt, targetWindow, system_prompt, max_tokens, n_last_images, timeout, token_limit);
+	}
+	else
+	{
 		const p = File.ResolvePath('%WORKDIR%/PageObjects/AiRobot/ComputerUseAnthropic.js')
 		const CU = require(p);
 
 		let modelInfo = AiServerClient.GetModelInfo("bedrock");
 		let versionConfig = CU.versionConfig35;
-		if( !modelInfo.model.includes('3-5-sonnet') )
+		if (!modelInfo.model.includes('3-5-sonnet'))
 		{
 			versionConfig = CU.versionConfig37;
 		}
@@ -207,6 +234,7 @@ function _AiRobotRun(prompt, targetWindow, /**number*/ timeout, /**number*/ n_la
 	return result;
 }
 
+
 /**
  * Set common execution parameters and limitations.
  **/
@@ -237,7 +265,7 @@ var _paramInfoAiRobot_DoConfigure = {
 function AiRobot_SetSelfCheck()
 {
 	this.config = this.config || {};
-	this.config.system_prompt = "After each step, take a screenshot and carefully evaluate if you have achieved the right outcome. Explicitly show your thinking: 'I have evaluated step X...' If not correct, try again. Only when you confirm a step was executed correctly should you move on to the next one.";
+	this.config.system_prompt = "After each step, take a screenshot and carefully evaluate if you have achieved the right outcome. Check if cursor position matches expected position. If you are entering a data field value and the field is not completely visible try to scroll to achieve full visibility. If needed re-position mouse or do scroll. Explicitly show your thinking: 'I have evaluated step X...' If not correct, try again. Only when you confirm a step was executed correctly should you move on to the next one.";
 }
 
 /**
