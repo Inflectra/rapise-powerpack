@@ -1,7 +1,7 @@
 
 /**
  * @PageObject Playwright.DoInvoke(async callBack({page,expect})=>{...}). Allow playwright to attach to currently running browser (with Navigator.Open) and do something using Playwright.
- * @Version 0.0.9
+ * @Version 0.0.10
  */
 SeSPageObject("Playwright");
 
@@ -824,12 +824,12 @@ Output JSON:
 If element is not found, then it has no reference and output is the following:
 
 Output JSON:
-{"ref":null, "details":"I was unable to find an input field 'username' on the current page. I can neither see it on the screenshot nor find it in the ARIA snapshot"}
+{"ref":null, "details":"I was unable to find the element (<short description of the element>) on the current page. I can neither see it on the screenshot nor find it in the ARIA snapshot"}
 
 If element description is unclear or there are more than one matches, the output may be:
 
 Output JSON:
-{"ref":null, "details":"I was unable to a single element from the provided description. There are many possible matches, i.e. <information about first few matches>"}
+{"ref":null, "details":"I was unable to find a single element from the provided description. There are many possible matches, i.e. <information about first few matches>"}
 
 Output JSON only, no additional speculations.
 
@@ -853,8 +853,8 @@ Output JSON:
 		if (jsres.ref) {
 			ref = jsres.ref;
 		} else {
-			Log(`Problems recognizing an element: ${jsres.detals}`);
-			return false;
+			Log(`Problems recognizing an element: ${jsres.details}`);
+			return null;
 		}
 	} catch(parseError) {
 		Log(`Error parsing AI response: ${response} ${parseError}`);
