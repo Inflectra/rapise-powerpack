@@ -10,6 +10,12 @@ const TestRunnerUtil =
 		{
 			Tester.Assert("TestRunner does not support WScript JavaScript engine.");
 		}
+		
+		if (Global.GetRapiseVersion("9.0"))
+		{
+			return;
+		}
+		
 		if (!File.Exists("PageObjects\\AiTester\\AiTester.js"))
 		{
 			Tester.Assert("TestRunner requires AiTester module. Please install it as well.");
