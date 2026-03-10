@@ -1,0 +1,156 @@
+name: 'Run Rapise Test Set (Node)'
+description: 'Install Rapise (Node.js) & Run Test Set using RapiseLauncher'
+author: 'Inflectra'
+
+branding:
+  icon: 'play-circle'
+  color: 'blue'
+
+inputs:
+  spira_config:
+    description: 'Path to existing RepositoryConnection.xml config file. When provided, spira_url/spira_username/spira_api_key/spira_automation_host are not needed.'
+    required: false
+    default: ''
+  spira_url:
+    description: 'Spira server URL. Short form: https://server/ (requires spira_project_id and spira_test_set_id). Full form: https://server/9/TestSet/925.aspx (project_id and test_set_id extracted automatically).'
+    required: false
+    default: ''
+  spira_username:
+    description: 'Spira username. Not needed if spira_config is set.'
+    required: false
+    default: ''
+  spira_api_key:
+    description: 'Spira API key (RSS Token). Not needed if spira_config is set.'
+    required: false
+    default: ''
+  spira_project_id:
+    description: 'Spira Product/Project ID. Optional.'
+    required: false
+    default: ''
+  spira_test_set_id:
+    description: 'Spira Test Set ID. May be an array, i.e. 1,3,15 to execute several test sets. Not needed if spira_url contains the full test set path.'
+    required: false
+    default: ''
+  spira_automation_host:
+    description: 'Automation Host Token defined for a given project'
+    required: false
+    default: ''
+  install_rapise:
+    description: 'Whether Rapise needs to be installed'
+    required: false
+    default: 'true'
+  rapise_version:
+    description: 'Rapise version to install'
+    required: false
+    default: '9.0.35.24'
+  node_version:
+    description: 'Node.js version to set up'
+    required: false
+    default: '22.x'
+  rapise_params:
+    description: 'Additional parameters to pass to RapiseLauncher via --param flags. One per line (e.g. "g_browserLibrary=Selenium - ChromeHeadless").'
+    required: false
+    default: ''
+  timeout_minutes:
+    description: 'Timeout in minutes for RapiseLauncher execution. 0 means no timeout.'
+    required: false
+    default: '0'
+  git_root:
+    description: 'Path to Git project (for Spira tests stored in Git)'
+    required: false
+    default: ''
+  upload_artifacts:
+    description: 'Upload artifacts (working folder) after execution'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node_version }}
+
+    - name: Install Rapise
+      if: inputs.install_rapise == 'true'
+      shell: node {0}
+      run: |
+        const { execSync } = require("child_process");
+        const version = process.env.RAPISE_VERSION;
+        const url = `https://inflectra-rapise-nightly-installers.s3.eu-north-1.amazonaws.com/Rapise_${version}/rapise-${version}.tgz`;
+        console.log(`Installing Rapise ${version}...`);
+        execSync(`npm install ${url}`, { stdio: "inherit" });
+      env:
+        RAPISE_VERSION: ${{ inputs.rapise_version }}
+
+    - name: Run Rapise Test Set
+      shell: node {0}
+      run: |
+        const { spawnSync } = require("child_process");
+        const path = require("path");
+        const script = path.join(process.env.ACTION_PATH, "scripts", "task.js");
+        const result = spawnSync(process.execPath, [script], {
+          stdio: "inherit",
+          env: process.env,
+        });
+        if (result.status !== 0) process.exit(result.status || 1);
+      env:
+        ACTION_PATH: ${{ github.action_path }}
+        INPUT_SPIRA_CONFIG: ${{ inputs.spira_config }}
+        INPUT_SPIRA_URL: ${{ inputs.spira_url }}
+        INPUT_SPIRA_USERNAME: ${{ inputs.spira_username }}
+        INPUT_SPIRA_API_KEY: ${{ inputs.spira_api_key }}
+        INPUT_SPIRA_PROJECT_ID: ${{ inputs.spira_project_id }}
+        INPUT_SPIRA_TEST_SET_ID: ${{ inputs.spira_test_set_id }}
+        INPUT_SPIRA_AUTOMATION_HOST: ${{ inputs.spira_automation_host }}
+        INPUT_RAPISE_PARAMS: ${{ inputs.rapise_params }}
+        INPUT_TIMEOUT_MINUTES: ${{ inputs.timeout_minutes }}
+        INPUT_GIT_ROOT: ${{ inputs.git_root }}
+
+    - name: Collect artifacts
+      if: always() && inputs.upload_artifacts == 'true'
+      shell: node {0}
+      run: |
+        const fs = require("fs");
+        const path = require("path");
+        const os = require("os");
+        const dest = path.join(process.env.RUNNER_TEMP || os.tmpdir(), "rapise-results");
+        fs.mkdirSync(dest, { recursive: true });
+
+        // Copy relevant files from working directory
+        function copyGlob(dir, exts, target) {
+          if (!fs.existsSync(dir)) return;
+          for (const entry of fs.readdirSync(dir, { withFileTypes: true, recursive: true })) {
+            const full = path.join(entry.parentPath || entry.path, entry.name);
+            if (entry.isFile() && exts.some(e => full.endsWith(e))) {
+              const rel = path.relative(dir, full);
+              const out = path.join(target, rel);
+              fs.mkdirSync(path.dirname(out), { recursive: true });
+              fs.copyFileSync(full, out);
+            }
+          }
+        }
+
+        const cwd = process.cwd();
+        copyGlob(cwd, [".trp", ".tap", ".log", ".xml"], path.join(dest, "workspace"));
+
+        // Copy from GITHUB_WORKSPACE if different from cwd
+        const gitWorkspace = process.env.GITHUB_WORKSPACE || "";
+        if (gitWorkspace && path.resolve(gitWorkspace) !== path.resolve(cwd)) {
+          copyGlob(gitWorkspace, [".trp", ".tap", ".log", ".xml"], path.join(dest, "git-workspace"));
+        }
+
+        // Copy ~/.rapise/temp if it exists
+        const rapiseTemp = path.join(os.homedir(), ".rapise", "temp");
+        copyGlob(rapiseTemp, [".trp", ".tap", ".log", ".xml", ".json", ".txt"], path.join(dest, "rapise-temp"));
+
+        console.log(`Artifacts collected in ${dest}`);
+
+    - name: Upload artifacts
+      if: always() && inputs.upload_artifacts == 'true'
+      uses: actions/upload-artifact@v4
+      with:
+        name: rapise-results-${{ runner.os }}
+        path: ${{ runner.temp }}/rapise-results
+        if-no-files-found: warn
