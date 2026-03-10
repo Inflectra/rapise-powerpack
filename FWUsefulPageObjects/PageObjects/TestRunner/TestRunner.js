@@ -1,7 +1,7 @@
  /**
  * @PageObject TestRunner. Allows to easily rerun failed tests. 
  * Helps to analyze failures, flaky test cases  and generate reports and graphs.
- * @Version 0.0.17
+ * @Version 0.0.18
  */
 SeSPageObject("TestRunner");
 
@@ -289,7 +289,11 @@ function TestRunner_DoAiReport(/**string*/ query, /**string*/ baseName)
 	
 	const pdfFileName = TestRunnerSettings.GetDataPath(`${baseName}Analysis.pdf`);
 	PdfUtil.ConvertMDtoPDF(mdFileName, pdfFileName);
-	Global.DoCmd(pdfFileName, null, false);
+	TestRunnerSettings.LoadParameters();
+	if (TestRunnerSettings.CodeExecutionEnabled)
+	{	
+		Global.DoCmd(pdfFileName, null, false);
+	}
 	return pdfFileName;
 }
 
@@ -324,8 +328,12 @@ function TestRunner_DoAiReportPy(/**string*/ query, /**string*/ baseName, /**str
 	const code = res.replace("```python", "").replace("```", "");
 	File.Write(TestRunnerSettings.GetDataPath(pyProgramFile), code);
 	
-	const workDir = Global.GetFullPath(TestRunnerSettings.GetDataPath(""));
-	Global.DoCmd(`${pyProgramFile}`, workDir, false);
+	TestRunnerSettings.LoadParameters();
+	if (TestRunnerSettings.CodeExecutionEnabled)
+	{
+		const workDir = Global.GetFullPath(TestRunnerSettings.GetDataPath(""));
+		Global.DoCmd(`${pyProgramFile}`, workDir, false);
+	}
 	return true;
 }
 
@@ -409,8 +417,12 @@ function TestRunner_DoAiReportHtml(/**string*/ query, /**string*/ baseName, /**s
 		File.Write(htmlReportFile, code);
 	}
 	
-	const workDir = Global.GetFullPath(TestRunnerSettings.GetDataPath(""));
-	Global.DoCmd(`${htmlReportFileName}`, workDir, false);
+	TestRunnerSettings.LoadParameters();
+	if (TestRunnerSettings.CodeExecutionEnabled)
+	{
+		const workDir = Global.GetFullPath(TestRunnerSettings.GetDataPath(""));
+		Global.DoCmd(`${htmlReportFileName}`, workDir, false);
+	}
 	return htmlReportFile;
 }
 

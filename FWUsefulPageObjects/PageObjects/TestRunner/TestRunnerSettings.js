@@ -9,9 +9,11 @@ const TestRunnerSettings =
 	ParamExcludeFromAnalysis: {},
 	ParamMinNumberOfTestRuns: 10,
 	ParamMaxNumberOfTestRuns: 100000,
+	CodeExecutionEnabled: false,
 	
 	LoadParameters()
 	{
+		this.CodeExecutionEnabled = Global.GetProperty("CodeExecutionEnabled", false, this.ConfigFileName);
 		this.ParamMinNumberOfTestRuns = Global.GetProperty("MinNumberOfTestRuns", 10, this.ConfigFileName);
 		this.ParamMaxNumberOfTestRuns = Global.GetProperty("MaxNumberOfTestRuns", 100000, this.ConfigFileName);
 		
