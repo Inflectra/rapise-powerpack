@@ -28,7 +28,7 @@ inputs:
     required: false
     default: ''
   spira_test_set_id:
-    description: 'Spira Test Set ID. May be an array, i.e. '1,3,15' to execute several test sets. Not needed if spira_url contains the full test set path.'
+    description: 'Spira Test Set ID. May be an array, i.e. "1,3,15" to execute several test sets. Not needed if spira_url contains the full test set path.'
     required: false
     default: ''
   spira_automation_host:
@@ -175,3 +175,4 @@ runs:
         name: rapise-results
         path: ${{ runner.temp }}/rapise-results
         if-no-files-found: warn
+
