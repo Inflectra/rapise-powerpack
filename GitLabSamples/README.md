@@ -70,7 +70,7 @@ Key points:
 
 Because the job publishes a JUnit report via `reports.junit`, GitLab displays per-test pass/fail results directly on the pipeline and merge request pages — no extra tooling needed.
 
-<!-- PLACEHOLDER: screenshot of GitLab pipeline test results panel -->
+![Test Results](./img/TestResults.png)
 
 ---
 
