@@ -22,13 +22,56 @@
   <SaveScreenshotOnFailure>true</SaveScreenshotOnFailure>
   <CommandLine />
   <EntryPoint>Test</EntryPoint>
-  <WorkDir>..\..\.</WorkDir>
+  <WorkDir>..\..</WorkDir>
   <TestFiles>
     <Name>Test</Name>
+    <RealFolder>true</RealFolder>
     <IsFilterGroup>false</IsFilterGroup>
     <FilterWildcard>*.*</FilterWildcard>
     <FilterPath />
     <Groups>
+      <TestGroup>
+        <Name>AI</Name>
+        <RealFolder>true</RealFolder>
+        <IsFilterGroup>true</IsFilterGroup>
+        <FilterWildcard>*.*</FilterWildcard>
+        <FilterPath>AI</FilterPath>
+        <Groups>
+          <TestGroup>
+            <Name>workflows</Name>
+            <RealFolder>true</RealFolder>
+            <IsFilterGroup>true</IsFilterGroup>
+            <FilterWildcard>*.*</FilterWildcard>
+            <FilterPath>AI/workflows</FilterPath>
+            <Groups />
+            <TestFiles>
+              <TestFile>
+                <Path>AI\workflows\db0d1778-73fc-4222-869b-fd63c16ef093.json</Path>
+              </TestFile>
+            </TestFiles>
+          </TestGroup>
+        </Groups>
+        <TestFiles />
+      </TestGroup>
+      <TestGroup>
+        <Name>PDF2Img</Name>
+        <RealFolder>true</RealFolder>
+        <IsFilterGroup>true</IsFilterGroup>
+        <FilterWildcard>*.*</FilterWildcard>
+        <FilterPath>PDF2Img</FilterPath>
+        <Groups />
+        <TestFiles>
+          <TestFile>
+            <Path>PDF2Img\package.json</Path>
+          </TestFile>
+          <TestFile>
+            <Path>PDF2Img\package-lock.json</Path>
+          </TestFile>
+          <TestFile>
+            <Path>PDF2Img\pdftoimage.js</Path>
+          </TestFile>
+        </TestFiles>
+      </TestGroup>
       <TestGroup>
         <Name>PDF2Text</Name>
         <IsFilterGroup>true</IsFilterGroup>

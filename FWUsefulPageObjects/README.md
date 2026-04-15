@@ -18,6 +18,7 @@ This Framework contains a number of useful general purpose Modules that may be u
 12. [AiRobot](https://www.inflectra.com/Support/KnowledgeBase/KB884.aspx)
 13. [AiTester](https://www.inflectra.com/Support/KnowledgeBase/KB883.aspx)
 14. [TestRunner](https://www.inflectra.com/Support/KnowledgeBase/KB893.aspx)
+15. CmdHelper
 
 ## How to Use
 

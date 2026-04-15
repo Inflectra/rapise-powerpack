@@ -4,19 +4,52 @@
 		"flavor": "GlobalObject",
 		"actions": [
 			{
+				"name": "SetPerferredMethod",
+				"description": "Set default PDF text extraction method (default is 'text').\r\ntext - assumes PDF has explicit text layer\r\nai - use AI as OCR engine (AiTester / inflectra.ai required)\r\nocr - use built in OCR engine (windows only)",
+				"type": "string",
+				"returns": "Previous method.",
+				"signature": "/**string*/method",
+				"paramInfo": {
+					"method": {
+						"description": "Method id (text|ai|ocr).",
+						"type": "string",
+						"binding": "enum",
+						"defaultValue": "text",
+						"enumOpts": [
+							[
+								"text"
+							],
+							[
+								"ai"
+							],
+							[
+								"ocr"
+							]
+						]
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(94,10)"
+			},
+			{
 				"name": "GetFullText",
 				"description": "Parse PDF at `pdfPath` and return its text representation for further processing",
 				"type": "string",
 				"returns": "Text of the PDF file.",
-				"signature": "/**string*/pdfPath",
+				"signature": "/**string*/pdfPath, /**string*/method",
 				"paramInfo": {
 					"pdfPath": {
 						"description": "Path to input PDF file.",
 						"binding": "path",
-						"ext": "arf"
+						"ext": "pdf"
+					},
+					"method": {
+						"description": "Extraction method to use (text|ocr|ai)",
+						"type": "string",
+						"optional": true,
+						"defaultValue": ""
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(9,10)"
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(127,10)"
 			},
 			{
 				"name": "Contains",
@@ -28,13 +61,13 @@
 					"pdfPath": {
 						"description": "Path to input PDF file.",
 						"binding": "path",
-						"ext": "arf"
+						"ext": "pdf"
 					},
 					"textOrRegexp": {
 						"description": "Either plain string, or something starting from regex: to look in the file"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(72,10)"
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(205,10)"
 			},
 			{
 				"name": "AssertContains",
@@ -55,13 +88,13 @@
 						"description": "Line to write to the report"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(109,10)"
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(242,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "PDF handling: read text, check that PDF contains some text, assert PDF contains something.",
 		"src": "%WORKDIR%PageObjects\\PDF\\PDF.js",
-		"version": "1.0.3"
+		"version": "2.0.2"
 	}
 }

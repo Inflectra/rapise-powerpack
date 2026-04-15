@@ -550,6 +550,281 @@
 		"version": "0.0.12",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/AiTester"
 	},
+	"CmdHelper": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "DoCmd",
+				"description": "Execute a command or a chain of piped commands.\r\nSignatures:\r\nDoCmd(cmd, stdoutFile, stderrFile) - run cmd, write stdout/stderr to user files\r\nDoCmd(cmd)                         - run cmd, collect output internally\r\nDoCmd(cmd, false)                  - run cmd, skip output collection\r\nDoCmd()                            - execute pipe stack only\r\nDoCmd(cmd)                         - execute pipe stack + cmd as final step\r\nWhen only one file path is given as stdoutFile (and stderrFile is undefined),\r\nboth stdout and stderr go to that single file.\r\n@param {string} cmd Command to run (optional if pipe stack has entries)\r\n@param {string|boolean} stdoutFile Path for stdout, or false to skip collection\r\n@param {string} stderrFile Path for stderr\r\n@returns {number} Exit code of the last command\r\n",
+				"type": "number",
+				"returns": "Exit code of the last command in the chain.",
+				"signature": " /**string*/ cmd, /**string|boolean*/ stdoutFile, /**string*/ stderrFile",
+				"paramInfo": {
+					"cmd": {
+						"description": "Command to execute. Optional if pipe stack has entries.",
+						"defaultValue": ""
+					},
+					"stdoutFile": {
+						"description": "Path to write stdout to, or `false` to skip output collection.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					},
+					"stderrFile": {
+						"description": "Path to write stderr to.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(396,10)"
+			},
+			{
+				"name": "DoCmdWin",
+				"description": "Execute a command only when running on Windows. On other platforms this is a no-op returning exit code 0.\r\n@param {string} cmd Command to run\r\n@param {string|boolean} stdoutFile Path for stdout, or false to skip collection\r\n@param {string} stderrFile Path for stderr\r\n@returns {number} Exit code of the last command\r\n",
+				"type": "number",
+				"returns": "Exit code of the last command in the chain.",
+				"signature": "/**string*/cmd, /**string|boolean*/stdoutFile, /**string*/stderrFile",
+				"paramInfo": {
+					"cmd": {
+						"description": "Command to execute."
+					},
+					"stdoutFile": {
+						"description": "Path to write stdout to, or `false` to skip output collection.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					},
+					"stderrFile": {
+						"description": "Path to write stderr to.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(521,10)"
+			},
+			{
+				"name": "DoCmdLin",
+				"description": "Execute a command only when running on Linux or macOS. On Windows this is a no-op returning exit code 0.\r\n@param {string} cmd Command to run\r\n@param {string|boolean} stdoutFile Path for stdout, or false to skip collection\r\n@param {string} stderrFile Path for stderr\r\n@returns {number} Exit code of the last command\r\n",
+				"type": "number",
+				"returns": "Exit code of the last command in the chain.",
+				"signature": "/**string*/cmd, /**string|boolean*/stdoutFile, /**string*/stderrFile",
+				"paramInfo": {
+					"cmd": {
+						"description": "Command to execute."
+					},
+					"stdoutFile": {
+						"description": "Path to write stdout to, or `false` to skip output collection.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					},
+					"stderrFile": {
+						"description": "Path to write stderr to.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(565,10)"
+			},
+			{
+				"name": "DoRunShortcut",
+				"description": "Run a Windows desktop shortcut (.lnk) by name or full path. Windows only.\r\nIf a plain name is given (no path separators, no .lnk extension),\r\nit is resolved from the user's Desktop or the Public Desktop folder.\r\n@param {string} desktopShortcutNameOrShortcutPath Shortcut name (e.g. \"MyApp\") or full path to a .lnk file\r\n@returns {number} Exit code or PID depending on the shortcut target\r\n",
+				"type": "number",
+				"returns": "Exit code of the launched shortcut.",
+				"signature": "/**string*/desktopShortcutNameOrShortcutPath",
+				"paramInfo": {
+					"desktopShortcutNameOrShortcutPath": {
+						"description": "Shortcut name (e.g. 'MyApp') or full path to a .lnk file.",
+						"binding": "path",
+						"ext": "lnk"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(609,10)"
+			},
+			{
+				"name": "DoRunStoreApp",
+				"description": "Launch a Windows Store (UWP/MSIX) app by package family name or by matching a name/substring.\r\nWindows only. Uses the COM IApplicationActivationManager API to launch the app and capture its PID.\r\nIf the name contains '!' or '_' it is treated as a package family name and launched directly.\r\nOtherwise, installed packages are searched for a match and the first hit is launched.\r\n@param {string} name Package family name (e.g. \"Microsoft.WindowsCalculator_8wekyb3d8bbwe!App\") or a display name / substring to match (e.g. \"Calculator\")\r\n@returns {number} PID of the launched app, or -1 on failure\r\n",
+				"type": "number",
+				"returns": "PID of the launched app, or -1 on failure.",
+				"signature": "/**string*/name",
+				"paramInfo": {
+					"name": {
+						"description": "Package family name (e.g. 'Microsoft.WindowsCalculator_8wekyb3d8bbwe!App') or a display name / substring to match (e.g. 'Calculator')."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(708,10)"
+			},
+			{
+				"name": "Pipe",
+				"description": "Add a command to the pipe stack. Commands in the stack are chained\r\ntogether when DoCmd is called: stdout of each feeds stdin of the next.\r\n@param {string} cmd Command to add\r\n@param {string|boolean} stdoutFile Path for stdout, or false to skip collection for this step\r\n@param {string} stderrFile Path for stderr\r\n",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ cmd, /**string|boolean*/ stdoutFile, /**string*/ stderrFile",
+				"paramInfo": {
+					"cmd": {
+						"description": "Command to add to the pipe chain."
+					},
+					"stdoutFile": {
+						"description": "Path to write stdout to, or `false` to skip collection for this step.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					},
+					"stderrFile": {
+						"description": "Path to write stderr to.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(821,10)"
+			},
+			{
+				"name": "PipeWin",
+				"description": "Add a command to the pipe stack only when running on Windows. On other platforms this is a no-op.\r\n@param {string} cmd Command to add\r\n@param {string|boolean} stdoutFile Path for stdout, or false to skip collection for this step\r\n@param {string} stderrFile Path for stderr\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/cmd, /**string|boolean*/stdoutFile, /**string*/stderrFile",
+				"paramInfo": {
+					"cmd": {
+						"description": "Command to add to the pipe chain."
+					},
+					"stdoutFile": {
+						"description": "Path to write stdout to, or `false` to skip collection for this step.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					},
+					"stderrFile": {
+						"description": "Path to write stderr to.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(864,10)"
+			},
+			{
+				"name": "PipeLin",
+				"description": "Add a command to the pipe stack only when running on Linux or macOS. On Windows this is a no-op.\r\n@param {string} cmd Command to add\r\n@param {string|boolean} stdoutFile Path for stdout, or false to skip collection for this step\r\n@param {string} stderrFile Path for stderr\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/cmd, /**string|boolean*/stdoutFile, /**string*/stderrFile",
+				"paramInfo": {
+					"cmd": {
+						"description": "Command to add to the pipe chain."
+					},
+					"stdoutFile": {
+						"description": "Path to write stdout to, or `false` to skip collection for this step.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					},
+					"stderrFile": {
+						"description": "Path to write stderr to.",
+						"binding": "path",
+						"ext": "txt",
+						"optional": true,
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(906,10)"
+			},
+			{
+				"name": "GetStdOut",
+				"description": "Get stdout from the last executed command, or from a specific step by index.\r\n@param {number} index Optional 0-based index into the chain results\r\n@returns {string} Stdout text\r\n",
+				"type": "string",
+				"returns": "Stdout text.",
+				"signature": " /**number*/ index",
+				"paramInfo": {
+					"index": {
+						"description": "0-based index into the chain results. If omitted, returns stdout from the last command.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(946,10)"
+			},
+			{
+				"name": "GetStdErr",
+				"description": "Get stderr from the last executed command, or from a specific step by index.\r\n@param {number} index Optional 0-based index into the chain results\r\n@returns {string} Stderr text\r\n",
+				"type": "string",
+				"returns": "Stderr text.",
+				"signature": " /**number*/ index",
+				"paramInfo": {
+					"index": {
+						"description": "0-based index into the chain results. If omitted, returns stderr from the last command.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(977,10)"
+			},
+			{
+				"name": "GetStdOutAndErr",
+				"description": "Get interleaved stdout+stderr from the last executed command, or from a specific step.\r\nThe output is mixed in the order produced by the console (stderr interleaved with stdout).\r\n@param {number} index Optional 0-based index into the chain results\r\n@returns {string} Combined output text\r\n",
+				"type": "string",
+				"returns": "Combined stdout and stderr text.",
+				"signature": " /**number*/ index",
+				"paramInfo": {
+					"index": {
+						"description": "0-based index into the chain results. If omitted, returns combined output from the last command.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(1008,10)"
+			},
+			{
+				"name": "GetLinesCount",
+				"description": "Get number of lines in the string.\r\n@param {string} strData Input data\r\n@returns {number} Number of lines\r\n",
+				"type": "number",
+				"returns": "Number of lines.",
+				"signature": " /**string*/ strData",
+				"paramInfo": {
+					"strData": {
+						"description": "Input data string. When not set, get stderr and stdout from last CmdHelper.DoCmd",
+						"defaultValue": null,
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(1044,10)"
+			},
+			{
+				"name": "VerifySuccess",
+				"description": "Verify that the last command exited with code 0 and produced no stderr output.\r\n@param {string} message Assertion message\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/message",
+				"paramInfo": {
+					"message": {
+						"description": "Assertion message. If empty, the last executed command line is used.",
+						"optional": true,
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js(1074,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "CmdHelper object is supposed to help executing complex and chained processes.\r\n\n```\r\nnetstat -n | FINDSTR TCP | find /c /v \"\"\r\n\nnetstat -n | grep TCP | wc -l\r\n\n// Run it as a whole\r\nCmdHelper.DoCmd('netstat -n | findstr TCP | find /c /v \"\"');\r\nCmdHelper.VerifySuccess();\r\n\n// Run it per OS\r\nCmdHelper.DoCmdWin('netstat -n | findstr TCP | find /c /v \"\"');\r\nCmdHelper.DoCmdLin('netstat -n | grep TCP | wc -l');\r\nCmdHelper.VerifySuccess();\r\n\n// Or access intermediate results:\r\nCmdHelper.Pipe('netstat -n');\r\nCmdHelper.Pipe('findstr TCP');\r\nCmdHelper.DoCmd('find /c /v \"\"');\r\nvar netstatOutput = CmdHelper.GetStdOut(0);\r\nvar findStrOutput = CmdHelper.GetStdOut(1);\r\nvar finalOutput = CmdHelper.GetStdOut(); // The same as GetStdOut(2);\r\n\n// Effectively mix linux and win commands for the test to work on each environment:\r\nCmdHelper.Pipe('netstat -n'); // will run on both\r\nCmdHelper.PipeLin('grep TCP');\r\nCmdHelper.PipeWin('findstr TCP');\r\nCmdHelper.PipeLin('find /c /v \"\"');\r\nCmdHelper.PipeWin('wc -l');\r\nCmdHelper.DoCmd();\r\nCmdHelper.VerifySuccess();\r\n```",
+		"src": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js",
+		"version": "1.0.1",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/CmdHelper"
+	},
 	"ExtentReports": {
 		"window_name": "PageObjects",
 		"flavor": "GlobalObject",
@@ -819,19 +1094,52 @@
 		"flavor": "GlobalObject",
 		"actions": [
 			{
+				"name": "SetPerferredMethod",
+				"description": "Set default PDF text extraction method (default is 'text').\r\ntext - assumes PDF has explicit text layer\r\nai - use AI as OCR engine (AiTester / inflectra.ai required)\r\nocr - use built in OCR engine (windows only)",
+				"type": "string",
+				"returns": "Previous method.",
+				"signature": "/**string*/method",
+				"paramInfo": {
+					"method": {
+						"description": "Method id (text|ai|ocr).",
+						"type": "string",
+						"binding": "enum",
+						"defaultValue": "text",
+						"enumOpts": [
+							[
+								"text"
+							],
+							[
+								"ai"
+							],
+							[
+								"ocr"
+							]
+						]
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(94,10)"
+			},
+			{
 				"name": "GetFullText",
 				"description": "Parse PDF at `pdfPath` and return its text representation for further processing",
 				"type": "string",
 				"returns": "Text of the PDF file.",
-				"signature": "/**string*/pdfPath",
+				"signature": "/**string*/pdfPath, /**string*/method",
 				"paramInfo": {
 					"pdfPath": {
 						"description": "Path to input PDF file.",
 						"binding": "path",
-						"ext": "arf"
+						"ext": "pdf"
+					},
+					"method": {
+						"description": "Extraction method to use (text|ocr|ai)",
+						"type": "string",
+						"optional": true,
+						"defaultValue": ""
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(9,10)"
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(127,10)"
 			},
 			{
 				"name": "Contains",
@@ -843,13 +1151,13 @@
 					"pdfPath": {
 						"description": "Path to input PDF file.",
 						"binding": "path",
-						"ext": "arf"
+						"ext": "pdf"
 					},
 					"textOrRegexp": {
 						"description": "Either plain string, or something starting from regex: to look in the file"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(72,10)"
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(205,10)"
 			},
 			{
 				"name": "AssertContains",
@@ -870,14 +1178,14 @@
 						"description": "Line to write to the report"
 					}
 				},
-				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(109,10)"
+				"src": "%WORKDIR%PageObjects\\PDF\\PDF.js(242,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "PDF handling: read text, check that PDF contains some text, assert PDF contains something.",
 		"src": "%WORKDIR%PageObjects\\PDF\\PDF.js",
-		"version": "1.0.3",
+		"version": "2.0.2",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/PDF"
 	},
 	"Playwright": {

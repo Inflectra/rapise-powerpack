@@ -131,7 +131,7 @@
 			"libraries": [
 				"Web"
 			],
-			"hash": "82B957C2CC14483590C7A701805DECF3749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43448581AEF0E9AC963E00D2A52FC22429"
+			"hash": "3A84E65D659E03092D0C78093CB8FF52749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43354643CFE3B4394070DC4F87DF45DD9D"
 		},
 		"Sfdc": {
 			"id": "34ZKI23N",
@@ -178,6 +178,17 @@
 			"rep": "%WORKDIR%PageObjects\\TestRunner\\Objects.js",
 			"libraries": [],
 			"hash": "CF495E7CD923D4C2633C2B24BFC8FAB9AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43FDA5A59D897A7177BBB7E5D78705EAF0"
+		},
+		"CmdHelper": {
+			"id": "49Z96R9H",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\CmdHelper\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\CmdHelper\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\CmdHelper\\Objects.js",
+			"libraries": [],
+			"hash": "0F7240B50EB6537681A40F1CA76F57C4AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43053473118659B602685CCE12E9CD7873"
 		}
 	},
 	"testcases": [
@@ -498,6 +509,28 @@
 			"hash": "B8CA4299C2C5146FAA8D86505B7E572F6908D9B4E626CBDF38E7816D0C147C02E64ECF2074AF8390245C334763481B861451F92A5824AC098AF5BB4C4D637813BF58ABD9D52A67A2994F1291927D5AFD"
 		},
 		{
+			"name": "CmdHelperTest",
+			"alias": "CmdHelperTest",
+			"vpath": "CmdHelper",
+			"sstest": "%WORKDIR%TestCases\\CmdHelper\\CmdHelperTest\\Test.sstest",
+			"tags": "testcase",
+			"id": "KWCOZYRO",
+			"rep": "%WORKDIR%TestCases\\CmdHelper\\CmdHelperTest\\Objects.js",
+			"user": "%WORKDIR%TestCases\\CmdHelper\\CmdHelperTest\\User.js",
+			"libraries": [],
+			"testParams": {
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "1243B5B9BFFEC3CFDCBDE153E4B526156908D9B4E626CBDF38E7816D0C147C02591AA9250C1D61932755697988AEFF17B16149B86E5CEBD2C0FD5D050229AF43621ADD6211AF11B48672FD57BF5FA362"
+		},
+		{
 			"name": "LisLogin",
 			"alias": "LisLogin",
 			"vpath": "ExtentReports",
@@ -549,7 +582,33 @@
 			"rep": "%WORKDIR%TestCases\\PDF\\PDF Text Assert\\Objects.js",
 			"user": "%WORKDIR%TestCases\\PDF\\PDF Text Assert\\User.js",
 			"libraries": [],
-			"hash": "EB2BE14A85DFE43903D09B225E7157406908D9B4E626CBDF38E7816D0C147C02E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF437B2E21B54DCB005710A98D6B8AB5F98F"
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - Chrome",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "31184B10FEBE8F01FA535C2A1FB3D06F6908D9B4E626CBDF38E7816D0C147C02E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43D04A6EE2DE9DDCB1476C9F491D70ABD7"
 		},
 		{
 			"name": "Playwright Mix Mode",

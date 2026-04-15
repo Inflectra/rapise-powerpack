@@ -79,6 +79,9 @@
           <TestFile>
             <Path>PageObjects\TestRunner\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>PageObjects\CmdHelper\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>pageobjects</Tags>
       </TestGroup>
@@ -155,6 +158,19 @@
               </TestFile>
               <TestFile>
                 <Path>TestCases\AiTester\AiTester Desktop\Test.sstest</Path>
+              </TestFile>
+            </TestFiles>
+          </TestGroup>
+          <TestGroup>
+            <Name>CmdHelper</Name>
+            <RealFolder>true</RealFolder>
+            <IsFilterGroup>false</IsFilterGroup>
+            <FilterWildcard>*.*</FilterWildcard>
+            <FilterPath>TestCases/CmdHelper</FilterPath>
+            <Groups />
+            <TestFiles>
+              <TestFile>
+                <Path>TestCases\CmdHelper\CmdHelperTest\Test.sstest</Path>
               </TestFile>
             </TestFiles>
           </TestGroup>

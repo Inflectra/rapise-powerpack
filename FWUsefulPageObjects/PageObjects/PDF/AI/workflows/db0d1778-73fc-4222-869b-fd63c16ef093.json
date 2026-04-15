@@ -1,0 +1,37 @@
+{
+  "name": "ocrextract",
+  "description": "",
+  "sender": {
+    "type": "user",
+    "config": {
+      "name": "rapise",
+      "system_message": "You are a helpful assistant.",
+      "llm_config": false
+    }
+  },
+  "receiver": {
+    "type": "assistant",
+    "config": {
+      "name": "ocrextract",
+      "description": "Extract text from image",
+      "llm_config": {
+        "temperature": 0.1,
+        "max_tokens": 0,
+        "config_list": [
+          {
+            "model": "default",
+            "description": "Default model configured in Options."
+          }
+        ]
+      },
+      "system_message": "The image is a screenshot from the PDF page. Please, transcribe and return text only as a response. Page text:"
+    },
+    "id": "14ac6d63-70d4-4d62-ab1c-5ebbb47fd05f",
+    "timestamp": "2026-04-14T11:43:04.106Z",
+    "path": "C:\\ProgramData\\Inflectra\\Rapise\\AI\\agents\\14ac6d63-70d4-4d62-ab1c-5ebbb47fd05f.json",
+    "local": false
+  },
+  "type": "twoagents",
+  "id": "db0d1778-73fc-4222-869b-fd63c16ef093",
+  "timestamp": "2026-04-14T11:44:03.453Z"
+}
