@@ -7,7 +7,7 @@
  * The power of those methods are that they are cross-frame and are inteded to 
  * cover the whole visible contents of the page, rather than only the root frame.
  *
- * @Version 1.0.7
+ * @Version 1.0.8
  */
 SeSPageObject("WebPageHelper");
 
@@ -449,7 +449,83 @@ var _paramInfoWebPageHelper_DoClick = {
 				type: 'string|objectid',
 				description: 'The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).'
 		},
-		_returns: '\'true\' if the upload was successful; otherwise, it returns false.'
+		_returns: '\'true\' if the click was successful; otherwise, it returns false.'
+};
+
+/**
+ * Do ctrl+click on the element (usually this opens a link in a new browser tab).
+ *  
+ * @param {string|objectid} objIdXPathLabelText - The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).
+ *
+ * @returns {boolean} Returns true when click succeeded.
+ *  
+ * @examples
+ * ```javascript
+ * // Click header by xpath
+ * WebPageHelper.DoCtrlClick('//h1');
+ * // Click header by css
+ * WebPageHelper.DoCtrlClick('css=h1');
+ * // Click header by text
+ * WebPageHelper.DoCtrlClick('Welcome to mycorp!');
+ * // Click header by object id (assuming there is welcomeObj object in the repository)
+ * WebPageHelper.DoCtrlClick('welcomeObj');
+ * ```
+ */
+function WebPageHelper_DoCtrlClick(/**string|objectid*/objIdXPathLabelText)
+{
+	var cb = /**HTMLObject*/_ResolveObject(objIdXPathLabelText);
+	if(cb) {
+		WebDriver.Actions().KeyDown("Control").Click(cb.element).KeyUp("Control").Perform();
+		return true;
+	} else {
+		Tester.SoftAssert("WebPageHelper.DoClick: Element not found: "+objIdXPathLabelText,false);
+	}
+	return false;
+}
+var _paramInfoWebPageHelper_DoCtrlClick = {
+		objIdXPathLabelText: {
+				type: 'string|objectid',
+				description: 'The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).'
+		},
+		_returns: '\'true\' if the click was successful; otherwise, it returns false.'
+};
+
+/**
+ * Do shift+click on the element (usually this opens a link in a new browser window).
+ *  
+ * @param {string|objectid} objIdXPathLabelText - The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).
+ *
+ * @returns {boolean} Returns true when click succeeded.
+ *  
+ * @examples
+ * ```javascript
+ * // Click header by xpath
+ * WebPageHelper.DoShiftClick('//h1');
+ * // Click header by css
+ * WebPageHelper.DoShiftClick('css=h1');
+ * // Click header by text
+ * WebPageHelper.DoShiftClick('Welcome to mycorp!');
+ * // Click header by object id (assuming there is welcomeObj object in the repository)
+ * WebPageHelper.DoShiftClick('welcomeObj');
+ * ```
+ */
+function WebPageHelper_DoShiftClick(/**string|objectid*/objIdXPathLabelText)
+{
+	var cb = /**HTMLObject*/_ResolveObject(objIdXPathLabelText);
+	if(cb) {
+		WebDriver.Actions().KeyDown("Shift").Click(cb.element).KeyUp("Shift").Perform();
+		return true;
+	} else {
+		Tester.SoftAssert("WebPageHelper.DoClick: Element not found: "+objIdXPathLabelText,false);
+	}
+	return false;
+}
+var _paramInfoWebPageHelper_DoShiftClick = {
+		objIdXPathLabelText: {
+				type: 'string|objectid',
+				description: 'The target element to click. This can be an object reference or an XPath selector string or element id or `css=<some css>` or `//xpath` or label (<label for=>***</label> or aria-label=***).'
+		},
+		_returns: '\'true\' if the click was successful; otherwise, it returns false.'
 };
 
 /**
