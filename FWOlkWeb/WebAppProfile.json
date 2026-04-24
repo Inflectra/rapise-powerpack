@@ -1,0 +1,77 @@
+{
+	record:
+	{
+		attributes: [
+			{ name: "name" },
+			{ name: "aria-label" },
+			{ name: "data-testid" },
+			{ name: "data-index" },
+			{ name: "data-item-index" },
+			{ name: "title", notEmpty: true },
+			{ name: "placeholder", notEmpty: true },
+			{ name: "type" },
+			{ name: "role" },
+			{ name: "href", exclude: "http://|https://|javascript:" }
+		],
+		classes: [
+			/* { name: "content" } */
+		],
+		anchors: [
+			/* { xpath: "//div[@class='content-wrapper']" } */
+		],
+		clickable: {
+			classes: [
+				/* "sapMInputBaseIcon" */
+			]
+		},
+		handlers:
+		{
+			elementName: function(el)
+			{
+				el = __hasParentWithTag(el, "button") || __hasParentWithTag(el, "button") || el;
+				var label = __getAttribute(el, "aria-label");
+				if (label)
+				{
+					if (label.indexOf(",") > 0)
+					{
+						return label.split(",")[0];
+					}
+					return label;
+				}
+				return null;
+			},
+			skipAttribute: function (node, attr, value)
+			{
+				/*
+				var tag = node.tagName.toLowerCase();
+				if (attr == "title")
+				{
+					if (tag == "textarea" || tag == "select" || tag == "input")
+					{
+						return true;
+					}
+				}
+				else if (attr == "text")
+				{
+					if (__hasAttribute(node, "data-id") || __hasAttribute(node, "id"))
+					{
+						return true;
+					}
+				}
+				*/
+				return false;
+			},
+			clickable: function(el)
+			{
+				/*
+				var tag = el.tagName.toLowerCase();
+				if (tag == "p" || __hasAttribute(el, "title"))
+				{
+					return true;
+				}
+				*/
+				return false;
+			}
+		}
+	}
+}

@@ -1,0 +1,16 @@
+{
+	"params": [
+		{
+			"name": "Browser",
+			"defaultValue": "Selenium - OutlookWeb",
+			"type": "browser",
+			"description": "Please, specify browser type to use"
+		}
+	],
+	"configs": [
+		{
+			"name": "Default",
+			"id": "5c18f2d6-cf74-43e1-b2b8-878beb5e57a8"
+		}
+	]
+}

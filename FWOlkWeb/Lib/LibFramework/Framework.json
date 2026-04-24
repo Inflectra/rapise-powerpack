@@ -1,0 +1,253 @@
+{
+	"pageobjects": {
+		"WebPageHelper": {
+			"id": "1WYIO6GK",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\WebPageHelper\\WebPageHelper.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\WebPageHelper\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\WebPageHelper\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\WebPageHelper\\Objects.js",
+			"libraries": [
+				"Web"
+			],
+			"hash": "206523D02C716991E39040677C356BE1749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF432DF9C797F3A53CB6226EE7C90368394D"
+		}
+	},
+	"testcases": [
+		{
+			"name": "TryOutlookWindowsRecAndPlay",
+			"alias": "TryOutlookWindowsRecAndPlay",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\TryOutlookWindowsRecAndPlay\\Test.sstest",
+			"tags": "testcase,airecorder",
+			"id": "M8YBI3KK",
+			"rep": "%WORKDIR%TestCases\\TryOutlookWindowsRecAndPlay\\Objects.js",
+			"user": "%WORKDIR%TestCases\\TryOutlookWindowsRecAndPlay\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - OutlookEdge",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"Detect Web Plugins": {
+					"Name": "Detect Web Plugins",
+					"DefaultValue": "false",
+					"Variable": "g_webPluginsAutoDetect",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "92364DFB29E47439991B6834B6834C7019726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B8610420241112A7EC3078AD8F825050D88D8145AA83623E4F7ACA7DA1929E49801"
+		},
+		{
+			"name": "TryOutlookWindowsJS",
+			"alias": "TryOutlookWindowsJS",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\TryOutlookWindowsJS\\Test.sstest",
+			"tags": "testcase",
+			"id": "6KBSIBKB",
+			"rep": "%WORKDIR%TestCases\\TryOutlookWindowsJS\\Objects.js",
+			"user": "%WORKDIR%TestCases\\TryOutlookWindowsJS\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - OutlookEdge",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"Detect Web Plugins": {
+					"Name": "Detect Web Plugins",
+					"DefaultValue": "false",
+					"Variable": "g_webPluginsAutoDetect",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "B858D33AA7A5B44235C27BE8C2E8BEA86F57F3B8C614CB14346292EBF74BA54EE64ECF2074AF8390245C334763481B86444FDD19E35549DFAAA7E54AC32817A7"
+		},
+		{
+			"name": "LaunchOutlook",
+			"alias": "LaunchOutlook",
+			"vpath": "Util",
+			"sstest": "%WORKDIR%TestCases\\Util\\LaunchOutlook\\Test.sstest",
+			"tags": "testcase,airecorder",
+			"id": "DY68EHP4",
+			"rep": "%WORKDIR%TestCases\\Util\\LaunchOutlook\\Objects.js",
+			"user": "%WORKDIR%TestCases\\Util\\LaunchOutlook\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - OutlookEdge",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "60E9A903EC73667FEB5AE130955A592819726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF439949412875034AC648ACF0CE02AEA510"
+		},
+		{
+			"name": "LaunchOutlookDevtools",
+			"alias": "LaunchOutlookDevtools",
+			"vpath": "Util",
+			"sstest": "%WORKDIR%TestCases\\Util\\LaunchOutlookDevtools\\Test.sstest",
+			"tags": "testcase,airecorder",
+			"id": "LIIT36VL",
+			"rep": "%WORKDIR%TestCases\\Util\\LaunchOutlookDevtools\\Objects.js",
+			"user": "%WORKDIR%TestCases\\Util\\LaunchOutlookDevtools\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - OutlookEdge",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "0B6145EA498D6C0BDE7B4662B72523C519726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF439483F5BF5CA8A8029EB36FC697341387"
+		},
+		{
+			"name": "SelectLastWnd",
+			"alias": "SelectLastWnd",
+			"vpath": "Util",
+			"sstest": "%WORKDIR%TestCases\\Util\\SelectLastWnd\\Test.sstest",
+			"tags": "testcase,airecorder",
+			"id": "KCI2PFEL",
+			"rep": "%WORKDIR%TestCases\\Util\\SelectLastWnd\\Objects.js",
+			"user": "%WORKDIR%TestCases\\Util\\SelectLastWnd\\User.js",
+			"libraries": [
+				"Web"
+			],
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - OutlookEdge",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "B947AB5B49C95AD099C27EC2F0295E8C19726ADB7C29208FAF087DD4C34EEF3FE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43838C65A053770A891767E45182C19A43"
+		}
+	],
+	"shared": [
+		{
+			"js": "%WORKDIR%Common.js"
+		},
+		{
+			"data": "%WORKDIR%README.md"
+		},
+		{
+			"data": "%WORKDIR%WebAppProfile.json"
+		},
+		{
+			"data": "%WORKDIR%Shared\\runoutlook.cmd"
+		},
+		{
+			"data": "%WORKDIR%Shared\\runoutlookdevtools.cmd"
+		}
+	],
+	"testsets": [
+		{
+			"id": "a88b6794",
+			"name": "Default",
+			"description": "Default test set",
+			"configId": "5c18f2d6-cf74-43e1-b2b8-878beb5e57a8",
+			"testcases": []
+		}
+	]
+}

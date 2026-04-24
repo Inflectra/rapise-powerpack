@@ -1,0 +1,1562 @@
+{
+	"New_mail": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": "/**string*/ vAlign, /**string*/ hAlign"
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**number*/ x, /**number*/ y, /**boolean*/ forceEvent"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/ x, /**number*/ y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoSendText",
+				"signature": "/**string*/ text",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoDblClick",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoSetText",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoSelect",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoAddSelection",
+				"signature": "/**string*/ optionText"
+			},
+			{
+				"name": "DoRemoveSelection",
+				"signature": "/**string*/ optionText"
+			},
+			{
+				"name": "DoGetSelection",
+				"signature": "/**string*/ delim"
+			},
+			{
+				"name": "DoGetRect",
+				"signature": ""
+			},
+			{
+				"name": "DoSetCheck",
+				"signature": "/**boolean*/ state"
+			},
+			{
+				"name": "DoDOMRoot",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMParent",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMNextSibling",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMPrevSibling",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMChildrenCount",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMChildAt",
+				"signature": "/**number*/ n"
+			},
+			{
+				"name": "DoDOMGetAttribute",
+				"signature": "/**string*/ attrName"
+			},
+			{
+				"name": "DoDOMGetAttributes",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMFindParentWithAttribute",
+				"signature": "/**string*/ attrName, /**string*/ match"
+			},
+			{
+				"name": "DoDOMQueryXPath",
+				"signature": "/**string*/ xpath"
+			},
+			{
+				"name": "DoDOMQueryValue",
+				"signature": "/**string*/ xpath"
+			},
+			{
+				"name": "DoDOMQueryCss",
+				"signature": "/**string*/ css"
+			},
+			{
+				"name": "DoDOMConvert",
+				"signature": "/**string*/ type"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "ClientX",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "ClientY",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Label",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Alt",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Title",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "InnerText",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Text",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "NodeText",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Checked",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Enabled",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false
+			},
+			{
+				"name": "Visible",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Id",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Style",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Tag",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Href",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "ComputedStyle",
+				"setsign": "",
+				"getsign": "/**string*/optFieldName",
+				"readonly": true
+			},
+			{
+				"name": "XPath",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "PageURL",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "PageTitle",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			}
+		],
+		"items": null,
+		"version": 0,
+		"object_type": "HTMLObject",
+		"object_flavor": "Button",
+		"object_name": "New mail",
+		"ignore_object_name": true,
+		"object_class": "Selenium",
+		"object_role": "",
+		"object_text": "New mailCreate a new email message. (Ctrl+N / Ctrl+Shift+M)",
+		"object_library": "Selenium",
+		"window_class": "param:object_class",
+		"window_name": "Mail - Robin Ellacott - Outlook",
+		"xpath": "//button[@aria-label='New mail' and @type='button']",
+		"title": "Mail - Robin Ellacott - Outlook",
+		"url": "https://outlook.office.com/mail/?nativeVersion=1.2026.407.100&sessionId=c69f3bdd-1390-c940-9804-0b8f97db0c7a"
+	},
+	"Help": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": "/**string*/ vAlign, /**string*/ hAlign"
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**number*/ x, /**number*/ y, /**boolean*/ forceEvent"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/ x, /**number*/ y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoSendText",
+				"signature": "/**string*/ text",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoDblClick",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoSetText",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoSelect",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoAddSelection",
+				"signature": "/**string*/ optionText"
+			},
+			{
+				"name": "DoRemoveSelection",
+				"signature": "/**string*/ optionText"
+			},
+			{
+				"name": "DoGetSelection",
+				"signature": "/**string*/ delim"
+			},
+			{
+				"name": "DoGetRect",
+				"signature": ""
+			},
+			{
+				"name": "DoSetCheck",
+				"signature": "/**boolean*/ state"
+			},
+			{
+				"name": "DoDOMRoot",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMParent",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMNextSibling",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMPrevSibling",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMChildrenCount",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMChildAt",
+				"signature": "/**number*/ n"
+			},
+			{
+				"name": "DoDOMGetAttribute",
+				"signature": "/**string*/ attrName"
+			},
+			{
+				"name": "DoDOMGetAttributes",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMFindParentWithAttribute",
+				"signature": "/**string*/ attrName, /**string*/ match"
+			},
+			{
+				"name": "DoDOMQueryXPath",
+				"signature": "/**string*/ xpath"
+			},
+			{
+				"name": "DoDOMQueryValue",
+				"signature": "/**string*/ xpath"
+			},
+			{
+				"name": "DoDOMQueryCss",
+				"signature": "/**string*/ css"
+			},
+			{
+				"name": "DoDOMConvert",
+				"signature": "/**string*/ type"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "ClientX",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "ClientY",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Label",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Alt",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Title",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "InnerText",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Text",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "NodeText",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Checked",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Enabled",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false
+			},
+			{
+				"name": "Visible",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Id",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Style",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Tag",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Href",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "ComputedStyle",
+				"setsign": "",
+				"getsign": "/**string*/optFieldName",
+				"readonly": true
+			},
+			{
+				"name": "XPath",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "PageURL",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "PageTitle",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			}
+		],
+		"items": null,
+		"version": 0,
+		"object_type": "HTMLObject",
+		"object_flavor": "Button",
+		"object_name": "Help",
+		"ignore_object_name": true,
+		"object_class": "Selenium",
+		"object_role": "",
+		"object_text": "param:object_name",
+		"object_library": "Selenium",
+		"window_class": "param:object_class",
+		"window_name": "Mail - Robin Ellacott - Outlook",
+		"xpath": "//div[@role='none'][3]/div[@role='none']/button[@type='button' and @role='tab']",
+		"title": "Mail - Robin Ellacott - Outlook",
+		"url": "https://outlook.office.com/mail/?nativeVersion=1.2026.407.100&sessionId=c69f3bdd-1390-c940-9804-0b8f97db0c7a"
+	},
+	"Home": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": "/**string*/ vAlign, /**string*/ hAlign"
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**number*/ x, /**number*/ y, /**boolean*/ forceEvent"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/ x, /**number*/ y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoSendText",
+				"signature": "/**string*/ text",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoDblClick",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoSetText",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoSelect",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoAddSelection",
+				"signature": "/**string*/ optionText"
+			},
+			{
+				"name": "DoRemoveSelection",
+				"signature": "/**string*/ optionText"
+			},
+			{
+				"name": "DoGetSelection",
+				"signature": "/**string*/ delim"
+			},
+			{
+				"name": "DoGetRect",
+				"signature": ""
+			},
+			{
+				"name": "DoSetCheck",
+				"signature": "/**boolean*/ state"
+			},
+			{
+				"name": "DoDOMRoot",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMParent",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMNextSibling",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMPrevSibling",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMChildrenCount",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMChildAt",
+				"signature": "/**number*/ n"
+			},
+			{
+				"name": "DoDOMGetAttribute",
+				"signature": "/**string*/ attrName"
+			},
+			{
+				"name": "DoDOMGetAttributes",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMFindParentWithAttribute",
+				"signature": "/**string*/ attrName, /**string*/ match"
+			},
+			{
+				"name": "DoDOMQueryXPath",
+				"signature": "/**string*/ xpath"
+			},
+			{
+				"name": "DoDOMQueryValue",
+				"signature": "/**string*/ xpath"
+			},
+			{
+				"name": "DoDOMQueryCss",
+				"signature": "/**string*/ css"
+			},
+			{
+				"name": "DoDOMConvert",
+				"signature": "/**string*/ type"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "ClientX",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "ClientY",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Label",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Alt",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Title",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "InnerText",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Text",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "NodeText",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Checked",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Enabled",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false
+			},
+			{
+				"name": "Visible",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Id",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Style",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Tag",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Href",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "ComputedStyle",
+				"setsign": "",
+				"getsign": "/**string*/optFieldName",
+				"readonly": true
+			},
+			{
+				"name": "XPath",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "PageURL",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "PageTitle",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			}
+		],
+		"items": null,
+		"version": 0,
+		"object_type": "HTMLObject",
+		"object_flavor": "Button",
+		"object_name": "Home",
+		"ignore_object_name": true,
+		"object_class": "Selenium",
+		"object_role": "",
+		"object_text": "param:object_name",
+		"object_library": "Selenium",
+		"window_class": "param:object_class",
+		"window_name": "Mail - Robin Ellacott - Outlook",
+		"xpath": "//div[@role='none'][1]/div[@role='none']/button[@type='button' and @role='tab']",
+		"title": "Mail - Robin Ellacott - Outlook",
+		"url": "https://outlook.office.com/mail/?nativeVersion=1.2026.407.100"
+	},
+	"Discard": {
+		"actions": [
+			{
+				"name": "DoAction",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoEnsureVisible",
+				"signature": "/**string*/ vAlign, /**string*/ hAlign"
+			},
+			{
+				"name": "DoClick",
+				"signature": "/**number*/ x, /**number*/ y, /**boolean*/ forceEvent"
+			},
+			{
+				"name": "DoLClick",
+				"signature": "/**number*/x,/**number*/y"
+			},
+			{
+				"name": "DoLDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoLButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoLButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMouseMove",
+				"signature": "/**number*/ x, /**number*/ y"
+			},
+			{
+				"name": "DoRButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoRClick",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoRDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMButtonDown",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMButtonUp",
+				"signature": "",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoMDClick",
+				"signature": "/**number*/x,/**number*/y",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoSendKeys",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoSendText",
+				"signature": "/**string*/ text",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoAnalogPlay",
+				"signature": "/**string*/ path, /**number*/left, /**number*/top",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoDumpWidget",
+				"signature": "filePath",
+				"tag": "Generic"
+			},
+			{
+				"name": "DoDblClick",
+				"signature": "/**number*/x, /**number*/y"
+			},
+			{
+				"name": "DoSetText",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoSelect",
+				"signature": "/**string*/ txt"
+			},
+			{
+				"name": "DoAddSelection",
+				"signature": "/**string*/ optionText"
+			},
+			{
+				"name": "DoRemoveSelection",
+				"signature": "/**string*/ optionText"
+			},
+			{
+				"name": "DoGetSelection",
+				"signature": "/**string*/ delim"
+			},
+			{
+				"name": "DoGetRect",
+				"signature": ""
+			},
+			{
+				"name": "DoSetCheck",
+				"signature": "/**boolean*/ state"
+			},
+			{
+				"name": "DoDOMRoot",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMParent",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMNextSibling",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMPrevSibling",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMChildrenCount",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMChildAt",
+				"signature": "/**number*/ n"
+			},
+			{
+				"name": "DoDOMGetAttribute",
+				"signature": "/**string*/ attrName"
+			},
+			{
+				"name": "DoDOMGetAttributes",
+				"signature": ""
+			},
+			{
+				"name": "DoDOMFindParentWithAttribute",
+				"signature": "/**string*/ attrName, /**string*/ match"
+			},
+			{
+				"name": "DoDOMQueryXPath",
+				"signature": "/**string*/ xpath"
+			},
+			{
+				"name": "DoDOMQueryValue",
+				"signature": "/**string*/ xpath"
+			},
+			{
+				"name": "DoDOMQueryCss",
+				"signature": "/**string*/ css"
+			},
+			{
+				"name": "DoDOMConvert",
+				"signature": "/**string*/ type"
+			}
+		],
+		"properties": [
+			{
+				"name": "X",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Y",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Width",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Height",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Name",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "WindowText",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false,
+				"tag": "Generic"
+			},
+			{
+				"name": "Class",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "State",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Value",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false
+			},
+			{
+				"name": "ObjectType",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "Bitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "BWBitmap",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true,
+				"tag": "Generic"
+			},
+			{
+				"name": "ClientX",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "ClientY",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Label",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Alt",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Title",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "InnerText",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Text",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "NodeText",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Checked",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Enabled",
+				"setsign": "value",
+				"getsign": "",
+				"readonly": false
+			},
+			{
+				"name": "Visible",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Id",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Style",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Tag",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "Href",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "ComputedStyle",
+				"setsign": "",
+				"getsign": "/**string*/optFieldName",
+				"readonly": true
+			},
+			{
+				"name": "XPath",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "PageURL",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			},
+			{
+				"name": "PageTitle",
+				"setsign": "",
+				"getsign": "",
+				"readonly": true
+			}
+		],
+		"items": null,
+		"version": 0,
+		"object_type": "HTMLObject",
+		"object_flavor": "Button",
+		"object_name": "Discard",
+		"ignore_object_name": true,
+		"object_class": "Selenium",
+		"object_role": "",
+		"object_text": "",
+		"object_library": "Selenium",
+		"window_class": "param:object_class",
+		"window_name": "Mail - Robin Ellacott - Outlook",
+		"xpath": "//button[@aria-label='Discard' and @title='Discard (Esc)' and @type='button']",
+		"title": "Mail - Robin Ellacott - Outlook",
+		"url": "https://outlook.office.com/mail/?nativeVersion=1.2026.407.100"
+	}
+}
