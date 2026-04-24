@@ -1,0 +1,86 @@
+{
+	"pageobjects": {
+		"CmdHelper": {
+			"id": "YDOCBD3Y",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\CmdHelper\\CmdHelper.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\CmdHelper\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\CmdHelper\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\CmdHelper\\Objects.js",
+			"libraries": [],
+			"hash": "22D046F10582A7D3A1B1BA825BE8A500AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43A974452BC78ADC6DCBE2F11E375A8A6B"
+		}
+	},
+	"testcases": [
+		{
+			"name": "!Template",
+			"alias": "!Template",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\!Template\\Test.sstest",
+			"tags": "testcase,template",
+			"id": "ENKX966D",
+			"rep": "%WORKDIR%TestCases\\!Template\\Objects.js",
+			"user": "%WORKDIR%TestCases\\!Template\\User.js",
+			"libraries": [
+				"Managed",
+				"Infragistics"
+			],
+			"testParams": {
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "590B28DC1E248B8E3B92F132D05BA76FA17FEE31D226F7C4B6BEE92127C3740DE64ECF2074AF8390245C334763481B8669199E7E6FE2ACFB7A54C6DEDEB98F3EF62F084CB1AFDC244230770B04F8A3DB"
+		},
+		{
+			"name": "Walk Through Outlook CRM",
+			"alias": "Walk Through Outlook CRM",
+			"vpath": "",
+			"sstest": "%WORKDIR%TestCases\\Walk Through Outlook CRM\\Test.sstest",
+			"tags": "testcase",
+			"id": "UJKICZOL",
+			"rep": "%WORKDIR%TestCases\\Walk Through Outlook CRM\\Objects.js",
+			"user": "%WORKDIR%TestCases\\Walk Through Outlook CRM\\User.js",
+			"libraries": [
+				"Managed",
+				"Infragistics"
+			],
+			"testParams": {
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "OUTLOOK INSPIRED TEMPLATE",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": "OUTLOOK INSPIRED TEMPLATE"
+				}
+			},
+			"hash": "32AE59DD46B390F2429112B924B6BA66A17FEE31D226F7C4B6BEE92127C3740DE64ECF2074AF8390245C334763481B86E76C44995DE8AC1ADCDC7E92699661C437698234831F1AD50F5F6B828C9CA98D"
+		}
+	],
+	"shared": [
+		{
+			"js": "%WORKDIR%Common.js"
+		},
+		{
+			"data": "%WORKDIR%README.md"
+		},
+		{
+			"data": "%WORKDIR%Shared\\OutlookCRM.exe.lnk"
+		}
+	]
+}
