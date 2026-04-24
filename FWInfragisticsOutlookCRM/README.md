@@ -1,3 +1,5 @@
+![Download](https://github.githubassets.com/images/icons/emoji/unicode/23ec.png?v8) [Download Now](https://inflectra.github.io/DownGit/#/home?url=https://github.com/Inflectra/rapise-powerpack/tree/master/FWInfragisticsOutlookCRM)
+
 # Automating Infragistics OutlookCRM Sample with Rapise
 
 `OutlookCRM.exe` is an Infragistics Windows Forms sample application:
