@@ -57,9 +57,6 @@
         <Path>Objects.js</Path>
       </TestFile>
       <TestFile>
-        <Path>package.json</Path>
-      </TestFile>
-      <TestFile>
         <Path>TargetWindowScreenRegion.js</Path>
       </TestFile>
       <TestFile>
