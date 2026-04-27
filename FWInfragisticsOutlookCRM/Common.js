@@ -6,6 +6,7 @@
 SeSOnTestInit(function() {
 	if (g_entryPointName == "Test") {
 		// Put your common initialization code here
+		CmdHelper.DoRunShortcut('%WORKDIR%\\Shared\\OutlookCRM.exe.lnk')
 	}
 });
 
@@ -15,6 +16,8 @@ SeSOnTestInit(function() {
 SeSOnTestFinish(function() {
 	if (g_entryPointName == "Test") {
 		// Put your common finalization code here
+		// Force an application to be closed if test has failed
+		Global.DoKillByName("OutlookCRM.exe");
 	}
 });
 

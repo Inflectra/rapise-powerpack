@@ -48,6 +48,17 @@ In such cases, make sure to click before the tooltip appears, or your action may
 
 Another option is to resize the column so that it is fully visible without tooltips.
 
+## Application Start/Stop
+
+The application lifecycle is managed automatically in `Common.js` via shared hooks that run before and after each test case.
+
+- **Start:** Before each test, the application is launched using the `CmdHelper.DoRunShortcut` Page Object action, which executes the shortcut at `Shared/OutlookCRM.exe.lnk`. This ensures the correct DPI scaling settings are applied.
+- **Stop:** After each test, `Global.DoKillByName("OutlookCRM.exe")` is called. In practice, the sample test already closes the application gracefully via **File > Exit** clicks, so this call normally does nothing. It serves as a safeguard to ensure the process is terminated if the test fails before reaching that point.
+
+Both hooks are guarded by a `g_entryPointName == "Test"` check, so they only run during a full test case execution. When you use "Play Selection" to run a subset of steps, these hooks are skipped — meaning the application may remain running while you are debugging or improving a test.
+
+If you need to customize startup or teardown behavior, edit `Common.js` at the framework shared folder.
+
 ## Creating Your Test Case
 
 You may either clone the **!Template** test case (it has the Rapise library for Infragistics already configured) or create a new desktop Test Case and then use **Tools > Libraries** to choose **Infragistics**.
