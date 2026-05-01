@@ -2,7 +2,7 @@
 setlocal
 
 set "PROC=olk.exe"
-set "DEBUG_PORT=9222"
+set "DEBUG_PORT=19314"
 
 REM Is olk.exe running?
 tasklist /FI "IMAGENAME eq %PROC%" | find /I "%PROC%" >nul

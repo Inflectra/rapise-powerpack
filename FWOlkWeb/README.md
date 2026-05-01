@@ -23,9 +23,9 @@ A working sample project that demonstrates how to automate Outlook (olk.exe) as 
 
 The following tweaks enable recording and playback:
 
-1. **`Shared/runoutlook.cmd`** — Launches `olk.exe` with remote debugging enabled on port 9222.
+1. **`Shared/runoutlook.cmd`** — Launches `olk.exe` with remote debugging enabled on port 19314.
 2. **`Shared/runoutlookdevtools.cmd`** — Same as above, but also opens DevTools for the instance.
-3. **Selenium – OutlookEdge profile** — Configured to connect to the web application at port 9222.
+3. **Selenium – OutlookEdge profile** — Configured to connect to the web application at port 19314.
    ![OutlookEdge](img/README_outlookedge.png)
 4. **`WebAppProfile.json`** — Contains tweaks to better handle object names and attributes in Outlook during recording. Includes a modified `elementName` handler to capture toolbar button names properly.
 
