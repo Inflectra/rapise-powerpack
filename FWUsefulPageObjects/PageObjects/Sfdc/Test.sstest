@@ -25,6 +25,7 @@
   <WorkDir>..\..\.</WorkDir>
   <TestFiles>
     <Name>Test</Name>
+    <RealFolder>true</RealFolder>
     <IsFilterGroup>false</IsFilterGroup>
     <FilterWildcard>*.*</FilterWildcard>
     <FilterPath />
@@ -35,6 +36,18 @@
       </TestFile>
       <TestFile>
         <Path>Objects.js</Path>
+      </TestFile>
+      <TestFile>
+        <Path>Objects.metadata</Path>
+      </TestFile>
+      <TestFile>
+        <Path>package.json</Path>
+      </TestFile>
+      <TestFile>
+        <Path>package-lock.json</Path>
+      </TestFile>
+      <TestFile>
+        <Path>README.md</Path>
       </TestFile>
       <TestFile>
         <Path>Sfdc.js</Path>
