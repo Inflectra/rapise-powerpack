@@ -25,7 +25,7 @@ function Sfdc_Launch()
 
 function SfdcInstallModules()
 {
-	if(!File.FolderExists("node_modules"))
+	if(!File.FolderExists("PageObjects\\Sfdc\\node_modules"))
 	{
 		Log("otplib not installed, doing npm install");
 		var cmd = "npm";
@@ -35,7 +35,7 @@ function SfdcInstallModules()
 			Log("OS Type is Windows");
 			cmd = '"' + g_helper.ResolvePath("InstrumentJS/npm.cmd") + '"';
 		}
-		var result = Global.DoCmd(`${cmd} ci`, g_workDir, true, false);
+		var result = Global.DoCmd(`${cmd} ci`, Global.GetFullPath("PageObjects\\Sfdc"), true, false);
 		Log(result);
 	}
 }
@@ -43,7 +43,8 @@ function SfdcInstallModules()
 function SfdcGetOTP(secret)
 {
 	SfdcInstallModules();
-	const { authenticator } = require("otplib");
+	const otpPath = Global.GetFullPath("PageObjects/Sfdc/node_modules/otplib");
+	const { authenticator } = require(otpPath);
 	const token = authenticator.generate(secret);
 	return token;
 }
