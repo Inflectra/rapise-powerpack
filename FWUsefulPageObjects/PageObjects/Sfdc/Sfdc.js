@@ -2,7 +2,7 @@
 /**
  * @PageObject Sfdc object to perform common actions like launch, navigate module, etc.
  *
- * @Version 1.0.5
+ * @Version 1.0.6
  */
 SeSPageObject("Sfdc");
 
@@ -18,8 +18,52 @@ function Sfdc_Launch()
 	var pwd = Global.GetProperty("Password", "", "%WORKDIR%\\Shared\\Config.xlsx");
 	
 	LoginSfdc(url, usr, pwd);
+	SfdcEnterOTP();
 	
-	Global.DoSleep(5000);
+	Global.DoWaitFor("G_Waffle", 30000, 5000);
+}
+
+function SfdcInstallModules()
+{
+	if(!File.FolderExists("node_modules"))
+	{
+		Log("otplib not installed, doing npm install");
+		var cmd = "npm";
+		var osType = Global.GetOsType();
+		if (osType.toLowerCase().indexOf("windows") != -1)
+		{
+			Log("OS Type is Windows");
+			cmd = '"' + g_helper.ResolvePath("InstrumentJS/npm.cmd") + '"';
+		}
+		var result = Global.DoCmd(`${cmd} ci`, g_workDir, true, false);
+		Log(result);
+	}
+}
+
+function SfdcGetOTP(secret)
+{
+	SfdcInstallModules();
+	const { authenticator } = require("otplib");
+	const token = authenticator.generate(secret);
+	return token;
+}
+
+function SfdcEnterOTP()
+{
+	var otpField = Navigator.DoWaitFor("//input[@id='tc']", 3000);
+	if(otpField)
+	{
+		var secret = Global.GetProperty("Secret", "", "%WORKDIR%\\Shared\\Config.xlsx");
+		var otp = SfdcGetOTP(secret);
+		otpField._DoSetText(otp)
+		
+		var otpButton = Navigator.Find("//input[@id='save']");
+		if (otpButton)
+		{
+			otpButton.object_name = "Verify OTP";
+			otpButton.DoClick();
+		}
+	}
 }
 
 /**
