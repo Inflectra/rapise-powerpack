@@ -1247,7 +1247,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(16,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(15,10)"
 			},
 			{
 				"name": "CleanTempFiles",
@@ -1256,7 +1256,7 @@
 				"returns": "",
 				"signature": "/**string*/path",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(65,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(64,10)"
 			},
 			{
 				"name": "CleanAICommandCache",
@@ -1265,7 +1265,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(112,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(111,10)"
 			},
 			{
 				"name": "CleanAICommandCacheDeprecated",
@@ -1274,7 +1274,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(205,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(204,10)"
 			},
 			{
 				"name": "GetRapiseApp",
@@ -1283,7 +1283,7 @@
 				"returns": "",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(302,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(301,10)"
 			},
 			{
 				"name": "DoImportManual",
@@ -1292,14 +1292,23 @@
 				"returns": "",
 				"signature": "/**number*/ projectId, /**number*/ testCaseFolderId",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(338,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(337,10)"
+			},
+			{
+				"name": "DoImportFolderWithTestCases",
+				"description": "Import all test cases from given folder (and subfolders) into this framework.\r\nNote: 2nd import of the same folder will create duplicates\r\nNote: Test case group structure is preserved as it was in the previous framework.\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**string*/srcFolder",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(376,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "RapiseUtils provides various actions to perform framework-oriented tasks.",
 		"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js",
-		"version": "1.0.18",
+		"version": "1.0.19",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/RapiseUtils"
 	},
 	"Sfdc": {

@@ -1,8 +1,7 @@
-
 /**
  * @PageObject RapiseUtils provides various actions to perform framework-oriented tasks.
  * 
- * @Version 1.0.18
+ * @Version 1.0.19
  */
 SeSPageObject("RapiseUtils");
 
@@ -366,5 +365,65 @@ function RapiseUtils_DoImportManual(/**number*/ projectId, /**number*/ testCaseF
 	
 	SpiraImporterImportTestCases(tcRootFolder);
 	
+	return true;
+}
+
+/**
+ * Import all test cases from given folder (and subfolders) into this framework.
+ * 	Note: 2nd import of the same folder will create duplicates
+ * 	Note: Test case group structure is preserved as it was in the previous framework.
+ */
+function RapiseUtils_DoImportFolderWithTestCases(/**string*/srcFolder)
+{
+	function ChooseFolderAdvanced() {
+		var shellApp = new ActiveXObject("Shell.Application");
+		
+		// Options: 
+		// 1 (Real folders only) + 16 (Show edit box) + 64 (New resizable style) = 81
+		var options = 81; 
+		
+		// Root: 0 (Desktop - allows free navigation)
+		var rootFolder = 0; 
+		
+		var folder = shellApp.BrowseForFolder(0, "Select a folder (you can paste the path below):", options, rootFolder);
+		
+		if (folder != null) {
+			var path = Text.Trim(folder.Self.Path);
+			path = Text.Trim(path, '"');
+			return path;
+		} else {
+			return null;
+		}
+	}
+	
+	var rapiseApp = RapiseUtils_GetRapiseApp();
+	rapiseApp.ShowMainWindow();
+
+	srcFolder = srcFolder || ChooseFolderAdvanced();
+	var factory = new ActiveXObject("SmarteStudio.Test.Test");
+	
+	SeSEachFile(srcFolder, '*.sstest', function (path) {
+		try
+		{
+			var tc = factory.LoadFromFile(path);
+			var testFolder = tc.TestFolder;
+			var fwGroup = tc.GetPathRelToWorkDir();
+			fwGroup = fwGroup.replace("%WORKDIR%","");
+			// 1. Cut trailing test file name: aaa.sstest
+			fwGroup = fwGroup.replace(/[\\\/]?[^\\\/]+\.sstest$/i, "");
+			// 2. Cut trailing folder, if any
+			fwGroup = fwGroup.replace(/[\\\/]?[^\\\/]+$/, "");
+			
+			var groupPath = fwGroup;
+			Tester.Message("Importing "+tc.AliasName+" into: "+groupPath);
+			rapiseApp.ImportTestCase(tc.AliasName, groupPath||"TestCases", path);
+		} catch(e) {
+			Tester.SoftAssert("Error importing: "+path, false, e.message);
+		}
+	});
+	rapiseApp.DoGlobalCommand("Generate Metadata");
+	rapiseApp.DoGlobalCommand("RefreshTestCases");
+	rapiseApp.DoGlobalCommand("RefreshTestFiles");
+	rapiseApp.DoGlobalCommand("SoftRefreshSpiraDashboard");
 	return true;
 }
