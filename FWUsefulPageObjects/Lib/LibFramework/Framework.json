@@ -155,7 +155,7 @@
 			"sstest": "%WORKDIR%PageObjects\\RapiseUtils\\Test.sstest",
 			"rep": "%WORKDIR%PageObjects\\RapiseUtils\\Objects.js",
 			"libraries": [],
-			"hash": "77E6BDE76DC17913D77377317CC2ED14AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43CB25CC3EFAC1B5B0491A5F9C7D53CF90"
+			"hash": "77E6BDE76DC17913D77377317CC2ED14AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43ECF675E2A8D9409D7AB1B499D335EA66"
 		},
 		"AiTester": {
 			"id": "P8SEKKAG",
@@ -244,7 +244,25 @@
 			"rep": "%WORKDIR%TestCases\\RebuildMetadata\\Objects.js",
 			"user": "%WORKDIR%TestCases\\RebuildMetadata\\User.js",
 			"libraries": [],
-			"hash": "BB49C3E48BC73FE26F57E58072E5EFBE34AB073B29872F2171E1B0470B0063EDE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - Chrome",
+					"Variable": "g_browserLibrary",
+					"Ask": true,
+					"Output": false,
+					"Options": ""
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "FC5FC4E6797DB0D17CED7627EAF00BFA34AB073B29872F2171E1B0470B0063EDE64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43"
 		},
 		{
 			"name": "Robot Edits a Book",

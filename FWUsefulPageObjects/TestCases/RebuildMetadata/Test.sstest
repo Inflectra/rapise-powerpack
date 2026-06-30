@@ -33,7 +33,7 @@
         <Name>Reports</Name>
         <RealFolder>true</RealFolder>
         <IsFilterGroup>true</IsFilterGroup>
-        <FilterWildcard>*.trp</FilterWildcard>
+        <FilterWildcard>*.trp;*.jspatch</FilterWildcard>
         <FilterPath>Reports</FilterPath>
         <Groups />
         <TestFiles />

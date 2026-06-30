@@ -71,6 +71,6 @@
 		"extend_rule": "",
 		"description": "RapiseUtils provides various actions to perform framework-oriented tasks.",
 		"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js",
-		"version": "1.0.19"
+		"version": "1.0.20"
 	}
 }

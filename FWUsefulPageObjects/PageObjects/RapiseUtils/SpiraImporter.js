@@ -336,7 +336,7 @@ function SpiraImporterImportTestCases(data)
 		}
 		if (!tc)
 		{
-			if( testCase.AutomationAttachmentId ) {
+			if ( testCase.AutomationAttachmentId ) {
 				if(g_serverRepositoryType!='git') {
 					Tester.Message(`Skip test case: ${path}/${testCase.Name}, it is already automated and not found in this framework`);
 					return;
@@ -344,8 +344,15 @@ function SpiraImporterImportTestCases(data)
 				// If it is git then automation files are part of the repository and we assume that it is stored in the same path in the same repository.
 				Tester.Message(`Re-importing: ${path}/${testCase.Name}, it is already automated, assuming it is in the same Git repository`);
 			}
-			const aliasName = FixWhiteSpace(Text.Trim(testCase.Name));
-			const fixedName = FixTCName(testCase.Name);
+			let aliasName = FixWhiteSpace(Text.Trim(testCase.Name));
+			let fixedName = FixTCName(testCase.Name);
+			
+			if ( !fixedName ) {
+				fixedName = "TC"+spiraId;
+				aliasName = fixedName;
+				Tester.Message(`Test case: ${spiraId}, has empty name, it will be imported it as TC ${spiraId}`);
+			}
+			
 			tc = rapiseApp.CreateTestCase(fixedName, path, true);
 			if (aliasName!=fixedName) {
 				tc.AliasName = aliasName;
