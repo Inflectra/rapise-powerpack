@@ -1089,6 +1089,34 @@
 		"version": "1.0.3",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/ManagedHelper"
 	},
+	"OTP": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "GetCode",
+				"description": "Generate one-time password for given secret.",
+				"type": "string",
+				"returns": "Generated one-time password.",
+				"signature": "/**string*/ secret",
+				"paramInfo": {
+					"secret": {
+						"description": "Secret string to use for OTP generation.",
+						"type": "string",
+						"optional": true,
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\OTP\\OTP.js(26,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "One-time password generation.",
+		"src": "%WORKDIR%PageObjects\\OTP\\OTP.js",
+		"version": "1.0.0",
+		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/OTP"
+	},
 	"PDF": {
 		"window_name": "PageObjects",
 		"flavor": "GlobalObject",

@@ -189,6 +189,17 @@
 			"rep": "%WORKDIR%PageObjects\\CmdHelper\\Objects.js",
 			"libraries": [],
 			"hash": "0F7240B50EB6537681A40F1CA76F57C4AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43053473118659B602685CCE12E9CD7873"
+		},
+		"OTP": {
+			"id": "9EJZB04E",
+			"tags": "pageobject",
+			"js": "%WORKDIR%PageObjects\\OTP\\OTP.js",
+			"vpath": "",
+			"user": "%WORKDIR%PageObjects\\OTP\\User.js",
+			"sstest": "%WORKDIR%PageObjects\\OTP\\Test.sstest",
+			"rep": "%WORKDIR%PageObjects\\OTP\\Objects.js",
+			"libraries": [],
+			"hash": "A13462D12B854C8B625C5D89C362C2D8AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43B489E50298935E49F6DCCBA127BB6D1D"
 		}
 	},
 	"testcases": [
@@ -589,6 +600,28 @@
 				"Web"
 			],
 			"hash": "0E211C19ED1BA2788C1063194C17A67DAB2864CD2804DDFD6D303E9AC979914468C7BF443CF916217AB7E7640CE1C177194F5757AA13C099FA4F857915A9E7C04F96679C537B07AA6399FDC60439C6E6"
+		},
+		{
+			"name": "OTP Generation",
+			"alias": "OTP Generation",
+			"vpath": "OTP",
+			"sstest": "%WORKDIR%TestCases\\OTP\\OTP Generation\\Test.sstest",
+			"tags": "testcase",
+			"id": "2ONL0O8F",
+			"rep": "%WORKDIR%TestCases\\OTP\\OTP Generation\\Objects.js",
+			"user": "%WORKDIR%TestCases\\OTP\\OTP Generation\\User.js",
+			"libraries": [],
+			"testParams": {
+				"RVL Script": {
+					"Name": "RVL Script",
+					"DefaultValue": "Main.rvl.xlsx",
+					"Variable": "g_rvlScriptPath",
+					"Ask": false,
+					"Output": false,
+					"Options": ""
+				}
+			},
+			"hash": "6E751052F9E7AA61AA7CB5246F1008B26908D9B4E626CBDF38E7816D0C147C02E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43A938BB21F7A3CD6428F05583BCFD85DA"
 		},
 		{
 			"name": "PDF Text Assert",

@@ -7,16 +7,19 @@
 		},
 		{
 			"name": "Browser",
-			"defaultValue": "Selenium - ChromeScaled",
 			"type": "browser",
-			"description": "Please, specify browser type to use"
+			"defaultValue": "Selenium - ChromeScaled"
+		},
+		{
+			"name": "OTP Secret",
+			"type": "password",
+			"defaultValue": "cMu4Y8wfWIioCDWndgX3MXhofyUP1FYL2HeLulskeZLFYSGGHZxjBsfsthbQS+R5"
 		}
 	],
 	"configs": [
 		{
 			"id": "34a9fb14",
-			"name": "Default",
-			"values": {}
+			"name": "Default"
 		}
 	]
 }

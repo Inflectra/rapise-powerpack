@@ -82,6 +82,9 @@
           <TestFile>
             <Path>PageObjects\CmdHelper\Test.sstest</Path>
           </TestFile>
+          <TestFile>
+            <Path>PageObjects\OTP\Test.sstest</Path>
+          </TestFile>
         </TestFiles>
         <Tags>pageobjects</Tags>
       </TestGroup>
@@ -190,6 +193,19 @@
               </TestFile>
               <TestFile>
                 <Path>TestCases\ExtentReports\LisFailedTestCase\Test.sstest</Path>
+              </TestFile>
+            </TestFiles>
+          </TestGroup>
+          <TestGroup>
+            <Name>OTP</Name>
+            <RealFolder>true</RealFolder>
+            <IsFilterGroup>false</IsFilterGroup>
+            <FilterWildcard>*.*</FilterWildcard>
+            <FilterPath>TestCases/OTP</FilterPath>
+            <Groups />
+            <TestFiles>
+              <TestFile>
+                <Path>TestCases\OTP\OTP Generation\Test.sstest</Path>
               </TestFile>
             </TestFiles>
           </TestGroup>
