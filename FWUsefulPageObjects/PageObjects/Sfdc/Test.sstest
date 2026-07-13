@@ -65,7 +65,7 @@
     </TestFiles>
   </TestFiles>
   <TestParams>
-    <TestParam name="Browser" variable="g_browserLibrary" defaultValue="Selenium - Chrome" description="Please, specify browser type to use" output="false" ask="true">
+    <TestParam name="Browser" variable="g_browserLibrary" defaultValue="Selenium - Chrome" description="Please, specify browser type to use" output="false" ask="false">
       <PossibleValues />
     </TestParam>
     <TestParam name="Record Title" variable="g_rWnd" defaultValue="regex:.*" description="Application Title to Record" output="false" ask="false">
