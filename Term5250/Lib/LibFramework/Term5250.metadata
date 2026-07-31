@@ -1,0 +1,714 @@
+{
+	"Term5250": {
+		"window_name": "PageObjects",
+		"flavor": "GlobalObject",
+		"actions": [
+			{
+				"name": "FindOrAttach",
+				"description": "--- Public API --------------------------------------------------------------\r\n",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ sessionId, /**boolean*/ bAttach",
+				"paramInfo": {
+					"sessionId": {
+						"description": "Session short name (A-Z). Default is 'A'.",
+						"optional": true
+					},
+					"bAttach": {
+						"description": "If `true`, only attach to existing session.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(202,10)"
+			},
+			{
+				"name": "ConnectPS",
+				"description": "Connect to the terminal presentation space.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ sessionId",
+				"paramInfo": {
+					"sessionId": {
+						"description": "Session short name (A-Z).",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(248,10)"
+			},
+			{
+				"name": "DisconnectPS",
+				"description": "Disconnect from the terminal presentation space.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ sessionId",
+				"paramInfo": {
+					"sessionId": {
+						"description": "Session short name (A-Z).",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(272,10)"
+			},
+			{
+				"name": "QuerySessions",
+				"description": "Query available terminal sessions. Returns array of session objects.",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(291,10)"
+			},
+			{
+				"name": "CopyPS",
+				"description": "Copy the entire presentation space (screen contents). Returns screen as string.",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(314,10)"
+			},
+			{
+				"name": "GetScreenRows",
+				"description": "Get screen contents as array of row strings.",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(328,10)"
+			},
+			{
+				"name": "GetTextAt",
+				"description": "Get text at a specific screen position.",
+				"type": "",
+				"returns": "",
+				"signature": " /**number*/ row, /**number*/ col, /**number*/ length",
+				"paramInfo": {
+					"row": {
+						"description": "Row number (1-based)."
+					},
+					"col": {
+						"description": "Column number (1-based)."
+					},
+					"length": {
+						"description": "Number of characters to read."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(341,10)"
+			},
+			{
+				"name": "GetCursorPos",
+				"description": "Get current cursor position. Returns object with row, col, pos.",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(354,10)"
+			},
+			{
+				"name": "SetCursorPos",
+				"description": "Set cursor position on screen.",
+				"type": "",
+				"returns": "",
+				"signature": " /**number*/ row, /**number*/ col",
+				"paramInfo": {
+					"row": {
+						"description": "Row number (1-based)."
+					},
+					"col": {
+						"description": "Column number (1-based)."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(371,10)"
+			},
+			{
+				"name": "SendKey",
+				"description": "Send a key to terminal. Supports Enter, Tab, F1-F24, etc.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ keyName",
+				"paramInfo": {
+					"keyName": {
+						"description": "Key name or raw EHLLAPI mnemonic.",
+						"binding": "enum",
+						"enumOpts": [
+							[
+								"Enter"
+							],
+							[
+								"Tab"
+							],
+							[
+								"BackTab"
+							],
+							[
+								"Clear"
+							],
+							[
+								"Delete"
+							],
+							[
+								"EraseEOF"
+							],
+							[
+								"EraseInput"
+							],
+							[
+								"Help"
+							],
+							[
+								"Home"
+							],
+							[
+								"Insert"
+							],
+							[
+								"NewLine"
+							],
+							[
+								"PageUp"
+							],
+							[
+								"PageDown"
+							],
+							[
+								"Reset"
+							],
+							[
+								"SysRequest"
+							],
+							[
+								"F1"
+							],
+							[
+								"F2"
+							],
+							[
+								"F3"
+							],
+							[
+								"F4"
+							],
+							[
+								"F5"
+							],
+							[
+								"F6"
+							],
+							[
+								"F7"
+							],
+							[
+								"F8"
+							],
+							[
+								"F9"
+							],
+							[
+								"F10"
+							],
+							[
+								"F11"
+							],
+							[
+								"F12"
+							],
+							[
+								"F13"
+							],
+							[
+								"F14"
+							],
+							[
+								"F15"
+							],
+							[
+								"F16"
+							],
+							[
+								"F17"
+							],
+							[
+								"F18"
+							],
+							[
+								"F19"
+							],
+							[
+								"F20"
+							],
+							[
+								"F21"
+							],
+							[
+								"F22"
+							],
+							[
+								"F23"
+							],
+							[
+								"F24"
+							],
+							[
+								"Attn"
+							],
+							[
+								"PrintScreen"
+							]
+						]
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(389,10)"
+			},
+			{
+				"name": "SendCommand",
+				"description": "Send a command (key) to terminal. Supports PF(n) or F(n) format. Alias for SendKey for compatibility with Term.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ cmd",
+				"paramInfo": {
+					"cmd": {
+						"description": "Command/key name, PF(n), F(n), or raw EHLLAPI mnemonic.",
+						"binding": "enum",
+						"enumOpts": [
+							[
+								"Enter"
+							],
+							[
+								"Tab"
+							],
+							[
+								"BackTab"
+							],
+							[
+								"Clear"
+							],
+							[
+								"Delete"
+							],
+							[
+								"EraseEOF"
+							],
+							[
+								"EraseInput"
+							],
+							[
+								"Help"
+							],
+							[
+								"Home"
+							],
+							[
+								"Insert"
+							],
+							[
+								"NewLine"
+							],
+							[
+								"PageUp"
+							],
+							[
+								"PageDown"
+							],
+							[
+								"Reset"
+							],
+							[
+								"SysRequest"
+							],
+							[
+								"F1"
+							],
+							[
+								"F2"
+							],
+							[
+								"F3"
+							],
+							[
+								"F4"
+							],
+							[
+								"F5"
+							],
+							[
+								"F6"
+							],
+							[
+								"F7"
+							],
+							[
+								"F8"
+							],
+							[
+								"F9"
+							],
+							[
+								"F10"
+							],
+							[
+								"F11"
+							],
+							[
+								"F12"
+							],
+							[
+								"F13"
+							],
+							[
+								"F14"
+							],
+							[
+								"F15"
+							],
+							[
+								"F16"
+							],
+							[
+								"F17"
+							],
+							[
+								"F18"
+							],
+							[
+								"F19"
+							],
+							[
+								"F20"
+							],
+							[
+								"F21"
+							],
+							[
+								"F22"
+							],
+							[
+								"F23"
+							],
+							[
+								"F24"
+							],
+							[
+								"PF(1)"
+							],
+							[
+								"PF(2)"
+							],
+							[
+								"PF(3)"
+							],
+							[
+								"PF(4)"
+							],
+							[
+								"PF(5)"
+							],
+							[
+								"PF(6)"
+							],
+							[
+								"PF(7)"
+							],
+							[
+								"PF(8)"
+							],
+							[
+								"PF(9)"
+							],
+							[
+								"PF(10)"
+							],
+							[
+								"PF(11)"
+							],
+							[
+								"PF(12)"
+							],
+							[
+								"Attn"
+							],
+							[
+								"PrintScreen"
+							]
+						]
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(420,10)"
+			},
+			{
+				"name": "SendString",
+				"description": "Send a string of text to terminal.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ str",
+				"paramInfo": {
+					"str": {
+						"description": "Text string to send."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(449,10)"
+			},
+			{
+				"name": "SendStringEnter",
+				"description": "Send string followed by Enter key.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ str",
+				"paramInfo": {
+					"str": {
+						"description": "Text string to send before Enter."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(466,10)"
+			},
+			{
+				"name": "WaitReady",
+				"description": "Wait for terminal to become ready (keyboard unlocked).",
+				"type": "",
+				"returns": "",
+				"signature": " /**number*/ timeout",
+				"paramInfo": {
+					"timeout": {
+						"description": "Timeout in milliseconds. Default 5000.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(476,10)"
+			},
+			{
+				"name": "SearchPS",
+				"description": "Search for text on screen. Returns position (1-based) or 0.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ text, /**number*/ startPos",
+				"paramInfo": {
+					"text": {
+						"description": "Text to search for."
+					},
+					"startPos": {
+						"description": "Starting position (1-based). Default 1.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(488,10)"
+			},
+			{
+				"name": "EnsureText",
+				"description": "Ensure text is present on screen with timeout.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ text, /**number*/ timeout, /**boolean*/ failIfNotFound",
+				"paramInfo": {
+					"text": {
+						"description": "Text to find."
+					},
+					"timeout": {
+						"description": "Timeout in milliseconds. Default 1000.",
+						"optional": true
+					},
+					"failIfNotFound": {
+						"description": "If `true`, assert failure when not found.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(505,10)"
+			},
+			{
+				"name": "Screenshot",
+				"description": "Take a screenshot of terminal window.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ comment",
+				"paramInfo": {
+					"comment": {
+						"description": "Comment for the screenshot."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(534,10)"
+			},
+			{
+				"name": "TypeAt",
+				"description": "Move cursor to position and type text.",
+				"type": "",
+				"returns": "",
+				"signature": " /**number*/ row, /**number*/ col, /**string*/ text",
+				"paramInfo": {
+					"row": {
+						"description": "Row number (1-based)."
+					},
+					"col": {
+						"description": "Column number (1-based)."
+					},
+					"text": {
+						"description": "Text to type."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(555,10)"
+			},
+			{
+				"name": "ClearField",
+				"description": "Clear the current field (Erase EOF).",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(567,10)"
+			},
+			{
+				"name": "ClearAndType",
+				"description": "Clear current field and type new text.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ text",
+				"paramInfo": {
+					"text": {
+						"description": "Text to type."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(575,10)"
+			},
+			{
+				"name": "PressF",
+				"description": "Press a function key (F1-F24).",
+				"type": "",
+				"returns": "",
+				"signature": " /**number*/ fkeyNum",
+				"paramInfo": {
+					"fkeyNum": {
+						"description": "Function key number (1-24)."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(585,10)"
+			},
+			{
+				"name": "WaitForScreen",
+				"description": "Wait for a specific screen by checking for text.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ screenText, /**number*/ timeout",
+				"paramInfo": {
+					"screenText": {
+						"description": "Text that identifies the screen."
+					},
+					"timeout": {
+						"description": "Timeout in milliseconds. Default 10000.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(595,10)"
+			},
+			{
+				"name": "Login",
+				"description": "Login to AS/400 system.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ userId, /**string*/ password, /**string*/ loginPrompt",
+				"paramInfo": {
+					"userId": {
+						"description": "User ID."
+					},
+					"password": {
+						"description": "Password."
+					},
+					"loginPrompt": {
+						"description": "Text to identify login screen. Default 'Sign On'.",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(606,10)"
+			},
+			{
+				"name": "RunCommand",
+				"description": "Execute an AS/400 command.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ command",
+				"paramInfo": {
+					"command": {
+						"description": "AS/400 command to execute."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(629,10)"
+			},
+			{
+				"name": "SelectMenuOption",
+				"description": "Navigate to a menu option.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ option",
+				"paramInfo": {
+					"option": {
+						"description": "Menu option number or code."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(640,10)"
+			},
+			{
+				"name": "SetDllPath",
+				"description": "Set the EHLLAPI DLL path.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ dllPath",
+				"paramInfo": {
+					"dllPath": {
+						"description": "Full path to the EHLLAPI DLL."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(651,10)"
+			},
+			{
+				"name": "SetSessionId",
+				"description": "Set the default session ID.",
+				"type": "",
+				"returns": "",
+				"signature": " /**string*/ sessionId",
+				"paramInfo": {
+					"sessionId": {
+						"description": "Session short name (A-Z)."
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(663,10)"
+			},
+			{
+				"name": "GetScreenDimensions",
+				"description": "Get screen dimensions. Returns object with rows, cols, size.",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(673,10)"
+			},
+			{
+				"name": "DumpScreen",
+				"description": "Print screen contents to log.",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(681,10)"
+			},
+			{
+				"name": "GetMessageLine",
+				"description": "Get the message line text (row 24).",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(698,10)"
+			},
+			{
+				"name": "IsKeyboardLocked",
+				"description": "Check if keyboard is locked.",
+				"type": "",
+				"returns": "",
+				"signature": "",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js(706,10)"
+			}
+		],
+		"isPageObject": true,
+		"extend_rule": "",
+		"description": "0.0.3\r\n\nUses EHLLAPI (Emulator High-Level Language API) to communicate with \r\nIBM iAccess Client Solutions or IBM Personal Communications for AS/400.",
+		"src": "%WORKDIR%PageObjects\\Term5250\\Term5250.js",
+		"version": "0.0.3"
+	}
+}
