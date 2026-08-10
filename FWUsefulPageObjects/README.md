@@ -19,6 +19,7 @@ This Framework contains a number of useful general purpose Modules that may be u
 13. [AiTester](https://www.inflectra.com/Support/KnowledgeBase/KB883.aspx)
 14. [TestRunner](https://www.inflectra.com/Support/KnowledgeBase/KB893.aspx)
 15. [CmdHelper](https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/CmdHelper/README.md)
+16. [OTP](https://www.inflectra.com/Support/KnowledgeBase/KB987.aspx)
 
 ## How to Use
 
