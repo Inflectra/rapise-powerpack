@@ -1,7 +1,7 @@
 /**
  * @PageObject RapiseUtils provides various actions to perform framework-oriented tasks.
  * 
- * @Version 1.0.20
+ * @Version 1.0.21
  */
 SeSPageObject("RapiseUtils");
 
@@ -364,6 +364,61 @@ function RapiseUtils_DoImportManual(/**number*/ projectId, /**number*/ testCaseF
 	File.Write("ManualExport.json", cnts);	
 	
 	SpiraImporterImportTestCases(tcRootFolder);
+	
+	return true;
+}
+
+/**
+ * Loads test case hierarchy recursively and converts manual steps to AI commands.
+ * Creates populated Main.rvl.xlsx files without opening editors (silent batch processing).
+ * @param {number} projectId - Spira project ID (optional, will prompt if not provided)
+ * @param {number} testCaseFolderId - Spira folder ID (optional, will prompt if not provided)
+ * @param {boolean} convertChanged - Convert changed test cases, not just new ones (default: false)
+ * @returns {boolean|SeSDoActionResult} true on success, SeSDoActionResult with error on failure
+ */
+function RapiseUtils_DoImportManualAI(/**number*/ projectId, /**number*/ testCaseFolderId, /**boolean*/ convertChanged)
+{
+	if(!Global.GetRapiseVersion("9.1"))
+	{
+		Tester.Message("DoImportManualAI requires Rapise 9.1.");
+		return false;
+	}
+
+	if(!testCaseFolderId)
+	{
+		var rapiseApp = RapiseUtils_GetRapiseApp();
+		rapiseApp.ShowMainWindow();
+		testCaseFolderId = rapiseApp.DoUserAction("AddInSpiraTest.SelectSpiraFolder");
+		projectId = rapiseApp.DoUserAction("AddInSpiraTest.GetLastProjectId");
+	}
+	
+	var tcFolders = SpiraImporterLoadTestCaseFolders(projectId, testCaseFolderId);
+	
+	if (!tcFolders)
+	{
+		return new SeSDoActionResult(false, null, "Failed to load Test Case Folders.");
+	}
+	
+	var tcRootFolder = SpiraImporterBuildTestCaseFolderHierarchy(tcFolders, testCaseFolderId);
+	
+	if (!tcRootFolder)
+	{
+		return new SeSDoActionResult(false, null, "Failed to find root Test Case Folder.");
+	}
+	
+	SpiraImporterLoadTestCases(projectId, tcRootFolder);
+	
+	var cnts = JSON.stringify(tcRootFolder, null, 2);
+	File.Write("ManualExport.json", cnts);	
+	
+	// Import with AI conversion enabled
+	// convertChanged defaults to true if not specified
+	var options = {
+		convertToAi: true,
+		convertChanged: (convertChanged !== false)
+	};
+	
+	SpiraImporterImportTestCases(tcRootFolder, options);
 	
 	return true;
 }

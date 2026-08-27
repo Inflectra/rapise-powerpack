@@ -134,7 +134,7 @@
 			"hash": "3A84E65D659E03092D0C78093CB8FF52749859F04B22D13903182ED0ABA901A8E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43354643CFE3B4394070DC4F87DF45DD9D"
 		},
 		"Sfdc": {
-			"id": "34ZKI23N",
+			"id": "6C2TNO1Q",
 			"tags": "pageobject",
 			"js": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js",
 			"vpath": "",
@@ -144,7 +144,54 @@
 			"libraries": [
 				"Web"
 			],
-			"hash": "5378AA0160B88860840BCA5E4B86386513E5AC06CA9336DAB72A46597F44D72468C7BF443CF916217AB7E7640CE1C1778FBAD7CA6AE89378FD5849BAB044C2097737D127E05D706F02902141E0DA61AA"
+			"testParams": {
+				"Browser": {
+					"Name": "Browser",
+					"DefaultValue": "Selenium - Chrome",
+					"Variable": "g_browserLibrary",
+					"Ask": false,
+					"Output": false,
+					"Options": "",
+					"Description": "Please, specify browser type to use"
+				},
+				"Record Title": {
+					"Name": "Record Title",
+					"DefaultValue": "regex:.*",
+					"Variable": "g_rWnd",
+					"Ask": false,
+					"Output": false,
+					"Options": "",
+					"Description": "Application Title to Record"
+				},
+				"SfdcUrl": {
+					"Name": "SfdcUrl",
+					"DefaultValue": "https://login.salesforce.com",
+					"Variable": "g_SfdcUrl",
+					"Ask": true,
+					"Output": false,
+					"Options": "",
+					"Description": "Salesforce URL"
+				},
+				"SfdcUserName": {
+					"Name": "SfdcUserName",
+					"DefaultValue": null,
+					"Variable": "g_SfdcUserName",
+					"Ask": true,
+					"Output": false,
+					"Options": "",
+					"Description": "Salesforce Username"
+				},
+				"SfdcPassword": {
+					"Name": "SfdcPassword",
+					"DefaultValue": null,
+					"Variable": "g_SfdcPassword",
+					"Ask": true,
+					"Output": false,
+					"Options": "",
+					"Description": "Salesforce Password"
+				}
+			},
+			"hash": "A83875BA406E58D855A17A5C799D3FA013E5AC06CA9336DAB72A46597F44D72468C7BF443CF916217AB7E7640CE1C1778FBAD7CA6AE89378FD5849BAB044C2097737D127E05D706F02902141E0DA61AA"
 		},
 		"RapiseUtils": {
 			"id": "E1GSQSB8",
@@ -155,7 +202,8 @@
 			"sstest": "%WORKDIR%PageObjects\\RapiseUtils\\Test.sstest",
 			"rep": "%WORKDIR%PageObjects\\RapiseUtils\\Objects.js",
 			"libraries": [],
-			"hash": "77E6BDE76DC17913D77377317CC2ED14AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43ECF675E2A8D9409D7AB1B499D335EA66"
+			"testParams": {},
+			"hash": "77E6BDE76DC17913D77377317CC2ED14AB5D8C85D926F04BB3C56C9C51978E86E64ECF2074AF8390245C334763481B86B16149B86E5CEBD2C0FD5D050229AF43713AAB546D3E68F5FCFEC4B0F8B7D920"
 		},
 		"AiTester": {
 			"id": "P8SEKKAG",
@@ -762,5 +810,27 @@
 		{
 			"data": "%WORKDIR%Shared\\AppNewVersion.png"
 		}
-	]
+	],
+	"framework": {
+		"name": "FWUsefulPageObjects",
+		"alias": "FWUsefulPageObjects",
+		"sstest": "%WORKDIR%Framework.sstest",
+		"tags": "framework",
+		"rep": "%WORKDIR%Objects.js",
+		"user": "%WORKDIR%Common.js",
+		"libraries": [
+			"Web"
+		],
+		"testParams": {
+			"Browser": {
+				"Name": "Browser",
+				"DefaultValue": "Selenium - ChromeScaled",
+				"Variable": "g_browserLibrary",
+				"Ask": true,
+				"Output": false,
+				"Options": "",
+				"Description": "Please, specify browser type to use"
+			}
+		}
+	}
 }

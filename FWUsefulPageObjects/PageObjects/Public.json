@@ -1323,20 +1323,29 @@
 				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(337,10)"
 			},
 			{
+				"name": "DoImportManualAI",
+				"description": "Loads test case hierarchy recursively and converts manual steps to AI commands.\r\nCreates populated Main.rvl.xlsx files without opening editors (silent batch processing).\r\n@param {number} projectId - Spira project ID (optional, will prompt if not provided)\r\n@param {number} testCaseFolderId - Spira folder ID (optional, will prompt if not provided)\r\n@param {boolean} convertChanged - Convert changed test cases, not just new ones (default: false)\r\n@returns {boolean|SeSDoActionResult} true on success, SeSDoActionResult with error on failure\r\n",
+				"type": "",
+				"returns": "",
+				"signature": "/**number*/ projectId, /**number*/ testCaseFolderId, /**boolean*/ convertChanged",
+				"paramInfo": {},
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(379,10)"
+			},
+			{
 				"name": "DoImportFolderWithTestCases",
 				"description": "Import all test cases from given folder (and subfolders) into this framework.\r\nNote: 2nd import of the same folder will create duplicates\r\nNote: Test case group structure is preserved as it was in the previous framework.\r\n",
 				"type": "",
 				"returns": "",
 				"signature": "/**string*/srcFolder",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(376,10)"
+				"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js(431,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "RapiseUtils provides various actions to perform framework-oriented tasks.",
 		"src": "%WORKDIR%PageObjects\\RapiseUtils\\RapiseUtils.js",
-		"version": "1.0.20",
+		"version": "1.0.21",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/RapiseUtils"
 	},
 	"Sfdc": {

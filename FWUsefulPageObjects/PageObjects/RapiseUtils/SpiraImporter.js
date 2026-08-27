@@ -273,8 +273,19 @@ function FixWhiteSpace(/**string*/name) {
 	return result;
 }
 
-function SpiraImporterImportTestCases(data)
+/**
+ * Imports test cases from Spira into the framework.
+ * @param {object} data - Test case folder hierarchy loaded from Spira
+ * @param {object} [options] - Optional settings for import behavior
+ * @param {boolean} [options.convertToAi=false] - If true, convert manual steps to AI commands
+ * @param {boolean} [options.convertChanged=false] - If true (and convertToAi is true), also convert changed test cases, not just new ones
+ */
+function SpiraImporterImportTestCases(data, options)
 {
+	// Default options - when undefined or not provided, behave exactly like before
+	options = options || {};
+	var convertToAi = options.convertToAi === true;
+	var convertChanged = options.convertChanged === true; // default to false - only convert new test cases
 
 	function areTimesEqual(concurrencyDateStr, lastUpdateDateStr) {
 	  if(!concurrencyDateStr ||!lastUpdateDateStr) 
@@ -303,6 +314,7 @@ function SpiraImporterImportTestCases(data)
 
 	let totalImported = 0;
 	let totalCreated = 0;
+	let totalConverted = 0;
 
 	if( ""+data.TestCaseFolderId==""+spiraJson.testCasesFolderId ) {
 		// When we are importing from the framework own folder, ignore that root folder name in the path.
@@ -330,6 +342,8 @@ function SpiraImporterImportTestCases(data)
 		const tcId = SpiraImporterFindTCIdBySpiraId(spiraId);
 
 		let tc = null;
+		let isNew = false; // Track if this is a newly created test case
+		
 		if (tcId)
 		{
 			tc = rapiseApp.GetTestById(tcId);
@@ -360,6 +374,7 @@ function SpiraImporterImportTestCases(data)
 			}
 			Tester.Message("Created: " + testCase.Name, path);
 			totalCreated++;
+			isNew = true; // This is a newly created test case
 			SpiraImporterRegisterTC(tc.Id, testCase.TestCaseId);
 		} else {
 			Log("Found existing TC");
@@ -382,10 +397,74 @@ function SpiraImporterImportTestCases(data)
 
 		if(changed)
 		{
-			Tester.Message('Test Case Changed, re-importing and marking as draft.', tc.Name)
+			Tester.Message('Test Case Changed, re-importing.', tc.Name)
 			rapiseApp.ImportManual(tc, testCase.ProjectId, testCase.TestCaseId);
+			
+			// Determine which tag to use
+			let tagToUse = "draft";
+			
+			// AI Conversion: Convert to AI commands if enabled
+			if (convertToAi)
+			{
+				// Convert if it's a new test case, or if convertChanged is true for changed test cases
+				const shouldConvert = isNew || convertChanged;
+				if (shouldConvert)
+				{
+					const testPath = tc.GetAbsolutePath("");
+					Tester.Message('Converting to AI commands...', tc.Name);
+					
+					try
+					{
+						// Call the dedicated method to generate AI commands JSON
+						const result = rapiseApp.ConvertManualToAiCommands(testPath);
+						if (result)
+						{
+							const resultObj = JSON.parse(result);
+							if (resultObj.success)
+							{
+								Tester.Message('AI commands JSON created: ' + resultObj.jsonPath);
+								
+								// Create the RVL xlsx from JSON
+								try
+								{
+									const rvlResult = rapiseApp.CreateRvlFromJson(testPath);
+									if (rvlResult)
+									{
+										const rvlResultObj = JSON.parse(rvlResult);
+										if (rvlResultObj.success)
+										{
+											Tester.Message('RVL created from AI commands: ' + rvlResultObj.rowCount + ' rows');
+											tagToUse = "airecorder";
+										}
+										else
+										{
+											Tester.Message('RVL creation failed: ' + rvlResultObj.error);
+										}
+									}
+								}
+								catch (rvlEx)
+								{
+									Tester.Message('Note: RVL will be created when test is opened (CreateRvlFromJson error: ' + rvlEx.message + ')');
+								}
+								
+								totalConverted++;
+							}
+							else
+							{
+								Tester.Message('AI conversion failed: ' + resultObj.error, tc.Name);
+							}
+						}
+					}
+					catch (ex)
+					{
+						Tester.Message('AI conversion error: ' + ex.message, tc.Name);
+					}
+				}
+			}
+			
+			// Apply the tag
 			rapiseApp.BeginUpdate();
-			tc.AddTag("draft");
+			tc.AddTag(tagToUse);
 			rapiseApp.EndUpdate();
 		}
 		
@@ -395,7 +474,12 @@ function SpiraImporterImportTestCases(data)
 	rootPath // where to create a test case
 	);
 
-	Tester.Assert(`Imported: ${totalImported} Created: ${totalCreated}`, true);
+	var resultMsg = `Imported: ${totalImported} Created: ${totalCreated}`;
+	if (convertToAi)
+	{
+		resultMsg += ` Converted to AI: ${totalConverted}`;
+	}
+	Tester.Assert(resultMsg, true);
 	
 	rapiseApp.DoGlobalCommand("Generate Metadata");
 	rapiseApp.DoGlobalCommand("SoftRefreshSpiraDashboard");
