@@ -1354,244 +1354,477 @@
 		"actions": [
 			{
 				"name": "Launch",
-				"description": "Launches Salesforce in a browser. SfdcUrl, UserName, Password must be set in Config.xlsx\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Launch Salesforce in a browser and log in.\r\n\r\nCredentials and the login URL are resolved in this order: environment variables\r\n(`SF_URL`, `SF_USERNAME`, `SF_PASSWORD`), test parameters (`SfdcUrl`, `SfdcUserName`,\r\n`SfdcPassword`), then `Shared\\Config.xlsx`. If any value is still unknown, Rapise\r\nprompts for it and saves the answer into `Shared\\Config.xlsx`.\r\n\r\nWhen two-factor authentication is enabled, the OTP secret is resolved similarly\r\n(`SF_OTP` environment variable, `OTP Secret` test parameter, or `Secret` in\r\n`Shared\\Config.xlsx`). The `OTP` public module must be installed.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.Launch();\r\n```",
+				"type": "boolean",
+				"returns": "true if the login completed and the home page loaded, false if a required setting was not provided.",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(37,10)"
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(34,10)"
 			},
 			{
 				"name": "OpenApp",
-				"description": "Opens application.\r\n@param app Name of an application (e.g. Service, Marketing, Sales).\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Open a Salesforce application from the App Launcher (Waffle menu).\r\n\r\nClicks the waffle icon, searches for the application by name, and clicks it.\r\nIf the app is not visible in the initial list, the \"View All\" button is clicked\r\nto show the full app list.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.OpenApp(\"Sales\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the application was found and clicked, false otherwise.",
 				"signature": "/**string*/ app",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(173,10)"
+				"paramInfo": {
+					"app": {
+						"description": "Name of the application to open (e.g. Sales, Service, Marketing).",
+						"type": "string",
+						"defaultValue": "Sales"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(194,10)"
 			},
 			{
 				"name": "NavigateModule",
-				"description": "Navigates to module using nav bar.\r\n@param module Name of a module (e.g. Leads, Contacts, Opportunities).\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Navigate to a module using the navigation bar.\r\n\r\nClicks the module link in the top navigation bar to open that module's list view.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.NavigateModule(\"Leads\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the module link was found and clicked, false otherwise.",
 				"signature": "/**string*/ module",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(218,10)"
+				"paramInfo": {
+					"module": {
+						"description": "Name of the module to navigate to (e.g. Leads, Contacts, Opportunities, Accounts).",
+						"type": "string",
+						"defaultValue": "Leads"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(266,10)"
 			},
 			{
 				"name": "SelectListView",
-				"description": "Selects list view.\r\n@param view Name of a view. E.g. Recently Viewed, All Open Leads\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Select a list view from the list view dropdown.\r\n\r\nOpens the list view selector and clicks the specified view option.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.SelectListView(\"Recently Viewed\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the view was found and selected, false otherwise.",
 				"signature": "/**string*/ view",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(238,10)"
+				"paramInfo": {
+					"view": {
+						"description": "Name of the list view to select (e.g. Recently Viewed, All Open Leads).",
+						"type": "string",
+						"defaultValue": "Recently Viewed"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(305,10)"
 			},
 			{
 				"name": "ClickButton",
-				"description": "Clicks button by name\r\n@param name Name of a button\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Click a button by its name or title.\r\n\r\nSearches for the button by its `name` attribute, `title` attribute, or visible text.\r\nWhen inside a modal dialog, the button within the active modal is preferred.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.ClickButton(\"Save\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the button was found and clicked, false otherwise.",
 				"signature": "/**string*/ name",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(265,10)"
+				"paramInfo": {
+					"name": {
+						"description": "Name, title, or visible text of the button to click.",
+						"type": "string",
+						"defaultValue": "Save"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(356,10)"
 			},
 			{
 				"name": "SetTextField",
-				"description": "Sets text into a form field\r\n@param name Name of a field\r\n@param value Text to enter\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Set text into a form field.\r\n\r\nFinds the input or textarea by its label text, `name` attribute, or `placeholder`\r\nattribute, and enters the specified value.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.SetTextField(\"Last Name\", \"Smith\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the field was found and the text was set, false otherwise.",
 				"signature": "/**string*/ name, /**string*/ value",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(313,10)"
+				"paramInfo": {
+					"name": {
+						"description": "Label, name, or placeholder of the input field.",
+						"type": "string",
+						"defaultValue": "Last Name"
+					},
+					"value": {
+						"description": "Text to enter into the field.",
+						"type": "string",
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(423,10)"
 			},
 			{
 				"name": "SetCheckbox",
-				"description": "Sets a checkbox on a form.\r\n@param name Name (label) of the checkbox field.\r\n@param state Desired state of a checkbox (true to check, false to uncheck).\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Set a checkbox on a form to the specified state.\r\n\r\nFinds the checkbox by its label text or `name` attribute and checks or unchecks it.\r\nIf the checkbox is already in the desired state, no action is taken.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.SetCheckbox(\"Do Not Call\", true);\r\n```",
+				"type": "boolean",
+				"returns": "true if the checkbox was found and set to the desired state, false otherwise.",
 				"signature": "/**string*/ name, /**boolean*/ state",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(353,10)"
+				"paramInfo": {
+					"name": {
+						"description": "Label or name of the checkbox field.",
+						"type": "string",
+						"defaultValue": ""
+					},
+					"state": {
+						"description": "Desired state: true to check, false to uncheck.",
+						"type": "boolean",
+						"defaultValue": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(487,10)"
 			},
 			{
 				"name": "VerifyDetailsField",
-				"description": "Verifies value of a Details view field\r\n@param name Name of a field\r\n@param value Text to verify\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Verify the value of a field on a record detail page.\r\n\r\nFinds the field by its label and compares the displayed value to the expected one.\r\nSupports text fields, links, and checkbox fields.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.VerifyDetailsField(\"Account Name\", \"Acme Corp\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the field value matches the expected value, false otherwise.",
 				"signature": "/**string*/ name, /**string*/ value",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(389,10)"
+				"paramInfo": {
+					"name": {
+						"description": "Label of the field to verify.",
+						"type": "string",
+						"defaultValue": ""
+					},
+					"value": {
+						"description": "Expected value of the field.",
+						"type": "string",
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(547,10)"
 			},
 			{
 				"name": "VerifyCardDetail",
-				"description": "Verifies a field value displayed inside a related list card (preview card layout).\r\nLocates the card by its aria-label, finds the specific item by name, then reads the field value.\r\n@param cardName Name of the related list card (matches aria-label on the article element, e.g. \"Products\").\r\n@param itemName Name of the item within the card (e.g. \"AutoProduct Basic\"). Used to scope the lookup when multiple items exist.\r\n@param fieldName Label of the field to verify (e.g. \"Sales Price\", \"Quantity\", \"Stage\").\r\n@param value Expected value text.\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Verify a field value displayed inside a related list card (preview card layout).\r\n\r\nLocates the related list card by its aria-label, finds the specific item by name,\r\nthen reads and verifies the field value.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.VerifyCardDetail(\"Products\", \"AutoProduct Basic\", \"Sales Price\", \"$100.00\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the field value matches the expected value, false otherwise.",
 				"signature": "/**string*/ cardName, /**string*/ itemName, /**string*/ fieldName, /**string*/ value",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(432,10)"
+				"paramInfo": {
+					"cardName": {
+						"description": "Name of the related list card (matches aria-label, e.g. Products, Contact Roles).",
+						"type": "string",
+						"defaultValue": "Products"
+					},
+					"itemName": {
+						"description": "Name of the item within the card to scope the lookup.",
+						"type": "string",
+						"defaultValue": ""
+					},
+					"fieldName": {
+						"description": "Label of the field to verify (e.g. Sales Price, Quantity, Role).",
+						"type": "string",
+						"defaultValue": ""
+					},
+					"value": {
+						"description": "Expected value text.",
+						"type": "string",
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(611,10)"
 			},
 			{
 				"name": "SearchTable",
-				"description": "Searches data in a table.\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Search data in a list view table.\r\n\r\nEnters the search value into the table's search input and presses Enter.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.SearchTable(\"Acme\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the search input was found and the search was performed, false otherwise.",
 				"signature": "/**string*/ value",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(512,10)"
+				"paramInfo": {
+					"value": {
+						"description": "Text to search for in the table.",
+						"type": "string",
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(727,10)"
 			},
 			{
 				"name": "SelectComboboxItem",
-				"description": "Selects item from a combobox.\r\nSupports Lightning combobox (lightning-combobox), classic Aura picklist (forceInputPicklist),\r\nand native HTML select elements (uiInputSelect).\r\n@param item Item name.\r\n@param name Name of a combobox.\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Select an item from a combobox (picklist).\r\n\r\nSupports Lightning combobox (`lightning-combobox`), classic Aura picklist\r\n(`forceInputPicklist`), and native HTML select elements (`uiInputSelect`).\r\n\r\nExamples:\r\n```javascript\r\nSfdc.SelectComboboxItem(\"Lead Status\", \"Working - Contacted\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the item was found and selected, false otherwise.",
 				"signature": "/**string*/ name, /**string*/ item",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(540,10)"
+				"paramInfo": {
+					"name": {
+						"description": "Label of the combobox field.",
+						"type": "string",
+						"defaultValue": ""
+					},
+					"item": {
+						"description": "Text of the item to select.",
+						"type": "string",
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(771,10)"
 			},
 			{
 				"name": "SelectLookupItem",
-				"description": "Selects item from a lookup field.\r\n@param item Item name.\r\n@param name Name of a lookup field.\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Select an item from a lookup field.\r\n\r\nTypes the item name into the lookup field, waits for search results,\r\nand clicks the matching item.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.SelectLookupItem(\"Account Name\", \"Acme Corp\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the item was found and selected, false otherwise.",
 				"signature": "/**string*/ name, /**string*/ item",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(625,10)"
+				"paramInfo": {
+					"name": {
+						"description": "Label of the lookup field.",
+						"type": "string",
+						"defaultValue": ""
+					},
+					"item": {
+						"description": "Name of the item to search for and select.",
+						"type": "string",
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(880,10)"
 			},
 			{
 				"name": "SelectInnerTab",
-				"description": "Selects inner tab.\r\n@param name Tab name (e.g. Details, Activity).\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Select an inner tab on a record page.\r\n\r\nClicks the tab link to switch to that tab's content.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.SelectInnerTab(\"Details\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the tab was found and clicked, false otherwise.",
 				"signature": "/**string*/ name",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(662,10)"
+				"paramInfo": {
+					"name": {
+						"description": "Name of the tab to select (e.g. Details, Activity, Related).",
+						"type": "string",
+						"defaultValue": "Details"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(942,10)"
 			},
 			{
 				"name": "SetPathStep",
-				"description": "Sets active Path step.\r\n@param name Step name (e.g. Prospecting, Qualification).\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Set the active Path step on a record page.\r\n\r\nClicks the specified step in the Path component to mark it as current.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.SetPathStep(\"Qualification\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the step was found and set, false otherwise.",
 				"signature": "/**string*/ name",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(682,10)"
+				"paramInfo": {
+					"name": {
+						"description": "Name of the Path step to set as active.",
+						"type": "string",
+						"defaultValue": "Qualification"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(981,10)"
 			},
 			{
 				"name": "AddReportFilter",
-				"description": "Adds a report filter (a.g. \"Account Name\" contains \"Auto\").\r\n@param filter Filter name (e.g. Account Name).\r\n@param operator Operator to use (e.g. contains).\r\n@param value Input value for the filter.\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Add a filter to a report in the Report Builder.\r\n\r\nOpens the filter selector, chooses the field, selects the operator,\r\nenters the value, and applies the filter.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.AddReportFilter(\"Account Name\", \"contains\", \"Auto\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the filter was added successfully, false otherwise.",
 				"signature": "/**string*/ filter, /**string*/ operator, /**string*/ value",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(706,10)"
+				"paramInfo": {
+					"filter": {
+						"description": "Name of the filter field (e.g. Account Name, Amount).",
+						"type": "string",
+						"defaultValue": "Account Name"
+					},
+					"operator": {
+						"description": "Filter operator (e.g. contains, equals, greater than).",
+						"type": "string",
+						"defaultValue": "contains"
+					},
+					"value": {
+						"description": "Value to filter by.",
+						"type": "string",
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1022,10)"
 			},
 			{
 				"name": "FormatDate",
-				"description": "Computes a date relative to today (or a given base) and returns it formatted\r\nfor Salesforce date input fields.\r\n@param offsetDays Number of days to add (can be negative). Default 0.\r\n@param baseDate Base date string (ISO format \"yyyy-MM-dd\") or \"today\". Default \"today\".\r\n@returns Formatted date string ready for SetTextField.\r\nUsage:\r\nSfdc.FormatDate(60);              // today + 60 days\r\nSfdc.FormatDate(7, \"today\");      // today + 7 days\r\nSfdc.FormatDate(0, \"2026-01-15\"); // specific date, no offset\r\nSfdc.SetTextField(\"Close Date\", LastResult);\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Compute a date relative to today (or a given base) and return it formatted\r\nfor Salesforce date input fields.\r\n\r\nThe format is read from `Config.xlsx` key `DateFormat` (default: `M/d/yyyy` — US locale).\r\nSupported tokens: `M`, `MM`, `d`, `dd`, `yyyy`, `yy`.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.FormatDate(60);\r\n```",
+				"type": "string",
+				"returns": "Formatted date string ready for SetTextField, or empty string on error.",
 				"signature": "/**number*/ offsetDays, /**string*/ baseDate",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(799,10)"
+				"paramInfo": {
+					"offsetDays": {
+						"description": "Number of days to add (can be negative). Default 0.",
+						"type": "number",
+						"defaultValue": 0,
+						"optional": true
+					},
+					"baseDate": {
+						"description": "Base date string (ISO format yyyy-MM-dd) or 'today'. Default 'today'.",
+						"type": "string",
+						"defaultValue": "today",
+						"optional": true
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1135,10)"
 			},
 			{
 				"name": "RelatedListAction",
-				"description": "Clicks an action from a Related List's dropdown menu.\r\nLocates the related list by its aria-label, opens the dropdown trigger,\r\nand selects the specified menu item.\r\n@param listName Name of the related list (e.g. \"Contact Roles\", \"Products\").\r\n@param actionName Name of the action in the dropdown menu (e.g. \"Add Contact Roles\").\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Click an action from a Related List's dropdown menu.\r\n\r\nLocates the related list by its aria-label, opens the dropdown trigger,\r\nand selects the specified menu item.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.RelatedListAction(\"Products\", \"Add Products\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the action was found and clicked, false otherwise.",
 				"signature": "/**string*/ listName, /**string*/ actionName",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(870,10)"
+				"paramInfo": {
+					"listName": {
+						"description": "Name of the related list (e.g. Contact Roles, Products).",
+						"type": "string",
+						"defaultValue": "Products"
+					},
+					"actionName": {
+						"description": "Name of the action in the dropdown menu.",
+						"type": "string",
+						"defaultValue": "Add Products"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1231,10)"
 			},
 			{
 				"name": "RelatedListItemAction",
-				"description": "Clicks an action from a specific item's dropdown menu within a Related List.\r\n@param listName Name of the related list (e.g. \"Products\", \"Contact Roles\").\r\n@param itemName Name/text of the item row (e.g. \"AutoProduct Basic\").\r\n@param actionName Name of the action in the row dropdown (e.g. \"Edit\", \"Delete\").\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Click an action from a specific item's dropdown menu within a Related List.\r\n\r\nLocates the item row by name within the related list, opens its dropdown,\r\nand clicks the specified action.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.RelatedListItemAction(\"Products\", \"AutoProduct Basic\", \"Edit\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the action was found and clicked, false otherwise.",
 				"signature": "/**string*/ listName, /**string*/ itemName, /**string*/ actionName",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(926,10)"
+				"paramInfo": {
+					"listName": {
+						"description": "Name of the related list (e.g. Products, Contact Roles).",
+						"type": "string",
+						"defaultValue": "Products"
+					},
+					"itemName": {
+						"description": "Name/text of the item row.",
+						"type": "string",
+						"defaultValue": ""
+					},
+					"actionName": {
+						"description": "Name of the action in the row dropdown (e.g. Edit, Delete).",
+						"type": "string",
+						"defaultValue": "Edit"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1310,10)"
 			},
 			{
 				"name": "VerifyRecordTitle",
-				"description": "Verifies the record page header: entity type and record name.\r\n@param entityName Expected entity label (e.g. \"Account\", \"Lead\", \"Opportunity\").\r\n@param recordName Expected record name (e.g. \"Acme Corp\").\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Verify the record page header: entity type and record name.\r\n\r\nChecks that the page header shows the expected entity type (e.g. Account, Lead)\r\nand record name.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.VerifyRecordTitle(\"Account\", \"Acme Corp\");\r\n```",
+				"type": "boolean",
+				"returns": "true if both entity type and record name match, false otherwise.",
 				"signature": "/**string*/ entityName, /**string*/ recordName",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(992,10)"
+				"paramInfo": {
+					"entityName": {
+						"description": "Expected entity label (e.g. Account, Lead, Opportunity).",
+						"type": "string",
+						"defaultValue": "Account"
+					},
+					"recordName": {
+						"description": "Expected record name.",
+						"type": "string",
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1405,10)"
 			},
 			{
 				"name": "VerifyModalTitle",
-				"description": "Verifies the title of a modal dialog.\r\n@param title Expected modal title text (e.g. \"New Lead\", \"New Account\").\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Verify the title of a modal dialog.\r\n\r\nChecks that the currently open modal has the expected title.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.VerifyModalTitle(\"New Lead\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the modal title matches, false otherwise.",
 				"signature": "/**string*/ title",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1044,10)"
+				"paramInfo": {
+					"title": {
+						"description": "Expected modal title text.",
+						"type": "string",
+						"defaultValue": "New Lead"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1482,10)"
 			},
 			{
 				"name": "SearchModalTable",
-				"description": "Searches and selects an item in a modal table (e.g. Add Products dialog).\r\nTargets the autocomplete combobox input inside the modal, types the value,\r\nwaits for results, and selects the matching item.\r\n@param value Text to search for and select.\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Search and select an item in a modal table (e.g. Add Products dialog).\r\n\r\nTypes the search value into the autocomplete input inside the modal,\r\nwaits for results, and presses Enter to select.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.SearchModalTable(\"AutoProduct Basic\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the search was performed, false if the input was not found.",
 				"signature": "/**string*/ value",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1077,10)"
+				"paramInfo": {
+					"value": {
+						"description": "Text to search for in the modal table.",
+						"type": "string",
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1532,10)"
 			},
 			{
 				"name": "VerifyFieldInvalid",
-				"description": "Verifies that a form field is in an invalid state (has validation error).\r\n@param name Field label text (e.g. \"Last Name\", \"Company\").\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Verify that a form field is in an invalid state (has validation error).\r\n\r\nChecks that the field has `aria-invalid=\"true\"`, indicating a validation error.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.VerifyFieldInvalid(\"Last Name\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the field shows a validation error, false otherwise.",
 				"signature": "/**string*/ name",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1102,10)"
+				"paramInfo": {
+					"name": {
+						"description": "Label of the field to check.",
+						"type": "string",
+						"defaultValue": "Last Name"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1577,10)"
 			},
 			{
 				"name": "InlineEdit",
-				"description": "Clicks the inline edit pencil icon for a given field on a record detail page.\r\n@param name Field label (e.g. \"Website\", \"Phone\", \"Company\").\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Click the inline edit pencil icon for a field on a record detail page.\r\n\r\nOpens the field for inline editing by clicking its pencil icon.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.InlineEdit(\"Website\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the edit button was found and clicked, false otherwise.",
 				"signature": "/**string*/ name",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1121,10)"
+				"paramInfo": {
+					"name": {
+						"description": "Label of the field to edit.",
+						"type": "string",
+						"defaultValue": "Website"
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1615,10)"
 			},
 			{
 				"name": "UploadFile",
-				"description": "Uploads a file to a related list's file input on the current record page.\r\n@param relatedListName Name of the related list (e.g. \"Notes & Attachments\"). Defaults to \"Notes & Attachments\" if empty.\r\n@param fileName Relative path to the file to upload (resolved via Global.GetFullPath).\r\n@returns {boolean} true on success, false if the file input was not found.\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Upload a file to a related list on the current record page.\r\n\r\nFinds the file input within the specified related list, uploads the file,\r\nand clicks the Done button to confirm.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.UploadFile(\"Notes & Attachments\", \"TestData\\\\document.pdf\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the file was uploaded successfully, false otherwise.",
 				"signature": "/**string*/ relatedListName, /**string*/ fileName",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1144,10)"
+				"paramInfo": {
+					"relatedListName": {
+						"description": "Name of the related list (defaults to 'Notes & Attachments' if empty).",
+						"type": "string",
+						"defaultValue": "Notes & Attachments",
+						"optional": true
+					},
+					"fileName": {
+						"description": "Relative path to the file to upload.",
+						"type": "string",
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1655,10)"
 			},
 			{
 				"name": "VerifyAttachmentExists",
-				"description": "Verifies that an attachment with the given name exists in a related list.\r\n@param relatedListName Name of the related list (e.g. \"Notes & Attachments\").\r\n@param name Expected attachment file name (without extension).\r\n@returns {boolean} true if the attachment is found, false otherwise.\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Verify that an attachment with the given name exists in a related list.\r\n\r\nSearches for the attachment item by its title within the related list.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.VerifyAttachmentExists(\"Notes & Attachments\", \"document\");\r\n```",
+				"type": "boolean",
+				"returns": "true if the attachment is found, false otherwise.",
 				"signature": "/**string*/ relatedListName, /**string*/ name",
-				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1202,10)"
+				"paramInfo": {
+					"relatedListName": {
+						"description": "Name of the related list (defaults to 'Notes & Attachments' if empty).",
+						"type": "string",
+						"defaultValue": "Notes & Attachments",
+						"optional": true
+					},
+					"name": {
+						"description": "Expected attachment file name (without extension).",
+						"type": "string",
+						"defaultValue": ""
+					}
+				},
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1737,10)"
 			},
 			{
 				"name": "SaveDom",
-				"description": "Saves DOM tree of the current page to dom.xml file.\r\n",
-				"type": "",
-				"returns": "",
+				"description": "Save the DOM tree of the current page to files for debugging.\r\n\r\nSaves the DOM as `domR.json` (JSON format) and `dom.xml` (XML format)\r\nin the current working directory.\r\n\r\nExamples:\r\n```javascript\r\nSfdc.SaveDom();\r\n```",
+				"type": "void",
+				"returns": "Nothing.",
 				"signature": "",
 				"paramInfo": {},
-				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1235,10)"
+				"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js(1796,10)"
 			}
 		],
 		"isPageObject": true,
 		"extend_rule": "",
 		"description": "Sfdc object to perform common actions like launch, navigate module, etc.",
 		"src": "%WORKDIR%PageObjects\\Sfdc\\Sfdc.js",
-		"version": "2.0.0",
+		"version": "2.0.1",
 		"url": "https://github.com/Inflectra/rapise-powerpack/tree/master/FWUsefulPageObjects/PageObjects/Sfdc"
 	},
 	"StringChecker": {

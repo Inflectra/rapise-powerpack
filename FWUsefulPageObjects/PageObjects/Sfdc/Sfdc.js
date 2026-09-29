@@ -2,7 +2,7 @@
 /**
  * @PageObject Sfdc object to perform common actions like launch, navigate module, etc.
  *
- * @Version 2.0.0
+ * @Version 2.0.1
  */
 SeSPageObject("Sfdc");
 
@@ -15,7 +15,7 @@ global.g_recordUrls = false;
  */
 function SfdcAutoWait(fn)
 {
-	var result;
+	var result = null;
 	for (var attempt = 0; attempt < global.g_autoWaitAttempts; attempt++)
 	{
 		result = fn();
@@ -31,9 +31,6 @@ function SfdcAutoWait(fn)
 	return result;
 }
 
-/**
- * Launches Salesforce in a browser. SfdcUrl, UserName, Password must be set in Config.xlsx
- */
 function Sfdc_Launch()
 {
 	var url = Global.GetEnv('SF_URL');
@@ -111,10 +108,38 @@ function Sfdc_Launch()
 	LoginSfdc(url, usr, pwd);
 	SfdcEnterOTP();
 	
-	Global.DoWaitFor("G_Waffle", 30000, 5000);
+	if (Navigator.DoWaitFor("//button[@title='App Launcher']", 30000))
+	{
+		Global.DoSleep(5000);
+	}
 	
 	return true;
 }
+
+var _paramInfoSfdc_Launch = {
+	_: function ()
+	{
+		/**
+		 * Launch Salesforce in a browser and log in.
+		 *
+		 * Credentials and the login URL are resolved in this order: environment variables
+		 * (`SF_URL`, `SF_USERNAME`, `SF_PASSWORD`), test parameters (`SfdcUrl`, `SfdcUserName`,
+		 * `SfdcPassword`), then `Shared\Config.xlsx`. If any value is still unknown, Rapise
+		 * prompts for it and saves the answer into `Shared\Config.xlsx`.
+		 *
+		 * When two-factor authentication is enabled, the OTP secret is resolved similarly
+		 * (`SF_OTP` environment variable, `OTP Secret` test parameter, or `Secret` in
+		 * `Shared\Config.xlsx`). The `OTP` public module must be installed.
+		 *
+		 * Examples:
+```javascript
+Sfdc.Launch();
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the login completed and the home page loaded, false if a required setting was not provided."
+};
 
 function SfdcEnterOTP()
 {
@@ -166,10 +191,6 @@ function SfdcEnterOTP()
 	}
 }
 
-/**
- * Opens application.
- * @param app Name of an application (e.g. Service, Marketing, Sales).
- */
 function Sfdc_OpenApp(/**string*/ app)
 {
 	function _clickApp()
@@ -184,7 +205,13 @@ function Sfdc_OpenApp(/**string*/ app)
 		return false;
 	}
 
-	SeS("G_Waffle").DoClick(5,5);
+	var appLauncher = Navigator.SeSFind("//button[@title='App Launcher']")
+	if (!appLauncher)
+	{
+		return false;
+	}
+	
+	appLauncher.DoClick(5,5);
 	if (!_clickApp())
 	{
 		// it may be hidden inside View All
@@ -211,10 +238,31 @@ function Sfdc_OpenApp(/**string*/ app)
 	return true;
 }
 
-/**
- * Navigates to module using nav bar.
- * @param module Name of a module (e.g. Leads, Contacts, Opportunities).
- */
+var _paramInfoSfdc_OpenApp = {
+	_: function ()
+	{
+		/**
+		 * Open a Salesforce application from the App Launcher (Waffle menu).
+		 *
+		 * Clicks the waffle icon, searches for the application by name, and clicks it.
+		 * If the app is not visible in the initial list, the "View All" button is clicked
+		 * to show the full app list.
+		 *
+		 * Examples:
+```javascript
+Sfdc.OpenApp("Sales");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the application was found and clicked, false otherwise.",
+	app: {
+		description: "Name of the application to open (e.g. Sales, Service, Marketing).",
+		type: "string",
+		defaultValue: "Sales"
+	}
+};
+
 function Sfdc_NavigateModule(/**string*/ module)
 {
 	var xpath = "//one-app-nav-bar-item-root/a[@title='" + module + "']";
@@ -231,13 +279,37 @@ function Sfdc_NavigateModule(/**string*/ module)
 	return false;
 }
 
-/** 
- * Selects list view.
- * @param view Name of a view. E.g. Recently Viewed, All Open Leads
- */
+var _paramInfoSfdc_NavigateModule = {
+	_: function ()
+	{
+		/**
+		 * Navigate to a module using the navigation bar.
+		 *
+		 * Clicks the module link in the top navigation bar to open that module's list view.
+		 *
+		 * Examples:
+```javascript
+Sfdc.NavigateModule("Leads");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the module link was found and clicked, false otherwise.",
+	module: {
+		description: "Name of the module to navigate to (e.g. Leads, Contacts, Opportunities, Accounts).",
+		type: "string",
+		defaultValue: "Leads"
+	}
+};
+
 function Sfdc_SelectListView(/**string*/ view)
 {
-	SeS("G_Select_List_View").DoClick();
+	var listView = Navigator.SeSFind("//lst-list-view-picker");
+	if (listView)
+	{
+		return false;
+	}
+
 	var xpath = "//a[@role='option' and contains(.,'" + view + "')]/span";
 	var xpath = "//lightning-base-combobox-item//span[contains(.,'" + view + "')]";
 	var obj = Navigator.SeSFind(xpath);
@@ -258,10 +330,29 @@ function Sfdc_SelectListView(/**string*/ view)
 	return false;
 }
 
-/**
- * Clicks button by name
- * @param name Name of a button
- */
+var _paramInfoSfdc_SelectListView = {
+	_: function ()
+	{
+		/**
+		 * Select a list view from the list view dropdown.
+		 *
+		 * Opens the list view selector and clicks the specified view option.
+		 *
+		 * Examples:
+```javascript
+Sfdc.SelectListView("Recently Viewed");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the view was found and selected, false otherwise.",
+	view: {
+		description: "Name of the list view to select (e.g. Recently Viewed, All Open Leads).",
+		type: "string",
+		defaultValue: "Recently Viewed"
+	}
+};
+
 function Sfdc_ClickButton(/**string*/ name)
 {
 	var xpaths = [
@@ -305,11 +396,30 @@ function Sfdc_ClickButton(/**string*/ name)
 	return false;
 }
 
-/**
- * Sets text into a form field
- * @param name Name of a field
- * @param value Text to enter
- */
+var _paramInfoSfdc_ClickButton = {
+	_: function ()
+	{
+		/**
+		 * Click a button by its name or title.
+		 *
+		 * Searches for the button by its `name` attribute, `title` attribute, or visible text.
+		 * When inside a modal dialog, the button within the active modal is preferred.
+		 *
+		 * Examples:
+```javascript
+Sfdc.ClickButton("Save");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the button was found and clicked, false otherwise.",
+	name: {
+		description: "Name, title, or visible text of the button to click.",
+		type: "string",
+		defaultValue: "Save"
+	}
+};
+
 function Sfdc_SetTextField(/**string*/ name, /**string*/ value)
 {
 	var labelCondition = "normalize-space(.)='" + name + "' or normalize-space(.)='*" + name + "' or normalize-space(.)='" + name + "*'";
@@ -345,11 +455,35 @@ function Sfdc_SetTextField(/**string*/ name, /**string*/ value)
 	return false;
 }
 
-/**
- * Sets a checkbox on a form.
- * @param name Name (label) of the checkbox field.
- * @param state Desired state of a checkbox (true to check, false to uncheck).
- */
+var _paramInfoSfdc_SetTextField = {
+	_: function ()
+	{
+		/**
+		 * Set text into a form field.
+		 *
+		 * Finds the input or textarea by its label text, `name` attribute, or `placeholder`
+		 * attribute, and enters the specified value.
+		 *
+		 * Examples:
+```javascript
+Sfdc.SetTextField("Last Name", "Smith");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the field was found and the text was set, false otherwise.",
+	name: {
+		description: "Label, name, or placeholder of the input field.",
+		type: "string",
+		defaultValue: "Last Name"
+	},
+	value: {
+		description: "Text to enter into the field.",
+		type: "string",
+		defaultValue: ""
+	}
+};
+
 function Sfdc_SetCheckbox(/**string*/ name, /**boolean*/ state)
 {
 	var labelCondition = "normalize-space(.)='" + name + "' or normalize-space(.)='*" + name + "'";
@@ -381,11 +515,35 @@ function Sfdc_SetCheckbox(/**string*/ name, /**boolean*/ state)
 	return false;
 }
 
-/**
- * Verifies value of a Details view field
- * @param name Name of a field
- * @param value Text to verify
- */
+var _paramInfoSfdc_SetCheckbox = {
+	_: function ()
+	{
+		/**
+		 * Set a checkbox on a form to the specified state.
+		 *
+		 * Finds the checkbox by its label text or `name` attribute and checks or unchecks it.
+		 * If the checkbox is already in the desired state, no action is taken.
+		 *
+		 * Examples:
+```javascript
+Sfdc.SetCheckbox("Do Not Call", true);
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the checkbox was found and set to the desired state, false otherwise.",
+	name: {
+		description: "Label or name of the checkbox field.",
+		type: "string",
+		defaultValue: ""
+	},
+	state: {
+		description: "Desired state: true to check, false to uncheck.",
+		type: "boolean",
+		defaultValue: true
+	}
+};
+
 function Sfdc_VerifyDetailsField(/**string*/ name, /**string*/ value)
 {
 	var xpath = "//div[contains(@class, 'active')]//div[(contains(@class,'test-id__output-root') or contains(@class,'slds-form-element_readonly')) and .//span[contains(@class,'test-id__field-label') and normalize-space(.)='" + name + "']]//span[contains(@class,'test-id__field-value')]";
@@ -421,14 +579,35 @@ function Sfdc_VerifyDetailsField(/**string*/ name, /**string*/ value)
 	return true;
 }
 
-/**
- * Verifies a field value displayed inside a related list card (preview card layout).
- * Locates the card by its aria-label, finds the specific item by name, then reads the field value.
- * @param cardName Name of the related list card (matches aria-label on the article element, e.g. "Products").
- * @param itemName Name of the item within the card (e.g. "AutoProduct Basic"). Used to scope the lookup when multiple items exist.
- * @param fieldName Label of the field to verify (e.g. "Sales Price", "Quantity", "Stage").
- * @param value Expected value text.
- */
+var _paramInfoSfdc_VerifyDetailsField = {
+	_: function ()
+	{
+		/**
+		 * Verify the value of a field on a record detail page.
+		 *
+		 * Finds the field by its label and compares the displayed value to the expected one.
+		 * Supports text fields, links, and checkbox fields.
+		 *
+		 * Examples:
+```javascript
+Sfdc.VerifyDetailsField("Account Name", "Acme Corp");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the field value matches the expected value, false otherwise.",
+	name: {
+		description: "Label of the field to verify.",
+		type: "string",
+		defaultValue: ""
+	},
+	value: {
+		description: "Expected value of the field.",
+		type: "string",
+		defaultValue: ""
+	}
+};
+
 function Sfdc_VerifyCardDetail(/**string*/ cardName, /**string*/ itemName, /**string*/ fieldName, /**string*/ value)
 {
 	var articleXpath = "//article[@aria-label='" + cardName + "']";
@@ -506,9 +685,45 @@ function Sfdc_VerifyCardDetail(/**string*/ cardName, /**string*/ itemName, /**st
 	return ("" + actual) == ("" + value);
 }
 
-/**
- * Searches data in a table.
- */
+var _paramInfoSfdc_VerifyCardDetail = {
+	_: function ()
+	{
+		/**
+		 * Verify a field value displayed inside a related list card (preview card layout).
+		 *
+		 * Locates the related list card by its aria-label, finds the specific item by name,
+		 * then reads and verifies the field value.
+		 *
+		 * Examples:
+```javascript
+Sfdc.VerifyCardDetail("Products", "AutoProduct Basic", "Sales Price", "$100.00");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the field value matches the expected value, false otherwise.",
+	cardName: {
+		description: "Name of the related list card (matches aria-label, e.g. Products, Contact Roles).",
+		type: "string",
+		defaultValue: "Products"
+	},
+	itemName: {
+		description: "Name of the item within the card to scope the lookup.",
+		type: "string",
+		defaultValue: ""
+	},
+	fieldName: {
+		description: "Label of the field to verify (e.g. Sales Price, Quantity, Role).",
+		type: "string",
+		defaultValue: ""
+	},
+	value: {
+		description: "Expected value text.",
+		type: "string",
+		defaultValue: ""
+	}
+};
+
 function Sfdc_SearchTable(/**string*/ value)
 {
 	var xpath = "//input[@type='search' and @class='slds-input']|//input[contains(@class,'search-text-field')]";
@@ -530,13 +745,29 @@ function Sfdc_SearchTable(/**string*/ value)
 	return false;
 }
 
-/** 
- * Selects item from a combobox.
- * Supports Lightning combobox (lightning-combobox), classic Aura picklist (forceInputPicklist),
- * and native HTML select elements (uiInputSelect).
- * @param item Item name.
- * @param name Name of a combobox.
- */
+var _paramInfoSfdc_SearchTable = {
+	_: function ()
+	{
+		/**
+		 * Search data in a list view table.
+		 *
+		 * Enters the search value into the table's search input and presses Enter.
+		 *
+		 * Examples:
+```javascript
+Sfdc.SearchTable("Acme");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the search input was found and the search was performed, false otherwise.",
+	value: {
+		description: "Text to search for in the table.",
+		type: "string",
+		defaultValue: ""
+	}
+};
+
 function Sfdc_SelectComboboxItem(/**string*/ name, /**string*/ item)
 {
 	var xpath = "//lightning-combobox[.//label[text()='" + name + "' or text()='*" + name + "']]"
@@ -617,11 +848,35 @@ function Sfdc_SelectComboboxItem(/**string*/ name, /**string*/ item)
 	return false;
 }
 
-/** 
- * Selects item from a lookup field.
- * @param item Item name.
- * @param name Name of a lookup field.
- */
+var _paramInfoSfdc_SelectComboboxItem = {
+	_: function ()
+	{
+		/**
+		 * Select an item from a combobox (picklist).
+		 *
+		 * Supports Lightning combobox (`lightning-combobox`), classic Aura picklist
+		 * (`forceInputPicklist`), and native HTML select elements (`uiInputSelect`).
+		 *
+		 * Examples:
+```javascript
+Sfdc.SelectComboboxItem("Lead Status", "Working - Contacted");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the item was found and selected, false otherwise.",
+	name: {
+		description: "Label of the combobox field.",
+		type: "string",
+		defaultValue: ""
+	},
+	item: {
+		description: "Text of the item to select.",
+		type: "string",
+		defaultValue: ""
+	}
+};
+
 function Sfdc_SelectLookupItem(/**string*/ name, /**string*/ item)
 {
 	var xpath = "//input[@aria-label='" + name + "' and @role='combobox']"
@@ -655,10 +910,35 @@ function Sfdc_SelectLookupItem(/**string*/ name, /**string*/ item)
 	return false;
 }
 
-/** 
- * Selects inner tab.
- * @param name Tab name (e.g. Details, Activity).
- */
+var _paramInfoSfdc_SelectLookupItem = {
+	_: function ()
+	{
+		/**
+		 * Select an item from a lookup field.
+		 *
+		 * Types the item name into the lookup field, waits for search results,
+		 * and clicks the matching item.
+		 *
+		 * Examples:
+```javascript
+Sfdc.SelectLookupItem("Account Name", "Acme Corp");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the item was found and selected, false otherwise.",
+	name: {
+		description: "Label of the lookup field.",
+		type: "string",
+		defaultValue: ""
+	},
+	item: {
+		description: "Name of the item to search for and select.",
+		type: "string",
+		defaultValue: ""
+	}
+};
+
 function Sfdc_SelectInnerTab(/**string*/ name)
 {
 	var css = "css=a[data-label='" + name + "']:visible";
@@ -675,10 +955,29 @@ function Sfdc_SelectInnerTab(/**string*/ name)
 	return false;
 }
 
-/** 
- * Sets active Path step.
- * @param name Step name (e.g. Prospecting, Qualification).
- */
+var _paramInfoSfdc_SelectInnerTab = {
+	_: function ()
+	{
+		/**
+		 * Select an inner tab on a record page.
+		 *
+		 * Clicks the tab link to switch to that tab's content.
+		 *
+		 * Examples:
+```javascript
+Sfdc.SelectInnerTab("Details");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the tab was found and clicked, false otherwise.",
+	name: {
+		description: "Name of the tab to select (e.g. Details, Activity, Related).",
+		type: "string",
+		defaultValue: "Details"
+	}
+};
+
 function Sfdc_SetPathStep(/**string*/ name)
 {
 	var xpath = "//a[@data-tab-name='" + name + "' and contains(@class,'slds-path__link')]";
@@ -697,12 +996,29 @@ function Sfdc_SetPathStep(/**string*/ name)
 	return false;
 }
 
-/** 
- * Adds a report filter (a.g. "Account Name" contains "Auto").
- * @param filter Filter name (e.g. Account Name).
- * @param operator Operator to use (e.g. contains).
- * @param value Input value for the filter.
- */
+var _paramInfoSfdc_SetPathStep = {
+	_: function ()
+	{
+		/**
+		 * Set the active Path step on a record page.
+		 *
+		 * Clicks the specified step in the Path component to mark it as current.
+		 *
+		 * Examples:
+```javascript
+Sfdc.SetPathStep("Qualification");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the step was found and set, false otherwise.",
+	name: {
+		description: "Name of the Path step to set as active.",
+		type: "string",
+		defaultValue: "Qualification"
+	}
+};
+
 function Sfdc_AddReportFilter(/**string*/ filter, /**string*/ operator, /**string*/ value)
 {
 	var iframePrefix = "//iframe[@title='Report Builder']@@@";
@@ -782,20 +1098,40 @@ function Sfdc_AddReportFilter(/**string*/ filter, /**string*/ operator, /**strin
 	return true;
 }
 
-/**
- * Computes a date relative to today (or a given base) and returns it formatted
- * for Salesforce date input fields.
- *
- * @param offsetDays Number of days to add (can be negative). Default 0.
- * @param baseDate Base date string (ISO format "yyyy-MM-dd") or "today". Default "today".
- * @returns Formatted date string ready for SetTextField.
- *
- * Usage:
- *   Sfdc.FormatDate(60);              // today + 60 days
- *   Sfdc.FormatDate(7, "today");      // today + 7 days
- *   Sfdc.FormatDate(0, "2026-01-15"); // specific date, no offset
- *   Sfdc.SetTextField("Close Date", LastResult);
- */
+var _paramInfoSfdc_AddReportFilter = {
+	_: function ()
+	{
+		/**
+		 * Add a filter to a report in the Report Builder.
+		 *
+		 * Opens the filter selector, chooses the field, selects the operator,
+		 * enters the value, and applies the filter.
+		 *
+		 * Examples:
+```javascript
+Sfdc.AddReportFilter("Account Name", "contains", "Auto");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the filter was added successfully, false otherwise.",
+	filter: {
+		description: "Name of the filter field (e.g. Account Name, Amount).",
+		type: "string",
+		defaultValue: "Account Name"
+	},
+	operator: {
+		description: "Filter operator (e.g. contains, equals, greater than).",
+		type: "string",
+		defaultValue: "contains"
+	},
+	value: {
+		description: "Value to filter by.",
+		type: "string",
+		defaultValue: ""
+	}
+};
+
 function Sfdc_FormatDate(/**number*/ offsetDays, /**string*/ baseDate)
 {
 	/** 
@@ -806,7 +1142,7 @@ function Sfdc_FormatDate(/**number*/ offsetDays, /**string*/ baseDate)
 	offsetDays = offsetDays || 0;
 	baseDate = baseDate || "today";
 
-	var dt;
+	var dt = null;
 	if (baseDate === "today")
 	{
 		dt = new Date();
@@ -860,13 +1196,38 @@ function Sfdc_FormatDate(/**number*/ offsetDays, /**string*/ baseDate)
 	return result;
 }
 
-/**
- * Clicks an action from a Related List's dropdown menu.
- * Locates the related list by its aria-label, opens the dropdown trigger,
- * and selects the specified menu item.
- * @param listName Name of the related list (e.g. "Contact Roles", "Products").
- * @param actionName Name of the action in the dropdown menu (e.g. "Add Contact Roles").
- */
+var _paramInfoSfdc_FormatDate = {
+	_: function ()
+	{
+		/**
+		 * Compute a date relative to today (or a given base) and return it formatted
+		 * for Salesforce date input fields.
+		 *
+		 * The format is read from `Config.xlsx` key `DateFormat` (default: `M/d/yyyy` — US locale).
+		 * Supported tokens: `M`, `MM`, `d`, `dd`, `yyyy`, `yy`.
+		 *
+		 * Examples:
+```javascript
+Sfdc.FormatDate(60);
+```
+		 */
+	},
+	_type: "string",
+	_returns: "Formatted date string ready for SetTextField, or empty string on error.",
+	offsetDays: {
+		description: "Number of days to add (can be negative). Default 0.",
+		type: "number",
+		defaultValue: 0,
+		optional: true
+	},
+	baseDate: {
+		description: "Base date string (ISO format yyyy-MM-dd) or 'today'. Default 'today'.",
+		type: "string",
+		defaultValue: "today",
+		optional: true
+	}
+};
+
 function Sfdc_RelatedListAction(/**string*/ listName, /**string*/ actionName)
 {
 	// Find the related list article by aria-label
@@ -917,12 +1278,35 @@ function Sfdc_RelatedListAction(/**string*/ listName, /**string*/ actionName)
 	return item.DoClick();
 }
 
-/**
- * Clicks an action from a specific item's dropdown menu within a Related List.
- * @param listName Name of the related list (e.g. "Products", "Contact Roles").
- * @param itemName Name/text of the item row (e.g. "AutoProduct Basic").
- * @param actionName Name of the action in the row dropdown (e.g. "Edit", "Delete").
- */
+var _paramInfoSfdc_RelatedListAction = {
+	_: function ()
+	{
+		/**
+		 * Click an action from a Related List's dropdown menu.
+		 *
+		 * Locates the related list by its aria-label, opens the dropdown trigger,
+		 * and selects the specified menu item.
+		 *
+		 * Examples:
+```javascript
+Sfdc.RelatedListAction("Products", "Add Products");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the action was found and clicked, false otherwise.",
+	listName: {
+		description: "Name of the related list (e.g. Contact Roles, Products).",
+		type: "string",
+		defaultValue: "Products"
+	},
+	actionName: {
+		description: "Name of the action in the dropdown menu.",
+		type: "string",
+		defaultValue: "Add Products"
+	}
+};
+
 function Sfdc_RelatedListItemAction(/**string*/ listName, /**string*/ itemName, /**string*/ actionName)
 {
 	// Find the related list article by aria-label
@@ -984,11 +1368,40 @@ function Sfdc_RelatedListItemAction(/**string*/ listName, /**string*/ itemName, 
 	return menuItem.DoClick();
 }
 
-/**
- * Verifies the record page header: entity type and record name.
- * @param entityName Expected entity label (e.g. "Account", "Lead", "Opportunity").
- * @param recordName Expected record name (e.g. "Acme Corp").
- */
+var _paramInfoSfdc_RelatedListItemAction = {
+	_: function ()
+	{
+		/**
+		 * Click an action from a specific item's dropdown menu within a Related List.
+		 *
+		 * Locates the item row by name within the related list, opens its dropdown,
+		 * and clicks the specified action.
+		 *
+		 * Examples:
+```javascript
+Sfdc.RelatedListItemAction("Products", "AutoProduct Basic", "Edit");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the action was found and clicked, false otherwise.",
+	listName: {
+		description: "Name of the related list (e.g. Products, Contact Roles).",
+		type: "string",
+		defaultValue: "Products"
+	},
+	itemName: {
+		description: "Name/text of the item row.",
+		type: "string",
+		defaultValue: ""
+	},
+	actionName: {
+		description: "Name of the action in the row dropdown (e.g. Edit, Delete).",
+		type: "string",
+		defaultValue: "Edit"
+	}
+};
+
 function Sfdc_VerifyRecordTitle(/**string*/ entityName, /**string*/ recordName)
 {
 	var activePaneXpath = "//div[contains(@class, 'active')]"; 
@@ -1037,10 +1450,35 @@ function Sfdc_VerifyRecordTitle(/**string*/ entityName, /**string*/ recordName)
 	return entityPass && recordPass;
 }
 
-/**
- * Verifies the title of a modal dialog.
- * @param title Expected modal title text (e.g. "New Lead", "New Account").
- */
+var _paramInfoSfdc_VerifyRecordTitle = {
+	_: function ()
+	{
+		/**
+		 * Verify the record page header: entity type and record name.
+		 *
+		 * Checks that the page header shows the expected entity type (e.g. Account, Lead)
+		 * and record name.
+		 *
+		 * Examples:
+```javascript
+Sfdc.VerifyRecordTitle("Account", "Acme Corp");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if both entity type and record name match, false otherwise.",
+	entityName: {
+		description: "Expected entity label (e.g. Account, Lead, Opportunity).",
+		type: "string",
+		defaultValue: "Account"
+	},
+	recordName: {
+		description: "Expected record name.",
+		type: "string",
+		defaultValue: ""
+	}
+};
+
 function Sfdc_VerifyModalTitle(/**string*/ title)
 {
 	var xpath = "//h2[contains(@class,'slds-modal__title') or @id='modal-title']";
@@ -1068,12 +1506,29 @@ function Sfdc_VerifyModalTitle(/**string*/ title)
 	return actual === title;
 }
 
-/**
- * Searches and selects an item in a modal table (e.g. Add Products dialog).
- * Targets the autocomplete combobox input inside the modal, types the value,
- * waits for results, and selects the matching item.
- * @param value Text to search for and select.
- */
+var _paramInfoSfdc_VerifyModalTitle = {
+	_: function ()
+	{
+		/**
+		 * Verify the title of a modal dialog.
+		 *
+		 * Checks that the currently open modal has the expected title.
+		 *
+		 * Examples:
+```javascript
+Sfdc.VerifyModalTitle("New Lead");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the modal title matches, false otherwise.",
+	title: {
+		description: "Expected modal title text.",
+		type: "string",
+		defaultValue: "New Lead"
+	}
+};
+
 function Sfdc_SearchModalTable(/**string*/ value)
 {
 	var xpath = "//input[@role='combobox' and @aria-haspopup='true' and contains(@class,'uiInputTextForAutocomplete')]";
@@ -1095,10 +1550,30 @@ function Sfdc_SearchModalTable(/**string*/ value)
 	return false;
 }
 
-/**
- * Verifies that a form field is in an invalid state (has validation error).
- * @param name Field label text (e.g. "Last Name", "Company").
- */
+var _paramInfoSfdc_SearchModalTable = {
+	_: function ()
+	{
+		/**
+		 * Search and select an item in a modal table (e.g. Add Products dialog).
+		 *
+		 * Types the search value into the autocomplete input inside the modal,
+		 * waits for results, and presses Enter to select.
+		 *
+		 * Examples:
+```javascript
+Sfdc.SearchModalTable("AutoProduct Basic");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the search was performed, false if the input was not found.",
+	value: {
+		description: "Text to search for in the modal table.",
+		type: "string",
+		defaultValue: ""
+	}
+};
+
 function Sfdc_VerifyFieldInvalid(/**string*/ name)
 {
 	var xpath = "//*[contains(@class,'slds-form-element') and .//label[normalize-space(.)='" + name + "' or normalize-space(.)='*" + name + "']]//input[@aria-invalid='true']";
@@ -1114,10 +1589,29 @@ function Sfdc_VerifyFieldInvalid(/**string*/ name)
 	return true;
 }
 
-/**
- * Clicks the inline edit pencil icon for a given field on a record detail page.
- * @param name Field label (e.g. "Website", "Phone", "Company").
- */
+var _paramInfoSfdc_VerifyFieldInvalid = {
+	_: function ()
+	{
+		/**
+		 * Verify that a form field is in an invalid state (has validation error).
+		 *
+		 * Checks that the field has `aria-invalid="true"`, indicating a validation error.
+		 *
+		 * Examples:
+```javascript
+Sfdc.VerifyFieldInvalid("Last Name");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the field shows a validation error, false otherwise.",
+	name: {
+		description: "Label of the field to check.",
+		type: "string",
+		defaultValue: "Last Name"
+	}
+};
+
 function Sfdc_InlineEdit(/**string*/ name)
 {
 	var xpath = "//button[contains(@class,'test-id__inline-edit-trigger') and @title='Edit " + name + "']";
@@ -1135,12 +1629,29 @@ function Sfdc_InlineEdit(/**string*/ name)
 	return false;
 }
 
-/**
- * Uploads a file to a related list's file input on the current record page.
- * @param relatedListName Name of the related list (e.g. "Notes & Attachments"). Defaults to "Notes & Attachments" if empty.
- * @param fileName Relative path to the file to upload (resolved via Global.GetFullPath).
- * @returns {boolean} true on success, false if the file input was not found.
- */
+var _paramInfoSfdc_InlineEdit = {
+	_: function ()
+	{
+		/**
+		 * Click the inline edit pencil icon for a field on a record detail page.
+		 *
+		 * Opens the field for inline editing by clicking its pencil icon.
+		 *
+		 * Examples:
+```javascript
+Sfdc.InlineEdit("Website");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the edit button was found and clicked, false otherwise.",
+	name: {
+		description: "Label of the field to edit.",
+		type: "string",
+		defaultValue: "Website"
+	}
+};
+
 function Sfdc_UploadFile(/**string*/ relatedListName, /**string*/ fileName)
 {
 	relatedListName = relatedListName || "Notes & Attachments";
@@ -1193,12 +1704,36 @@ function Sfdc_UploadFile(/**string*/ relatedListName, /**string*/ fileName)
 	return true;
 }
 
-/**
- * Verifies that an attachment with the given name exists in a related list.
- * @param relatedListName Name of the related list (e.g. "Notes & Attachments").
- * @param name Expected attachment file name (without extension).
- * @returns {boolean} true if the attachment is found, false otherwise.
- */
+var _paramInfoSfdc_UploadFile = {
+	_: function ()
+	{
+		/**
+		 * Upload a file to a related list on the current record page.
+		 *
+		 * Finds the file input within the specified related list, uploads the file,
+		 * and clicks the Done button to confirm.
+		 *
+		 * Examples:
+```javascript
+Sfdc.UploadFile("Notes & Attachments", "TestData\\document.pdf");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the file was uploaded successfully, false otherwise.",
+	relatedListName: {
+		description: "Name of the related list (defaults to 'Notes & Attachments' if empty).",
+		type: "string",
+		defaultValue: "Notes & Attachments",
+		optional: true
+	},
+	fileName: {
+		description: "Relative path to the file to upload.",
+		type: "string",
+		defaultValue: ""
+	}
+};
+
 function Sfdc_VerifyAttachmentExists(/**string*/ relatedListName, /**string*/ name)
 {
 	relatedListName = relatedListName || "Notes & Attachments";
@@ -1229,9 +1764,35 @@ function Sfdc_VerifyAttachmentExists(/**string*/ relatedListName, /**string*/ na
 	}
 }
 
-/**
- * Saves DOM tree of the current page to dom.xml file.
- */
+var _paramInfoSfdc_VerifyAttachmentExists = {
+	_: function ()
+	{
+		/**
+		 * Verify that an attachment with the given name exists in a related list.
+		 *
+		 * Searches for the attachment item by its title within the related list.
+		 *
+		 * Examples:
+```javascript
+Sfdc.VerifyAttachmentExists("Notes & Attachments", "document");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the attachment is found, false otherwise.",
+	relatedListName: {
+		description: "Name of the related list (defaults to 'Notes & Attachments' if empty).",
+		type: "string",
+		defaultValue: "Notes & Attachments",
+		optional: true
+	},
+	name: {
+		description: "Expected attachment file name (without extension).",
+		type: "string",
+		defaultValue: ""
+	}
+};
+
 function Sfdc_SaveDom()
 {
 	var domTree = Navigator.GetDomTree(false);
@@ -1247,6 +1808,25 @@ function Sfdc_SaveDom()
 		Tester.Message("Failed to get DOM tree");
 	}
 }
+
+var _paramInfoSfdc_SaveDom = {
+	_: function ()
+	{
+		/**
+		 * Save the DOM tree of the current page to files for debugging.
+		 *
+		 * Saves the DOM as `domR.json` (JSON format) and `dom.xml` (XML format)
+		 * in the current working directory.
+		 *
+		 * Examples:
+```javascript
+Sfdc.SaveDom();
+```
+		 */
+	},
+	_type: "void",
+	_returns: "Nothing."
+};
 
 /**
  * Uploads a file.
@@ -1307,6 +1887,7 @@ function LoginSfdc(/**string*/ url, /**string*/ userName, /**string*/ password)
 	try
 	{
 		Navigator.Find(o["UserName"]).DoSetText(userName);
+		Navigator.SeSFind(o["Sumbit"]).DoClick();
 		Navigator.Find(o["Password"]).DoSetText(password);
 		Navigator.Find(o["Sumbit"]).DoClick();
 		Global.DoSleep(2000);
