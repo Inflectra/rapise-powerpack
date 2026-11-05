@@ -2,7 +2,7 @@
 /**
  * @PageObject Sfdc object to perform common actions like launch, navigate module, etc.
  *
- * @Version 2.0.1
+ * @Version 2.0.2
  */
 SeSPageObject("Sfdc");
 
@@ -305,13 +305,24 @@ Sfdc.NavigateModule("Leads");
 function Sfdc_SelectListView(/**string*/ view)
 {
 	var listView = Navigator.SeSFind("//lst-list-view-picker");
-	if (listView)
+	if (!listView)
 	{
 		return false;
 	}
 
-	var xpath = "//a[@role='option' and contains(.,'" + view + "')]/span";
-	var xpath = "//lightning-base-combobox-item//span[contains(.,'" + view + "')]";
+	var xpath = "//lightning-base-combobox-item//span[contains(@title,'" + view + "')]";
+
+	// open the list view dropdown unless it is already open
+	if (!Navigator.Find(xpath))
+	{
+		var chevron = Navigator.SeSFind("//lst-list-view-picker//button[contains(@title,'Select a List View')]");
+		if (chevron)
+		{
+			chevron.object_name = "List View Picker";
+			chevron.DoClick();
+		}
+	}
+
 	var obj = Navigator.SeSFind(xpath);
 	if (obj)	
 	{
@@ -1408,6 +1419,7 @@ function Sfdc_VerifyRecordTitle(/**string*/ entityName, /**string*/ recordName)
 	var entityXpath = activePaneXpath + "//records-entity-label";
 	var recordXpathText = activePaneXpath + "//records-entity-label/ancestor::h1//slot[@name='primaryField']/lightning-formatted-text";
 	var recordXpathName = activePaneXpath + "//records-entity-label/ancestor::h1//slot[@name='primaryField']/lightning-formatted-name";
+	var recordXpathName2 = "//h1//lightning-formatted-name";
 
 	var actualEntity = "";
 	var actualRecord = "";
@@ -1420,6 +1432,10 @@ function Sfdc_VerifyRecordTitle(/**string*/ entityName, /**string*/ recordName)
 		if (!recordObj)
 		{
 			recordObj = Navigator.Find(recordXpathName);
+		}
+		if (!recordObj)
+		{
+			recordObj = Navigator.Find(recordXpathName2);
 		}
 
 		if (entityObj)
