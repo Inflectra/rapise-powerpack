@@ -2,7 +2,7 @@
 /**
  * @PageObject Sfdc object to perform common actions like launch, navigate module, etc.
  *
- * @Version 2.0.2
+ * @Version 2.0.3
  */
 SeSPageObject("Sfdc");
 
@@ -31,105 +31,55 @@ function SfdcAutoWait(fn)
 	return result;
 }
 
+/**
+ * Resolves a Salesforce setting. The lookup order is: environment variable, test parameter,
+ * `Shared\Config.xlsx`. If the value is still unknown, prompts for it and saves the answer
+ * into `Shared\Config.xlsx`.
+ * @param envName - Environment variable name.
+ * @param paramName - Test parameter name.
+ * @param configKey - Key in Shared\Config.xlsx (used for both reading and saving).
+ * @param title - Human-readable setting name, used as the prompt title and in messages.
+ * @param promptText - Prompt text.
+ * @param [defaultValue] - Value suggested in the prompt.
+ * @returns The resolved value or empty string if it was not provided.
+ */
+function SfdcResolveSetting(/**string*/ envName, /**string*/ paramName, /**string*/ configKey, /**string*/ title, /**string*/ promptText, /**string*/ defaultValue)
+{
+	var configPath = "%WORKDIR%\\Shared\\Config.xlsx";
+
+	var value = Global.GetEnv(envName);
+	if (!value)
+	{
+		value = Tester.GetParam(paramName);
+	}
+	if (!value)
+	{
+		value = Global.GetProperty(configKey, "", configPath);
+	}
+	if (!value)
+	{
+		value = SeSRequestString(title, promptText, defaultValue || "");
+		if (!value)
+		{
+			Tester.Message(title + " is not set. Do it via Parameters tab in the Spira Dashboard.");
+			return "";
+		}
+		Global.SetProperty(configKey, value, configPath);
+	}
+	return value;
+}
+
 function Sfdc_Launch()
 {
-	var url = Global.GetEnv('SF_URL');
-	var usr = Global.GetEnv('SF_USERNAME');
-	var pwd = Global.GetEnv('SF_PASSWORD');
-
-	if (!url)
-	{
-		url = Tester.GetParam("SfdcUrl");
-		usr = Tester.GetParam("SfdcUserName");
-		pwd = Tester.GetParam("SfdcPassword");
-	}
-	
-	if (!url || !usr || !pwd)
-	{
-		url = Global.GetProperty("SfdcUrl", "", "%WORKDIR%\\Shared\\Config.xlsx");
-		usr = Global.GetProperty("SfdcUserName", "", "%WORKDIR%\\Shared\\Config.xlsx");
-		pwd = Global.GetProperty("SfdcPassword", "", "%WORKDIR%\\Shared\\Config.xlsx");
-	}
-	
-	if (!url)
-	{
-		url = SeSRequestString(
-			"Salesforce URL",
-			"Enter Salesforce login URL",
-			"https://login.salesforce.com"
-		);
-		if (!url)
-		{
-			Tester.Message("Salesforce URL is not set. Do it via Parameters tab in the Spira Dashboard.");
-			return false;
-		}
-		else
-		{
-			Global.SetProperty("SfdcUrl", url, "%WORKDIR%\\Shared\\Config.xlsx");
-		}
-	}
-	
-	if (!usr)
-	{
-		usr = SeSRequestString(
-			"Salesforce Username",
-			"Enter Salesforce username",
-			""
-		);
-		if (!usr)
-		{
-			Tester.Message("Salesforce username is not set. Do it via Parameters tab in the Spira Dashboard.");
-			return false;
-		}
-		else
-		{
-			Global.SetProperty("UserName", usr, "%WORKDIR%\\Shared\\Config.xlsx");
-		}
-	}
-	
-	if (!pwd)
-	{
-		pwd = SeSRequestString(
-			"Salesforce Password",
-			"Enter Salesforce password",
-			""
-		);
-		if (!pwd)
-		{
-			Tester.Message("Salesforce password is not set. Do it via Parameters tab in the Spira Dashboard.");
-			return false;
-		}
-		else
-		{
-			Global.SetProperty("Password", pwd, "%WORKDIR%\\Shared\\Config.xlsx");
-		}
-	}
-		
-	LoginSfdc(url, usr, pwd);
-	SfdcEnterOTP();
-	
-	if (Navigator.DoWaitFor("//button[@title='App Launcher']", 30000))
-	{
-		Global.DoSleep(5000);
-	}
-	
-	return true;
+	return Sfdc_Login();
 }
 
 var _paramInfoSfdc_Launch = {
 	_: function ()
 	{
 		/**
-		 * Launch Salesforce in a browser and log in.
-		 *
-		 * Credentials and the login URL are resolved in this order: environment variables
-		 * (`SF_URL`, `SF_USERNAME`, `SF_PASSWORD`), test parameters (`SfdcUrl`, `SfdcUserName`,
-		 * `SfdcPassword`), then `Shared\Config.xlsx`. If any value is still unknown, Rapise
-		 * prompts for it and saves the answer into `Shared\Config.xlsx`.
-		 *
-		 * When two-factor authentication is enabled, the OTP secret is resolved similarly
-		 * (`SF_OTP` environment variable, `OTP Secret` test parameter, or `Secret` in
-		 * `Shared\Config.xlsx`). The `OTP` public module must be installed.
+		 * Legacy alias of `Sfdc.Login()` without parameters: opens Salesforce and logs in
+		 * with the default credentials. Use `Sfdc.Login` in new tests.
 		 *
 		 * Examples:
 ```javascript
@@ -138,10 +88,157 @@ Sfdc.Launch();
 		 */
 	},
 	_type: "boolean",
-	_returns: "true if the login completed and the home page loaded, false if a required setting was not provided."
+	_returns: "true if the login completed and the home page loaded, false otherwise."
 };
 
-function SfdcEnterOTP()
+function Sfdc_Login(/**string*/ userName, /**string*/ password, /**string*/ otpSecret)
+{
+	var url = SfdcResolveSetting("SF_URL", "SfdcUrl", "SfdcUrl", "Salesforce URL", "Enter Salesforce login URL", "https://login.salesforce.com");
+	if (!url)
+	{
+		return false;
+	}
+
+	var customUser = !!userName;
+	if (!customUser)
+	{
+		userName = SfdcResolveSetting("SF_USERNAME", "SfdcUserName", "SfdcUserName", "Salesforce username", "Enter Salesforce username");
+		if (!userName)
+		{
+			return false;
+		}
+	}
+
+	if (!password)
+	{
+		password = SfdcResolveSetting("SF_PASSWORD", "SfdcPassword", "SfdcPassword", "Salesforce password", "Enter Salesforce password");
+		if (!password)
+		{
+			return false;
+		}
+		if (customUser)
+		{
+			Tester.Message("Password for '" + userName + "' is not specified, the default password is used.");
+		}
+	}
+
+	Sfdc_Logout();
+
+	LoginSfdc(url, userName, password);
+	SfdcEnterOTP(otpSecret);
+
+	if (Navigator.DoWaitFor("//button[@title='App Launcher']", 60000))
+	{
+		Global.DoSleep(5000);
+		return true;
+	}
+
+	Tester.Assert("Salesforce home page did not load after logging in as '" + userName + "'", false);
+	return false;
+}
+
+var _paramInfoSfdc_Login = {
+	_: function ()
+	{
+		/**
+		 * Open Salesforce in a browser and log in with the default credentials or as a specific user.
+		 * Logs out first if a user is already logged in.
+		 *
+		 * The login URL and any parameter that is not specified are resolved in this order:
+		 * environment variables (`SF_URL`, `SF_USERNAME`, `SF_PASSWORD`, `SF_OTP`), test parameters
+		 * (`SfdcUrl`, `SfdcUserName`, `SfdcPassword`, `OTP Secret`), then `Shared\Config.xlsx`
+		 * (`SfdcUrl`, `SfdcUserName`, `SfdcPassword`, `Secret`). If a value is still unknown,
+		 * Rapise prompts for it and saves the answer into `Shared\Config.xlsx`.
+		 * Values passed as parameters are never saved.
+		 *
+		 * If `userName` is specified without `password`, the default password is used.
+		 * The OTP secret is needed only when two-factor authentication is enabled for the user;
+		 * generating the code requires the `OTP` public module.
+		 *
+		 * Examples:
+```javascript
+Sfdc.Login();
+Sfdc.Login("john.doe@example.com", "Secret123");
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if the login completed and the home page loaded, false otherwise.",
+	userName: {
+		description: "Salesforce username. Default: configured username.",
+		type: "string",
+		optional: true
+	},
+	password: {
+		description: "Salesforce password. Default: configured password.",
+		type: "string",
+		optional: true
+	},
+	otpSecret: {
+		description: "OTP secret key for two-factor authentication. Default: configured OTP secret.",
+		type: "string",
+		optional: true
+	}
+};
+
+function Sfdc_Logout()
+{
+	// Sfdc_Login calls this before every login, so it must be safe to call
+	// when no user is logged in.
+	var o = {
+		"ViewProfile": "//button[contains(@class, 'branding-userProfile-button')]",
+		"LogOut": "//a[contains(@class, 'logout')]"
+	};
+
+	var profileButton = Navigator.Find(o["ViewProfile"]);
+	if (!profileButton)
+	{
+		return true;
+	}
+
+	profileButton.object_name = "View profile";
+	profileButton.DoClick();
+
+	var logoutLink = Navigator.DoWaitFor(o["LogOut"], 10000);
+	if (!logoutLink)
+	{
+		Tester.Assert("Log Out link is not found in the profile menu", false);
+		return false;
+	}
+	logoutLink.object_name = "Log Out";
+	logoutLink.DoClick();
+
+	for (var attempt = 0; attempt < 20; attempt++)
+	{
+		Global.DoSleep(1000);
+		if (!Navigator.Find(o["ViewProfile"]))
+		{
+			Tester.Message("Logged out of Salesforce");
+			return true;
+		}
+	}
+
+	Tester.Assert("Salesforce session is still active after Log Out", false);
+	return false;
+}
+
+var _paramInfoSfdc_Logout = {
+	_: function ()
+	{
+		/**
+		 * Log out of Salesforce if a user is logged in.
+		 *
+		 * Examples:
+```javascript
+Sfdc.Logout();
+```
+		 */
+	},
+	_type: "boolean",
+	_returns: "true if no user is logged in after the call, false otherwise."
+};
+
+function SfdcEnterOTP(/**string*/ secret)
 {
 	var otpField = Navigator.DoWaitFor("//input[@id='tc']", 3000);
 	if(otpField)
@@ -149,33 +246,15 @@ function SfdcEnterOTP()
 		if (typeof(OTP) == "undefined")
 		{
 			Tester.Assert("Please, install OTP public module to generate one-time passwords.", false);
-			return;
+			return false;
 		}
 
-		var secret = Global.GetEnv('SF_OTP');
 		if (!secret)
 		{
-			secret = Tester.GetParam("OTP Secret");
-		}
-		if (!secret)
-		{
-			secret = Global.GetProperty("Secret", "", "%WORKDIR%\\Shared\\Config.xlsx");
-		}
-		if (!secret)
-		{
-			secret = SeSRequestString(
-				"OTP Secret",
-				"Enter OTP secret key (for 2FA)",
-				""
-			);
+			secret = SfdcResolveSetting("SF_OTP", "OTP Secret", "Secret", "OTP secret", "Enter OTP secret key (for 2FA)");
 			if (!secret)
 			{
-				Tester.Message("OTP secret is not set. Do it via Parameters tab in the Spira Dashboard.");
 				return false;
-			}
-			else
-			{
-				Global.SetProperty("Secret", secret, "%WORKDIR%\\Shared\\Config.xlsx");
 			}
 		}
 		
@@ -1889,7 +1968,9 @@ function LoginSfdc(/**string*/ url, /**string*/ userName, /**string*/ password)
 	var o = {
 		"UserName": "//input[@id='username']",
 		"Password": "//input[@id='password']",
-		"Sumbit": "//input[@id='Login']"	
+		"Submit": "//input[@id='Login']",
+		// "Log In with Username" link on the email-first page, nested in shadow DOM
+		"LoginWithUsername": "css=a[href*='login=1']"
 	};
 	
 	Tester.Message("Browser profile: " + g_browserProfile);
@@ -1902,10 +1983,27 @@ function LoginSfdc(/**string*/ url, /**string*/ userName, /**string*/ password)
 
 	try
 	{
-		Navigator.Find(o["UserName"]).DoSetText(userName);
-		Navigator.SeSFind(o["Sumbit"]).DoClick();
-		Navigator.Find(o["Password"]).DoSetText(password);
-		Navigator.Find(o["Sumbit"]).DoClick();
+		// Salesforce shows either the classic username form or the email-first
+		// "Log In with Email" page. On the latter, switch to the username form.
+		for (var attempt = 0; attempt < 20; attempt++)
+		{
+			if (Navigator.Find(o["UserName"]))
+			{
+				break;
+			}
+			var loginWithUsername = Navigator.Find(o["LoginWithUsername"]);
+			if (loginWithUsername)
+			{
+				loginWithUsername.object_name = "Log In with Username";
+				loginWithUsername.DoClick();
+			}
+			Global.DoSleep(1000);
+		}
+		Navigator.SeSFind(o["UserName"]).DoSetText(userName);
+		Navigator.SeSFind(o["Submit"]).DoClick();
+		Navigator.DoWaitFor(o["Password"], 10000);
+		Navigator.SeSFind(o["Password"]).DoSetText(password);
+		Navigator.SeSFind(o["Submit"]).DoClick();
 		Global.DoSleep(2000);
 		Tester.SuppressReport(false);
 		Tester.Message("Logged in as " + userName);
